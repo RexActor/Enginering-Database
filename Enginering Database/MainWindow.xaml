@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enginering_Database"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Engineering Database" Height="450" Width="481.473" ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="42*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="247,171,10,193" Grid.ColumnSpan="2">
+            <Button Content="View Database" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="216"/>
+            <Image Margin="5,4,0,0" Source="database-view-icon-16.jpg.png" Stretch="UniformToFill" Height="47" VerticalAlignment="Top" HorizontalAlignment="Left" Width="43"/>
+        </Grid>
+        <Grid Margin="10,171,236,193">
+            <Button Content="Update Database" Click="Button_Click_2" HorizontalAlignment="Left" Width="216" Height="55" VerticalAlignment="Top"/>
+            <Image Margin="5,4,0,0" Source="Database-12-512.png" Stretch="UniformToFill" HorizontalAlignment="Left" Width="45" Height="47" VerticalAlignment="Top"/>
+        </Grid>
+        <Label Content="File Write/Read?" FontSize="10" HorizontalContentAlignment="Right" Margin="5,323,0,0" Foreground="#FF251604" FontWeight="Bold" BorderBrush="#FF170202" OpacityMask="#FF130202" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+        <Label Content="Last Update" FontSize="10" Margin="5,354,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+        <Label Content="File located?" Margin="5,292,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+        <Label x:Name ="isReadOnlyLabelData" Content="data" FontSize="10" Margin="98,323,0,0" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="35" Height="26" VerticalAlignment="Top"/>
+        <Label x:Name="timeUpdatedLabelData" Content="time/date" FontSize="10" Margin="98,354,0,0" HorizontalContentAlignment="Left" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="83" FontWeight="Bold"/>
+        <Label x:Name="fileExistsLabelData" Content="data" FontSize="10" Margin="98,292,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top"/>
+        <Grid Margin="10,103,10,261" Grid.ColumnSpan="2">
+            <Button Content="Insert Data" Click="Button_Click" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453"/>
+            <Image Margin="5,4,0,0" Source="add-to-database.png" Stretch="Fill" HorizontalAlignment="Left" Width="45" Height="47" VerticalAlignment="Top"/>
+
+        </Grid>
+        <Image Margin="10,10,227,321" Source="logo.jpg" Stretch="Fill"/>
+        <StatusBar Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="24" Margin="0,385,0,0" VerticalAlignment="Top" Width="473">
+            <ProgressBar x:Name="loadingData" Height="10" Width="100" Minimum="0" Maximum="100" Value="0"/>
+        </StatusBar>
+        <Image x:Name="settingsOption" Margin="421,3,4,383" Source="settings.png" Stretch="Fill" MouseDown="SettingsShow"/>
+
+
+
+
     </Grid>
 </Window>
