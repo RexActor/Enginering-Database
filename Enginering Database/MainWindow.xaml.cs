@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Configuration;
 using Engineering_Database;
 
+[assembly: log4net.Config.XmlConfigurator(Watch =true)]
 
 namespace Enginering_Database
 	{
@@ -26,8 +27,9 @@ namespace Enginering_Database
 	
 	public partial class MainWindow:Window
 		{
-		
 
+		private static readonly log4net.ILog log = LogHelper.GetLogger();
+		
 		string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 		public MainWindow ( )
 			{
@@ -43,6 +45,7 @@ namespace Enginering_Database
 			
 
 			InitializeComponent();
+			
 			fileExistsLabelData.Content = dtC.DBStatus();
 			//checkFile();
 
@@ -65,9 +68,11 @@ namespace Enginering_Database
 		}
 
 		private void Button_Click (object sender,RoutedEventArgs e)         
-			{ 
+			{
+			log.Debug("Test");
 			addData addnew = new addData();
 			addnew.ShowDialog();
+
 			}
 
 		private void Button_Click_1 (object sender,RoutedEventArgs e)
