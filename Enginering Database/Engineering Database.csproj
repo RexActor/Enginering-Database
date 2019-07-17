@@ -142,6 +142,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>engineeringDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="IssueClass.cs" />
     <Compile Include="issuedata.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="MyExcel.cs" />

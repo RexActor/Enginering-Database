@@ -11,8 +11,8 @@ using Engineering_Database;
 namespace Engineering_Database
 	{
 	class MyExcel
-		{
-		public static BindingList<issuedata> empList = new BindingList<issuedata>();
+	{
+		/*
 		//public static BindingList<issuedata> issuedatas = new BindingList<issuedata>();
 		
 		private static Excel.Workbook MyBook = null;
@@ -84,13 +84,14 @@ namespace Engineering_Database
 					break;
 				case "EMAIL_ID":
 					FilteredList = empList.ToList().FindAll(emp => emp.Email_ID.ToLower().Contains(searchExpr));
-					break;*/
+					break;
 				default:
 					break;
 				}
 			return FilteredList;
 			}
-		
+*/
+
 
 		}
 	}

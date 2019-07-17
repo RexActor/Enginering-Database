@@ -679,6 +679,9 @@ namespace Enginering_Database
 
 		private void InsertDataIntoDatabase_Click(object sender, RoutedEventArgs e)
 		{
+
+			
+
 			if (db.DBStatus() == "DB not Connected")
 			{
 				db.ConnectDB();
@@ -709,7 +712,34 @@ namespace Enginering_Database
 
 			TextRange textRange = new TextRange(DetailedDescriptionRichTextBox.Document.ContentStart, DetailedDescriptionRichTextBox.Document.ContentEnd);
 
-			db.InsertDataIntoDatabase(getLastJobNumber+1, dtNow, dtTmNow, usernameLabelValue.Content.ToString(),AssetNumberTextBox.Text,faultyAreaComboBox.Text,buildingComboBox.Text,issueComboBox.Text,PriorityComboBox.Text,issueTypeComboBox.Text,textRange.Text,dtNow,areaComboBox.Text);
+
+			//setting up new issue object for uploading to database
+
+			IssueClass issue = new IssueClass();
+
+			issue.Area = areaComboBox.Text;
+			issue.AssetNumber = AssetNumberTextBox.Text;
+			issue.Building = buildingComboBox.Text;
+			issue.Code = issueComboBox.Text;
+			issue.DetailedDescription = textRange.Text;
+			issue.DueDate = dtNow;
+			issue.FaulyArea = faultyAreaComboBox.Text;
+
+			//get last job number and increment by 1
+			issue.JobNumber = getLastJobNumber+1;
+
+			issue.ReportedDate = dtNow;
+			issue.ReportedTime = dtTmNow;
+			issue.Type = issueTypeComboBox.Text;
+			issue.Priority = PriorityComboBox.Text;
+			issue.ReportedUserName = usernameLabelValue.Content.ToString();
+
+
+
+
+			db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area);
+
+			//db.InsertDataIntoDatabase(getLastJobNumber+1, dtNow, dtTmNow, usernameLabelValue.Content.ToString(),AssetNumberTextBox.Text,faultyAreaComboBox.Text,buildingComboBox.Text,issueComboBox.Text,PriorityComboBox.Text,issueTypeComboBox.Text,textRange.Text,dtNow,areaComboBox.Text);
 		}
 	}
 

@@ -8,44 +8,42 @@ using System.Diagnostics;
 using System.IO;
 using System.Data;
 using System.Data.OleDb;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel;
 
 namespace Enginering_Database
 {
+
+	
 	/// <summary>
 	/// Interaction logic for updateDatabase.xaml
 	/// </summary>
 	public partial class updateDatabase : Window
 	{
-
+		private static readonly log4net.ILog log = LogHelper.GetLogger();
+	
 		int convJobNumber;
 		public string contentForTextTestLabel;
 		System.Windows.Controls.Button textTestLabel;
 		int jobList;
+		IssueClass issueClass = new IssueClass();
 		UserSettings userSett = new UserSettings();
 		DatabaseClass db = new DatabaseClass();
-		bool JobItemSelected;
+		private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
+		
+
+
+
+
+
 		public updateDatabase()
 		{
 
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			db.ConnectDB();
 			InitializeComponent();
-			/*
-			//hide labels on frame2 to not confuse user what information it's showing
-			Frame2JobNumberData.Visibility = Visibility.Hidden;
-			Frame2ReportedDateData.Visibility = Visibility.Hidden;
-			Frame2ReportedUserData.Visibility = Visibility.Hidden;
-			Frame2AreaData.Visibility = Visibility.Hidden;
-			Frame2IssueTypeData.Visibility = Visibility.Hidden;
-			Frame2BuildingData.Visibility = Visibility.Hidden;
-			Frame2ReportedTimeData.Visibility = Visibility.Hidden;
-			Frame2DueDateData.Visibility = Visibility.Hidden;
-			Frame2FaultyAreaData.Visibility = Visibility.Hidden;
-			Frame2IssueCodeData.Visibility = Visibility.Hidden;
-			Frame2AssetData.Visibility = Visibility.Hidden;
-			Frame2PriorityData.Visibility = Visibility.Hidden;
-			*/
-
+			empList.AllowRemove = true;
 
 			Frame2JobNumberData.Content = "waiting for data";
 			Frame2ReportedDateData.Content = "waiting for data";
@@ -65,26 +63,31 @@ namespace Enginering_Database
 
 
 			createJobList();
-			
+			UpdateAllDb();
 		}
 
 
-		public void createJobList()
+		
+		private void UpdateAllDb()
 		{
-			//MyExcel.InitializeExcel();
-			JobItemSelected = false;
+			emplistDataGrid.ItemsSource = issueClass.updateIssueDataList();
+		}
 
-			emplistDataGrid.ItemsSource = MyExcel.ReadMyExcel();
+		private void createJobList()
+		{
+			issueClass.updateIssueDataList();
+
+
+			
 			TestStackPanel.Children.Clear();
 			searchCombo.Items.Insert(0, "week");
 			searchCombo.Items.Insert(1, "jobnumber");
 			searchCombo.SelectedIndex = 0;
+
+
 			userSett.openSettings();
 
-			//TextBlock textTest = new TextBlock();
-			//textTest.Text = "Testing something";
-
-			//TestStackPanel.Children.Add(textTest);
+			
 
 			Frame3DueDateTextBox.Text = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
@@ -110,14 +113,13 @@ namespace Enginering_Database
 
 			if (jobList > 0)
 			{
-				//string jobnr= db.DBQuery("*");
+				
 				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQuery());
 				DataTable dt = new DataTable();
 				int i = 0;
 				da.Fill(dt);
 
-				//for (int i = 0; i<=db.DBCountLines() && i<jobList ; i++)
-				//{
+				
 
 
 
@@ -126,30 +128,29 @@ namespace Enginering_Database
 					if (i <= dt.Rows.Count && i < jobList)
 					{
 
-						//System.Windows.Controls.Button textTestLabel = new System.Windows.Controls.Button();
+						
 						textTestLabel = new System.Windows.Controls.Button();
 						textTestLabel.BorderThickness = new Thickness(0);
-						if (JobItemSelected)
-						{
-							textTestLabel.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
-						}
-						else
-						{
-							textTestLabel.Background = new SolidColorBrush(Color.FromArgb(195, 195, 195, 0));
-						}
+						textTestLabel.Background = new SolidColorBrush(Color.FromArgb(195, 195, 195, 0));
+						
 					
 						textTestLabel.Padding = new Thickness(3);
 						textTestLabel.Margin = new Thickness(1);
 						contentForTextTestLabel = dr["JobNumber"].ToString();
 						textTestLabel.Content = contentForTextTestLabel;
-						//textTestLabel.Click += TextTestLabel_Click;
-						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e, textTestLabel.Content.ToString()); };
+					
+
 						
+
+						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
+
+						//log.Debug($"Content for text Label: {contentForTextTestLabel.ToString()}");
+
 						TestStackPanel.Children.Add(textTestLabel);
 					}
 					i++;
 				}
-				//}
+				
 			}
 
 			if (ChangeDueDateCheckBox.IsChecked == true)
@@ -170,10 +171,12 @@ namespace Enginering_Database
 
 		}
 
-		private void TextTestLabel_Click(object sender, RoutedEventArgs e, string p)
+		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
 		{
-			
+
+			//log.Debug(p);
 			Button btn = sender as Button;
+			//log.Debug(btn.Content.ToString());
 			
 			//btn.Background = btn.Background == Brushes.Red ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFDDDDDD")) : Brushes.Red;
 			if (db.DBStatus()== "DB not Connected")
@@ -186,9 +189,9 @@ namespace Enginering_Database
 			
 		
 			System.Windows.Controls.TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
-			//frame2TextBlock.Text = p;
-			JobItemSelected = true;
-			UpdateFrame2(p);
+			// frame2TextBlock.Text = p;
+			
+			UpdateFrame2(btn.Content.ToString());
 
 
 
@@ -207,11 +210,14 @@ namespace Enginering_Database
 		{
 			if (!string.IsNullOrEmpty(searchTxt.Text))
 			{
-				emplistDataGrid.ItemsSource = MyExcel.FilterEmpList(searchCombo.Text.ToString(), searchTxt.Text.ToLower());
-			}
-			else
-			{
-				emplistDataGrid.ItemsSource = MyExcel.empList;
+				int convertSearch;
+				int p;
+				if (Int32.TryParse(searchTxt.Text, out p))
+				{
+					convertSearch = p;
+					emplistDataGrid.ItemsSource = issueClass.updateIssueDataListForSpecificJob(convertSearch);
+				}
+				
 			}
 		}
 
@@ -256,7 +262,7 @@ namespace Enginering_Database
 
 		private void UpdateFrame2(string jobNumber)
 		{
-
+			/*
 			if (JobItemSelected == true)
 			{
 
@@ -273,7 +279,7 @@ namespace Enginering_Database
 				Frame2AssetData.Visibility = Visibility.Visible;
 				Frame2PriorityData.Visibility = Visibility.Visible;
 
-
+			*/
 
 
 				int c = 0;
@@ -282,6 +288,8 @@ namespace Enginering_Database
 				if (Int32.TryParse(jobNumber, out c))
 				{
 					convJobNumber = c;
+
+				//log.Debug(c);
 				}
 				string[] words = jobNumber.Split(null);
 
@@ -314,8 +322,9 @@ namespace Enginering_Database
 					Frame3CompleteCheckBox.IsChecked = false;
 
 				}
-			}
-			else
+		/*	}
+			
+		/else
 			{
 
 				Frame2JobNumberData.Visibility = Visibility.Hidden;
@@ -330,7 +339,7 @@ namespace Enginering_Database
 				Frame2IssueCodeData.Visibility = Visibility.Hidden;
 				Frame2AssetData.Visibility = Visibility.Hidden;
 				Frame2PriorityData.Visibility = Visibility.Hidden;
-			}
+			}*/
 			/*
 			DateTime StartDate = DateTime.Now.Date;
 			DateTime EndDate = Frame3DueDateTextBox.Text

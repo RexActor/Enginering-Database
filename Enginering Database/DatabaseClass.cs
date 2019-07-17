@@ -70,7 +70,7 @@ namespace Engineering_Database
 			#region db query functions --> retreive data from database 3 overloaded functions string (table)/string (table) int(jobNumber)/ simple without any parameters
 			public string DBQuery( string table)
 		{
-			string queryString="SELECT * FROM engineeringDatabaseTable";
+			string queryString=$"SELECT * FROM engineeringDatabaseTable";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
@@ -93,6 +93,30 @@ namespace Engineering_Database
 		public OleDbCommand DBQuery()
 		{
 			string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			//OleDbDataReader reader = cmd.ExecuteReader();
+			//reader.Read();
+			//var data = reader[table].ToString();
+			//return data;
+			return cmd;
+		}
+		public OleDbCommand DBQueryForAllLines()
+		{
+			string queryString = "SELECT * FROM engineeringDatabaseTable";
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			//OleDbDataReader reader = cmd.ExecuteReader();
+			//reader.Read();
+			//var data = reader[table].ToString();
+			//return data;
+			return cmd;
+		}
+
+
+		public OleDbCommand DBQueryForViewDatabase(int jobNumber)
+		{
+			string queryString = $"SELECT * FROM engineeringDatabaseTable WHERE JobNumber ={jobNumber}";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			//OleDbDataReader reader = cmd.ExecuteReader();
