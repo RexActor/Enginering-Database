@@ -222,7 +222,7 @@ namespace Enginering_Database
 				}
 
 
-					//previewReportedName.Content = db.DBQuery("ReportedUsername", (int)lbl.Content);
+					
 
 
 					previewReportedName.Content = db.DBQuery("ReportedUsername",convertSearch);
@@ -238,8 +238,7 @@ namespace Enginering_Database
 
 
 			}
-			//MessageBox.Show("testing " + lbl.Content.ToString());
-			//MessageBox.Show(sender.ToString());
+			
 			
 
 		}
@@ -255,7 +254,7 @@ namespace Enginering_Database
 
 			//log.Debug(btn.Content.ToString());
 			
-			//btn.Background = btn.Background == Brushes.Red ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFDDDDDD")) : Brushes.Red;
+			
 			if (db.DBStatus()== "DB not Connected")
 			{
 				db.ConnectDB();
@@ -266,7 +265,7 @@ namespace Enginering_Database
 			
 			
 			System.Windows.Controls.TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
-			// frame2TextBlock.Text = p;
+		
 			
 			UpdateFrame2(btn.Content.ToString());
 

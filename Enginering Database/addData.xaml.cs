@@ -15,7 +15,7 @@ namespace Enginering_Database
 	public partial class addData:Window
 		{
 		DatabaseClass db = new DatabaseClass();
-		bool result;
+		
 		public addData ( )
 			{
 			InitializeComponent();
