@@ -80,13 +80,19 @@ namespace Engineering_Database
 		}
 		public string DBQuery(string table, int jobnumber)
 		{
+			
 			string queryString = $"SELECT * FROM engineeringDatabaseTable WHERE JobNumber in (@param1)";
 
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.Add(new OleDbParameter("@param1", jobnumber));
+			
 			OleDbDataReader reader = cmd.ExecuteReader();
-			reader.Read();
+			if (reader != null)
+			{
+				reader.Read();
+			}
+
 			var data = reader[table].ToString();
 			return data;
 		}
@@ -101,6 +107,32 @@ namespace Engineering_Database
 			//return data;
 			return cmd;
 		}
+
+		public OleDbCommand DBQueryforJobList(string filter)
+		{
+			string queryString;
+			if (filter == "Outstanding")
+			{
+				 queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
+			}
+			else if(filter == "Resolved")
+			{
+				 queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true";
+			}
+			else
+			{
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
+
+			}
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			//OleDbDataReader reader = cmd.ExecuteReader();
+			//reader.Read();
+			//var data = reader[table].ToString();
+			//return data;
+			return cmd;
+		}
+
+
 		public OleDbCommand DBQueryForAllLines()
 		{
 			string queryString = "SELECT * FROM engineeringDatabaseTable";

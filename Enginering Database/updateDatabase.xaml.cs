@@ -11,6 +11,7 @@ using System.Data.OleDb;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Enginering_Database
 {
@@ -22,7 +23,9 @@ namespace Enginering_Database
 	public partial class updateDatabase : Window
 	{
 		private static readonly log4net.ILog log = LogHelper.GetLogger();
-	
+
+		private string filter = "Outstanding";
+
 		int convJobNumber;
 		public string contentForTextTestLabel;
 		System.Windows.Controls.Button textTestLabel;
@@ -30,8 +33,13 @@ namespace Enginering_Database
 		IssueClass issueClass = new IssueClass();
 		UserSettings userSett = new UserSettings();
 		DatabaseClass db = new DatabaseClass();
+	
+		private double ScreenHeight = SystemParameters.WorkArea.Height;
+		private double ScreenWidht = SystemParameters.WorkArea.Width;
 		private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
+	
 		
+
 
 
 
@@ -44,7 +52,7 @@ namespace Enginering_Database
 			db.ConnectDB();
 			InitializeComponent();
 			empList.AllowRemove = true;
-
+			previewStackPanel.Visibility = Visibility.Hidden;
 			Frame2JobNumberData.Content = "waiting for data";
 			Frame2ReportedDateData.Content = "waiting for data";
 			Frame2ReportedUserData.Content = "waiting for data";
@@ -62,26 +70,32 @@ namespace Enginering_Database
 
 
 
-			createJobList();
-			UpdateAllDb();
+			createJobList(filter);
+		
 		}
 
 
 		
 		private void UpdateAllDb()
 		{
-			emplistDataGrid.ItemsSource = issueClass.updateIssueDataList();
+			//emplistDataGrid.ItemsSource = null;
+
+			if (emplistDataGrid.ItemsSource == null)
+			{
+				emplistDataGrid.ItemsSource = issueClass.updateIssueDataList();
+			}
+			
+			
 		}
 
-		private void createJobList()
+		private void createJobList(string filter)
 		{
 			issueClass.updateIssueDataList();
 
 
 			
 			TestStackPanel.Children.Clear();
-			searchCombo.Items.Insert(0, "week");
-			searchCombo.Items.Insert(1, "jobnumber");
+			searchCombo.Items.Insert(0, "Job Number");
 			searchCombo.SelectedIndex = 0;
 
 
@@ -114,7 +128,7 @@ namespace Enginering_Database
 			if (jobList > 0)
 			{
 				
-				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQuery());
+				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQueryforJobList(filter));
 				DataTable dt = new DataTable();
 				int i = 0;
 				da.Fill(dt);
@@ -143,6 +157,8 @@ namespace Enginering_Database
 						
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
+						textTestLabel.MouseEnter += (sender, e) => { TextTestLabel_Hover(sender, e); };
+						textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
 
 						//log.Debug($"Content for text Label: {contentForTextTestLabel.ToString()}");
 
@@ -171,11 +187,72 @@ namespace Enginering_Database
 
 		}
 
-		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
+		private void TextTestLabel_Leave(object sender, MouseEventArgs e)
 		{
 
+			previewStackPanel.Visibility = Visibility.Hidden;
+		}
+
+		private void TextTestLabel_Hover(object sender, EventArgs e)
+		{
+
+			
+
+			//MouseEventArgs e
+			Button lbl = (Button)sender;
+			previewStackPanel.Visibility = Visibility.Visible;
+			if(lbl == null)
+			{
+				previewJobNumber.Content = "looking for data";
+
+			}
+			else
+			{
+
+				int convertSearch;
+				int p;
+				if (Int32.TryParse(lbl.Content.ToString(), out p))
+				{
+					convertSearch = p;
+
+				}
+				else
+				{
+					convertSearch = 1;
+				}
+
+
+					//previewReportedName.Content = db.DBQuery("ReportedUsername", (int)lbl.Content);
+
+
+					previewReportedName.Content = db.DBQuery("ReportedUsername",convertSearch);
+					prevAssetNumber.Content = db.DBQuery("AssetNumber", convertSearch);
+					prevFaultyArea.Content = db.DBQuery("FaultyArea", convertSearch);
+					prevPriority.Content = db.DBQuery("Priority", convertSearch);
+					prevDetailedDescription.Content = db.DBQuery("DetailedDescription", convertSearch);
+					prevAssignedTo.Content = db.DBQuery("AssignedTo", convertSearch);
+					prevDueDate.Content = db.DBQuery("DueDate", convertSearch);
+
+					previewJobNumber.Content = lbl.Content.ToString();
+
+
+
+			}
+			//MessageBox.Show("testing " + lbl.Content.ToString());
+			//MessageBox.Show(sender.ToString());
+			
+
+		}
+
+		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
+		{
+			
+			
 			//log.Debug(p);
 			Button btn = sender as Button;
+
+		
+
 			//log.Debug(btn.Content.ToString());
 			
 			//btn.Background = btn.Background == Brushes.Red ? (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFDDDDDD")) : Brushes.Red;
@@ -187,7 +264,7 @@ namespace Enginering_Database
 
 			Frame2StackPanel.Children.Clear();
 			
-		
+			
 			System.Windows.Controls.TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
 			// frame2TextBlock.Text = p;
 			
@@ -196,7 +273,12 @@ namespace Enginering_Database
 
 
 			Frame2StackPanel.Children.Add(frame2TextBlock);
+
+		
+
 		}
+
+	
 
 		private void searchCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 
@@ -215,9 +297,28 @@ namespace Enginering_Database
 				if (Int32.TryParse(searchTxt.Text, out p))
 				{
 					convertSearch = p;
-					emplistDataGrid.ItemsSource = issueClass.updateIssueDataListForSpecificJob(convertSearch);
+
+					if (emplistDataGrid != null)
+					{
+						emplistDataGrid.ItemsSource = null;
+						
+						emplistDataGrid.ItemsSource = issueClass.updateIssueDataListForSpecificJob(convertSearch);
+					}
+					
 				}
 				
+			}
+			else
+			{
+				if (emplistDataGrid != null)
+				{
+					emplistDataGrid.ItemsSource = null;
+					emplistDataGrid.ItemsSource = issueClass.updateIssueDataList();
+				}
+				else
+				{
+					emplistDataGrid.ItemsSource = issueClass.updateIssueDataList();
+				}
 			}
 		}
 
@@ -371,7 +472,7 @@ namespace Enginering_Database
 			}
 
 
-			createJobList();
+			createJobList(filter);
 			Frame3.Refresh();
 
 			Frame2JobNumberData.Content = "waiting for data";
@@ -390,6 +491,79 @@ namespace Enginering_Database
 			Frame2ReportedDescription.Text = "waiting for data";
 			//MessageBox.Show(db.DBQuery("JobNumber"));
 
+
+		}
+
+	
+		public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var tc = sender as TabControl;
+			
+
+			if (tc != null)
+			{
+
+				TabItem tb = tc.SelectedItem as TabItem;
+				if (tb != null)
+				{
+					String tabItem = tb.Name;
+					log.Debug(tabItem);
+					if (e.Source is TabControl)
+					{
+
+
+						switch (tabItem)
+						{
+
+							case "OutstandingIssues":
+								WindowState = System.Windows.WindowState.Normal;
+								this.Height= 681.392f;
+								 this.Width = 800f;
+								this.Left=(ScreenWidht/2)-(this.Width/2);
+								this.Top = (ScreenHeight / 2) - (this.Height / 2);
+
+
+								Frame1.Width = 772;
+								emplistDataGrid.Width = 746;
+								
+								break;
+							case "ViewDatabase":
+								
+								WindowState = System.Windows.WindowState.Normal;
+								 this.Height = 681.392f;
+								this.Width = 1800f;
+								emplistDataGrid.Width = 1750;
+								Frame1.Width = 1790f;
+								this.Left = (ScreenWidht / 2) - (this.Width / 2);
+								this.Top = (ScreenHeight / 2) - (this.Height / 2);
+
+								UpdateAllDb();
+
+
+
+
+								break;
+
+
+							default:
+								//MessageBox.Show("Default");
+								log.Info("default message box Called");
+								break;
+						}
+					}
+				}
+			}
+
+		}
+
+		private void FilterLabelClicked(Object sender, EventArgs e)
+		{
+			Label btn = sender as Label;
+			//MessageBox.Show(btn.Name.ToString());
+
+			filter = btn.Name.ToString();
+			filterExpander.IsExpanded=false;
+			createJobList(filter);
 
 		}
 	}

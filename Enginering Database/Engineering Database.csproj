@@ -285,6 +285,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="engineeringDatabase.accdb" />
+    <Resource Include="Oustanding.png" />
+    <Resource Include="oustandingIssues.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

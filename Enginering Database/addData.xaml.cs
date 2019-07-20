@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.IO;
 using Engineering_Database;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Enginering_Database
 	{
@@ -14,9 +15,11 @@ namespace Enginering_Database
 	public partial class addData:Window
 		{
 		DatabaseClass db = new DatabaseClass();
+		bool result;
 		public addData ( )
 			{
 			InitializeComponent();
+			ErrorMessageLabel.Visibility = Visibility.Hidden;
 			updateTimeAndDate();
 			//usernameLabelValue.Content = WindowsIdentity.GetCurrent().Name;
 			usernameLabelValue.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
@@ -162,14 +165,16 @@ namespace Enginering_Database
 					issueTypeComboBox.IsEnabled = false;
 					//update issue type  drop down list
 					issueTypeComboBox.Items.Clear();
-					issueTypeComboBox.Items.Insert(0,"Projects");
-					issueTypeComboBox.SelectedIndex = 0;
+					issueTypeComboBox.Items.Insert(0,"Please Choose");
+					issueTypeComboBox.Items.Add("Projects");
+					issueTypeComboBox.SelectedIndex = 1;
 
 
 					//faulty area drop down list
 					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0,"Projects");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Insert(0,"Please Choose");
+					faultyAreaComboBox.Items.Add("Projects");
+					faultyAreaComboBox.SelectedIndex = 1;
 					faultyAreaComboBox.IsEnabled = false;
 
 
@@ -187,8 +192,9 @@ namespace Enginering_Database
 					buildingComboBox.IsEnabled = true;
 					//update issue drop down list
 					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0,"Projects");
-					issueComboBox.SelectedIndex = 0;
+					issueComboBox.Items.Insert(0,"Please choose");
+					issueComboBox.Items.Add("Projects");
+					issueComboBox.SelectedIndex = 1;
 					issueComboBox.IsEnabled = false;
 
 					break;
@@ -293,8 +299,9 @@ namespace Enginering_Database
 
 					//update faulty area combobox
 					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0,"Other");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Insert(0,"Please choose");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
 
 					//update issue code combobox values
 
@@ -347,13 +354,15 @@ namespace Enginering_Database
 					buildingComboBox.SelectedIndex = 0;
 
 					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0,"Other");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Insert(0,"Please choose");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
 					faultyAreaComboBox.IsEnabled = false;
 
 					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0,"Other");
-					issueComboBox.SelectedIndex = 0;
+					issueComboBox.Items.Insert(0,"Please choose");
+					issueComboBox.Items.Add("Other");
+					issueComboBox.SelectedIndex = 1;
 					issueComboBox.IsEnabled = false;
 
 					break;
@@ -418,13 +427,16 @@ namespace Enginering_Database
 					buildingComboBox.SelectedIndex = 0;
 
 					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0,"Other");
-					faultyAreaComboBox.SelectedIndex = 0;
+					
+					faultyAreaComboBox.Items.Insert(0,"Please choose");
+					
 					faultyAreaComboBox.IsEnabled = false;
 
 					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0,"Other");
-					issueComboBox.SelectedIndex = 0;
+					issueComboBox.Items.Insert(0,"Please choose");
+					issueComboBox.Items.Add("Other");
+					issueComboBox.SelectedIndex = 1;
+					issueComboBox.SelectedIndex = 1;
 					issueComboBox.IsEnabled = false;
 
 					break;
@@ -464,7 +476,7 @@ namespace Enginering_Database
 
 		private void BuildingComboBox_SelectionChanged (object sender,SelectionChangedEventArgs e)
 			{
-			if(issueTypeComboBox.SelectedItem=="Lines Mechanical")
+			if (this.issueTypeComboBox.SelectedItem == "Lines Mechanical")
 				{
 				faultyAreaComboBox.Items.Clear();
 				faultyAreaComboBox.Items.Insert(0,"Please choose");
@@ -517,7 +529,7 @@ namespace Enginering_Database
 						break;
 
 					default:
-						
+						faultyAreaComboBox.IsEnabled = true;
 
 						break;
 
@@ -528,6 +540,7 @@ namespace Enginering_Database
 
 
 				}
+		
 			
 			}
 
@@ -644,9 +657,9 @@ namespace Enginering_Database
 
 					
 
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0,"Waiting for faulty area");
-					faultyAreaComboBox.SelectedIndex = 0;
+					//issueComboBox.Items.Clear();
+					//issueComboBox.Items.Insert(0,"Waiting for faulty area");
+					//faultyAreaComboBox.SelectedIndex = 0;
 					break;
 				}
 
@@ -679,8 +692,10 @@ namespace Enginering_Database
 
 		private void InsertDataIntoDatabase_Click(object sender, RoutedEventArgs e)
 		{
-
 			
+
+
+
 
 			if (db.DBStatus() == "DB not Connected")
 			{
@@ -735,11 +750,122 @@ namespace Enginering_Database
 			issue.ReportedUserName = usernameLabelValue.Content.ToString();
 
 
+			if (checkFilledData())
+			{
+				ErrorMessageLabel.Visibility = Visibility.Hidden;
 
+				db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area);
 
-			db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area);
+				this.Close();
+
+			}
+			else
+			{
+				ErrorMessageLabel.Visibility = Visibility.Visible;
+				//AssetNumberLabel.Background = new SolidColorBrush(Color.FromArgb(200, 195, 195, 0));
+
+			}
+
+	
 
 			//db.InsertDataIntoDatabase(getLastJobNumber+1, dtNow, dtTmNow, usernameLabelValue.Content.ToString(),AssetNumberTextBox.Text,faultyAreaComboBox.Text,buildingComboBox.Text,issueComboBox.Text,PriorityComboBox.Text,issueTypeComboBox.Text,textRange.Text,dtNow,areaComboBox.Text);
+			
+		}
+
+
+		public bool checkFilledData()
+		{
+			#region set up label colours if 0 index selected
+			if (areaComboBox.SelectedIndex == 0)
+			{
+
+				AreaLabel.Background = Brushes.Red;
+
+			}
+			else
+			{
+
+				//AreaLabel.Background = new SolidColorBrush(Color.FromArgb(100, 0, 195, 0));
+				AreaLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+
+			if (issueTypeComboBox.SelectedIndex == 0)
+			{
+				issueTypeLabel.Background = Brushes.Red;
+
+			}
+			else
+			{
+				issueTypeLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+
+			if (buildingComboBox.SelectedIndex == 0)
+			{
+				buildingLabel.Background = Brushes.Red;
+			}
+			else
+			{
+				buildingLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+			if (faultyAreaComboBox.SelectedIndex == 0)
+			{
+				faultyAreaLabel.Background = Brushes.Red;
+			} else
+			{
+				faultyAreaLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+			if (issueComboBox.SelectedIndex == 0)
+			{
+				IssueCodeLabel.Background = Brushes.Red;
+			}
+			else
+			{
+				IssueCodeLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+			if (PriorityComboBox.SelectedIndex == 0)
+			{
+				PriorityLabel.Background = Brushes.Red;
+			}
+			else
+			{
+				PriorityLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+			if (AssetNumberTextBox.Text == "")
+			{
+				AssetNumberLabel.Background = Brushes.Red;
+			}
+
+			else
+			{
+				AssetNumberLabel.Background= (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
+			}
+#endregion
+
+			if (faultyAreaComboBox.SelectedIndex == 0 || issueComboBox.SelectedIndex == 0 || buildingComboBox.SelectedIndex == 0 || issueTypeComboBox.SelectedIndex == 0 || areaComboBox.SelectedIndex==0 || PriorityComboBox.SelectedIndex==0)
+
+				
+			{
+			return  false;
+			}
+			else
+			{
+				if (AssetNumberTextBox.Text == "")
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+
+				}
+				
+					
+			
+				
+			}
+
+			
+
 		}
 	}
 

@@ -138,12 +138,25 @@ namespace Engineering_Database
 
 			}
 
+
+
+
+
+
+			issueDataList = issueDataList.FindAll(x => x.JobNumber == searchJobNumber);
+
+
+
+
 			return issueDataList;
 
 
 		}
 
 
+	}
+
+
 
 	}
-}
+
