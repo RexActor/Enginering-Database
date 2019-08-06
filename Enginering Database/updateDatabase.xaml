@@ -133,32 +133,37 @@
             </TabItem>
 
         </TabControl>
-        <StackPanel x:Name="previewStackPanel" HorizontalAlignment="Left" Height="332" Margin="196,88,0,0" VerticalAlignment="Top" Width="406" OpacityMask="Black">
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFB9B8B3" Offset="0"/>
-                    <GradientStop Color="#FFFBF9F2" Offset="1"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
+        <StackPanel x:Name="previewStackPanel" HorizontalAlignment="Left" Height="332" Margin="277,68,0,0" VerticalAlignment="Top" Width="406" OpacityMask="#D8F3ECEC" Background="Black">
             <Grid Height="329" HorizontalAlignment="Left" Width="406">
-                <Label x:Name="previewJobNumber" Content="Label" HorizontalAlignment="Right" Width="89" Margin="0,30,208,0" Height="35" VerticalAlignment="Top"/>
-                <Label x:Name="Job_Number" Content="Job Number" HorizontalAlignment="Left" Width="94" Margin="10,30,0,0" Height="35" VerticalAlignment="Top"/>
-                <Label x:Name="Job_Number_Copy" Content="Reported by:" HorizontalAlignment="Left" Width="94" Margin="10,65,0,0" Height="33" VerticalAlignment="Top"/>
-                <Label x:Name="previewReportedName" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,0,203,231" Height="33" VerticalAlignment="Bottom"/>
-                <Label x:Name="prewAssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" Width="94" Margin="10,98,0,0" Height="34" VerticalAlignment="Top"/>
-                <Label x:Name="prevAssetNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,98,203,0" Height="34" VerticalAlignment="Top"/>
-                <Label x:Name="prevFaultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" Width="94" Margin="10,132,0,0" Height="30" VerticalAlignment="Top"/>
-                <Label x:Name="prevFaultyArea" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,132,203,0" Height="30" VerticalAlignment="Top"/>
-                <Label x:Name="prevPriorityLabel" Content="Priority" HorizontalAlignment="Left" Width="94" Margin="10,167,0,0" Height="31" VerticalAlignment="Top"/>
-                <Label x:Name="prevPriority" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,167,203,0" Height="31" VerticalAlignment="Top"/>
-                <Label x:Name="prevdetailedDescriptionLabel" Content="Detailed Description" HorizontalAlignment="Left" Width="131" Margin="10,198,0,0" Height="29" VerticalAlignment="Top"/>
-                <Label x:Name="prevDetailedDescription" Content="Label" HorizontalAlignment="Right" Width="386" Margin="0,232,10,10"/>
-                <Label x:Name="prevAssignedToLabel" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="203,10,0,0" Height="34" VerticalAlignment="Top"/>
-                <Label x:Name="prevAssignedTo" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="302,10,0,0" Height="34" VerticalAlignment="Top"/>
-                <Label x:Name="prevDueDateLabel" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="203,44,0,0" Height="34" VerticalAlignment="Top"/>
-                <Label x:Name="prevDueDate" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="302,45,0,0" Height="33" VerticalAlignment="Top"/>
+                <Label  x:Name="TitleForPreview" Content="Preview" Foreground="#19EEEE0A" Margin="22,1,32,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="100" RenderTransformOrigin="0.5,0.5">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-40.601"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <Label x:Name="previewJobNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,36,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7EEEE" BorderBrush="#FFF1E4E4" BorderThickness="1"/>
+                <Label x:Name="Job_Number" Content="Job Number" HorizontalAlignment="Left" Width="94" Margin="11,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7EEEE" BorderBrush="#FFF1E4E4" BorderThickness="1"/>
+                <Label x:Name="Job_Number_Copy" Content="Reported by:" HorizontalAlignment="Left" Width="94" Margin="11,69,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7F1F1" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="previewReportedName" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,0,202,230" Height="30" VerticalAlignment="Bottom" Foreground="#FFF5E5E5" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prewAssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" Width="94" Margin="11,102,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFEEE2E2" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevAssetNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,102,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF9F4F4" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevFaultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" Width="94" Margin="11,136,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7F5F5" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevFaultyArea" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,136,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF3E9E9" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevPriorityLabel" Content="Priority" HorizontalAlignment="Left" Width="94" Margin="11,170,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5EFEF" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevPriority" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,170,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFEADEDE" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevdetailedDescriptionLabel" Content="Detailed Description" HorizontalAlignment="Left" Width="131" Margin="10,203,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5E7E7" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevDetailedDescription" Content="Label" HorizontalAlignment="Right" Width="386" Margin="0,237,10,4" Foreground="#FFE4D9D9" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevAssignedToLabel" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="208,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF1E4E4" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevAssignedTo" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="307,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF3F1F1" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevDueDateLabel" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="208,69,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFFBF6F6" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
+                <Label x:Name="prevDueDate" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="307,68,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5EDED" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
 
             </Grid>
+
 
 
         </StackPanel>

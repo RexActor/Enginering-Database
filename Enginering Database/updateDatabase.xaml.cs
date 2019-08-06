@@ -25,7 +25,7 @@ namespace Enginering_Database
 		private static readonly log4net.ILog log = LogHelper.GetLogger();
 
 		private string filter = "Outstanding";
-
+		EmailClass email = new EmailClass();
 		int convJobNumber;
 		public string contentForTextTestLabel;
 		System.Windows.Controls.Button textTestLabel;
@@ -146,10 +146,10 @@ namespace Enginering_Database
 						textTestLabel = new System.Windows.Controls.Button();
 						textTestLabel.BorderThickness = new Thickness(0);
 						textTestLabel.Background = new SolidColorBrush(Color.FromArgb(195, 195, 195, 0));
-						
-					
+
+						textTestLabel.Height = 30;
 						textTestLabel.Padding = new Thickness(3);
-						textTestLabel.Margin = new Thickness(1);
+						textTestLabel.Margin = new Thickness(2);
 						contentForTextTestLabel = dr["JobNumber"].ToString();
 						textTestLabel.Content = contentForTextTestLabel;
 					
@@ -157,9 +157,11 @@ namespace Enginering_Database
 						
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
-						textTestLabel.MouseEnter += (sender, e) => { TextTestLabel_Hover(sender, e); };
-						textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
-
+						if (userSett.PreviewSettingComboBox.Text == "Yes")
+						{
+							textTestLabel.MouseEnter += (sender, e) => { TextTestLabel_Hover(sender, e); };
+							textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
+						}
 						//log.Debug($"Content for text Label: {contentForTextTestLabel.ToString()}");
 
 						TestStackPanel.Children.Add(textTestLabel);
@@ -195,8 +197,16 @@ namespace Enginering_Database
 
 		private void TextTestLabel_Hover(object sender, EventArgs e)
 		{
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+			}
 
-			
+			//TODO:testing email class
+
+			email.SendEmail();
+
+
 
 			//MouseEventArgs e
 			Button lbl = (Button)sender;

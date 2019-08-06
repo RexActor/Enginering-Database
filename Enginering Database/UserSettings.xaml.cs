@@ -16,6 +16,8 @@ namespace Engineering_Database
 		public static string database;
 		public static string jobCount;
 		public static string password;
+		public static string preview;
+
 		public UserSettings()
 		{
 
@@ -46,7 +48,7 @@ namespace Engineering_Database
 			database = ConfigurationManager.AppSettings.Get("database");
 			jobCount = ConfigurationManager.AppSettings.Get("jobCount");
 			password = ConfigurationManager.AppSettings.Get("password");
-
+			preview = ConfigurationManager.AppSettings.Get("preview");
 
 			AdminTextBox.Text = UserName;
 			SubAdmin1TextBox.Text = SubAdmin1;
@@ -55,6 +57,7 @@ namespace Engineering_Database
 			DatabaseTextBox.Text = database;
 			JobCountSettingData.Text = jobCount;
 			passwordTextBox.Text = password;
+			PreviewSettingComboBox.Text = preview;
 
 
 		}
@@ -72,7 +75,7 @@ namespace Engineering_Database
 			configCollection["database"].Value = DatabaseTextBox.Text;
 			configCollection["jobCount"].Value = JobCountSettingData.Text;
 			configCollection["password"].Value = passwordTextBox.Text;
-
+			configCollection["preview"].Value = PreviewSettingComboBox.Text;
 
 
 
@@ -95,6 +98,7 @@ namespace Engineering_Database
 			DatabaseTextBox.Text = "default";
 			JobCountSettingData.Text = "0";
 			passwordTextBox.Text = "default";
+			PreviewSettingComboBox.Text = "Yes";
 
 			/*
 			configCollection["UserName"].Value = "default";
