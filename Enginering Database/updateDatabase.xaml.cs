@@ -37,8 +37,13 @@ namespace Enginering_Database
 		private double ScreenHeight = SystemParameters.WorkArea.Height;
 		private double ScreenWidht = SystemParameters.WorkArea.Width;
 		private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
-	
-		
+
+		//if data is not selected = can't change due date
+		private bool canChangeDueDate = false;
+
+
+		//Tooltip opbjet
+		ToolTip myToolTip = new ToolTip();
 
 
 
@@ -204,7 +209,7 @@ namespace Enginering_Database
 
 			//TODO:testing email class
 
-			email.SendEmail();
+			//email.SendEmail();
 
 
 
@@ -255,7 +260,7 @@ namespace Enginering_Database
 
 		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
 		{
-			
+			canChangeDueDate = true;
 			
 			//log.Debug(p);
 			Button btn = sender as Button;
@@ -338,21 +343,43 @@ namespace Enginering_Database
 
 		private void ChangeDueDateCheckBox_Change(object sender, RoutedEventArgs e)
 		{
-			if (ChangeDueDateCheckBox.IsChecked == true)
+			if (canChangeDueDate)
 			{
-				Frame3UpdateDueDateLabel.Visibility = Visibility.Visible;
-				Frame3UpdateDueDateDatePicker.Visibility = Visibility.Visible;
-				Frame3DueDateTextBox.Foreground = Brushes.Red;
-				Frame3DueDateTextBox.FontWeight = FontWeights.Bold;
-			}
+				if (ChangeDueDateCheckBox.IsChecked == true)
+				{
+					Frame3UpdateDueDateLabel.Visibility = Visibility.Visible;
+					Frame3UpdateDueDateDatePicker.Visibility = Visibility.Visible;
+					Frame3DueDateTextBox.Foreground = Brushes.Red;
+					Frame3DueDateTextBox.FontWeight = FontWeights.Bold;
+				}
 
-			else
+				else
+				{
+					Frame3UpdateDueDateLabel.Visibility = Visibility.Hidden;
+					Frame3UpdateDueDateDatePicker.Visibility = Visibility.Hidden;
+					Frame3DueDateTextBox.Foreground = Brushes.Black;
+					Frame3DueDateTextBox.FontWeight = FontWeights.Normal;
+					Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
+				}
+			}
+		}
+
+		private void DueDateChangeCheckBoxMouseOver(object sender, RoutedEventArgs e)
+		{
+			if (canChangeDueDate == false)
 			{
-				Frame3UpdateDueDateLabel.Visibility = Visibility.Hidden;
-				Frame3UpdateDueDateDatePicker.Visibility = Visibility.Hidden;
-				Frame3DueDateTextBox.Foreground = Brushes.Black;
-				Frame3DueDateTextBox.FontWeight = FontWeights.Normal;
-				Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
+				myToolTip.Content = "Can't change Due date if data is not selected";
+				myToolTip.IsEnabled = true;
+				myToolTip.IsOpen = true;
+			}
+		}
+
+		private void DueDateChangeCheckBoxMouseLeave(object sender,RoutedEventArgs e)
+		{
+			if (canChangeDueDate == false)
+			{
+				myToolTip.IsEnabled = false;
+				myToolTip.IsOpen = false;
 			}
 		}
 

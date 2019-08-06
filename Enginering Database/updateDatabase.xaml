@@ -39,7 +39,7 @@
                     <Label x:Name="Frame3DueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
                     <TextBox x:Name="Frame3DueDateTextBox" HorizontalAlignment="Left" Height="23" Margin="110,372,0,0" TextWrapping="Wrap" Text="DueDateDate" VerticalAlignment="Top" Width="120" />
                     <Label x:Name="Frame3ChangeDueDateLabel" Content="Change due Date" HorizontalAlignment="Left" Margin="8,398,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="121,403,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change"/>
+                    <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="121,403,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave"/>
                     <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="173" Margin="272,389,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470"/>
                     <Border BorderThickness="1" BorderBrush="Black" Width="470" Height="136" Margin="272,239,24,227">
                         <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="470"/>
