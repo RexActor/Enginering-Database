@@ -15,7 +15,7 @@ namespace Engineering_Database
 		public void SendEmail()
 		{
 
-			var url = "mailto:gatis.jansons@ipl-ltd.com";
+			//var url = "mailto:gatis.jansons@ipl-ltd.com";
 			//System.Diagnostics.Process.Start(url);
 			Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
 			Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);

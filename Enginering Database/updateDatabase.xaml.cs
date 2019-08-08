@@ -22,7 +22,7 @@ namespace Enginering_Database
 	/// </summary>
 	public partial class updateDatabase : Window
 	{
-		private static readonly log4net.ILog log = LogHelper.GetLogger();
+		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 
 		private string filter = "Outstanding";
 		EmailClass email = new EmailClass();
@@ -543,7 +543,7 @@ namespace Enginering_Database
 				if (tb != null)
 				{
 					String tabItem = tb.Name;
-					log.Debug(tabItem);
+					//log.Debug(tabItem);
 					if (e.Source is TabControl)
 					{
 
@@ -583,7 +583,7 @@ namespace Enginering_Database
 
 							default:
 								//MessageBox.Show("Default");
-								log.Info("default message box Called");
+								//log.Info("default message box Called");
 								break;
 						}
 					}

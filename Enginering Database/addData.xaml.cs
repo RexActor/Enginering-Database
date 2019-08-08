@@ -476,7 +476,7 @@ namespace Enginering_Database
 
 		private void BuildingComboBox_SelectionChanged (object sender,SelectionChangedEventArgs e)
 			{
-			if (this.issueTypeComboBox.SelectedItem == "Lines Mechanical")
+			if (this.issueTypeComboBox.SelectedItem.ToString() == "Lines Mechanical")
 				{
 				faultyAreaComboBox.Items.Clear();
 				faultyAreaComboBox.Items.Insert(0,"Please choose");

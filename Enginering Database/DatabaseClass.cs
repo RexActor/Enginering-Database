@@ -58,7 +58,7 @@ namespace Engineering_Database
 		{
 
 			string queryString = "SELECT COUNT(*) FROM engineeringDatabaseTable";
-			int count = 0;
+			//int count = 0;
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			//OleDbDataReader reader = cmd.ExecuteReader();
