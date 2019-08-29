@@ -36,7 +36,7 @@ namespace Engineering_Database
 
 
 
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 		List<IssueClass> issueDataList = new List<IssueClass>();
 		public List<IssueClass> updateIssueDataList()
 		{
@@ -84,7 +84,7 @@ namespace Engineering_Database
 
 
 			}
-
+			upIsDtList.Dispose();
 			return issueDataList;
 
 
@@ -147,7 +147,7 @@ namespace Engineering_Database
 
 
 
-
+			upIsDtList.Dispose();
 			return issueDataList;
 
 

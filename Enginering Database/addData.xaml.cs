@@ -14,7 +14,7 @@ namespace Enginering_Database
 	/// </summary>
 	public partial class addData:Window
 		{
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 		
 		public addData ( )
 			{

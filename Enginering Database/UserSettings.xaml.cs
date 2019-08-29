@@ -165,8 +165,8 @@ namespace Engineering_Database
 
 		private void ResetUserSettingsButton_Copy_Click(object sender, RoutedEventArgs e)
 		{
-			Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
+			//Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			//KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
 
 			AdminTextBox.Text = "default";
 			SubAdmin1TextBox.Text = "default";

@@ -13,7 +13,7 @@ namespace Enginering_Database
 	{
 		public static int ldata = 0;
 
-		IssueClass issueData = new IssueClass();
+		//readonly IssueClass issueData = new IssueClass();
 
 		public viewDatabase()
 

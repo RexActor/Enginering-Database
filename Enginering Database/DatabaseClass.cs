@@ -17,7 +17,7 @@ namespace Engineering_Database
 		 */
 		
 		
-		OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb");
+		readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb");
 #region connect DB close DB and DB status DB count lines functions
 		public void ConnectDB()
 		{
@@ -64,6 +64,7 @@ namespace Engineering_Database
 			//OleDbDataReader reader = cmd.ExecuteReader();
 			//reader.Read();
 			var data = (int)cmd.ExecuteScalar();
+			cmd.Dispose();
 			return data;
 		}
 			#endregion
@@ -76,7 +77,9 @@ namespace Engineering_Database
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
 			var data = reader[table].ToString();
+			cmd.Dispose();
 			return data;
+			
 		}
 		public string DBQuery(string table, int jobnumber)
 		{
@@ -94,6 +97,7 @@ namespace Engineering_Database
 			}
 
 			var data = reader[table].ToString();
+			cmd.Dispose();
 			return data;
 		}
 		public OleDbCommand DBQuery()
@@ -174,14 +178,16 @@ namespace Engineering_Database
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 
-
-			if (reader.HasRows)
+			if (reader != null)
 			{
-				reader.Read();
+				if (reader.HasRows)
+				{
+					reader.Read();
+					cmd.Dispose();
+				}
+				else
+					return 0;
 			}
-			else
-				return 0;
-
 
 			var data = reader[table].ToString();
 			//converts data into integer. If successfull returns value as int, else returns 0 (there will not be job number as 0, so can perform check. 
@@ -215,6 +221,7 @@ namespace Engineering_Database
 			
 			
 			cmd.ExecuteNonQuery();
+			cmd.Dispose();
 			
 		}
 		public void DBQueryInsertData(string table, int jobnumber, string value)
@@ -231,6 +238,7 @@ namespace Engineering_Database
 
 
 			cmd.ExecuteNonQuery();
+			cmd.Dispose();
 
 		}
 		public void DBQueryInsertData(string table, int jobnumber, int value)
@@ -247,6 +255,7 @@ namespace Engineering_Database
 
 
 			cmd.ExecuteNonQuery();
+			cmd.Dispose();
 
 		}
 		public void DBQueryInsertData(int jobnumber,string table,string value)
@@ -268,6 +277,7 @@ namespace Engineering_Database
 			//reader = cmd.ExecuteReader();
 
 			cmd.ExecuteNonQuery();
+			cmd.Dispose();
 			
 
 		}
@@ -298,6 +308,7 @@ namespace Engineering_Database
 
 
 			cmd.ExecuteNonQuery();
+			cmd.Dispose();
 
 
 		}

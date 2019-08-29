@@ -25,25 +25,25 @@ namespace Enginering_Database
 		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 
 		private string filter = "Outstanding";
-		EmailClass email = new EmailClass();
+		//readonly EmailClass email = new EmailClass();
 		int convJobNumber;
 		public string contentForTextTestLabel;
 		System.Windows.Controls.Button textTestLabel;
 		int jobList;
-		IssueClass issueClass = new IssueClass();
-		UserSettings userSett = new UserSettings();
-		DatabaseClass db = new DatabaseClass();
+		readonly IssueClass issueClass = new IssueClass();
+		readonly UserSettings userSett = new UserSettings();
+		readonly DatabaseClass db = new DatabaseClass();
 	
-		private double ScreenHeight = SystemParameters.WorkArea.Height;
-		private double ScreenWidht = SystemParameters.WorkArea.Width;
-		private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
+		readonly double ScreenHeight = SystemParameters.WorkArea.Height;
+		readonly double  ScreenWidht = SystemParameters.WorkArea.Width;
+		 readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
 
 		//if data is not selected = can't change due date
 		private bool canChangeDueDate = false;
 
 
 		//Tooltip opbjet
-		ToolTip myToolTip = new ToolTip();
+		readonly ToolTip myToolTip = new ToolTip();
 
 
 
@@ -151,7 +151,7 @@ namespace Enginering_Database
 				DataTable dt = new DataTable();
 				int i = 0;
 				da.Fill(dt);
-
+				da.Dispose();
 				
 
 
@@ -433,7 +433,7 @@ namespace Enginering_Database
 			*/
 
 
-				int c = 0;
+				int c;
 
 
 				if (Int32.TryParse(jobNumber, out c))

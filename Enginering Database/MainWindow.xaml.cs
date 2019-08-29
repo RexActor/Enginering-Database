@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+//[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace Enginering_Database
 {
@@ -18,7 +18,7 @@ namespace Enginering_Database
 
 		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 		
-		string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+		readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 		public MainWindow()
 		{
 			UserSettings userSett = new UserSettings();
@@ -72,7 +72,7 @@ namespace Enginering_Database
 
 		private void UpdateDatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
-			UserSettings userSett = new UserSettings();
+			//UserSettings userSett = new UserSettings();
 		
 			if (userName == UserSettings.SubAdmin1 || userName == UserSettings.SubAdmin2 || userName == UserSettings.UserName)
 			{

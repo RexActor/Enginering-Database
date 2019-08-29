@@ -19,7 +19,7 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class passwordWindow : Window
 	{
-		UserSettings userSett = new UserSettings();
+		readonly UserSettings userSett = new UserSettings();
 		public passwordWindow()
 		{
 			
