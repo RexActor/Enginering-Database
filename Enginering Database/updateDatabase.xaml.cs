@@ -74,13 +74,27 @@ namespace Enginering_Database
 			Frame2ReportedDescription.Text = "waiting for data";
 
 
-
+			UpdateContractorComboBox();
 			createJobList(filter);
 		
 		}
 
+		private void UpdateContractorComboBox()
+		{
+			userSett.openSettings();
+			
+			userSett.contractors = userSett.contractors.Replace(" ", string.Empty);
+			ContractorComboBoxData.Items.Clear();
+			string[] splitContractors = userSett.contractors.Split('/');
+			foreach (var word in splitContractors)
+			{
+				if (!word.Equals(""))
+				{
+					ContractorComboBoxData.Items.Add(word);
+				}
+			}
+		}
 
-		
 		private void UpdateAllDb()
 		{
 			//emplistDataGrid.ItemsSource = null;

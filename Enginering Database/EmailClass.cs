@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Mail;
-using System.Net;
-using System.Windows;
 
 namespace Engineering_Database
 {
@@ -22,7 +15,7 @@ namespace Engineering_Database
 			Microsoft.Office.Interop.Outlook.Accounts accounts = app.Session.Accounts;
 			Microsoft.Office.Interop.Outlook.Account acc = null;
 
-			
+
 
 			foreach (Microsoft.Office.Interop.Outlook.Account account in accounts)
 			{
@@ -40,9 +33,9 @@ namespace Engineering_Database
 			mailItem.Body = "Testing email";
 
 			//mailItem.Display(true);
-		
-				mailItem.Send();
-			
+
+			mailItem.Send();
+
 
 
 		}

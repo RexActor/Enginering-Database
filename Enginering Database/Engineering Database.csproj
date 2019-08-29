@@ -161,6 +161,9 @@
     <Compile Include="updateDatabase.xaml.cs">
       <DependentUpon>updateDatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserErrorWindow.xaml.cs">
+      <DependentUpon>UserErrorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserSettings.xaml.cs">
       <DependentUpon>UserSettings.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="updateDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

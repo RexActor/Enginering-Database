@@ -37,6 +37,12 @@
             <ComboBoxItem Name="Yes" IsSelected="True">Yes</ComboBoxItem>
             <ComboBoxItem Name="No">No</ComboBoxItem>
         </ComboBox>
+        <Label x:Name="ContractorAddLabel" Content="Contractors" HorizontalAlignment="Left" Height="25" Margin="10,292,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="ContractorAddTextBox" HorizontalAlignment="Left" Height="25" Margin="144,292,0,0" Text="TextBox" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Button x:Name="AddContractorButton" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,292,0,0" VerticalAlignment="Top" Width="79" Click="AddContractorButton_Click"/>
+        <ListBox x:Name="ContractorListBoxSettings" HorizontalAlignment="Left" Height="70" Margin="144,322,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="AddContractorButton_Copy" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,339,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveContractorButton_Click"/>
+        <Label x:Name="ContractorAddLabel_Copy" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="10,338,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
 
     </Grid>
 </Window>

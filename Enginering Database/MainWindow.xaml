@@ -16,7 +16,7 @@
             <Image Margin="5,4,0,0" Source="database-view-icon-16.jpg.png" Stretch="UniformToFill" Height="47" VerticalAlignment="Top" HorizontalAlignment="Left" Width="43"/>
         </Grid>
         <Grid Margin="10,171,236,193">
-            <Button Content="Update Database" Click="Button_Click_2" HorizontalAlignment="Left" Width="216" Height="55" VerticalAlignment="Top"/>
+            <Button Content="Update Database" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="216" Height="55" VerticalAlignment="Top"/>
             <Image Margin="5,4,0,0" Source="Database-12-512.png" Stretch="UniformToFill" HorizontalAlignment="Left" Width="45" Height="47" VerticalAlignment="Top"/>
         </Grid>
         <Label Content="File Write/Read?" FontSize="10" HorizontalContentAlignment="Right" Margin="5,323,0,0" Foreground="#FF251604" FontWeight="Bold" BorderBrush="#FF170202" OpacityMask="#FF130202" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>

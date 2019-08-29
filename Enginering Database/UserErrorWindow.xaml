@@ -1,0 +1,14 @@
+﻿<Window x:Class="Engineering_Database.UserErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="User Error Window" Height="142.228" Width="474.303">
+    <Grid>
+        <Label x:Name ="ErrorLabel" Content="Label" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="14" Foreground="#FFF90505"/>
+        <Button x:Name="Submit" Content="OK" HorizontalAlignment="Right" Margin="0,74,189,0" VerticalAlignment="Top" Width="70" Click="CloseErrorMessage_click"/>
+
+    </Grid>
+</Window>

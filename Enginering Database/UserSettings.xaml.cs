@@ -17,9 +17,14 @@ namespace Engineering_Database
 		public static string jobCount;
 		public static string password;
 		public static string preview;
+		public  string contractors;
+
+		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+		public static KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
 
 		public UserSettings()
 		{
+
 
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
@@ -30,7 +35,7 @@ namespace Engineering_Database
 		}
 
 
-		public  void openSettings()
+		public void openSettings()
 		{
 
 			/*
@@ -49,6 +54,7 @@ namespace Engineering_Database
 			jobCount = ConfigurationManager.AppSettings.Get("jobCount");
 			password = ConfigurationManager.AppSettings.Get("password");
 			preview = ConfigurationManager.AppSettings.Get("preview");
+			contractors = ConfigurationManager.AppSettings.Get("contractors");
 
 			AdminTextBox.Text = UserName;
 			SubAdmin1TextBox.Text = SubAdmin1;
@@ -59,13 +65,29 @@ namespace Engineering_Database
 			passwordTextBox.Text = password;
 			PreviewSettingComboBox.Text = preview;
 
+			ResetContractors();
 
+
+
+		}
+
+		private void ResetContractors()
+		{
+			contractors = contractors.Replace(" ", string.Empty);
+			ContractorListBoxSettings.Items.Clear();
+			string[] splitContractors = contractors.Split('/');
+			foreach (var word in splitContractors)
+			{
+				if (!word.Equals(""))
+				{
+					ContractorListBoxSettings.Items.Add(word);
+				}
+				}
 		}
 
 		private void SaveUserSettingsButton_Click(object sender, RoutedEventArgs e)
 		{
-			Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
+
 
 
 			configCollection["UserName"].Value = AdminTextBox.Text;
@@ -84,6 +106,61 @@ namespace Engineering_Database
 
 			this.Close();
 
+		}
+
+
+		private void AddContractorButton_Click(object sender, RoutedEventArgs e)
+		{
+
+			contractors = contractors.Insert(contractors.Length, "/" + ContractorAddTextBox.Text);
+			configCollection["contractors"].Value = contractors;
+			configManager.Save(ConfigurationSaveMode.Modified);
+			ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+
+			ResetContractors();
+
+		}
+		private void RemoveContractorButton_Click(object sender, RoutedEventArgs e)
+		{
+			string tempContr = "";
+			
+			if (ContractorListBoxSettings.SelectedItem == null)
+			{
+				MessageBox.Show("No item selected");
+			}
+			else
+			{
+
+				contractors = contractors.Replace(" ", string.Empty);
+				//ContractorListBoxSettings.Items.Clear();
+				
+				string[] splitContractors = contractors.Split('/');
+				contractors = "";
+				foreach (var word in splitContractors)
+				{
+					if (word.Equals(ContractorListBoxSettings.SelectedItem))
+
+					{
+						ContractorListBoxSettings.Items.Remove(word);
+					}
+					else
+					{
+						
+						tempContr = tempContr.Insert(tempContr.Length, "/" + word);
+						//ContractorListBoxSettings.Items.Add(word);
+					}
+				}
+				contractors = tempContr;
+				configCollection["contractors"].Value = contractors;
+				
+				configManager.Save(ConfigurationSaveMode.Modified);
+				ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+
+
+
+				//ResetContractors();
+				//MessageBox.Show(tempContr);
+			}
 		}
 
 		private void ResetUserSettingsButton_Copy_Click(object sender, RoutedEventArgs e)
