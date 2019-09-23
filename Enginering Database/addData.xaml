@@ -54,14 +54,15 @@
             </FlowDocument>
         </RichTextBox>
         <Label x:Name="ErrorMessageLabel" Grid.ColumnSpan="4" Content="You are missing some selections/data.&#xD;&#xA;Missing fields are marked with red. &#xD;&#xA;Please check and try again&#xD;&#xA;If you don't have asset number - &#xD;&#xA;use &quot;N/a&quot;" HorizontalAlignment="Left" Height="86" Margin="293,261,0,0" VerticalAlignment="Top" Width="252" Background="#FFF0B9B9" Foreground="#FF421919" FontWeight="Bold" FontFamily="Sitka Text" FontStyle="Oblique"/>
-        <Expander Header="Help" HorizontalAlignment="Left" Height="519" Margin="10,0,0,0" VerticalAlignment="Top" Width="545" Grid.ColumnSpan="4">
-            <Grid Background="#FFE5E5E5" Height="503">
+        <Expander x:Name="HelpHeader" Header="Help" IsExpanded="False" HorizontalAlignment="Left" Margin="10,0,0,0" Width="545" Grid.ColumnSpan="4" Height="111" VerticalAlignment="Top">
+            <Grid Background="#FFE5E5E5" Height="494">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition Width="85*"/>
-                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="152*"/>
+                    <ColumnDefinition Width="24*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.ColumnSpan="3" Content="This will be help menu. To understand how this form is working" HorizontalAlignment="Left" VerticalAlignment="Top" Height="493" Width="543"/>
+                <Label Grid.ColumnSpan="4" Content="This will be help menu. To understand how this form is working" HorizontalAlignment="Left" VerticalAlignment="Top" Height="493" Width="543"/>
             </Grid>
         </Expander>
 

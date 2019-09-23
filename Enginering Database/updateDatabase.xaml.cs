@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Data;
 using System.Data.OleDb;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -75,6 +75,8 @@ namespace Enginering_Database
 
 
 			UpdateContractorComboBox();
+
+			//TODO:requires fix for this function. Show exception error on work PC
 			createJobList(filter);
 		
 		}
@@ -202,8 +204,12 @@ namespace Enginering_Database
 				Frame3UpdateDueDateLabel.Visibility = Visibility.Hidden;
 				Frame3UpdateDueDateDatePicker.Visibility = Visibility.Hidden;
 			}
+			//TODO: error fix required for displaying name
+			//Frame3userNameLabel.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+			//Frame3userNameLabel.Content = "Gatis - Fix required";
 
-			Frame3userNameLabel.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+			Frame3userNameLabel.Content = Environment.UserName;
+
 			Frame3CurrentDateLabel.Content = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
 		}

@@ -1,8 +1,11 @@
 ﻿using Engineering_Database;
 using System;
-using System.IO;
+//using System.IO;
 using System.Windows;
-using System.Windows.Media;
+using System.Windows.Input;
+//using System.Windows.Media;
+//using System.Security.Permissions;
+//using System.Windows.Threading;
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -17,24 +20,38 @@ namespace Enginering_Database
 	{
 
 		//private static readonly log4net.ILog log = LogHelper.GetLogger();
-		
-		readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+
+		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
+		string userName = "Gatis";
 		public MainWindow()
 		{
+
+
 			UserSettings userSett = new UserSettings();
+
+
+
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+
+
 			DatabaseClass dtC = new DatabaseClass();
 
-			dtC.ConnectDB();
+
+			Application currApp = Application.Current;
+			currApp.ShutdownMode = ShutdownMode.OnLastWindowClose;
 
 
 
-			userSett.openSettings();
 
 
 			InitializeComponent();
 
+			userSett.openSettings();
+			dtC.ConnectDB();
 			fileExistsLabelData.Content = dtC.DBStatus();
+
+
 			//checkFile();
 
 			/*
@@ -49,9 +66,23 @@ namespace Enginering_Database
 				}
 				*/
 
-			upLoadingData(viewDatabase.ldata);
+			//upLoadingData(viewDatabase.ldata);
+
+			AppDomain currentDomain = AppDomain.CurrentDomain;
+			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+
+			//throw new Exception("2");
+
+		}
 
 
+
+		static void MyHandler(object sender, UnhandledExceptionEventArgs args)
+		{
+			Exception e = (Exception)args.ExceptionObject;
+			UserErrorWindow userError = new UserErrorWindow();
+			userError.errorMessage = e.Message;
+			userError.CallWindow();
 
 		}
 
@@ -73,7 +104,7 @@ namespace Enginering_Database
 		private void UpdateDatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 			//UserSettings userSett = new UserSettings();
-		
+
 			if (userName == UserSettings.SubAdmin1 || userName == UserSettings.SubAdmin2 || userName == UserSettings.UserName)
 			{
 
@@ -83,11 +114,23 @@ namespace Enginering_Database
 			}
 			else
 			{
-				UserErrorWindow userErrorMessage = new UserErrorWindow();
-				userErrorMessage.errorMessage = "Damn... something went wrong. You don't have access to this...";
-				userErrorMessage.Title = "User Access Error";
-				userErrorMessage.CallWindow();
-				userErrorMessage.ShowDialog();
+
+				PasswordRequest("UpdateDB");
+
+
+				/*else
+				{
+
+
+					UserErrorWindow userErrorMessage = new UserErrorWindow();
+					userErrorMessage.errorMessage = "Damn... something went wrong. You don't have access to this...";
+					userErrorMessage.Title = "User Access Error";
+					userErrorMessage.CallWindow();
+					userErrorMessage.ShowDialog();
+
+				}*/
+
+
 			}
 		}
 		private void SettingsShow(object sender, RoutedEventArgs e)
@@ -97,7 +140,7 @@ namespace Enginering_Database
 			if (userName != UserSettings.SubAdmin1 || userName != UserSettings.SubAdmin2 || userName != UserSettings.UserName)
 			{
 
-				PasswordRequest();
+				PasswordRequest("Settings");
 			}
 			else
 			{
@@ -108,70 +151,43 @@ namespace Enginering_Database
 		}
 
 
-		public void checkFile()
-		{
-			//database.xlsx
-
-			String curfile = Directory.GetCurrentDirectory() + @"\database.xlsx";
-			timeUpdatedLabelData.Content = System.IO.File.GetLastWriteTime(curfile).ToString("dd/MM/yy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-
-			timeUpdatedLabelData.Foreground = Brushes.Green;
-			if (File.Exists(curfile))
-			{
-				fileExistsLabelData.Content = "Yes";
-				fileExistsLabelData.Foreground = Brushes.Green;
 
 
-			}
-			else
-			{
-				fileExistsLabelData.Content = "NO";
-				fileExistsLabelData.Foreground = Brushes.Red;
-			}
-			if (FileInfo(curfile) == true)
-			{
-				isReadOnlyLabelData.Content = "NO";
-				isReadOnlyLabelData.Foreground = Brushes.Red;
-			}
-			else
-			{
-				isReadOnlyLabelData.Content = "Yes";
-				isReadOnlyLabelData.Foreground = Brushes.Green;
-			}
-
-		}
-
-		public static bool FileInfo(string fileName)
-		{
-			FileInfo fInfo = new FileInfo(fileName);
-			return fInfo.IsReadOnly;
-		}
-		public void updateBar(int value)
-		{
-			loadingData.Value = value;
-		}
+		//public void updateBar(int value)
+		//{
+		//	loadingData.Value = value;
+		//}
 		public static void UpdateStat()
 		{
 
 		}
-		public void upLoadingData(int value)
-		{
-			loadingData.Value = loadingData.Value + value;
-		}
+		//public void upLoadingData(int value)
+		//{
+		//	loadingData.Value = loadingData.Value + value;
+		//}
 
 		private void MenuItem_Click(object sender, RoutedEventArgs e)
 		{
 
 		}
 
-		private void PasswordRequest()
+		private void PasswordRequest(string target)
 		{
 
 			passwordWindow passwordWindow = new passwordWindow();
-
+			passwordWindow.targetWindow = target;
 			passwordWindow.ShowDialog();
 
 
+		}
+
+			//this.Close();
+		}
+
+		protected override void OnClosed(EventArgs e)
+		{
+			base.OnClosed(e);
+			Application.Current.Shutdown();
 		}
 
 	}
