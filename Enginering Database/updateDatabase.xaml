@@ -118,9 +118,10 @@
                     <Label x:Name="Frame3AssignedTo" Content="Assigned to" HorizontalAlignment="Left" Margin="7,505,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3AssignedToData" Content="Assigned to" HorizontalAlignment="Left" Margin="115,505,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <Label x:Name="ContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="10,536,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="ContractorComboBoxData" HorizontalAlignment="Left" Margin="115,536,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="ContractorComboBoxData" IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,536,0,0" VerticalAlignment="Top" Width="120"/>
+
                     <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="AssignToDropDownBox"  HorizontalAlignment="Left" Margin="115,483,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,483,0,0" VerticalAlignment="Top" Width="120"/>
                 </Grid>
             </TabItem>
 

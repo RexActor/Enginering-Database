@@ -379,6 +379,7 @@ namespace Enginering_Database
 					if (emplistDataGrid != null)
 					{
 						emplistDataGrid.ItemsSource = null;
+						
 
 						emplistDataGrid.ItemsSource = issueClass.updateIssueDataListForSpecificJob(convertSearch);
 					}
@@ -496,6 +497,8 @@ namespace Enginering_Database
 			if (db.DBQuery("AssignedTo", convJobNumber) == "")
 			{
 				Frame3AssignedToData.Content = "Job is not assigned";
+				//AssignToDropDownBox.SelectedItem = "Please select";
+				AssignToDropDownBox.Text = "Please select";
 			}
 			else
 			{
@@ -510,6 +513,16 @@ namespace Enginering_Database
 			{
 				Frame3CompleteCheckBox.IsChecked = false;
 
+			}
+
+			if (db.DBQuery("Contractor", convJobNumber) != "")
+			{
+				ContractorComboBoxData.SelectedItem = db.DBQuery("Contractor", convJobNumber);
+			}
+			else
+			{
+				ContractorComboBoxData.Text = "Please select";
+				//ContractorComboBoxData.SelectedItem = "Please select";
 			}
 
 
@@ -534,7 +547,7 @@ namespace Enginering_Database
 			}
 
 			db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
-
+			db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
 
 
 			createJobList(filter);

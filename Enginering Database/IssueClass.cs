@@ -10,7 +10,7 @@ namespace Engineering_Database
 	class IssueClass
 	{
 		public int JobNumber { get; set; }
-		public	string ReportedDate { get; set; }
+		public string ReportedDate { get; set; }
 		public string CompletedDate { get; set; }
 		public string ReportedTime { get; set; }
 		public string CompletedTime { get; set; }
@@ -31,7 +31,7 @@ namespace Engineering_Database
 		public string DueDate { get; set; }
 		public string Area { get; set; }
 		public string AssignedTo { get; set; }
-
+		public string Contractor { get; set; }
 
 
 		readonly DatabaseClass db = new DatabaseClass();
@@ -39,10 +39,10 @@ namespace Engineering_Database
 		public List<IssueClass> updateIssueDataList()
 		{
 
-
+			issueDataList.Clear();
 			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForAllLines());
 			DataTable dt2 = new DataTable();
-
+			
 			upIsDtList.Fill(dt2);
 
 
@@ -75,6 +75,7 @@ namespace Engineering_Database
 				newIs.DueDate = dr["DueDate"].ToString();
 				newIs.Area = dr["Area"].ToString();
 				newIs.AssignedTo = dr["AssignedTo"].ToString();
+				newIs.Contractor = dr["Contractor"].ToString();
 
 
 
@@ -82,6 +83,7 @@ namespace Engineering_Database
 
 
 			}
+		
 			upIsDtList.Dispose();
 			return issueDataList;
 
@@ -92,7 +94,7 @@ namespace Engineering_Database
 		public List<IssueClass> updateIssueDataListForSpecificJob(int searchJobNumber)
 		{
 
-
+			issueDataList.Clear();
 			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForViewDatabase(searchJobNumber));
 			DataTable dt2 = new DataTable();
 
@@ -128,7 +130,7 @@ namespace Engineering_Database
 				newIs.DueDate = dr["DueDate"].ToString();
 				newIs.Area = dr["Area"].ToString();
 				newIs.AssignedTo = dr["AssignedTo"].ToString();
-
+				newIs.Contractor = dr["Contractor"].ToString();
 
 
 				issueDataList.Add(newIs);
