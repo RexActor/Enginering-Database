@@ -180,19 +180,19 @@ namespace Enginering_Database
 
 
 		}
-
-			//this.Close();
-		}
-
 		protected override void OnClosed(EventArgs e)
 		{
 			base.OnClosed(e);
 			Application.Current.Shutdown();
 		}
-
+		//this.Close();
 	}
 
 
 
 }
+
+
+
+
 

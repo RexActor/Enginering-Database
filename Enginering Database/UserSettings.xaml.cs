@@ -17,7 +17,8 @@ namespace Engineering_Database
 		public static string jobCount;
 		public static string password;
 		public static string preview;
-		public  string contractors;
+		public string contractors;
+		public string assignToUser;
 
 		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		public static KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
@@ -55,6 +56,8 @@ namespace Engineering_Database
 			password = ConfigurationManager.AppSettings.Get("password");
 			preview = ConfigurationManager.AppSettings.Get("preview");
 			contractors = ConfigurationManager.AppSettings.Get("contractors");
+			assignToUser = ConfigurationManager.AppSettings.Get("assignTo");
+
 
 			AdminTextBox.Text = UserName;
 			SubAdmin1TextBox.Text = SubAdmin1;
@@ -65,8 +68,9 @@ namespace Engineering_Database
 			passwordTextBox.Text = password;
 			PreviewSettingComboBox.Text = preview;
 
-			ResetContractors();
 
+			ResetContractors();
+			resetAssignToList();
 
 
 		}
@@ -82,7 +86,21 @@ namespace Engineering_Database
 				{
 					ContractorListBoxSettings.Items.Add(word);
 				}
+			}
+		}
+
+		private void resetAssignToList()
+		{
+			//assignToUser = assignToUser.Replace(" ", string.Empty);
+			AssignToUserListSettingsListBox.Items.Clear();
+			string[] splitAssignTo = assignToUser.Split('/');
+			foreach (var word in splitAssignTo)
+			{
+				if (!word.Equals(""))
+				{
+					AssignToUserListSettingsListBox.Items.Add(word);
 				}
+			}
 		}
 
 		private void SaveUserSettingsButton_Click(object sender, RoutedEventArgs e)
@@ -120,10 +138,50 @@ namespace Engineering_Database
 			ResetContractors();
 
 		}
+
+		private void AddAssignedTo_Click(object sender, RoutedEventArgs e)
+		{
+			assignToUser = assignToUser.Insert(assignToUser.Length, "/" + AssignToTextBox.Text);
+			configCollection["assignTo"].Value = assignToUser;
+			configManager.Save(ConfigurationSaveMode.Modified);
+			ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+			resetAssignToList();
+		}
+		private void RemoveAssignedToButton_Click(object sender, RoutedEventArgs e)
+		{
+			string tempAssignTo = "";
+			if (AssignToUserListSettingsListBox.SelectedItem == null)
+			{
+				MessageBox.Show("No item selected");
+
+			}
+			else
+			{
+				//assignToUser = assignToUser.Replace(" ", string.Empty);
+				string[] splitAssignTo = assignToUser.Split('/');
+				assignToUser = "";
+				foreach (var word in splitAssignTo)
+				{
+					if (word.Equals(AssignToUserListSettingsListBox.SelectedItem))
+					{
+						AssignToUserListSettingsListBox.Items.Remove(word);
+					}
+					else
+					{
+						tempAssignTo = tempAssignTo.Insert(tempAssignTo.Length, "/" + word);
+					}
+				}
+				assignToUser = tempAssignTo;
+				configCollection["assignTo"].Value = assignToUser;
+				configManager.Save(ConfigurationSaveMode.Modified);
+				ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+			}
+		}
+
 		private void RemoveContractorButton_Click(object sender, RoutedEventArgs e)
 		{
 			string tempContr = "";
-			
+
 			if (ContractorListBoxSettings.SelectedItem == null)
 			{
 				MessageBox.Show("No item selected");
@@ -133,7 +191,7 @@ namespace Engineering_Database
 
 				contractors = contractors.Replace(" ", string.Empty);
 				//ContractorListBoxSettings.Items.Clear();
-				
+
 				string[] splitContractors = contractors.Split('/');
 				contractors = "";
 				foreach (var word in splitContractors)
@@ -145,14 +203,14 @@ namespace Engineering_Database
 					}
 					else
 					{
-						
+
 						tempContr = tempContr.Insert(tempContr.Length, "/" + word);
 						//ContractorListBoxSettings.Items.Add(word);
 					}
 				}
 				contractors = tempContr;
 				configCollection["contractors"].Value = contractors;
-				
+
 				configManager.Save(ConfigurationSaveMode.Modified);
 				ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
 
