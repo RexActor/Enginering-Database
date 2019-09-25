@@ -122,6 +122,8 @@
 
                     <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,483,0,0" VerticalAlignment="Top" Width="120"/>
+                    <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="115,577,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave"/>
+                    <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,572,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
 

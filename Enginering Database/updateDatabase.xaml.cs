@@ -20,7 +20,7 @@ namespace Enginering_Database
 		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 
 		private string filter = "Outstanding";
-		//readonly EmailClass email = new EmailClass();
+		readonly EmailClass email = new EmailClass();
 		int convJobNumber;
 		public string contentForTextTestLabel;
 		System.Windows.Controls.Button textTestLabel;
@@ -28,15 +28,15 @@ namespace Enginering_Database
 		readonly IssueClass issueClass = new IssueClass();
 		readonly UserSettings userSett = new UserSettings();
 		readonly DatabaseClass db = new DatabaseClass();
-
+		UserErrorWindow userError = new UserErrorWindow();
 		readonly double ScreenHeight = SystemParameters.WorkArea.Height;
 		readonly double ScreenWidht = SystemParameters.WorkArea.Width;
 		readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
 
 		//if data is not selected = can't change due date
 		private bool canChangeDueDate = false;
-
-
+		private bool canSendEmail = false;
+		private bool canSubmit = false;
 		//Tooltip opbjet
 		readonly ToolTip myToolTip = new ToolTip();
 
@@ -325,6 +325,19 @@ namespace Enginering_Database
 		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
 		{
 			canChangeDueDate = true;
+			canSendEmail = true;
+			canSubmit = true;
+
+			if (ChangeDueDateCheckBox.IsChecked == true)
+			{
+				ChangeDueDateCheckBox.IsChecked = false;
+			}
+
+			if (ConfirmEmailCheckBox.IsChecked == true)
+			{
+				ConfirmEmailCheckBox.IsChecked = false;
+			}
+
 
 			//log.Debug(p);
 			Button btn = sender as Button;
@@ -379,7 +392,7 @@ namespace Enginering_Database
 					if (emplistDataGrid != null)
 					{
 						emplistDataGrid.ItemsSource = null;
-						
+
 
 						emplistDataGrid.ItemsSource = issueClass.updateIssueDataListForSpecificJob(convertSearch);
 					}
@@ -427,6 +440,10 @@ namespace Enginering_Database
 					Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 				}
 			}
+			else
+			{
+				ChangeDueDateCheckBox.IsChecked = false;
+			}
 		}
 
 		private void DueDateChangeCheckBoxMouseOver(object sender, RoutedEventArgs e)
@@ -450,16 +467,20 @@ namespace Enginering_Database
 
 		private void DueDateChange_change(object sender, SelectionChangedEventArgs e)
 		{
-			if (ChangeDueDateCheckBox.IsChecked == true)
+			if (canChangeDueDate == true)
 			{
-				Frame3DueDateTextBox.Text = Frame3UpdateDueDateDatePicker.SelectedDate.Value.Date.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
+				if (ChangeDueDateCheckBox.IsChecked == true)
+				{
+					Frame3DueDateTextBox.Text = Frame3UpdateDueDateDatePicker.SelectedDate.Value.Date.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
-				DateTime StartDate = DateTime.Now.Date;
-				DateTime EndDate = Frame3UpdateDueDateDatePicker.SelectedDate.Value.Date;
-				Double daysBetween = (EndDate - StartDate).TotalDays;
+					DateTime StartDate = DateTime.Now.Date;
+					DateTime EndDate = Frame3UpdateDueDateDatePicker.SelectedDate.Value.Date;
+					Double daysBetween = (EndDate - StartDate).TotalDays;
 
-				Frame3DaysTillDueData.Content = daysBetween;
+					Frame3DaysTillDueData.Content = daysBetween;
+				}
 			}
+
 		}
 
 		private void UpdateFrame2(string jobNumber)
@@ -525,6 +546,15 @@ namespace Enginering_Database
 				//ContractorComboBoxData.SelectedItem = "Please select";
 			}
 
+			if (db.DBQuery("CommentsForActionTaken", convJobNumber) != "")
+			{
+				Frame2AdminDescriptionTextBox.Text = db.DBQuery("CommentsForActionTaken", convJobNumber);
+			}
+			else
+			{
+				Frame2AdminDescriptionTextBox.Text = "";
+			}
+
 
 
 
@@ -532,44 +562,84 @@ namespace Enginering_Database
 
 		private void Submit_Click(object sender, RoutedEventArgs e)
 		{
-			//MessageBox.Show(convJobNumber.ToString());
 
-			if (Frame3CompleteCheckBox.IsChecked == true)
+			if (canSubmit == true)
 			{
-				db.DBQueryInsertData("Completed", convJobNumber, true);
-				db.DBQueryInsertData(convJobNumber, "Action", "Actioned");
+				//MessageBox.Show(convJobNumber.ToString());
 
+				if (Frame3CompleteCheckBox.IsChecked == true)
+				{
+					db.DBQueryInsertData("Completed", convJobNumber, true);
+					db.DBQueryInsertData(convJobNumber, "Action", "Actioned");
+					Frame3CompleteCheckBox.IsChecked = false;
+				}
+				else
+				{
+					db.DBQueryInsertData("Completed", convJobNumber, false);
+					db.DBQueryInsertData(convJobNumber, "Action", "Action required");
+				}
+
+				if (Frame2AdminDescriptionTextBox.Text != null)
+				{
+					db.DBQueryInsertData("CommentsForActionTaken", convJobNumber, Frame2AdminDescriptionTextBox.Text.ToString());
+				}
+
+				if (ChangeDueDateCheckBox.IsChecked == true)
+				{
+					db.DBQueryInsertData("DueDate", convJobNumber, Frame3UpdateDueDateDatePicker.Text.ToString());
+				}
+
+
+				db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
+				db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
+
+
+				createJobList(filter);
+				Frame3.Refresh();
+
+				Frame2JobNumberData.Content = "waiting for data";
+				Frame2ReportedDateData.Content = "waiting for data";
+				Frame2ReportedUserData.Content = "waiting for data";
+				Frame2AreaData.Content = "waiting for data";
+				Frame2IssueTypeData.Content = "waiting for data";
+				Frame2BuildingData.Content = "waiting for data";
+				Frame2ReportedTimeData.Content = "waiting for data";
+				Frame2DueDateData.Content = "waiting for data";
+				Frame2FaultyAreaData.Content = "waiting for data";
+				Frame2IssueCodeData.Content = "waiting for data";
+				Frame2AssetData.Content = "waiting for data";
+				Frame2PriorityData.Content = "waiting for data";
+
+				Frame2ReportedDescription.Text = "waiting for data";
+				//MessageBox.Show(db.DBQuery("JobNumber"));
+
+				if (ChangeDueDateCheckBox.IsChecked == true)
+				{
+					ChangeDueDateCheckBox.IsChecked = false;
+				}
+
+				if (ConfirmEmailCheckBox.IsChecked == true && canSendEmail == true)
+				{
+
+					email.SendEmail();
+					ConfirmEmailCheckBox.IsChecked = false;
+					canSendEmail = false;
+				}
+				else if (canSendEmail == false)
+				{
+					userError.errorMessage = "Sorry. You don't have selected any job. You are not allowed to send email";
+					userError.Title = "Confirm email error";
+					userError.CallWindow();
+					userError.ShowDialog();
+				}
 			}
 			else
 			{
-				db.DBQueryInsertData("Completed", convJobNumber, false);
-				db.DBQueryInsertData(convJobNumber, "Action", "Action required");
+				userError.errorMessage = "Sorry. You are not allowed to submit anything. Please select job from list to update";
+				userError.Title = "Job Selection error";
+				userError.CallWindow();
+				userError.ShowDialog();
 			}
-
-			db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
-			db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
-
-
-			createJobList(filter);
-			Frame3.Refresh();
-
-			Frame2JobNumberData.Content = "waiting for data";
-			Frame2ReportedDateData.Content = "waiting for data";
-			Frame2ReportedUserData.Content = "waiting for data";
-			Frame2AreaData.Content = "waiting for data";
-			Frame2IssueTypeData.Content = "waiting for data";
-			Frame2BuildingData.Content = "waiting for data";
-			Frame2ReportedTimeData.Content = "waiting for data";
-			Frame2DueDateData.Content = "waiting for data";
-			Frame2FaultyAreaData.Content = "waiting for data";
-			Frame2IssueCodeData.Content = "waiting for data";
-			Frame2AssetData.Content = "waiting for data";
-			Frame2PriorityData.Content = "waiting for data";
-
-			Frame2ReportedDescription.Text = "waiting for data";
-			//MessageBox.Show(db.DBQuery("JobNumber"));
-
-
 		}
 
 

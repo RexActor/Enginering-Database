@@ -12,7 +12,7 @@ namespace Engineering_Database
 		public static string UserName;
 		public static string SubAdmin1;
 		public static string SubAdmin2;
-		public static string Email;
+		public  string Email;
 		public static string database;
 		public static string jobCount;
 		public static string password;

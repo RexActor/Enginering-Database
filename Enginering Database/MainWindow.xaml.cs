@@ -22,7 +22,8 @@ namespace Enginering_Database
 		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 
 		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
-		string userName = "Gatis";
+		readonly string userName = Environment.UserName;
+			//string userName = "Gatis";
 		public MainWindow()
 		{
 

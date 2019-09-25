@@ -191,7 +191,7 @@ namespace Engineering_Database
 					cmd.Dispose();
 					return 0;
 				}
-				reader.Close();
+				//reader.Close();
 			}
 
 			var data = reader[table].ToString();

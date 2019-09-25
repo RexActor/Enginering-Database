@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="User Error Window" Height="142.228" Width="474.303">
     <Grid>
-        <Label x:Name ="ErrorLabel" Content="Label" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="14" Foreground="#FFF90505"/>
+
+        <Border BorderBrush="{x:Null}" Margin="10,10,0,42">
+        <TextBlock x:Name="ErrorTextBlock" TextWrapping="Wrap" Margin="0,0,10,0" TextAlignment="Center" VerticalAlignment="Center"   Foreground="#FFF70909" Height="59" >asdasdasd</TextBlock>
+        </Border>
         <Button x:Name="Submit" Content="OK" HorizontalAlignment="Right" Margin="0,74,189,0" VerticalAlignment="Top" Width="70" Click="CloseErrorMessage_click"/>
 
     </Grid>

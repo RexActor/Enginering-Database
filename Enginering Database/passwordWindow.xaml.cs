@@ -10,7 +10,7 @@ namespace Engineering_Database
 	public partial class passwordWindow : Window
 	{
 		readonly UserSettings userSett = new UserSettings();
-		updateDatabase updateDatabase = new updateDatabase();
+		readonly updateDatabase updateDatabase = new updateDatabase();
 		public string targetWindow;
 		public passwordWindow()
 		{
