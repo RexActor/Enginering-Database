@@ -5,14 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enginering_Database"
         mc:Ignorable="d"
-        Title="View Database" Height="{Binding SystemParameters.PrimaryScreenHeight}" Width="{Binding SystemParameters.PrimaryScreenWidth}" ResizeMode="NoResize" 
-       >
-    <Grid Margin="0,0,0,-21">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="212*"/>
-            <RowDefinition Height="207*"/>
-        </Grid.RowDefinitions>
-        <DataGrid x:Name="excelDataGridData" Margin="10,0,10,41" Grid.RowSpan="2"/>
-        <Grid HorizontalAlignment="Left" Height="399" Margin="10,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="772"/>
+        Title="View Database"  Height="681.392" Width="800" ResizeMode="NoResize">
+    <Grid Margin="14,91,7,16">
+        <Frame x:Name="OustandingUserFrame" Content="" HorizontalAlignment="Left" Height="254" VerticalAlignment="Top" Width="213" BorderThickness="1" BorderBrush="Black"/>
+
+
+        <Frame x:Name="ResolvedUserFrame" Content="" HorizontalAlignment="Left" Height="291" VerticalAlignment="Top" Width="213" Margin="0,254,0,0" BorderThickness="1" BorderBrush="Black"/>
+        <Frame x:Name="InfoUserFrame" Content="" HorizontalAlignment="Left" Width="560" Margin="213,0,0,0" BorderThickness="1" BorderBrush="Black"/>
+        <ScrollViewer x:Name="OutstandingUserScrollView" HorizontalAlignment="Left" Height="225" Margin="0,27,0,0" VerticalAlignment="Top" Width="210">
+            <StackPanel x:Name="OustandingUserStackPanel"></StackPanel>
+        </ScrollViewer>
+
+
+        <ScrollViewer x:Name="ResolvedUserScrollView" HorizontalAlignment="Left" Margin="0,281,0,3" Width="210">
+            <StackPanel x:Name="ResolvedUserstackPanel"></StackPanel>
+        </ScrollViewer>
+
+        <StackPanel x:Name="UserFrameStackPanel" Margin="213,0,0,0"/>
+        <Label x:Name="ResolvedUserLabel" Content="Resolved Issues" HorizontalAlignment="Left" Height="27" Margin="0,254,0,0" VerticalAlignment="Top" Width="213" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="12" Background="#FF227C57"/>
+        <Label x:Name="ResolvedUserLabel_Copy" Content="Oustanding Issues" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="213" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="12" Background="#FF7A6767"/>
+        <Label x:Name="UserJobNumberLabel" Content="Job Number" HorizontalAlignment="Left" Margin="218,10,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserReportedDateLabel" Content="Reported Date" HorizontalAlignment="Left" Margin="493,10,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserReportedTimeLabel" Content="Reported Time" HorizontalAlignment="Left" Margin="218,43,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserDueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="493,43,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserAreaLabel" Content="Area" HorizontalAlignment="Left" Margin="218,76,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserIssueTypeLabel" Content="Issue Type" HorizontalAlignment="Left" Margin="493,76,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserBuildingLabel" Content="Building" HorizontalAlignment="Left" Margin="218,109,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserFaultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" Margin="493,109,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserIssueCodeLabel" Content="Issue Code" HorizontalAlignment="Left" Margin="218,142,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserAssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" Margin="493,142,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserPriorityLabel" Content="Priority" HorizontalAlignment="Left" Margin="218,175,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="493,175,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserAssignedToLabel" Content="Assigned To" HorizontalAlignment="Left" Margin="218,208,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserJobNumberLabelData" Content="" HorizontalAlignment="Left" Margin="321,10,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserReportedDateLabelData" Content="" HorizontalAlignment="Left" Margin="596,10,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserReportedTimeLabelData" Content="" HorizontalAlignment="Left" Margin="321,43,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserDueDateLabelData" Content="" HorizontalAlignment="Left" Margin="596,43,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserAreaLabelData" Content="" HorizontalAlignment="Left" Margin="321,76,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserIssueTypeLabelData" Content="" HorizontalAlignment="Left" Margin="596,76,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserBuildingLabelData" Content="" HorizontalAlignment="Left" Margin="321,109,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserFaultyAreaLabelData" Content="" HorizontalAlignment="Left" Margin="596,109,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserIssueCodeLabelData" Content="" HorizontalAlignment="Left" Margin="321,142,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserAssetNumberLabelData" Content="" HorizontalAlignment="Left" Margin="596,142,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserPriorityLabelData" Content="" HorizontalAlignment="Left" Margin="321,175,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserContractorLabelData" Content="" HorizontalAlignment="Left" Margin="596,175,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserAssignedToLabelData" Content="" HorizontalAlignment="Left" Margin="321,208,0,0" VerticalAlignment="Top" Width="167" BorderThickness="1" BorderBrush="Black"/>
+        <Label x:Name="UserReportDescLabel" Content="Your Report" HorizontalAlignment="Left" Margin="218,241,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black"/>
+
+        <TextBox x:Name="UserDescTextBox" IsReadOnly="True" HorizontalAlignment="Left" Height="96" Margin="321,241,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="442"  />
+        <Label x:Name="UserEngineerCommentLabel" Content="Engineer &#xD;&#xA;Comment" HorizontalAlignment="Left" Margin="218,354,0,0" VerticalAlignment="Top" Width="98" BorderThickness="1" BorderBrush="Black" Height="42"/>
+        <TextBox x:Name="UserEngineerTextBox" IsReadOnly="True" HorizontalAlignment="Left" Height="96" Margin="321,354,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="442"  />
+        <Label x:Name="LogedInUserLabel" Content="Label" HorizontalAlignment="Left" Height="25" Margin="0,-84,0,0" VerticalAlignment="Top" Width="168"/>
+        <Button Content="Refresh" HorizontalAlignment="Left" Height="31" Margin="639,-47,0,0" VerticalAlignment="Top" Width="124" Click="RefreshUserView"/>
+
     </Grid>
+
 </Window>

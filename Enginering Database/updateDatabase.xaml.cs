@@ -1,7 +1,6 @@
 ﻿
-using Engineering_Database;
-using System;
 
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
@@ -9,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Engineering_Database;
+
 
 namespace Enginering_Database
 {
@@ -117,7 +118,7 @@ namespace Enginering_Database
 
 		private void UpdateAssignToComboBox()
 		{
-
+			
 
 			//open usersettings configuration file
 			userSett.openSettings();
@@ -512,8 +513,8 @@ namespace Enginering_Database
 			Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
 
 			Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
-			Frame3StartTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("StartTime", convJobNumber)).ToShortTimeString();
-			Frame3FinishTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("FinishTime", convJobNumber)).ToShortTimeString();
+			//Frame3StartTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("StartTime", convJobNumber)).ToShortTimeString();
+			//Frame3FinishTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("FinishTime", convJobNumber)).ToShortTimeString();
 
 			if (db.DBQuery("AssignedTo", convJobNumber) == "")
 			{
@@ -565,6 +566,7 @@ namespace Enginering_Database
 
 			if (canSubmit == true)
 			{
+				
 				//MessageBox.Show(convJobNumber.ToString());
 
 				if (Frame3CompleteCheckBox.IsChecked == true)
@@ -589,10 +591,14 @@ namespace Enginering_Database
 					db.DBQueryInsertData("DueDate", convJobNumber, Frame3UpdateDueDateDatePicker.Text.ToString());
 				}
 
-
-				db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
-				db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
-
+				if (AssignToDropDownBox.SelectedIndex > 0)
+				{
+					db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
+				}
+				if (ContractorComboBoxData.SelectedIndex > 0)
+				{
+					db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
+				}
 
 				createJobList(filter);
 				Frame3.Refresh();
@@ -706,12 +712,15 @@ namespace Enginering_Database
 
 		private void FilterLabelClicked(Object sender, EventArgs e)
 		{
+			
 			Label btn = sender as Label;
-			//MessageBox.Show(btn.Name.ToString());
 
+			TestStackPanel.Children.Clear();
 			filter = btn.Name.ToString();
 			filterExpander.IsExpanded = false;
+			//MessageBox.Show(filter);
 			createJobList(filter);
+			Frame3.Refresh();
 
 		}
 	}

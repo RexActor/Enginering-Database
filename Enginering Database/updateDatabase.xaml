@@ -21,25 +21,17 @@
 
                     </ScrollViewer>
                     <StackPanel x:Name="Frame2StackPanel" HorizontalAlignment="Left" Height="582" Margin="254,10,0,0" VerticalAlignment="Top" Width="493"/>
-                    <TextBox x:Name="Frame3StartTimeTextBox" HorizontalAlignment="Left" Height="23" Margin="110,284,0,0"  Text="StartTimeData" VerticalAlignment="Top" Width="120" TextChanged="StartTimeTextBox_TextChanged" MaxLines="1" VerticalContentAlignment="Center"/>
-
-                    <TextBox x:Name="Frame3FinishTimeTextBox" HorizontalAlignment="Left" Height="23" Margin="110,315,0,0" TextWrapping="Wrap" Text="FinishTimeData" VerticalAlignment="Top" Width="120" />
-
-                    <Label x:Name="Frame3WorkingTimeResultLabel" Content="WorkingTimeValue" HorizontalAlignment="Left" Margin="110,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center"/>
-                    <DatePicker x:Name="Frame3UpdateDueDateDatePicker" HorizontalAlignment="Left" Margin="121,424,0,0" VerticalAlignment="Top" Width="114" SelectedDateChanged="DueDateChange_change"/>
-                    <Label x:Name="Frame3UpdateDueDateLabel" Content="Update due date" HorizontalAlignment="Left" Margin="7,424,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="109" VerticalContentAlignment="Center"/>
+                    <DatePicker x:Name="Frame3UpdateDueDateDatePicker" HorizontalAlignment="Left" Margin="121,331,0,0" VerticalAlignment="Top" Width="114" SelectedDateChanged="DueDateChange_change"/>
+                    <Label x:Name="Frame3UpdateDueDateLabel" Content="Update due date" HorizontalAlignment="Left" Margin="7,331,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="109" VerticalContentAlignment="Center"/>
                     <Button Content="Submit" HorizontalAlignment="Left" Margin="155,572,0,0" VerticalAlignment="Top" Width="75" Click="Submit_Click"/>
                     <Label x:Name="Frame3userNameLabel" Content="UserName" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3CurrentDateLabel" Content="Date" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center"/>
-                    <Label x:Name="Frame3StartTimeLabel" Content="Start Time" HorizontalAlignment="Left" Margin="10,283,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center" Height="23"/>
-                    <Label x:Name="Frame3FinishTimeLabel" Content="Finish Time" HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center" Height="23"/>
-                    <Label x:Name="Frame3WorkingTimeLabel" Content="Working time" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3CompleteLabel" Content="Complete?" HorizontalAlignment="Left" Margin="133,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
                     <CheckBox x:Name="Frame3CompleteCheckBox" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="210,232,0,0" VerticalAlignment="Top" Height="21"/>
-                    <Label x:Name="Frame3DueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
-                    <TextBox x:Name="Frame3DueDateTextBox" HorizontalAlignment="Left" Height="23" Margin="110,372,0,0" TextWrapping="Wrap" Text="DueDateDate" VerticalAlignment="Top" Width="120" />
-                    <Label x:Name="Frame3ChangeDueDateLabel" Content="Change due Date" HorizontalAlignment="Left" Margin="8,398,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="121,403,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave"/>
+                    <Label x:Name="Frame3DueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="Frame3DueDateTextBox" HorizontalAlignment="Left" Height="23" Margin="110,279,0,0" TextWrapping="Wrap" Text="DueDateDate" VerticalAlignment="Top" Width="120" />
+                    <Label x:Name="Frame3ChangeDueDateLabel" Content="Change due Date" HorizontalAlignment="Left" Margin="8,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="121,310,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave"/>
                     <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="173" Margin="272,389,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470"/>
                     <Border BorderThickness="1" BorderBrush="Black" Width="470" Height="136" Margin="272,239,24,227">
                         <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="470"/>
@@ -77,7 +69,7 @@
                                 <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Oustanding" Name="Oustanding" HorizontalAlignment="Center" Width="98" HorizontalContentAlignment="Center" MouseLeftButtonUp="FilterLabelClicked" Height="26" VerticalAlignment="Bottom" Margin="0,0,0,49" Grid.ColumnSpan="2">
+                            <Label Content="Outstanding" Name="Outstanding" HorizontalAlignment="Center" Width="98" HorizontalContentAlignment="Center" MouseLeftButtonUp="FilterLabelClicked" Height="26" VerticalAlignment="Bottom" Margin="0,0,0,49" Grid.ColumnSpan="2">
                                 <Label.Style>
                                     <Style TargetType="Label">
 
@@ -113,15 +105,15 @@
                     </Expander>
 
                     <Label Content="Limited User Access Panel" HorizontalAlignment="Left" Margin="1,202,0,0" VerticalAlignment="Top" Height="27" Width="247" HorizontalContentAlignment="Center" Background="#FFB48181"/>
-                    <Label x:Name="Frame3DaysTillDue" Content="Days till due" HorizontalAlignment="Left" Margin="10,455,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <Label x:Name="Frame3DaysTillDueData" Content="DaysTillDueData" HorizontalAlignment="Left" Margin="123,455,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <Label x:Name="Frame3AssignedTo" Content="Assigned to" HorizontalAlignment="Left" Margin="7,505,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <Label x:Name="Frame3AssignedToData" Content="Assigned to" HorizontalAlignment="Left" Margin="115,505,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <Label x:Name="ContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="10,536,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="ContractorComboBoxData" IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,536,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="Frame3DaysTillDue" Content="Days till due" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <Label x:Name="Frame3DaysTillDueData" Content="DaysTillDueData" HorizontalAlignment="Left" Margin="123,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <Label x:Name="Frame3AssignedTo" Content="Assigned to" HorizontalAlignment="Left" Margin="7,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <Label x:Name="Frame3AssignedToData" Content="Assigned to" HorizontalAlignment="Left" Margin="115,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <Label x:Name="ContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="10,443,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <ComboBox x:Name="ContractorComboBoxData" IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,443,0,0" VerticalAlignment="Top" Width="120"/>
 
-                    <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,481,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,483,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,388,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,390,0,0" VerticalAlignment="Top" Width="120"/>
                     <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="115,577,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave"/>
                     <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,572,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center"/>
                 </Grid>

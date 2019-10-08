@@ -123,9 +123,10 @@ namespace Engineering_Database
 			{
 				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true";
 			}
+			
 			else
 			{
-				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
+				queryString = "SELECT * FROM engineeringDatabaseTable";
 
 			}
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -135,6 +136,36 @@ namespace Engineering_Database
 			//return data;
 			return cmd;
 		}
+
+
+		public OleDbCommand DBQueryforUsers(string filter, string reporter)
+		{
+			string queryString;
+			if (filter == "Outstanding")
+			{
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required' AND ReportedUsername='"+reporter+"'";
+			}
+			else if (filter == "Resolved")
+			{
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true AND ReportedUsername='"+reporter+"'";
+			}
+			else
+			{
+				queryString = "SELECT * FROM engineeringDatabaseTable";
+
+			}
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			//cmd.Parameters.Add(new OleDbParameter("@reporter", reporter));
+			//cmd.Parameters.AddWithValue("ReportedUsername", filter);
+			//OleDbDataReader reader = cmd.ExecuteReader();
+			//reader.Read();
+			//var data = reader[table].ToString();
+			//return data;
+			//cmd.ExecuteNonQuery();
+			return cmd;
+		}
+
 
 
 		public OleDbCommand DBQueryForAllLines()
