@@ -132,6 +132,7 @@ namespace Engineering_Database
 			//configCollection["password"].Value = passwordTextBox.Text;
 			//configCollection["preview"].Value = PreviewSettingComboBox.Text;
 
+			
 
 
 			Properties.Settings.Default["UserName"] = AdminTextBox.Text;
@@ -140,6 +141,7 @@ namespace Engineering_Database
 			Properties.Settings.Default["Email"] = emailTextBox.Text;
 			Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
 			Properties.Settings.Default["jobCount"] = JobCountSettingData.Text;
+
 			Properties.Settings.Default["password"] = passwordTextBox.Text;
 			Properties.Settings.Default["preview"] = PreviewSettingComboBox.Text;
 			//Properties.Settings.Default["contractors"]
