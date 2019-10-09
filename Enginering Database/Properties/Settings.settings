@@ -10,5 +10,35 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\engineeringDatabase.accdb;Persist Security Info=True</Value>
     </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gatis Jansons</Value>
+    </Setting>
+    <Setting Name="Email" Type="System.String" Scope="User">
+      <Value Profile="(Default)">gatis.jansons@ipl-ltd.com</Value>
+    </Setting>
+    <Setting Name="SubAdmin1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gatis Jansons</Value>
+    </Setting>
+    <Setting Name="SubAdmin2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gatis Jansons</Value>
+    </Setting>
+    <Setting Name="database" Type="System.String" Scope="User">
+      <Value Profile="(Default)">test</Value>
+    </Setting>
+    <Setting Name="jobCount" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">test</Value>
+    </Setting>
+    <Setting Name="preview" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+    <Setting Name="contractors" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Contractor1/Contractor2/Contractor3</Value>
+    </Setting>
+    <Setting Name="assignTo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Gatis Jansons/Ricardo Tirano/Marco Almeida/Ieva Grosvalde</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

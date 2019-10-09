@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Engineering_Database;
 using System.Data.OleDb;
 
 namespace Engineering_Database
@@ -13,7 +13,7 @@ namespace Engineering_Database
 		 * 
 		 */
 
-
+		UserErrorWindow userErr = new UserErrorWindow();
 		readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb");
 		#region connect DB close DB and DB status DB count lines functions
 		public void ConnectDB()
@@ -21,9 +21,15 @@ namespace Engineering_Database
 
 
 
+			try
+			{
+				con.Open();
+			}
+			catch {
+				userErr.errorMessage = "Something wrong with OldeDB";
+				userErr.CallWindow();
 
-			con.Open();
-
+			}
 
 		}
 		public void CloseDB()
