@@ -1,21 +1,21 @@
 ﻿using Engineering_Database;
 using System;
+using System.Reflection;
 //using System.IO;
 using System.Windows;
-using System.Windows.Input;
 //using System.Windows.Media;
 //using System.Security.Permissions;
 //using System.Windows.Threading;
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-
+//[assembly: AssemblyVersion("2.10.*")]
 namespace Enginering_Database
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	/// 
-
+	
 	public partial class MainWindow : Window
 	{
 
@@ -23,7 +23,7 @@ namespace Enginering_Database
 
 		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 		readonly string userName = Environment.UserName;
-			//string userName = "Gatis";
+		//string userName = "Gatis";
 		public MainWindow()
 		{
 
@@ -47,6 +47,13 @@ namespace Enginering_Database
 
 
 			InitializeComponent();
+
+
+			Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+			DateTime buildDate = new DateTime(2000, 1, 1)
+									.AddDays(version.Build).AddSeconds(version.Revision * 2);
+			string displayableVersion = $"{version}";
+			VersionData.Content = displayableVersion;
 
 			userSett.openSettings();
 			dtC.ConnectDB();

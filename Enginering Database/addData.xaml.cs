@@ -426,8 +426,9 @@ namespace Enginering_Database
 					faultyAreaComboBox.IsEnabled = true;
 
 					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Other");
-					issueComboBox.SelectedIndex = 0;
+					issueComboBox.Items.Insert(0, "Please Choose");
+					issueComboBox.Items.Add("Other");
+					issueComboBox.SelectedIndex = 1;
 					issueComboBox.IsEnabled = false;
 
 					break;
@@ -445,7 +446,8 @@ namespace Enginering_Database
 					faultyAreaComboBox.Items.Clear();
 
 					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
 					faultyAreaComboBox.IsEnabled = false;
 
 					issueComboBox.Items.Clear();
@@ -574,14 +576,19 @@ namespace Enginering_Database
 				}
 				else if (issueTypeComboBox.SelectedItem.ToString() == "Rackings")
 				{
-					faultyAreaComboBox.Items.Insert(0, "Other");
-					faultyAreaComboBox.SelectedIndex = 0;
-					issueComboBox.IsEnabled = false;
+					faultyAreaComboBox.Items.Clear();
+					faultyAreaComboBox.Items.Insert(0, "Please Choose12");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex =1;
+					faultyAreaComboBox.IsEnabled = false;
+					issueComboBox.IsEnabled = true;
 				}
 				else if (issueTypeComboBox.SelectedItem.ToString() == "Projects")
 				{
-					faultyAreaComboBox.Items.Insert(0, "Projects");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Clear();
+					faultyAreaComboBox.Items.Insert(0, "Please Choose");
+					faultyAreaComboBox.Items.Add("Projects");
+					faultyAreaComboBox.SelectedIndex = 1;
 					issueComboBox.IsEnabled = false;
 				}
 				else if (issueTypeComboBox.SelectedItem.ToString() == "Security")
@@ -611,8 +618,9 @@ namespace Enginering_Database
 
 					faultyAreaComboBox.Items.Clear();
 
-					faultyAreaComboBox.Items.Insert(0, "Other");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Insert(0, "Please Choose");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
 					faultyAreaComboBox.IsEnabled = false;
 					issueComboBox.IsEnabled = false;
 				}
@@ -621,14 +629,15 @@ namespace Enginering_Database
 				{
 
 					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Other");
-					faultyAreaComboBox.SelectedIndex = 0;
+					faultyAreaComboBox.Items.Insert(0, "Please Choose");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
 
 				}
 				else
 				{
 					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
+					faultyAreaComboBox.Items.Insert(0, "Please choose it");
 					faultyAreaComboBox.SelectedIndex = 0;
 				}
 
@@ -738,8 +747,9 @@ namespace Enginering_Database
 				case "Indoor":
 				case "Outdoor":
 					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Other");
-					issueComboBox.SelectedIndex = 0;
+					issueComboBox.Items.Insert(0, "Please Choose");
+					issueComboBox.Items.Add("Other");
+					issueComboBox.SelectedIndex = 1;
 					break;
 
 
