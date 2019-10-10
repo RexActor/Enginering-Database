@@ -32,6 +32,8 @@ namespace Engineering_Database
 		public string Area { get; set; }
 		public string AssignedTo { get; set; }
 		public string Contractor { get; set; }
+		public string ReportedEmail { get; set; }
+		public string ReporterEmail { get; set; }
 
 
 		readonly DatabaseClass db = new DatabaseClass();

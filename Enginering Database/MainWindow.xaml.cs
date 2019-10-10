@@ -1,6 +1,7 @@
 ﻿using Engineering_Database;
 using System;
 using System.Reflection;
+using System.Security.Principal;
 //using System.IO;
 using System.Windows;
 //using System.Windows.Media;
@@ -22,7 +23,7 @@ namespace Enginering_Database
 		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 
 		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
-		readonly string userName = Environment.UserName;
+		readonly string userName = WindowsIdentity.GetCurrent().Name;
 		//string userName = "Gatis";
 		public MainWindow()
 		{

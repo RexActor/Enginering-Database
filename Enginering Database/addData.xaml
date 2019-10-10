@@ -46,12 +46,17 @@
         <TextBox x:Name="AssetNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="114,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158"/>
         <Label x:Name="PriorityLabel" Content="Priority" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,296,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
         <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Height="30" Margin="114,296,0,0" VerticalAlignment="Top" Width="158"  HorizontalContentAlignment="Center"/>
-        <RichTextBox x:Name="DetailedDescriptionRichTextBox" HorizontalAlignment="Left" Height="106" Margin="10,366,0,0" VerticalAlignment="Top" Width="545" Grid.ColumnSpan="4" BorderBrush="#FF0743F9" BorderThickness="2">
+        <RichTextBox x:Name="DetailedDescriptionRichTextBox" HorizontalAlignment="Left" Height="106" Margin="10,366,0,0" VerticalAlignment="Top" Width="545" Grid.ColumnSpan="4" BorderBrush="#FF0743F9" BorderThickness="2" GotFocus="ClearRichTextBox" TextChanged="CheckRichTextBoxchanges">
+            <RichTextBox.Document>
             <FlowDocument>
-                <Paragraph>
-                    <Run Text="Please Enter detailed description"/>
-                </Paragraph>
-            </FlowDocument>
+                    <FlowDocument.Blocks>
+                        <Paragraph>
+                           Please Enter Detailed Description
+                        </Paragraph>
+                   
+                    </FlowDocument.Blocks>
+                </FlowDocument>
+            </RichTextBox.Document>
         </RichTextBox>
         <Label x:Name="ErrorMessageLabel" Grid.ColumnSpan="4" Content="You are missing some selections/data.&#xD;&#xA;Missing fields are marked with red. &#xD;&#xA;Please check and try again&#xD;&#xA;If you don't have asset number - &#xD;&#xA;use &quot;N/a&quot;" HorizontalAlignment="Left" Height="86" Margin="293,261,0,0" VerticalAlignment="Top" Width="252" Background="#FFF0B9B9" Foreground="#FF421919" FontWeight="Bold" FontFamily="Sitka Text" FontStyle="Oblique"/>
         <Expander x:Name="HelpHeader" Header="Help" IsExpanded="False" HorizontalAlignment="Left" Margin="10,0,0,0" Width="545" Grid.ColumnSpan="4" Height="111" VerticalAlignment="Top">

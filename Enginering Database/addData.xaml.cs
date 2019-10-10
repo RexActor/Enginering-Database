@@ -14,7 +14,8 @@ namespace Enginering_Database
 	public partial class addData : Window
 	{
 		readonly DatabaseClass db = new DatabaseClass();
-
+		EmailClass email = new EmailClass();
+		bool richTextBoxTextChanged = false;
 		public addData()
 		{
 			InitializeComponent();
@@ -855,10 +856,18 @@ namespace Enginering_Database
 			if (CheckFilledData())
 			{
 				ErrorMessageLabel.Visibility = Visibility.Hidden;
+				email.SendEmail(null, issue, "Report");
+				if (issue.ReporterEmail == null)
+				{
+					issue.ReporterEmail = "";
+				}
 
-				db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area);
+				db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail);
 
-				this.Close();
+				
+			
+	
+	this.Close();
 
 			}
 			else
@@ -873,8 +882,14 @@ namespace Enginering_Database
 			//db.InsertDataIntoDatabase(getLastJobNumber+1, dtNow, dtTmNow, usernameLabelValue.Content.ToString(),AssetNumberTextBox.Text,faultyAreaComboBox.Text,buildingComboBox.Text,issueComboBox.Text,PriorityComboBox.Text,issueTypeComboBox.Text,textRange.Text,dtNow,areaComboBox.Text);
 
 		}
-
-
+		private void ClearRichTextBox (object sender,RoutedEventArgs e)
+		{
+			((RichTextBox)sender).Document = new FlowDocument();
+		}
+		private void CheckRichTextBoxchanges (object sender, TextChangedEventArgs e)
+		{
+			richTextBoxTextChanged = true;
+		}
 		public bool CheckFilledData()
 		{
 			#region set up label colours if 0 index selected
@@ -953,6 +968,10 @@ namespace Enginering_Database
 			else
 			{
 				if (AssetNumberTextBox.Text == "")
+				{
+					return false;
+				}
+				else if (richTextBoxTextChanged == false)
 				{
 					return false;
 				}

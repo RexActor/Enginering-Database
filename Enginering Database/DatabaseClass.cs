@@ -14,7 +14,7 @@ namespace Engineering_Database
 		 */
 
 		UserErrorWindow userErr = new UserErrorWindow();
-		readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb");
+		readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb;Jet OLEDB:Database Password=test");
 		#region connect DB close DB and DB status DB count lines functions
 		public void ConnectDB()
 		{
@@ -330,9 +330,9 @@ namespace Engineering_Database
 		#endregion
 
 		#region insert values into database
-		public void InsertDataIntoDatabase(int jobNumber, string repdate, string repTime, string ReportedUsername, string assetNumber, string faultyArea, string Building, string IssueCode, string Priority, string type, string detailedDesc, string DueDate, string Area)
+		public void InsertDataIntoDatabase(int jobNumber, string repdate, string repTime, string ReportedUsername, string assetNumber, string faultyArea, string Building, string IssueCode, string Priority, string type, string detailedDesc, string DueDate, string Area, string ReporterEmail)
 		{
-			string queryString = "INSERT INTO engineeringDatabaseTable (JobNumber,ReportedDate,ReportedTime,ReportedUsername,AssetNumber,FaultyArea,Building,IssueCode,Priority,Type,DetailedDescription,DueDate,Area) Values(@JobNumber,@ReportedDate,@ReportedTime,@ReportedUsername,@AssetNumber,@FaultyArea,@Building,@IssueCode,@Priority,@Type,@DetailedDescription,@DueDate,@Area)";
+			string queryString = "INSERT INTO engineeringDatabaseTable (JobNumber,ReportedDate,ReportedTime,ReportedUsername,AssetNumber,FaultyArea,Building,IssueCode,Priority,Type,DetailedDescription,DueDate,Area,ReporterEmail) Values(@JobNumber,@ReportedDate,@ReportedTime,@ReportedUsername,@AssetNumber,@FaultyArea,@Building,@IssueCode,@Priority,@Type,@DetailedDescription,@DueDate,@Area,@ReporterEmail)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			cmd.Parameters.AddWithValue("@JobNumber", jobNumber);
@@ -349,6 +349,7 @@ namespace Engineering_Database
 			//cmd.Parameters.AddWithValue("@Action", Action);
 			cmd.Parameters.AddWithValue("@DueDate", DueDate);
 			cmd.Parameters.AddWithValue("@Area", Area);
+			cmd.Parameters.AddWithValue("@ReporterEmail",ReporterEmail);
 
 
 

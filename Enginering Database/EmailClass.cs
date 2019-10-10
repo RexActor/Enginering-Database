@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Data.OleDb;
 namespace Engineering_Database
 {
 	class EmailClass
@@ -6,6 +7,10 @@ namespace Engineering_Database
 
 		UserSettings userSett = new UserSettings();
 		UserErrorWindow userErr = new UserErrorWindow();
+		readonly DatabaseClass db = new DatabaseClass();
+		string htmlString;
+		public string sender = null;
+		//IssueClass iss = new IssueClass();
 		private bool checkOutlook()
 		{
 			int procCount = 0;
@@ -16,7 +21,7 @@ namespace Engineering_Database
 			}
 			if (procCount > 0)
 			{
-				
+
 				return true;
 			}
 			else
@@ -27,8 +32,10 @@ namespace Engineering_Database
 			}
 		}
 
-		public void SendEmail()
+		public void SendEmail(string jobStatus = null, IssueClass issue = null, string reply = null)
 		{
+
+
 
 			if (checkOutlook() == true)
 			{
@@ -38,27 +45,142 @@ namespace Engineering_Database
 				//var url = "mailto:gatis.jansons@ipl-ltd.com";
 				//System.Diagnostics.Process.Start(url);
 				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
-				
-				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
-				//Microsoft.Office.Interop.Outlook.Accounts accounts = app.Session.Accounts;
-				//Microsoft.Office.Interop.Outlook.Account acc = null;
 
+				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+				sender = mailItem.SenderEmailAddress;
+
+
+				
+				///sender = "gatis.jansons@ipl-ltd.com";
+
+				issue.ReporterEmail = sender;
+
+
+				//ReporterEmail
+
+				
 
 				/*
-				foreach (Microsoft.Office.Interop.Outlook.Account account in accounts)
+				if (sender == "" || sender == null)
 				{
-					if (account.SmtpAddress.Equals("bobsters.lol@gmail.com", StringComparison.CurrentCultureIgnoreCase))
-					{
-						acc = account;
-						break;
-					}
+					userErr.errorMessage = "No email account is set. You will not be able to send email";
+					userErr.Title = "Outlook error";
+					userErr.CallWindow();
+					userErr.ShowDialog();
+
+					return;
+
 
 				}
 				*/
-				//mailItem.SendUsingAccount = acc;
-				mailItem.Subject = "Test";
-				mailItem.To = emailAddress;
-				mailItem.Body = "Testing email";
+
+
+				if (reply == "Complete")
+				{
+
+
+					mailItem.To = issue.ReportedEmail;
+					mailItem.CC =emailAddress;
+					mailItem.Subject = "Your reported issue : " + issue.Type + " with " + issue.Priority + " priority is completed and closed";
+					
+
+					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+				"<b>Priority:</b> " + issue.Priority + "<br>" +
+"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+"<b> Area: </b>" + issue.Area + "<br>" +
+"<b>Building:</b> " + issue.Building + "<br>" +
+"<b>Issue Code:</b> " + issue.Code + "<br>" +
+"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+"<b> Was Assigned To : </b>" + issue.AssignedTo + "<br>" +
+" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+"					</body>" +
+"</html>";
+				}
+				else if (reply == "Report")
+				{
+					mailItem.To = emailAddress;
+					mailItem.CC = sender;
+					mailItem.Subject = "Engineering Attention required for: " + issue.Type + " with " + issue.Priority + " priority";
+					//issue.JobNumber;
+					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+						"<b>Priority:</b> " + issue.Priority + "<br>" +
+	  "<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+	  "<b> Area: </b>" + issue.Area + "<br>" +
+   "<b>Building:</b> " + issue.Building + "<br>" +
+   "<b>Issue Code:</b> " + issue.Code + "<br>" +
+   "<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+   "	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+   "					<b>Your report:</b> " + issue.DetailedDescription + "" +
+   "<br><h3>Please action reported issue ASAP. As issue needs to be completed by " + issue.DueDate + "</h3>	" +
+   "					</body>" +
+   "</html>";
+
+				
+
+					//body = issue.JobNumber.ToString();
+				}
+				else if (reply == "ReOpen")
+				{
+					mailItem.To = issue.ReportedEmail;
+					mailItem.CC = emailAddress;
+					mailItem.Subject = "Your reported issue : " + issue.Type + " with " + issue.Priority + " priority was reopened";
+					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+				"<b>Priority:</b> " + issue.Priority + "<br>" +
+"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+"<b> Area: </b>" + issue.Area + "<br>" +
+"<b>Building:</b> " + issue.Building + "<br>" +
+"<b>Issue Code:</b> " + issue.Code + "<br>" +
+"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+"<b> Is Assigned To : </b>" + issue.AssignedTo + "<br>" +
+"<b> Due Date: </b>" + issue.DueDate + "<br>" +
+" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+"					</body>" +
+"</html>";
+				}
+
+				else if (reply == null)
+				{
+					mailItem.To = issue.ReportedEmail;
+					mailItem.CC = emailAddress;
+					mailItem.Subject = "Your reported issue : " + issue.Type + " with " + issue.Priority + " priority was updated";
+					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+				"<b>Priority:</b> " + issue.Priority + "<br>" +
+"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+"<b> Area: </b>" + issue.Area + "<br>" +
+"<b>Building:</b> " + issue.Building + "<br>" +
+"<b>Issue Code:</b> " + issue.Code + "<br>" +
+"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+"<b> Is Assigned To : </b>" + issue.AssignedTo + "<br>" +
+"<b> Due Date: </b>" + issue.DueDate + "<br>" +
+" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+"					</body>" +
+"</html>";
+
+				}
+
+				else
+				{
+					userErr.errorMessage = "There was something wrong when trying to send email. [Object] {Email Class.cs} [Line] {167}";
+					userErr.Title = "Outlook error";
+					userErr.CallWindow();
+					userErr.ShowDialog();
+
+				}
+
+
+
+
+				
+				
+
+
+				mailItem.HTMLBody = htmlString;
 
 				mailItem.Display(true);
 

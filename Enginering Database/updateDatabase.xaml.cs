@@ -1,5 +1,6 @@
 ﻿
 
+using Engineering_Database;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Engineering_Database;
 
 
 namespace Enginering_Database
@@ -38,6 +38,8 @@ namespace Enginering_Database
 		private bool canChangeDueDate = false;
 		private bool canSendEmail = false;
 		private bool canSubmit = false;
+		private string jobStatus = null;
+		private string isComplete = null;
 		//Tooltip opbjet
 		readonly ToolTip myToolTip = new ToolTip();
 
@@ -118,7 +120,7 @@ namespace Enginering_Database
 
 		private void UpdateAssignToComboBox()
 		{
-			
+
 
 			//open usersettings configuration file
 			userSett.openSettings();
@@ -340,7 +342,7 @@ namespace Enginering_Database
 			}
 
 
-			
+
 			Button btn = sender as Button;
 
 
@@ -420,6 +422,14 @@ namespace Enginering_Database
 
 		}
 
+		private void CompleteCheckboxOnCheck (object sender,RoutedEventArgs e)
+		{
+			if (ConfirmEmailCheckBox.IsChecked == false)
+			{
+				ConfirmEmailCheckBox.IsChecked = true;
+			}
+		}
+
 		private void ChangeDueDateCheckBox_Change(object sender, RoutedEventArgs e)
 		{
 			if (canChangeDueDate)
@@ -486,6 +496,9 @@ namespace Enginering_Database
 
 		private void UpdateFrame2(string jobNumber)
 		{
+
+
+
 			int c;
 
 
@@ -496,6 +509,8 @@ namespace Enginering_Database
 				//log.Debug(c);
 			}
 			string[] words = jobNumber.Split(null);
+
+			//CollectSelectedData(convJobNumber);
 
 			Frame2JobNumberData.Content = words[words.Length - 1];
 			Frame2ReportedDateData.Content = Convert.ToDateTime(db.DBQuery("ReportedDate", convJobNumber)).ToShortDateString().ToString();
@@ -529,10 +544,12 @@ namespace Enginering_Database
 			}
 			if (db.DBQuery("Completed", convJobNumber) == "True")
 			{
+				jobStatus ="Closed";
 				Frame3CompleteCheckBox.IsChecked = true;
 			}
 			else
 			{
+				jobStatus = "Open";
 				Frame3CompleteCheckBox.IsChecked = false;
 
 			}
@@ -561,22 +578,60 @@ namespace Enginering_Database
 
 		}
 
+		private void CollectSelectedData(int convJobNumber)
+		{
+			//throw new NotImplementedException();
+			issueClass.Priority = db.DBQuery("Priority", convJobNumber);
+			issueClass.JobNumber = convJobNumber;
+			issueClass.ReportedDate = Convert.ToDateTime(db.DBQuery("ReportedDate", convJobNumber)).ToShortDateString().ToString();
+			issueClass.ReportedUserName = db.DBQuery("ReportedUsername", convJobNumber);
+			issueClass.Area = db.DBQuery("Area", convJobNumber);
+			issueClass.Type = db.DBQuery("Type", convJobNumber);
+			issueClass.Building = db.DBQuery("Building", convJobNumber);
+			issueClass.ReportedTime = Convert.ToDateTime(db.DBQuery("ReportedTime", convJobNumber)).ToShortTimeString();
+			issueClass.DueDate = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
+			issueClass.FaulyArea = db.DBQuery("FaultyArea", convJobNumber);
+			issueClass.Code = db.DBQuery("IssueCode", convJobNumber);
+			
+			issueClass.AssetNumber = db.DBQuery("AssetNumber", convJobNumber);
+			
+			
+			//Frame2PriorityData.Content = db.DBQuery("Priority", convJobNumber);
+
+			issueClass.DetailedDescription= db.DBQuery("DetailedDescription", convJobNumber);
+			//issueClass.CompletedByUsername = db.DBQuery("CompletedBy", convJobNumber);
+			issueClass.AssignedTo = db.DBQuery("AssignedTo", convJobNumber);
+			issueClass.CommentsForActionsTaken = db.DBQuery("CommentsForActionTaken", convJobNumber);
+			issueClass.ReportedEmail = db.DBQuery("ReporterEmail", convJobNumber);
+
+
+		}
+
 		private void Submit_Click(object sender, RoutedEventArgs e)
 		{
 
 			if (canSubmit == true)
 			{
-				
+
 				//MessageBox.Show(convJobNumber.ToString());
 
 				if (Frame3CompleteCheckBox.IsChecked == true)
 				{
+					
+
 					db.DBQueryInsertData("Completed", convJobNumber, true);
+					isComplete = "Complete";
 					db.DBQueryInsertData(convJobNumber, "Action", "Actioned");
 					Frame3CompleteCheckBox.IsChecked = false;
 				}
 				else
 				{
+
+					if (jobStatus == "Closed")
+					{
+						isComplete = "ReOpen";
+					}
+					
 					db.DBQueryInsertData("Completed", convJobNumber, false);
 					db.DBQueryInsertData(convJobNumber, "Action", "Action required");
 				}
@@ -599,6 +654,27 @@ namespace Enginering_Database
 				{
 					db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
 				}
+
+
+				CollectSelectedData(convJobNumber);
+
+				if (ConfirmEmailCheckBox.IsChecked == true && canSendEmail == true)
+				{
+				
+					email.SendEmail(jobStatus, issueClass, isComplete);
+					ConfirmEmailCheckBox.IsChecked = false;
+					canSendEmail = false;
+					isComplete = null;
+					jobStatus = null;
+				}
+				else if (canSendEmail == false)
+				{
+					userError.errorMessage = "Sorry. You don't have selected any job. You are not allowed to send email";
+					userError.Title = "Confirm email error";
+					userError.CallWindow();
+					userError.ShowDialog();
+				}
+
 
 				createJobList(filter);
 				Frame3.Refresh();
@@ -624,20 +700,6 @@ namespace Enginering_Database
 					ChangeDueDateCheckBox.IsChecked = false;
 				}
 
-				if (ConfirmEmailCheckBox.IsChecked == true && canSendEmail == true)
-				{
-
-					email.SendEmail();
-					ConfirmEmailCheckBox.IsChecked = false;
-					canSendEmail = false;
-				}
-				else if (canSendEmail == false)
-				{
-					userError.errorMessage = "Sorry. You don't have selected any job. You are not allowed to send email";
-					userError.Title = "Confirm email error";
-					userError.CallWindow();
-					userError.ShowDialog();
-				}
 			}
 			else
 			{
@@ -712,7 +774,7 @@ namespace Enginering_Database
 
 		private void FilterLabelClicked(Object sender, EventArgs e)
 		{
-			
+
 			Label btn = sender as Label;
 
 			TestStackPanel.Children.Clear();
