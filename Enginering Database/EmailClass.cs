@@ -11,6 +11,7 @@ namespace Engineering_Database
 		string htmlString;
 		public string sender = null;
 		//IssueClass iss = new IssueClass();
+		//data
 		private bool checkOutlook()
 		{
 			int procCount = 0;
