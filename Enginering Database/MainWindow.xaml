@@ -36,7 +36,7 @@
 
         </Grid>
         <Image Margin="10,10,227,321" Source="logo.jpg" Stretch="Fill"/>
-        <Image x:Name="settingsOption" Margin="421,3,4,383" Source="settings.png" Stretch="Fill" MouseDown="SettingsShow"/>
+        <Image x:Name="settingsOption" Margin="439,3,4,396" Source="settings.png" Stretch="Fill" MouseDown="SettingsShow"/>
         <Label x:Name="VersionLabel" Content="Version:" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Width="42" FontSize="8"/>
         <Label x:Name="VersionData" Content="VersionData" HorizontalAlignment="Left" Margin="39,390,0,0" VerticalAlignment="Top" Width="297" FontSize="8"/>
 

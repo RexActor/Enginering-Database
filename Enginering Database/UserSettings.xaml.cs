@@ -13,6 +13,7 @@ namespace Engineering_Database
 		public static string SubAdmin1;
 		public static string SubAdmin2;
 		public string Email;
+		public string Email2;
 		public static string database;
 		public static string jobCount;
 		public static string password;
@@ -41,24 +42,25 @@ namespace Engineering_Database
 
 		public void openSettings()
 		{
-			
-		
-		
 
-			
+
+
+
+
 
 
 			//TODO:move to userSettings profile
 			jobCount = Properties.Settings.Default["jobCount"].ToString();
-		
+
 			// TODO: move to usersettings profile
 			preview = Properties.Settings.Default["preview"].ToString();
-		
+
 
 			UserName = db.DBQueryForGlobalSettings("Admin");
 			SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
 			SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
 			Email = db.DBQueryForGlobalSettings("EmailAddress");
+			Email2 = db.DBQueryForGlobalSettings("EmailAddress2");
 			contractors = db.DBQueryForGlobalSettings("Contractors");
 			assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
 			password = db.DBQueryForGlobalSettings("Password");
@@ -73,6 +75,7 @@ namespace Engineering_Database
 			JobCountSettingData.Text = jobCount;
 			passwordTextBox.Text = password;
 			PreviewSettingComboBox.Text = preview;
+			EmailAddress2TextBox.Text = Email2;
 
 
 			ResetContractors();
@@ -120,23 +123,24 @@ namespace Engineering_Database
 			db.DBQueryUpdateGlobalSettings("SubAdmin2", SubAdmin2TextBox.Text);
 			db.DBQueryUpdateGlobalSettings("EmailAddress", emailTextBox.Text);
 			db.DBQueryUpdateGlobalSettings("Password", passwordTextBox.Text);
+			db.DBQueryUpdateGlobalSettings("EmailAddress2", EmailAddress2TextBox.Text);
 
 
-	
+
 			Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
 			Properties.Settings.Default["jobCount"] = JobCountSettingData.Text;
 
 			Properties.Settings.Default["password"] = passwordTextBox.Text;
 			Properties.Settings.Default["preview"] = PreviewSettingComboBox.Text;
-			
 
 
 
 
+			//openSettings();
 
 			Properties.Settings.Default.Save();
 
-	
+
 
 			this.Close();
 
@@ -150,7 +154,7 @@ namespace Engineering_Database
 
 			db.DBQueryUpdateGlobalSettings("Contractors", contractors);
 
-	
+
 			ResetContractors();
 			ContractorAddTextBox.Text = "";
 
@@ -160,9 +164,9 @@ namespace Engineering_Database
 		{
 			assignToUser = assignToUser.Insert(assignToUser.Length, "/" + AssignToTextBox.Text);
 			db.DBQueryUpdateGlobalSettings("AssignToUser", assignToUser);
-			
-			
-		
+
+
+
 
 			resetAssignToList();
 			AssignToTextBox.Text = "";
@@ -177,7 +181,7 @@ namespace Engineering_Database
 			}
 			else
 			{
-			
+
 				string[] splitAssignTo = assignToUser.Split('/');
 				assignToUser = "";
 				foreach (var word in splitAssignTo)
@@ -194,7 +198,7 @@ namespace Engineering_Database
 				assignToUser = tempAssignTo;
 
 				db.DBQueryUpdateGlobalSettings("AssignToUser", assignToUser);
-		
+
 
 
 
@@ -213,7 +217,7 @@ namespace Engineering_Database
 			{
 
 				contractors = contractors.Replace(" ", string.Empty);
-			
+
 
 				string[] splitContractors = contractors.Split('/');
 				contractors = "";
@@ -228,13 +232,13 @@ namespace Engineering_Database
 					{
 
 						tempContr = tempContr.Insert(tempContr.Length, "/" + word);
-				
+
 					}
 				}
 				contractors = tempContr;
 
 				db.DBQueryUpdateGlobalSettings("Contractors", contractors);
-			
+
 			}
 		}
 
