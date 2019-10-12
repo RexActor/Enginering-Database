@@ -156,6 +156,9 @@
     <Compile Include="passwordWindow.xaml.cs">
       <DependentUpon>passwordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SettingsForIssueCode.xaml.cs">
+      <DependentUpon>SettingsForIssueCode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="updateDatabase.xaml.cs">
       <DependentUpon>updateDatabase.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="passwordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsForIssueCode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

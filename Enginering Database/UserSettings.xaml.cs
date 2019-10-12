@@ -315,5 +315,16 @@ namespace Engineering_Database
 
 
 		}
+
+
+
+		private void OpenIssueCodeChanges(object sender, RoutedEventArgs e)
+		{
+			SettingsForIssueCode settforIssue = new SettingsForIssueCode();
+			settforIssue.Show();
+
+		}
+
+
 	}
 }

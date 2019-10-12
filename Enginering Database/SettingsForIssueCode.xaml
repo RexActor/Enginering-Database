@@ -1,0 +1,29 @@
+﻿<Window x:Class="Engineering_Database.SettingsForIssueCode"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Settings For Issue Code" Height="564.033" Width="889.943">
+    <Grid>
+        <ComboBox Name ="SettingsAreaDropDown" HorizontalAlignment="Left" Height="32" Margin="73,24,0,0" VerticalAlignment="Top" Width="217"/>
+        <Label Name="SettingsAreaLabel" Content="Area" HorizontalAlignment="Left" Height="30" Margin="10,26,0,0" VerticalAlignment="Top" Width="58"/>
+        <Button Name ="SettingsAddNewArea" Content="Add New" HorizontalAlignment="Left" Height="32" Margin="327,26,0,0" VerticalAlignment="Top" Width="93" Click="SettingsAddNewArea_Click"/>
+        <Button Name ="SettingsRemoveArea" Content="Remove Area" HorizontalAlignment="Left" Height="30" Margin="444,26,0,0" VerticalAlignment="Top" Width="100" Click="SettingsRemoveArea_Click"/>
+        <ListBox Name ="SettingsIssueTypeListBox" HorizontalAlignment="Left" Height="362" Margin="10,161,0,0" VerticalAlignment="Top" Width="184"/>
+        <ListBox Name ="SettingsFaultyAreaListBox" HorizontalAlignment="Left" Height="362" Margin="236,161,0,0" VerticalAlignment="Top" Width="184"/>
+        <ListBox Name ="SettingsIssueCodeListBox" HorizontalAlignment="Left" Height="362" Margin="470,161,0,0" VerticalAlignment="Top" Width="184"/>
+        <TextBox Name ="SettingsAddIssueTypeTextBox"  Text="IssueTypeTextBox" HorizontalAlignment="Left" Height="28" Margin="10,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" />
+        <TextBox x:Name ="SettingsAddFaultyAreaTextBox"  Text="FaultyAreaTextBox" HorizontalAlignment="Left" Height="28" Margin="236,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184"/>
+        <TextBox x:Name ="SettingsAddIssueCodeTextBox" Text="IssueCodeTextBox"  HorizontalAlignment="Left" Height="28" Margin="470,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184"/>
+        <ListBox x:Name ="SettingsIssueCodeListBox_Copy" HorizontalAlignment="Left" Height="136" Margin="674,161,0,0" VerticalAlignment="Top" Width="184"/>
+        <ListBox x:Name ="SettingsIssueCodeListBox_Copy1" HorizontalAlignment="Left" Height="136" Margin="674,387,0,0" VerticalAlignment="Top" Width="184"/>
+        <Label Content="Issue Type" HorizontalAlignment="Left" Height="30" Margin="10,94,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
+        <Label Content="Faulty Area" HorizontalAlignment="Left" Height="30" Margin="236,94,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
+        <Label Content="Issue Code" HorizontalAlignment="Left" Height="30" Margin="470,94,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
+        <Label Content="Priority" HorizontalAlignment="Left" Height="30" Margin="674,126,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
+        <Label Content="Building" HorizontalAlignment="Left" Height="30" Margin="674,352,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
+
+    </Grid>
+</Window>

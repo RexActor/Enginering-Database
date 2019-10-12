@@ -49,6 +49,7 @@
         <ListBox x:Name="AssignToUserListSettingsListBox" HorizontalAlignment="Left" Height="70" Margin="144,436,0,0" VerticalAlignment="Top" Width="166"/>
         <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,407,0,0" VerticalAlignment="Top" Width="79" Click="AddAssignedTo_Click"/>
         <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,459,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveAssignedToButton_Click"/>
+        <Button Content="Issue Codes" HorizontalAlignment="Left" Height="31" Margin="305,551,0,0" VerticalAlignment="Top" Width="96" Click="OpenIssueCodeChanges"/>
 
     </Grid>
 </Window>
