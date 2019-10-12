@@ -1,6 +1,5 @@
 ﻿using Engineering_Database;
 using System;
-using System.Reflection;
 using System.Security.Principal;
 //using System.IO;
 using System.Windows;
@@ -16,7 +15,7 @@ namespace Enginering_Database
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	/// 
-	
+
 	public partial class MainWindow : Window
 	{
 
@@ -44,7 +43,7 @@ namespace Enginering_Database
 			currApp.ShutdownMode = ShutdownMode.OnLastWindowClose;
 
 
-
+			
 
 
 			InitializeComponent();
@@ -58,6 +57,7 @@ namespace Enginering_Database
 
 			userSett.openSettings();
 			dtC.ConnectDB();
+
 			fileExistsLabelData.Content = dtC.DBStatus();
 
 
@@ -80,6 +80,11 @@ namespace Enginering_Database
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
+			//System.Threading.TimerCallback callback = new System.Threading.TimerCallback(ProcessTimerEvent);
+
+
+
+			LocalTimeData.Content = DateTime.Now.ToString("HH:mm:ss");
 			//throw new Exception("2");
 
 		}

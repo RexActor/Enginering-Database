@@ -75,7 +75,7 @@ namespace Enginering_Database
 			//Frame3DueDateTextBox.Text = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
 
-			int p = 0;
+			//int p = 0;
 
 			jobList = 100;
 
@@ -284,7 +284,7 @@ namespace Enginering_Database
 			//Frame3DueDateTextBox.Text = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
 
-			int p = 0;
+		//	int p = 0;
 
 			jobList = 100;
 

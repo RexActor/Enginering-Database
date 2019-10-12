@@ -9,10 +9,7 @@ namespace Engineering_Database
 		UserSettings userSett = new UserSettings();
 		UserErrorWindow userErr = new UserErrorWindow();
 		readonly DatabaseClass db = new DatabaseClass();
-		Microsoft.Office.Interop.Outlook.NameSpace ns = null;
-		Microsoft.Office.Interop.Outlook.Accounts accounts = null;
-		Microsoft.Office.Interop.Outlook.Account account = null;
-		string accountList = string.Empty;
+
 
 		string htmlString;
 		public string sender = null;

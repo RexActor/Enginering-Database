@@ -22,6 +22,7 @@ namespace Engineering_Database
 
 		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		public static KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
+		DatabaseClass db = new DatabaseClass();
 
 		public UserSettings()
 		{
@@ -31,6 +32,8 @@ namespace Engineering_Database
 			InitializeComponent();
 
 
+			db.ConnectDB();
+
 			openSettings();
 
 		}
@@ -38,39 +41,27 @@ namespace Engineering_Database
 
 		public void openSettings()
 		{
-
-			/*
+			
 		
-			*/
-			//string UserName;
-			//string SubAdmin1;
-			//string SubAdmin2;
-			//string Email;
-			//string database;
-			//UserName = ConfigurationManager.AppSettings.Get("UserName");
-			//SubAdmin1 = ConfigurationManager.AppSettings.Get("SubAdmin1");
-			//SubAdmin2 = ConfigurationManager.AppSettings.Get("SubAdmin2");
-			//Email = ConfigurationManager.AppSettings.Get("Email");
-			//database = ConfigurationManager.AppSettings.Get("database");
-			//jobCount = ConfigurationManager.AppSettings.Get("jobCount");
-			//password = ConfigurationManager.AppSettings.Get("password");
-			//preview = ConfigurationManager.AppSettings.Get("preview");
-			//contractors = ConfigurationManager.AppSettings.Get("contractors");
-			//assignToUser = ConfigurationManager.AppSettings.Get("assignTo");
+		
 
-			// implementing User Settings
+			
 
-			UserName = Properties.Settings.Default["UserName"].ToString();
-			SubAdmin1 = Properties.Settings.Default["SubAdmin1"].ToString();
-			SubAdmin2 = Properties.Settings.Default["SubAdmin2"].ToString();
-			Email = Properties.Settings.Default["Email"].ToString();
-			database = Properties.Settings.Default["Database"].ToString();
+
+			//TODO:move to userSettings profile
 			jobCount = Properties.Settings.Default["jobCount"].ToString();
-			password = Properties.Settings.Default["password"].ToString();
+		
+			// TODO: move to usersettings profile
 			preview = Properties.Settings.Default["preview"].ToString();
-			contractors = Properties.Settings.Default["contractors"].ToString();
-			assignToUser = Properties.Settings.Default["assignTo"].ToString();
+		
 
+			UserName = db.DBQueryForGlobalSettings("Admin");
+			SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
+			SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
+			Email = db.DBQueryForGlobalSettings("EmailAddress");
+			contractors = db.DBQueryForGlobalSettings("Contractors");
+			assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
+			password = db.DBQueryForGlobalSettings("Password");
 
 
 
@@ -123,29 +114,21 @@ namespace Engineering_Database
 
 
 
-			//configCollection["UserName"].Value = AdminTextBox.Text;
-			//configCollection["SubAdmin1"].Value = SubAdmin1TextBox.Text;
-			//configCollection["SubAdmin2"].Value = SubAdmin2TextBox.Text;
-			//configCollection["Email"].Value = emailTextBox.Text;
-			//configCollection["database"].Value = DatabaseTextBox.Text;
-			//configCollection["jobCount"].Value = JobCountSettingData.Text;
-			//configCollection["password"].Value = passwordTextBox.Text;
-			//configCollection["preview"].Value = PreviewSettingComboBox.Text;
 
-			
+			db.DBQueryUpdateGlobalSettings("Admin", AdminTextBox.Text);
+			db.DBQueryUpdateGlobalSettings("SubAdmin1", SubAdmin1TextBox.Text);
+			db.DBQueryUpdateGlobalSettings("SubAdmin2", SubAdmin2TextBox.Text);
+			db.DBQueryUpdateGlobalSettings("EmailAddress", emailTextBox.Text);
+			db.DBQueryUpdateGlobalSettings("Password", passwordTextBox.Text);
 
 
-			Properties.Settings.Default["UserName"] = AdminTextBox.Text;
-			Properties.Settings.Default["SubAdmin1"] = SubAdmin1TextBox.Text;
-			Properties.Settings.Default["SubAdmin2"] = SubAdmin2TextBox.Text;
-			Properties.Settings.Default["Email"] = emailTextBox.Text;
+	
 			Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
 			Properties.Settings.Default["jobCount"] = JobCountSettingData.Text;
 
 			Properties.Settings.Default["password"] = passwordTextBox.Text;
 			Properties.Settings.Default["preview"] = PreviewSettingComboBox.Text;
-			//Properties.Settings.Default["contractors"]
-			//Properties.Settings.Default["assignTo"]
+			
 
 
 
@@ -153,9 +136,7 @@ namespace Engineering_Database
 
 			Properties.Settings.Default.Save();
 
-			//MessageBox.Show(configManager.FilePath.ToString());
-			//configManager.Save(ConfigurationSaveMode.Modified);
-			//ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+	
 
 			this.Close();
 
@@ -167,13 +148,9 @@ namespace Engineering_Database
 
 			contractors = contractors.Insert(contractors.Length, "/" + ContractorAddTextBox.Text);
 
-			Properties.Settings.Default["contractors"] = contractors;
+			db.DBQueryUpdateGlobalSettings("Contractors", contractors);
 
-			Properties.Settings.Default.Save();
-			//configCollection["contractors"].Value = contractors;
-			//configManager.Save(ConfigurationSaveMode.Modified);
-			//ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
-			Properties.Settings.Default.Reload();
+	
 			ResetContractors();
 			ContractorAddTextBox.Text = "";
 
@@ -182,15 +159,10 @@ namespace Engineering_Database
 		private void AddAssignedTo_Click(object sender, RoutedEventArgs e)
 		{
 			assignToUser = assignToUser.Insert(assignToUser.Length, "/" + AssignToTextBox.Text);
-			//configCollection["assignTo"].Value = assignToUser;
-			//configManager.Save(ConfigurationSaveMode.Modified);
-			//ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
-
-			Properties.Settings.Default["assignTo"] = assignToUser;
-
-
-			Properties.Settings.Default.Save();
-			Properties.Settings.Default.Reload();
+			db.DBQueryUpdateGlobalSettings("AssignToUser", assignToUser);
+			
+			
+		
 
 			resetAssignToList();
 			AssignToTextBox.Text = "";
@@ -205,7 +177,7 @@ namespace Engineering_Database
 			}
 			else
 			{
-				//assignToUser = assignToUser.Replace(" ", string.Empty);
+			
 				string[] splitAssignTo = assignToUser.Split('/');
 				assignToUser = "";
 				foreach (var word in splitAssignTo)
@@ -220,16 +192,9 @@ namespace Engineering_Database
 					}
 				}
 				assignToUser = tempAssignTo;
-				//configCollection["assignTo"].Value = assignToUser;
-				//configManager.Save(ConfigurationSaveMode.Modified);
-				//ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
 
-				Properties.Settings.Default["assignTo"] = assignToUser;
-
-				Properties.Settings.Default.Save();
-
-				Properties.Settings.Default.Reload();
-				//ResetContractors();
+				db.DBQueryUpdateGlobalSettings("AssignToUser", assignToUser);
+		
 
 
 
@@ -248,7 +213,7 @@ namespace Engineering_Database
 			{
 
 				contractors = contractors.Replace(" ", string.Empty);
-				//ContractorListBoxSettings.Items.Clear();
+			
 
 				string[] splitContractors = contractors.Split('/');
 				contractors = "";
@@ -263,26 +228,13 @@ namespace Engineering_Database
 					{
 
 						tempContr = tempContr.Insert(tempContr.Length, "/" + word);
-						//ContractorListBoxSettings.Items.Add(word);
+				
 					}
 				}
 				contractors = tempContr;
-				//configCollection["contractors"].Value = contractors;
 
-				//configManager.Save(ConfigurationSaveMode.Modified);
-				//ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
-
-				Properties.Settings.Default["contractors"] = contractors;
-
-				Properties.Settings.Default.Save();
-				//configCollection["contractors"].Value = contractors;
-				//configManager.Save(ConfigurationSaveMode.Modified);
-				//ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
-				Properties.Settings.Default.Reload();
-
-
-				//ResetContractors();
-				//MessageBox.Show(tempContr);
+				db.DBQueryUpdateGlobalSettings("Contractors", contractors);
+			
 			}
 		}
 
@@ -324,6 +276,10 @@ namespace Engineering_Database
 			settforIssue.Show();
 
 		}
+
+
+
+
 
 
 	}

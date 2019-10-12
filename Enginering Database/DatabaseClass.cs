@@ -327,6 +327,49 @@ namespace Engineering_Database
 
 		}
 
+
+
+
+		public void DBQueryUpdateGlobalSettings(string table, string value)
+		{
+
+			string queryString = "Update GlobalSettings SET [" + table + "] = @value  ";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+
+
+		public string DBQueryForGlobalSettings(string table)
+		{
+
+			string queryString = $"SELECT * FROM GlobalSettings";
+
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+		//	cmd.Parameters.Add(new OleDbParameter("@param1", jobnumber));
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+			if (reader != null)
+			{
+				reader.Read();
+			}
+
+			var data = reader[table].ToString();
+			cmd.Dispose();
+
+			//TODO:Check if it will not cause error
+			reader.Close();
+			return data;
+		}
+
+
+
+
+
 		#endregion
 
 		#region insert values into database
@@ -358,6 +401,9 @@ namespace Engineering_Database
 
 
 		}
+
+	
+
 		#endregion
 
 	}
