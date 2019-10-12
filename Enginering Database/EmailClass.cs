@@ -1,5 +1,6 @@
-﻿using System.Diagnostics;
-using System.Data.OleDb;
+﻿using Microsoft.Office.Interop.Outlook;
+using System.Diagnostics;
+
 namespace Engineering_Database
 {
 	class EmailClass
@@ -8,6 +9,11 @@ namespace Engineering_Database
 		UserSettings userSett = new UserSettings();
 		UserErrorWindow userErr = new UserErrorWindow();
 		readonly DatabaseClass db = new DatabaseClass();
+		Microsoft.Office.Interop.Outlook.NameSpace ns = null;
+		Microsoft.Office.Interop.Outlook.Accounts accounts = null;
+		Microsoft.Office.Interop.Outlook.Account account = null;
+		string accountList = string.Empty;
+
 		string htmlString;
 		public string sender = null;
 		//IssueClass iss = new IssueClass();
@@ -44,36 +50,33 @@ namespace Engineering_Database
 
 				string emailAddress = userSett.Email;
 				//var url = "mailto:gatis.jansons@ipl-ltd.com";
+
+
 				//System.Diagnostics.Process.Start(url);
 				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
 
 				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
-				sender = mailItem.SenderEmailAddress;
+				//sender = mailItem.SenderEmailAddress;
 
-
-				
+				//sender = getSenderEmailAddress(mailItem);
+				//sender = mailItem.SenderEmailType;
+				//sender = mailItem.SendUsingAccount.ToString();
+				//sender = GetSenderSMTPAddress(mailItem);
 				///sender = "gatis.jansons@ipl-ltd.com";
+
+				sender = GetSenderEmailAddress(mailItem);
+
+				//sender = mailItem.UserProperties.Session.CurrentUser.Address;
+
+
+
 
 				issue.ReporterEmail = sender;
 
 
-				//ReporterEmail
-
-				
-
-				/*
-				if (sender == "" || sender == null)
-				{
-					userErr.errorMessage = "No email account is set. You will not be able to send email";
-					userErr.Title = "Outlook error";
-					userErr.CallWindow();
-					userErr.ShowDialog();
-
-					return;
 
 
-				}
-				*/
+
 
 
 				if (reply == "Complete")
@@ -81,9 +84,9 @@ namespace Engineering_Database
 
 
 					mailItem.To = issue.ReportedEmail;
-					mailItem.CC =emailAddress;
+					mailItem.CC = emailAddress;
 					mailItem.Subject = "Your reported issue : " + issue.Type + " with " + issue.Priority + " priority is completed and closed";
-					
+
 
 					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
 				"<b>Priority:</b> " + issue.Priority + "<br>" +
@@ -118,7 +121,7 @@ namespace Engineering_Database
    "					</body>" +
    "</html>";
 
-				
+
 
 					//body = issue.JobNumber.ToString();
 				}
@@ -177,8 +180,8 @@ namespace Engineering_Database
 
 
 
-				
-				
+
+
 
 
 				mailItem.HTMLBody = htmlString;
@@ -198,6 +201,24 @@ namespace Engineering_Database
 
 		}
 
+		private string GetSenderEmailAddress(MailItem mailItem)
+		{
 
+
+			string SenderEmailAddress = string.Empty;
+
+			if (mailItem.Session.CurrentUser.AddressEntry.Type == "EX")
+			{
+				SenderEmailAddress = mailItem.Session.CurrentUser.AddressEntry.GetExchangeUser().PrimarySmtpAddress;
+			}
+			else
+			{
+				SenderEmailAddress = mailItem.UserProperties.Session.CurrentUser.Address;
+
+			}
+
+
+			return SenderEmailAddress;
+		}
 	}
 }
