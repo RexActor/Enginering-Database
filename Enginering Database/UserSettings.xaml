@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="User Settings" Height="620.514" Width="434.256" ResizeMode="NoResize">
+        Title="Global Settings" Height="620.514" Width="434.256" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="409*"/>
@@ -45,7 +45,7 @@
         <Label x:Name="ContractorAddLabel_Copy" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="10,338,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label x:Name="AssignToLabel" Content="Assign To user add" HorizontalAlignment="Left" Height="25" Margin="10,406,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <TextBox x:Name="AssignToTextBox" HorizontalAlignment="Left" Height="25" Margin="144,406,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Label x:Name="AssignToUserListLabel" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="10,436,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label x:Name="AssignToUserListLabel" Content="Assigned To User list" HorizontalAlignment="Left" Height="25" Margin="10,436,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <ListBox x:Name="AssignToUserListSettingsListBox" HorizontalAlignment="Left" Height="70" Margin="144,436,0,0" VerticalAlignment="Top" Width="166"/>
         <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,407,0,0" VerticalAlignment="Top" Width="79" Click="AddAssignedTo_Click"/>
         <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,459,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveAssignedToButton_Click"/>
