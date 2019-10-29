@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Windows;
+using Engineering_Database;
 
 namespace Engineering_Database
 {
@@ -23,7 +24,7 @@ namespace Engineering_Database
 
 		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		public static KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 
 		public UserSettings()
 		{
@@ -33,7 +34,7 @@ namespace Engineering_Database
 			InitializeComponent();
 
 
-			db.ConnectDB();
+		
 
 			openSettings();
 
@@ -44,44 +45,49 @@ namespace Engineering_Database
 		{
 
 
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+
+			}
+
+			
 
 
 
+				//TODO:move to userSettings profile
+				jobCount = Properties.Settings.Default["jobCount"].ToString();
+
+				// TODO: move to usersettings profile
+				preview = Properties.Settings.Default["preview"].ToString();
 
 
-			//TODO:move to userSettings profile
-			jobCount = Properties.Settings.Default["jobCount"].ToString();
-
-			// TODO: move to usersettings profile
-			preview = Properties.Settings.Default["preview"].ToString();
-
-
-			UserName = db.DBQueryForGlobalSettings("Admin");
-			SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
-			SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
-			Email = db.DBQueryForGlobalSettings("EmailAddress");
-			Email2 = db.DBQueryForGlobalSettings("EmailAddress2");
-			contractors = db.DBQueryForGlobalSettings("Contractors");
-			assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
-			password = db.DBQueryForGlobalSettings("Password");
+				UserName = db.DBQueryForGlobalSettings("Admin");
+				SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
+				SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
+				Email = db.DBQueryForGlobalSettings("EmailAddress");
+				Email2 = db.DBQueryForGlobalSettings("EmailAddress2");
+				contractors = db.DBQueryForGlobalSettings("Contractors");
+				assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
+				password = db.DBQueryForGlobalSettings("Password");
 
 
 
-			AdminTextBox.Text = UserName;
-			SubAdmin1TextBox.Text = SubAdmin1;
-			SubAdmin2TextBox.Text = SubAdmin2;
-			emailTextBox.Text = Email;
-			DatabaseTextBox.Text = database;
-			JobCountSettingData.Text = jobCount;
-			passwordTextBox.Text = password;
-			PreviewSettingComboBox.Text = preview;
-			EmailAddress2TextBox.Text = Email2;
+				AdminTextBox.Text = UserName;
+				SubAdmin1TextBox.Text = SubAdmin1;
+				SubAdmin2TextBox.Text = SubAdmin2;
+				emailTextBox.Text = Email;
+				DatabaseTextBox.Text = database;
+				JobCountSettingData.Text = jobCount;
+				passwordTextBox.Text = password;
+				PreviewSettingComboBox.Text = preview;
+				EmailAddress2TextBox.Text = Email2;
 
 
-			ResetContractors();
-			resetAssignToList();
+				ResetContractors();
+				resetAssignToList();
 
-
+			
 		}
 
 		private void ResetContractors()

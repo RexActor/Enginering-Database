@@ -40,7 +40,7 @@ namespace Engineering_Database
 		List<IssueClass> issueDataList = new List<IssueClass>();
 		public List<IssueClass> updateIssueDataList()
 		{
-
+			db.ConnectDB();
 			issueDataList.Clear();
 			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForAllLines());
 			DataTable dt2 = new DataTable();

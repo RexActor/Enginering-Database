@@ -30,6 +30,7 @@ namespace Enginering_Database
 
 
 		{
+			db.ConnectDB();
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
 			LogedInUser= WindowsIdentity.GetCurrent().Name;

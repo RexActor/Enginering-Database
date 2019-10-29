@@ -28,7 +28,7 @@ namespace Enginering_Database
 		{
 
 
-			UserSettings userSett = new UserSettings();
+
 
 
 
@@ -43,7 +43,7 @@ namespace Enginering_Database
 			currApp.ShutdownMode = ShutdownMode.OnLastWindowClose;
 
 
-			
+
 
 
 			InitializeComponent();
@@ -55,9 +55,10 @@ namespace Enginering_Database
 			string displayableVersion = $"{version}";
 			VersionData.Content = displayableVersion;
 
-			userSett.openSettings();
-			dtC.ConnectDB();
 
+			dtC.ConnectDB();
+			UserSettings userSett = new UserSettings();
+			userSett.openSettings();
 			fileExistsLabelData.Content = dtC.DBStatus();
 
 
@@ -199,7 +200,12 @@ namespace Enginering_Database
 			base.OnClosed(e);
 			Application.Current.Shutdown();
 		}
-		//this.Close();
+
+
+
+
+
+
 	}
 
 

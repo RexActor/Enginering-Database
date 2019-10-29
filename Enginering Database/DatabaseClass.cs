@@ -1,5 +1,5 @@
 ﻿using System;
-using Engineering_Database;
+using System.Data;
 using System.Data.OleDb;
 
 namespace Engineering_Database
@@ -14,22 +14,48 @@ namespace Engineering_Database
 		 */
 
 		UserErrorWindow userErr = new UserErrorWindow();
-		readonly OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb;Jet OLEDB:Database Password=test");
+		string strCon = String.Empty;
+
+		OleDbConnection con = new OleDbConnection();
+		private bool success = false;
+
 		#region connect DB close DB and DB status DB count lines functions
+
 		public void ConnectDB()
 		{
 
+			//con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
 
-
-			try
+			if (con.State == ConnectionState.Closed)
 			{
+
+
+				try
+				{
+					con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+					success = true;
+					//con.Open();
+				}
+				finally
+				{
+					if (success)
+					{
+						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+					}
+					else
+					{
+						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.16.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+					}//con.Open();
+				}
 				con.Open();
-			}
-			catch {
-				userErr.errorMessage = "Something wrong with OldeDB";
-				userErr.CallWindow();
 
 			}
+			//strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb;Jet OLEDB:Database Password=test";
+			//con.ConnectionString = strCon;
+
+
+
+
 
 		}
 		public void CloseDB()
@@ -37,6 +63,8 @@ namespace Engineering_Database
 
 			con.Dispose();
 			con.Close();
+			//con = null;
+
 		}
 
 		public string DBStatus()
@@ -69,11 +97,14 @@ namespace Engineering_Database
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
 			return data;
+
 		}
 		#endregion
 		#region db query functions --> retreive data from database 3 overloaded functions string (table)/string (table) int(jobNumber)/ simple without any parameters
 		public string DBQuery(string table)
 		{
+
+
 			string queryString = $"SELECT * FROM engineeringDatabaseTable";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -82,6 +113,7 @@ namespace Engineering_Database
 			var data = reader[table].ToString();
 			cmd.Dispose();
 			return data;
+
 
 		}
 		public string DBQuery(string table, int jobnumber)
@@ -105,9 +137,11 @@ namespace Engineering_Database
 			//TODO:Check if it will not cause error
 			reader.Close();
 			return data;
+
 		}
 		public OleDbCommand DBQuery()
 		{
+
 			string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -116,10 +150,12 @@ namespace Engineering_Database
 			//var data = reader[table].ToString();
 			//return data;
 			return cmd;
+
 		}
 
 		public OleDbCommand DBQueryforJobList(string filter)
 		{
+
 			string queryString;
 			if (filter == "Outstanding")
 			{
@@ -129,7 +165,7 @@ namespace Engineering_Database
 			{
 				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true";
 			}
-			
+
 			else
 			{
 				queryString = "SELECT * FROM engineeringDatabaseTable";
@@ -141,19 +177,21 @@ namespace Engineering_Database
 			//var data = reader[table].ToString();
 			//return data;
 			return cmd;
+
 		}
 
 
 		public OleDbCommand DBQueryforUsers(string filter, string reporter)
 		{
+
 			string queryString;
 			if (filter == "Outstanding")
 			{
-				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required' AND ReportedUsername='"+reporter+"'";
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required' AND ReportedUsername='" + reporter + "'";
 			}
 			else if (filter == "Resolved")
 			{
-				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true AND ReportedUsername='"+reporter+"'";
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true AND ReportedUsername='" + reporter + "'";
 			}
 			else
 			{
@@ -170,12 +208,14 @@ namespace Engineering_Database
 			//return data;
 			//cmd.ExecuteNonQuery();
 			return cmd;
+
 		}
 
 
 
 		public OleDbCommand DBQueryForAllLines()
 		{
+
 			string queryString = "SELECT * FROM engineeringDatabaseTable";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -184,6 +224,7 @@ namespace Engineering_Database
 			//var data = reader[table].ToString();
 			//return data;
 			return cmd;
+
 		}
 
 
@@ -197,6 +238,7 @@ namespace Engineering_Database
 			//var data = reader[table].ToString();
 			//return data;
 			return cmd;
+
 		}
 
 
@@ -208,6 +250,7 @@ namespace Engineering_Database
 		/// <returns></returns>
 		public int DBQueryLastJobNumber(string table)
 		{
+
 			bool LastJobNumberIsNumber;
 			int number;
 			int LastJobNumber;
@@ -248,6 +291,7 @@ namespace Engineering_Database
 				cmd.Dispose();
 				return 0;
 			}
+
 		}
 		#endregion
 
@@ -285,9 +329,11 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 
+
 		}
 		public void DBQueryInsertData(string table, int jobnumber, int value)
 		{
+
 
 			string queryString = "UPDATE engineeringDatabaseTable SET " + table + " = @value WHERE JobNumber = @jobnumber";
 
@@ -301,6 +347,7 @@ namespace Engineering_Database
 
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
+
 
 		}
 		public void DBQueryInsertData(int jobnumber, string table, string value)
@@ -333,6 +380,7 @@ namespace Engineering_Database
 		public void DBQueryUpdateGlobalSettings(string table, string value)
 		{
 
+			//con.Open();
 			string queryString = "Update GlobalSettings SET [" + table + "] = @value  ";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@value", value);
@@ -346,24 +394,21 @@ namespace Engineering_Database
 		public string DBQueryForGlobalSettings(string table)
 		{
 
+			//con.Open();
 			string queryString = $"SELECT * FROM GlobalSettings";
 
-
+			//ConfigurationManager.ConnectionStrings[queryString].ConnectionString;
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-		//	cmd.Parameters.Add(new OleDbParameter("@param1", jobnumber));
+
 
 			OleDbDataReader reader = cmd.ExecuteReader();
-			if (reader != null)
-			{
-				reader.Read();
-			}
-
+			reader.Read();
 			var data = reader[table].ToString();
-			cmd.Dispose();
-
-			//TODO:Check if it will not cause error
 			reader.Close();
+
+			cmd.Dispose();
 			return data;
+
 		}
 
 
@@ -375,6 +420,7 @@ namespace Engineering_Database
 		#region insert values into database
 		public void InsertDataIntoDatabase(int jobNumber, string repdate, string repTime, string ReportedUsername, string assetNumber, string faultyArea, string Building, string IssueCode, string Priority, string type, string detailedDesc, string DueDate, string Area, string ReporterEmail)
 		{
+
 			string queryString = "INSERT INTO engineeringDatabaseTable (JobNumber,ReportedDate,ReportedTime,ReportedUsername,AssetNumber,FaultyArea,Building,IssueCode,Priority,Type,DetailedDescription,DueDate,Area,ReporterEmail) Values(@JobNumber,@ReportedDate,@ReportedTime,@ReportedUsername,@AssetNumber,@FaultyArea,@Building,@IssueCode,@Priority,@Type,@DetailedDescription,@DueDate,@Area,@ReporterEmail)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
@@ -392,7 +438,7 @@ namespace Engineering_Database
 			//cmd.Parameters.AddWithValue("@Action", Action);
 			cmd.Parameters.AddWithValue("@DueDate", DueDate);
 			cmd.Parameters.AddWithValue("@Area", Area);
-			cmd.Parameters.AddWithValue("@ReporterEmail",ReporterEmail);
+			cmd.Parameters.AddWithValue("@ReporterEmail", ReporterEmail);
 
 
 
@@ -402,7 +448,7 @@ namespace Engineering_Database
 
 		}
 
-	
+
 
 		#endregion
 

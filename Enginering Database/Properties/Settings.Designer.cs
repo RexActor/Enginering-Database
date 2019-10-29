@@ -23,17 +23,6 @@ namespace Engineering_Database.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\engineeringDatabase" +
-            ".accdb;Persist Security Info=True")]
-        public string engineeringDatabaseConnectionString {
-            get {
-                return ((string)(this["engineeringDatabaseConnectionString"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Gatis Jansons")]
@@ -151,6 +140,17 @@ namespace Engineering_Database.Properties {
             }
             set {
                 this["assignTo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\engineeringDatabase" +
+            ".accdb;Persist Security Info=True;")]
+        public string engineeringDatabaseConnectionString {
+            get {
+                return ((string)(this["engineeringDatabaseConnectionString"]));
             }
         }
     }
