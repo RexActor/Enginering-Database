@@ -1,5 +1,6 @@
 ﻿using Enginering_Database;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Engineering_Database
@@ -51,6 +52,39 @@ namespace Engineering_Database
 				passwordWindowTextBox.Clear();
 				//MessageBox.Show("damn... password is wrong! Good try! But not this time");
 			}
+		}
+
+		private void passwordWindowTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if(e.Key == Key.Return)
+			{
+				string pass = passwordWindowTextBox.Password.ToString();
+
+				if (pass == UserSettings.password)
+				{
+
+					if (targetWindow == "UpdateDB")
+					{
+						this.Close();
+						updateDatabase.ShowDialog();
+					}
+					else if (targetWindow == "Settings")
+					{
+						this.Close();
+						userSett.ShowDialog();
+					}
+
+				}
+				else
+				{
+					passwordMessage.Foreground = Brushes.Red;
+
+					passwordMessage.Visibility = Visibility.Visible;
+					passwordWindowTextBox.Clear();
+					//MessageBox.Show("damn... password is wrong! Good try! But not this time");
+				}
+			}
+
 		}
 	}
 }
