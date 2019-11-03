@@ -3,6 +3,7 @@ using System;
 using System.Security.Principal;
 //using System.IO;
 using System.Windows;
+using System.Threading;
 //using System.Windows.Media;
 //using System.Security.Permissions;
 //using System.Windows.Threading;
@@ -23,10 +24,10 @@ namespace Enginering_Database
 
 		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 		readonly string userName = WindowsIdentity.GetCurrent().Name;
+		UserSettings userSett = new UserSettings();
 		//string userName = "Gatis";
 		public MainWindow()
 		{
-
 
 
 
@@ -47,7 +48,7 @@ namespace Enginering_Database
 
 
 			InitializeComponent();
-
+			//MessageBox.Show(GetCPU().ToString());
 
 			Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 			DateTime buildDate = new DateTime(2000, 1, 1)
@@ -57,9 +58,20 @@ namespace Enginering_Database
 
 
 			dtC.ConnectDB();
-			UserSettings userSett = new UserSettings();
+
 			userSett.openSettings();
+
+			Thread thread = new Thread(delegate ()
+			{
+				MaintenanceActivation();
+			});
+			thread.IsBackground = true;
+			thread.Start();
+ 
+
+
 			fileExistsLabelData.Content = dtC.DBStatus();
+
 
 
 			//checkFile();
@@ -201,15 +213,82 @@ namespace Enginering_Database
 			Application.Current.Shutdown();
 		}
 
+		public string GetCPU()
+		{
+
+			//string cpu = String.Empty;
+			string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
+			if (cpu.IndexOf("64") > 0)
+			{
+				cpu = "64 Bit";
+			}
+			else
+			{
+				cpu = "32 bit";
+			}
+			return cpu;
+
+		}
+
+		public void MaintenanceActivation()
+		{
+	/*		
+   System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke((Action)(() =>
+			{
+				if (userSett.Maintenance == "Yes")
+				{
+					MaintenanceLabel.Visibility = Visibility.Visible;
+					UpdateDatabaseButton.Visibility = Visibility.Hidden;
+					UpdateDatabaseImage.Visibility = Visibility.Hidden;
+					InsertDataButton.Visibility = Visibility.Hidden;
+					InsertDataImage.Visibility = Visibility.Hidden;
+					ViewDatabaseButton.Visibility = Visibility.Hidden;
+					ViewDatabaseImage.Visibility = Visibility.Hidden;
+				}
+				else
+				{
+					MaintenanceLabel.Visibility = Visibility.Hidden;
+					UpdateDatabaseButton.Visibility = Visibility.Visible;
+					UpdateDatabaseImage.Visibility = Visibility.Visible;
+					InsertDataButton.Visibility = Visibility.Visible;
+					InsertDataImage.Visibility = Visibility.Visible;
+					ViewDatabaseButton.Visibility = Visibility.Visible;
+					ViewDatabaseImage.Visibility = Visibility.Visible;
+				}
+			}));
+			*/
+		Dispatcher.BeginInvoke(new Action(() =>
+			{
+				if (userSett.Maintenance == "Yes")
+				{
+					MaintenanceLabel.Visibility = Visibility.Visible;
+					UpdateDatabaseButton.Visibility = Visibility.Hidden;
+					UpdateDatabaseImage.Visibility = Visibility.Hidden;
+					InsertDataButton.Visibility = Visibility.Hidden;
+					InsertDataImage.Visibility = Visibility.Hidden;
+					ViewDatabaseButton.Visibility = Visibility.Hidden;
+					ViewDatabaseImage.Visibility = Visibility.Hidden;
+				}
+				else
+				{
+					MaintenanceLabel.Visibility = Visibility.Hidden;
+					UpdateDatabaseButton.Visibility = Visibility.Visible;
+					UpdateDatabaseImage.Visibility = Visibility.Visible;
+					InsertDataButton.Visibility = Visibility.Visible;
+					InsertDataImage.Visibility = Visibility.Visible;
+					ViewDatabaseButton.Visibility = Visibility.Visible;
+					ViewDatabaseImage.Visibility = Visibility.Visible;
+				}
+			}));
 
 
+
+
+		}
 
 
 
 	}
-
-
-
 }
 
 

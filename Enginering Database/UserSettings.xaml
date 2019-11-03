@@ -11,28 +11,27 @@
             <ColumnDefinition Width="409*"/>
             <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="AdminTextBox" HorizontalAlignment="Left" Height="25" Margin="144,31,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="SubAdmin1TextBox" HorizontalAlignment="Left" Height="25" Margin="144,57,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="SubAdmin2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,83,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="25" Margin="144,109,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="DatabaseTextBox" HorizontalAlignment="Left" Height="25" Margin="144,164,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="144,190,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="25" Margin="144,216,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox  Name ="EmailAddress2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,136,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox HorizontalAlignment="Left" Height="25" Margin="144,265,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Label Content="Admin" HorizontalAlignment="Left" Height="25" Margin="10,31,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,57,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,83,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Email Address" HorizontalAlignment="Left" Height="25" Margin="10,109,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Database" HorizontalAlignment="Left" Height="25" Margin="10,164,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="10,189,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Password" HorizontalAlignment="Left" Height="25" Margin="10,216,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="10,242,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Email Address {Opt}" HorizontalAlignment="Left" Height="25" Margin="10,136,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Label" HorizontalAlignment="Left" Height="25" Margin="10,264,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AdminTextBox" HorizontalAlignment="Left" Height="25" Margin="144,53,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="SubAdmin1TextBox" HorizontalAlignment="Left" Height="25" Margin="144,79,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="SubAdmin2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,105,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="25" Margin="144,131,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="DatabaseTextBox" HorizontalAlignment="Left" Height="25" Margin="144,186,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="144,212,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="25" Margin="144,238,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox  Name ="EmailAddress2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,158,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label Content="Admin" HorizontalAlignment="Left" Height="25" Margin="10,53,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,79,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,105,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Email Address" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Database" HorizontalAlignment="Left" Height="25" Margin="10,186,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="10,211,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Password" HorizontalAlignment="Left" Height="25" Margin="10,238,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="10,264,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Email Address {Opt}" HorizontalAlignment="Left" Height="25" Margin="10,158,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Maintenance" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Button x:Name="SaveUserSettingsButton" Content="Save Settings" HorizontalAlignment="Left" Height="31" Margin="41,551,0,0" VerticalAlignment="Top" Width="121" Click="SaveUserSettingsButton_Click"/>
         <Button x:Name="ResetUserSettingsButton_Copy" Content="Reset Settings" HorizontalAlignment="Left" Height="31" Margin="167,551,0,0" VerticalAlignment="Top" Width="121" Click="ResetUserSettingsButton_Copy_Click"/>
-        <ComboBox x:Name="PreviewSettingComboBox" HorizontalAlignment="Left" Height="22" Margin="144,243,0,0" VerticalAlignment="Top" Width="166" IsReadOnly="True" HorizontalContentAlignment="Center">
+        <ComboBox x:Name="PreviewSettingComboBox" HorizontalAlignment="Left" Height="22" Margin="144,265,0,0" VerticalAlignment="Top" Width="166" IsReadOnly="True" HorizontalContentAlignment="Center">
 
             <ComboBoxItem Name="Yes" IsSelected="True">Yes</ComboBoxItem>
             <ComboBoxItem Name="No">No</ComboBoxItem>
@@ -50,6 +49,8 @@
         <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,407,0,0" VerticalAlignment="Top" Width="79" Click="AddAssignedTo_Click"/>
         <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,459,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveAssignedToButton_Click"/>
         <Button Content="Issue Codes" HorizontalAlignment="Left" Height="31" Margin="305,551,0,0" VerticalAlignment="Top" Width="96" Click="OpenIssueCodeChanges"/>
+        <CheckBox Name ="MaintenanceCheckBox" Content="" HorizontalAlignment="Left" Margin="139,16,0,0" VerticalAlignment="Top"/>
+
 
     </Grid>
 </Window>

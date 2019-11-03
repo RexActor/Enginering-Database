@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.OleDb;
+using Engineering_Database;
 
 namespace Engineering_Database
 {
@@ -29,7 +30,26 @@ namespace Engineering_Database
 			if (con.State == ConnectionState.Closed)
 			{
 
+				try
+				{
+					if (GetCPU().IndexOf("64") > 0)
+					{
+						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.16.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+					}
+					else
+					{
+						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+					}
+					con.Open();
 
+				}
+				catch
+				{
+					userErr.errorMessage = "Ace.OLEDB error";
+					userErr.CallWindow();
+					userErr.Show();
+				}
+/*
 				try
 				{
 					con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
@@ -47,7 +67,9 @@ namespace Engineering_Database
 						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.16.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
 					}//con.Open();
 				}
-				con.Open();
+				*/
+
+				
 
 			}
 			//strCon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=engineeringDatabase.accdb;Jet OLEDB:Database Password=test";
@@ -451,6 +473,17 @@ namespace Engineering_Database
 
 
 		#endregion
+
+		public string GetCPU()
+		{
+
+			//string cpu = String.Empty;
+			string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
+			
+			return cpu;
+
+		}
+
 
 	}
 }
