@@ -14,7 +14,7 @@ namespace Enginering_Database
 	public partial class addData : Window
 	{
 		readonly DatabaseClass db = new DatabaseClass();
-		EmailClass email = new EmailClass();
+		readonly EmailClass email = new EmailClass();
 		bool richTextBoxTextChanged = false;
 		public addData()
 		{

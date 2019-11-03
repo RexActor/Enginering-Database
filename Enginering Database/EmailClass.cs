@@ -6,8 +6,8 @@ namespace Engineering_Database
 	class EmailClass
 	{
 
-		UserSettings userSett = new UserSettings();
-		UserErrorWindow userErr = new UserErrorWindow();
+		readonly UserSettings userSett = new UserSettings();
+		readonly UserErrorWindow userErr = new UserErrorWindow();
 		readonly DatabaseClass db = new DatabaseClass();
 
 
@@ -202,7 +202,7 @@ namespace Engineering_Database
 		{
 
 
-			string SenderEmailAddress = string.Empty;
+			string SenderEmailAddress;
 
 			if (mailItem.Session.CurrentUser.AddressEntry.Type == "EX")
 			{

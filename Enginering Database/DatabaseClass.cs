@@ -14,11 +14,11 @@ namespace Engineering_Database
 		 * 
 		 */
 
-		UserErrorWindow userErr = new UserErrorWindow();
-		string strCon = String.Empty;
+		readonly UserErrorWindow userErr = new UserErrorWindow();
+		//readonly string strCon = String.Empty;
 
-		OleDbConnection con = new OleDbConnection();
-		private bool success = false;
+		readonly OleDbConnection con = new OleDbConnection();
+		//private bool success = false;
 
 		#region connect DB close DB and DB status DB count lines functions
 
@@ -304,15 +304,17 @@ namespace Engineering_Database
 
 			if (LastJobNumberIsNumber)
 			{
-				cmd.Dispose();
+				//cmd.Dispose();
 				LastJobNumber = number;
 				return LastJobNumber;
 			}
 			else
 			{
 				cmd.Dispose();
+
 				return 0;
 			}
+			//cmd.Dispose();
 
 		}
 		#endregion

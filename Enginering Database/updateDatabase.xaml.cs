@@ -29,7 +29,7 @@ namespace Enginering_Database
 		readonly IssueClass issueClass = new IssueClass();
 		readonly UserSettings userSett = new UserSettings();
 		readonly DatabaseClass db = new DatabaseClass();
-		UserErrorWindow userError = new UserErrorWindow();
+		readonly UserErrorWindow userError = new UserErrorWindow();
 		readonly double ScreenHeight = SystemParameters.WorkArea.Height;
 		readonly double ScreenWidht = SystemParameters.WorkArea.Width;
 		readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();

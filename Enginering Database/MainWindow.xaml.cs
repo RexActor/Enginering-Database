@@ -24,7 +24,7 @@ namespace Enginering_Database
 
 		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 		readonly string userName = WindowsIdentity.GetCurrent().Name;
-		UserSettings userSett = new UserSettings();
+		readonly UserSettings userSett = new UserSettings();
 		//string userName = "Gatis";
 		public MainWindow()
 		{

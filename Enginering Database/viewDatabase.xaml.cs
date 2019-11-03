@@ -20,7 +20,7 @@ namespace Enginering_Database
 
 		int jobList;
 		int convJobNumber;
-		string LogedInUser;
+		readonly string LogedInUser;
 		readonly DatabaseClass db = new DatabaseClass();
 		System.Windows.Controls.Button textTestLabel;
 		public string contentForTextTestLabel;
