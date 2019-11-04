@@ -663,14 +663,18 @@ namespace Enginering_Database
 
 					issueComboBox.Items.Clear();
 					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Issue 1");
-					issueComboBox.Items.Add("Issue 2");
-					issueComboBox.Items.Add("Issue 3");
-					issueComboBox.Items.Add("Issue 4");
-					issueComboBox.Items.Add("Issue 5");
-					issueComboBox.Items.Add("Issue 6");
-					issueComboBox.Items.Add("Issue 7");
-					issueComboBox.Items.Add("Issue 8");
+					issueComboBox.Items.Add("Hydraulics");
+					issueComboBox.Items.Add("Load Wheels");
+					issueComboBox.Items.Add("Caster Wheels");
+					issueComboBox.Items.Add("Battery");
+					issueComboBox.Items.Add("Forks");
+					issueComboBox.Items.Add("Pins");
+					issueComboBox.Items.Add("Access Code");
+					issueComboBox.Items.Add("Electrical Issue");
+					issueComboBox.Items.Add("Hose Pipe");
+					issueComboBox.Items.Add("Oil leak");
+					issueComboBox.Items.Add("Gas leak");
+					issueComboBox.Items.Add("Other");
 					issueComboBox.SelectedIndex = 0;
 
 					break;
