@@ -15,7 +15,7 @@
         <TextBox x:Name="SubAdmin1TextBox" HorizontalAlignment="Left" Height="25" Margin="144,79,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="SubAdmin2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,105,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="25" Margin="144,131,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="DatabaseTextBox" HorizontalAlignment="Left" Height="25" Margin="144,186,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="DueDataTextBox" HorizontalAlignment="Left" Height="25" Margin="144,186,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="144,212,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="25" Margin="144,238,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox  Name ="EmailAddress2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,158,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
@@ -23,7 +23,7 @@
         <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,79,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,105,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Email Address" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Database" HorizontalAlignment="Left" Height="25" Margin="10,186,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="DueDataGap" HorizontalAlignment="Left" Height="25" Margin="10,186,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="10,211,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Password" HorizontalAlignment="Left" Height="25" Margin="10,238,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="10,264,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>

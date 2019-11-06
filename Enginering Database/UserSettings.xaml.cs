@@ -13,15 +13,16 @@ namespace Engineering_Database
 		public static string UserName;
 		public static string SubAdmin1;
 		public static string SubAdmin2;
-		public string Email;
-		public string Email2;
-		public static string database;
+		public  string Email;
+		public static string Email2;
+		//public static string database;
 		public static string jobCount;
 		public static string password;
 		public static string preview;
-		public string contractors;
-		public string assignToUser;
-		public string Maintenance;
+		public  string contractors;
+		public  string assignToUser;
+		public  string Maintenance;
+		public string DueDateGap;
 
 		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		public static KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
@@ -73,13 +74,13 @@ namespace Engineering_Database
 			assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
 			password = db.DBQueryForGlobalSettings("Password");
 			Maintenance = db.DBQueryForGlobalSettings("Maintenance");
-
+			DueDateGap = db.DBQueryForGlobalSettings("DueDateGap");
 
 			AdminTextBox.Text = UserName;
 			SubAdmin1TextBox.Text = SubAdmin1;
 			SubAdmin2TextBox.Text = SubAdmin2;
 			emailTextBox.Text = Email;
-			DatabaseTextBox.Text = database;
+			DueDataTextBox.Text = DueDateGap;
 			JobCountSettingData.Text = jobCount;
 			passwordTextBox.Text = password;
 			PreviewSettingComboBox.Text = preview;
@@ -151,8 +152,9 @@ namespace Engineering_Database
 			{
 				db.DBQueryUpdateGlobalSettings("Maintenance", "No");
 			}
+			db.DBQueryUpdateGlobalSettings("DueDateGap", DueDataTextBox.Text);
 
-			Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
+			//Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
 			Properties.Settings.Default["jobCount"] = JobCountSettingData.Text;
 
 			Properties.Settings.Default["password"] = passwordTextBox.Text;
@@ -276,7 +278,7 @@ namespace Engineering_Database
 			SubAdmin1TextBox.Text = "default";
 			SubAdmin2TextBox.Text = "default";
 			emailTextBox.Text = "default";
-			DatabaseTextBox.Text = "default";
+			DueDataTextBox.Text = "10";
 			JobCountSettingData.Text = "0";
 			passwordTextBox.Text = "default";
 			PreviewSettingComboBox.Text = "Yes";

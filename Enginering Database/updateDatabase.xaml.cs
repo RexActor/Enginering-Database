@@ -161,6 +161,7 @@ namespace Enginering_Database
 
 
 			TestStackPanel.Children.Clear();
+			searchCombo.Items.Clear();
 			searchCombo.Items.Insert(0, "Job Number");
 			searchCombo.SelectedIndex = 0;
 

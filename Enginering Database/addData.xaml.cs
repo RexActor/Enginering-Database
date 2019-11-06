@@ -15,6 +15,7 @@ namespace Enginering_Database
 	{
 		readonly DatabaseClass db = new DatabaseClass();
 		readonly EmailClass email = new EmailClass();
+		readonly UserSettings userrSet = new UserSettings();
 		bool richTextBoxTextChanged = false;
 		public addData()
 		{
@@ -159,6 +160,7 @@ namespace Enginering_Database
 					issueTypeComboBox.Items.Add("Security");
 					issueTypeComboBox.Items.Add("Drains");
 					issueTypeComboBox.Items.Add("Office Equipment");
+					issueTypeComboBox.Items.Add("Cleaning Equipment");
 					issueTypeComboBox.SelectedIndex = 0;
 
 					//update building drop down list
@@ -459,7 +461,30 @@ namespace Enginering_Database
 
 					break;
 
+				case "Cleaning Equipment":
+					buildingComboBox.IsEnabled = true;
+					buildingComboBox.Items.Clear();
+					buildingComboBox.Items.Insert(0, "Please choose");
+					buildingComboBox.Items.Add("Building 1");
+					buildingComboBox.Items.Add("Building 2");
+					buildingComboBox.SelectedIndex = 0;
 
+					faultyAreaComboBox.Items.Clear();
+
+					faultyAreaComboBox.Items.Insert(0, "Please choose");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
+					faultyAreaComboBox.IsEnabled = false;
+
+					issueComboBox.Items.Clear();
+					issueComboBox.Items.Insert(0, "Please choose");
+					issueComboBox.Items.Add("Floor scrubber");
+					issueComboBox.Items.Add("Ride On floor scrubber");
+					issueComboBox.SelectedIndex = 0;
+					issueComboBox.IsEnabled = false;
+
+
+					break;
 
 
 				default:
@@ -580,9 +605,9 @@ namespace Enginering_Database
 					faultyAreaComboBox.Items.Clear();
 					faultyAreaComboBox.Items.Insert(0, "Please Choose12");
 					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex =1;
+					faultyAreaComboBox.SelectedIndex = 1;
 					faultyAreaComboBox.IsEnabled = false;
-					issueComboBox.IsEnabled = true;
+					issueComboBox.IsEnabled = false;
 				}
 				else if (issueTypeComboBox.SelectedItem.ToString() == "Projects")
 				{
@@ -634,6 +659,13 @@ namespace Enginering_Database
 					faultyAreaComboBox.Items.Add("Other");
 					faultyAreaComboBox.SelectedIndex = 1;
 
+				}
+				else if (issueTypeComboBox.SelectedItem.ToString() == "Cleaning Equipment")
+				{
+					faultyAreaComboBox.Items.Clear();
+					faultyAreaComboBox.Items.Insert(0, "Please Choose");
+					faultyAreaComboBox.Items.Add("Other");
+					faultyAreaComboBox.SelectedIndex = 1;
 				}
 				else
 				{
@@ -829,7 +861,11 @@ namespace Enginering_Database
 
 			int getLastJobNumber = db.DBQueryLastJobNumber("JobNumber");
 
-			string dtNow = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture); ;
+			DateTime dueDate  = DateTime.Now.AddDays(float.Parse(userrSet.DueDateGap));
+
+
+			string dtNow = dueDate.ToString("dd/MM/yyyy");
+
 			string dtTmNow = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
 			TextRange textRange = new TextRange(DetailedDescriptionRichTextBox.Document.ContentStart, DetailedDescriptionRichTextBox.Document.ContentEnd);
@@ -868,10 +904,10 @@ namespace Enginering_Database
 
 				db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail);
 
-				
-			
-	
-	this.Close();
+
+
+
+				this.Close();
 
 			}
 			else
@@ -886,11 +922,11 @@ namespace Enginering_Database
 			//db.InsertDataIntoDatabase(getLastJobNumber+1, dtNow, dtTmNow, usernameLabelValue.Content.ToString(),AssetNumberTextBox.Text,faultyAreaComboBox.Text,buildingComboBox.Text,issueComboBox.Text,PriorityComboBox.Text,issueTypeComboBox.Text,textRange.Text,dtNow,areaComboBox.Text);
 
 		}
-		private void ClearRichTextBox (object sender,RoutedEventArgs e)
+		private void ClearRichTextBox(object sender, RoutedEventArgs e)
 		{
 			((RichTextBox)sender).Document = new FlowDocument();
 		}
-		private void CheckRichTextBoxchanges (object sender, TextChangedEventArgs e)
+		private void CheckRichTextBoxchanges(object sender, TextChangedEventArgs e)
 		{
 			richTextBoxTextChanged = true;
 		}
