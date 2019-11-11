@@ -532,7 +532,7 @@ namespace Enginering_Database
 			//Frame3StartTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("StartTime", convJobNumber)).ToShortTimeString();
 			//Frame3FinishTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("FinishTime", convJobNumber)).ToShortTimeString();
 
-			if (db.DBQuery("AssignedTo", convJobNumber) == "Not Assigned")
+			if (db.DBQuery("AssignedTo", convJobNumber) == "NotAssigned")
 			{
 				Frame3AssignedToData.Content = "Job is not assigned";
 				//AssignToDropDownBox.SelectedItem = "Please select";
