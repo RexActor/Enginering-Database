@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -257,7 +258,7 @@ namespace Enginering_Database
 			//Frame3userNameLabel.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 			//Frame3userNameLabel.Content = "Gatis - Fix required";
 
-			Frame3userNameLabel.Content = Environment.UserName;
+			Frame3userNameLabel.Content = WindowsIdentity.GetCurrent().Name;
 
 			Frame3CurrentDateLabel.Content = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
@@ -707,7 +708,9 @@ namespace Enginering_Database
 
 					db.DBQueryInsertData(convJobNumber, "CompletedTime", time.ToString("HH:mm"));
 					db.DBQueryInsertData(convJobNumber, "CompletedDate", time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture));
-					db.DBQueryInsertData(convJobNumber, "Action", "Fixed");
+					db.DBQueryInsertData(convJobNumber, "Action", "Actioned");
+					db.DBQueryInsertData(convJobNumber, "CompletedBy", Frame3userNameLabel.Content.ToString());
+
 					Frame3CompleteCheckBox.IsChecked = false;
 				}
 				else
@@ -722,6 +725,7 @@ namespace Enginering_Database
 					db.DBQueryInsertData(convJobNumber, "Action", "Action required");
 					db.DBQueryInsertData(convJobNumber, "CompletedTime", null);
 					db.DBQueryInsertData(convJobNumber, "CompletedDate", null);
+					db.DBQueryInsertData(convJobNumber, "CompletedBy", null);
 				}
 
 				if (Frame2AdminDescriptionTextBox.Text != null)

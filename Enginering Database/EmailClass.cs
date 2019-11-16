@@ -217,5 +217,84 @@ namespace Engineering_Database
 
 			return SenderEmailAddress;
 		}
+
+		public void ReportAppISsueEmail(string Date, string Time, string Username, string report)
+		{
+
+
+
+
+			if (checkOutlook() == true)
+			{
+
+
+				string emailAddress = userSett.ReportEmail;
+
+				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
+
+				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+
+
+
+
+				sender = GetSenderEmailAddress(mailItem);
+
+
+
+
+				try
+				{
+					mailItem.To = emailAddress;
+					mailItem.CC = sender;
+					mailItem.Subject ="Report for application has been sent from: "+ Username;
+
+
+					htmlString = "<html><body><h4> " + Username + " reported  issue below for application:</b></h4>" +
+				report + "</body>" +
+				"</html>";
+
+					mailItem.HTMLBody = htmlString;
+
+					mailItem.Display(true);
+					//mailItem.Send();
+
+				}
+
+
+
+
+				catch
+				{
+					userErr.errorMessage = "There was something wrong when trying to send email. [Object] {Email Class.cs} [Line] {167}";
+					userErr.Title = "Outlook error";
+					userErr.CallWindow();
+					userErr.ShowDialog();
+
+				}
+
+
+
+
+
+
+
+
+			
+
+			
+
+			}
+			else
+			{
+				userErr.errorMessage = "Outlook is not open.Please open outlook aplication and try again";
+				userErr.Title = "Outlook error";
+				userErr.CallWindow();
+				userErr.ShowDialog();
+			}
+
+
+		}
+
+
 	}
 }

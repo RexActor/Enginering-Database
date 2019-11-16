@@ -14,7 +14,7 @@ namespace Engineering_Database
 		public static string SubAdmin1;
 		public static string SubAdmin2;
 		public  string Email;
-		public static string Email2;
+		public  string ReportEmail;
 		//public static string database;
 		public static string jobCount;
 		public static string password;
@@ -69,7 +69,7 @@ namespace Engineering_Database
 			SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
 			SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
 			Email = db.DBQueryForGlobalSettings("EmailAddress");
-			Email2 = db.DBQueryForGlobalSettings("EmailAddress2");
+			ReportEmail = db.DBQueryForGlobalSettings("EmailAddress2");
 			contractors = db.DBQueryForGlobalSettings("Contractors");
 			assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
 			password = db.DBQueryForGlobalSettings("Password");
@@ -85,7 +85,7 @@ namespace Engineering_Database
 			JobCountSettingData.Text = jobCount;
 			passwordTextBox.Text = password;
 			PreviewSettingComboBox.Text = preview;
-			EmailAddress2TextBox.Text = Email2;
+			EmailAddress2TextBox.Text = ReportEmail;
 
 
 			if (Maintenance == "Yes")

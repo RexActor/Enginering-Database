@@ -286,8 +286,11 @@ namespace Enginering_Database
 
 		}
 
-
-
+		private void ReportAppIssue_Click(object sender, RoutedEventArgs e)
+		{
+			ReportAppIssue repApp = new ReportAppIssue();
+			repApp.Show();
+		}
 	}
 }
 
