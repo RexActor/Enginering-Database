@@ -37,6 +37,7 @@ namespace Enginering_Database
 		//if data is not selected = can't change due date
 		private bool canChangeDueDate = false;
 		private bool canSendEmail = false;
+		private bool canComplete = false;
 		private bool canSubmit = false;
 		private string jobStatus = null;
 		private string isComplete = null;
@@ -331,6 +332,7 @@ namespace Enginering_Database
 			canChangeDueDate = true;
 			canSendEmail = true;
 			canSubmit = true;
+			canComplete = true;
 
 			if (ChangeDueDateCheckBox.IsChecked == true)
 			{
@@ -423,12 +425,23 @@ namespace Enginering_Database
 
 		}
 
-		private void CompleteCheckboxOnCheck (object sender,RoutedEventArgs e)
+		private void CompleteCheckboxOnCheck(object sender, RoutedEventArgs e)
 		{
-			if (ConfirmEmailCheckBox.IsChecked == false)
+			if (canComplete == true)
 			{
-				ConfirmEmailCheckBox.IsChecked = true;
+				if (ConfirmEmailCheckBox.IsChecked == false)
+				{
+					ConfirmEmailCheckBox.IsChecked = true;
+				}
 			}
+			else
+			{
+				Frame3CompleteCheckBox.IsChecked = false;
+			}
+		
+
+
+
 		}
 
 		private void ChangeDueDateCheckBox_Change(object sender, RoutedEventArgs e)
@@ -458,6 +471,15 @@ namespace Enginering_Database
 			}
 		}
 
+
+		private void ConfirmEmailCheckBox_Change(object sender, RoutedEventArgs e)
+		{
+			if (canSendEmail == false)
+			{
+				ConfirmEmailCheckBox.IsChecked = false;
+			}
+		}
+
 		private void DueDateChangeCheckBoxMouseOver(object sender, RoutedEventArgs e)
 		{
 			if (canChangeDueDate == false)
@@ -476,6 +498,49 @@ namespace Enginering_Database
 				myToolTip.IsOpen = false;
 			}
 		}
+		private void CompleteCheckBoxMouseOver(object sender, RoutedEventArgs e)
+		{
+			if (canChangeDueDate == false)
+			{
+				myToolTip.Content = "Can't complete issue if data is not selected";
+				myToolTip.IsEnabled = true;
+				myToolTip.IsOpen = true;
+			}
+		}
+
+		private void CompleteCheckBoxMouseLeave(object sender, RoutedEventArgs e)
+		{
+			if (canChangeDueDate == false)
+			{
+				myToolTip.IsEnabled = false;
+				myToolTip.IsOpen = false;
+			}
+		}
+
+		private void ConfirmEmailCheckBoxMouseOver(object sender, RoutedEventArgs e)
+		{
+			if (canSendEmail == false)
+			{
+				myToolTip.Content = "Can't confirm email if data is not selected";
+				myToolTip.IsEnabled = true;
+				myToolTip.IsOpen = true;
+			}
+		}
+
+		private void ConfirmEmailCheckBoxMouseLeave(object sender, RoutedEventArgs e)
+		{
+			if (canSendEmail == false)
+			{
+				myToolTip.IsEnabled = false;
+				myToolTip.IsOpen = false;
+			}
+		}
+
+
+
+
+
+
 
 		private void DueDateChange_change(object sender, SelectionChangedEventArgs e)
 		{
@@ -545,7 +610,7 @@ namespace Enginering_Database
 			}
 			if (db.DBQuery("Completed", convJobNumber) == "True")
 			{
-				jobStatus ="Closed";
+				jobStatus = "Closed";
 				Frame3CompleteCheckBox.IsChecked = true;
 			}
 			else
@@ -574,7 +639,20 @@ namespace Enginering_Database
 				Frame2AdminDescriptionTextBox.Text = "";
 			}
 
+			DateTime StartDate = DateTime.Now.Date;
+			DateTime EndDate = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber));
+			Double daysBetween = (EndDate - StartDate).TotalDays;
 
+
+			if (daysBetween < 0)
+			{
+				Frame3DaysTillDueData.Foreground = Brushes.Red;
+			}
+			else
+			{
+				Frame3DaysTillDueData.Foreground = Brushes.Green;
+			}
+			Frame3DaysTillDueData.Content = daysBetween;
 
 
 		}
@@ -593,13 +671,13 @@ namespace Enginering_Database
 			issueClass.DueDate = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 			issueClass.FaulyArea = db.DBQuery("FaultyArea", convJobNumber);
 			issueClass.Code = db.DBQuery("IssueCode", convJobNumber);
-			
+
 			issueClass.AssetNumber = db.DBQuery("AssetNumber", convJobNumber);
-			
-			
+
+
 			//Frame2PriorityData.Content = db.DBQuery("Priority", convJobNumber);
 
-			issueClass.DetailedDescription= db.DBQuery("DetailedDescription", convJobNumber);
+			issueClass.DetailedDescription = db.DBQuery("DetailedDescription", convJobNumber);
 			//issueClass.CompletedByUsername = db.DBQuery("CompletedBy", convJobNumber);
 			issueClass.AssignedTo = db.DBQuery("AssignedTo", convJobNumber);
 			issueClass.CommentsForActionsTaken = db.DBQuery("CommentsForActionTaken", convJobNumber);
@@ -618,11 +696,18 @@ namespace Enginering_Database
 
 				if (Frame3CompleteCheckBox.IsChecked == true)
 				{
-					
+
 
 					db.DBQueryInsertData("Completed", convJobNumber, true);
 					isComplete = "Complete";
-					db.DBQueryInsertData(convJobNumber, "Action", "Actioned");
+					DateTime time = DateTime.Now;
+
+
+					//timeLabelAddData.Content = time.ToString("HH:mm");
+
+					db.DBQueryInsertData(convJobNumber, "CompletedTime", time.ToString("HH:mm"));
+					db.DBQueryInsertData(convJobNumber, "CompletedDate", time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture));
+					db.DBQueryInsertData(convJobNumber, "Action", "Fixed");
 					Frame3CompleteCheckBox.IsChecked = false;
 				}
 				else
@@ -632,9 +717,11 @@ namespace Enginering_Database
 					{
 						isComplete = "ReOpen";
 					}
-					
+					//DateTime? time = null;
 					db.DBQueryInsertData("Completed", convJobNumber, false);
 					db.DBQueryInsertData(convJobNumber, "Action", "Action required");
+					db.DBQueryInsertData(convJobNumber, "CompletedTime", null);
+					db.DBQueryInsertData(convJobNumber, "CompletedDate", null);
 				}
 
 				if (Frame2AdminDescriptionTextBox.Text != null)
@@ -661,7 +748,7 @@ namespace Enginering_Database
 
 				if (ConfirmEmailCheckBox.IsChecked == true && canSendEmail == true)
 				{
-				
+
 					email.SendEmail(jobStatus, issueClass, isComplete);
 					ConfirmEmailCheckBox.IsChecked = false;
 					canSendEmail = false;

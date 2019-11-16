@@ -886,8 +886,16 @@ namespace Enginering_Database
 			//get last job number and increment by 1
 			issue.JobNumber = getLastJobNumber + 1;
 
-			issue.ReportedDate = dtNow;
-			issue.ReportedTime = dtTmNow;
+			DateTime time = DateTime.Now;
+
+			issue.ReportedDate = time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+			
+			//time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)
+
+			//timeLabelAddData.Content = time.ToString("HH:mm");
+
+			issue.ReportedTime = time.ToString("HH:mm");
 			issue.Type = issueTypeComboBox.Text;
 			issue.Priority = PriorityComboBox.Text;
 			issue.ReportedUserName = usernameLabelValue.Content.ToString();

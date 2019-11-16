@@ -164,8 +164,8 @@ namespace Engineering_Database
 		public OleDbCommand DBQuery()
 		{
 
-			string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
-
+			//string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
+			string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed =false";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			//OleDbDataReader reader = cmd.ExecuteReader();
 			//reader.Read();
@@ -181,16 +181,16 @@ namespace Engineering_Database
 			string queryString;
 			if (filter == "Outstanding")
 			{
-				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Action='Action required'";
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=false ORDER BY JobNumber DESC";
 			}
 			else if (filter == "Resolved")
 			{
-				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true";
+				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true ORDER BY JobNumber DESC";
 			}
 
 			else
 			{
-				queryString = "SELECT * FROM engineeringDatabaseTable";
+				queryString = "SELECT * FROM engineeringDatabaseTable ORDER BY JobNumber DESC";
 
 			}
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -386,7 +386,7 @@ namespace Engineering_Database
 
 
 			//cmd.Parameters.AddWithValue("@table", table);
-			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@value", value==null?DBNull.Value:(object)value);
 			cmd.Parameters.AddWithValue("@jobnumber", jobnumber);
 
 

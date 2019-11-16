@@ -59,7 +59,7 @@ namespace Engineering_Database
 
 
 			//TODO:move to userSettings profile
-			jobCount = Properties.Settings.Default["jobCount"].ToString();
+			//jobCount = Properties.Settings.Default["jobCount"].ToString();
 
 			// TODO: move to usersettings profile
 			preview = Properties.Settings.Default["preview"].ToString();
@@ -75,6 +75,7 @@ namespace Engineering_Database
 			password = db.DBQueryForGlobalSettings("Password");
 			Maintenance = db.DBQueryForGlobalSettings("Maintenance");
 			DueDateGap = db.DBQueryForGlobalSettings("DueDateGap");
+			jobCount = db.DBQueryForGlobalSettings("JobCount");
 
 			AdminTextBox.Text = UserName;
 			SubAdmin1TextBox.Text = SubAdmin1;
@@ -85,6 +86,8 @@ namespace Engineering_Database
 			passwordTextBox.Text = password;
 			PreviewSettingComboBox.Text = preview;
 			EmailAddress2TextBox.Text = Email2;
+
+
 			if (Maintenance == "Yes")
 			{
 				MaintenanceCheckBox.IsChecked = true;
@@ -142,6 +145,8 @@ namespace Engineering_Database
 			db.DBQueryUpdateGlobalSettings("EmailAddress", emailTextBox.Text);
 			db.DBQueryUpdateGlobalSettings("Password", passwordTextBox.Text);
 			db.DBQueryUpdateGlobalSettings("EmailAddress2", EmailAddress2TextBox.Text);
+			db.DBQueryUpdateGlobalSettings("JobCount", JobCountSettingData.Text);
+
 			if (MaintenanceCheckBox.IsChecked == true)
 			{
 
