@@ -46,6 +46,7 @@ namespace Engineering_Database
 
 			EmailClass email = new EmailClass();
 			email.ReportAppISsueEmail(DateLabelData.Content.ToString(), TimeData.Content.ToString(), UserNameReporting.Content.ToString(), AppIssueReportTextBox.Text);
+			this.Close();
 		}
 	}
 }

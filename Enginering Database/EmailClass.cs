@@ -183,7 +183,16 @@ namespace Engineering_Database
 
 				mailItem.HTMLBody = htmlString;
 
-				mailItem.Display(true);
+				if (userSett.EmailPreview == "Yes")
+				{
+					mailItem.Display(true);
+				}
+				else
+				{
+					mailItem.Send();
+				}
+
+
 
 				//mailItem.Send();
 
@@ -246,7 +255,7 @@ namespace Engineering_Database
 				{
 					mailItem.To = emailAddress;
 					mailItem.CC = sender;
-					mailItem.Subject ="Report for application has been sent from: "+ Username;
+					mailItem.Subject = "Report for application has been sent from: " + Username;
 
 
 					htmlString = "<html><body><h4> " + Username + " reported  issue below for application:</b></h4>" +
@@ -254,8 +263,14 @@ namespace Engineering_Database
 				"</html>";
 
 					mailItem.HTMLBody = htmlString;
-
-					mailItem.Display(true);
+					if (userSett.EmailPreview == "Yes")
+					{
+						mailItem.Display(true);
+					}
+					else
+					{
+						mailItem.Send();
+					}
 					//mailItem.Send();
 
 				}
@@ -279,9 +294,9 @@ namespace Engineering_Database
 
 
 
-			
 
-			
+
+
 
 			}
 			else

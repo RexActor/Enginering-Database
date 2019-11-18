@@ -19,6 +19,7 @@ namespace Engineering_Database
 		public static string jobCount;
 		public static string password;
 		public static string preview;
+		public string EmailPreview;
 		public  string contractors;
 		public  string assignToUser;
 		public  string Maintenance;
@@ -76,6 +77,9 @@ namespace Engineering_Database
 			Maintenance = db.DBQueryForGlobalSettings("Maintenance");
 			DueDateGap = db.DBQueryForGlobalSettings("DueDateGap");
 			jobCount = db.DBQueryForGlobalSettings("JobCount");
+			EmailPreview = db.DBQueryForGlobalSettings("EmailPreview");
+
+
 
 			AdminTextBox.Text = UserName;
 			SubAdmin1TextBox.Text = SubAdmin1;
@@ -97,7 +101,17 @@ namespace Engineering_Database
 			{
 				MaintenanceCheckBox.IsChecked = false;
 			}
-				
+
+			if (EmailPreview == "Yes")
+			{
+				EmailPreview_CheckBox.IsChecked = true;
+
+			}
+			else
+			{
+				EmailPreview_CheckBox.IsChecked = false;
+			}
+
 
 			ResetContractors();
 			resetAssignToList();
@@ -157,6 +171,17 @@ namespace Engineering_Database
 			{
 				db.DBQueryUpdateGlobalSettings("Maintenance", "No");
 			}
+
+			if (EmailPreview_CheckBox.IsChecked == true)
+			{
+				db.DBQueryUpdateGlobalSettings("EmailPreview", "Yes");
+			}
+			else
+			{
+				db.DBQueryUpdateGlobalSettings("EmailPreview", "No");
+			}
+
+
 			db.DBQueryUpdateGlobalSettings("DueDateGap", DueDataTextBox.Text);
 
 			//Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
