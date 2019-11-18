@@ -31,7 +31,7 @@ namespace Engineering_Database
 
 		public void CallWindow()
 		{
-			//ErrorLabel.Content = errorMessage;
+			
 			ErrorTextBlock.Text = errorMessage;
 		}
 	

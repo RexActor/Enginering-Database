@@ -5,9 +5,7 @@ using System.Windows.Media;
 
 namespace Engineering_Database
 {
-	/// <summary>
-	/// Interaction logic for passwordWindow.xaml
-	/// </summary>
+
 	public partial class passwordWindow : Window
 	{
 		readonly UserSettings userSett = new UserSettings();
@@ -50,7 +48,7 @@ namespace Engineering_Database
 
 				passwordMessage.Visibility = Visibility.Visible;
 				passwordWindowTextBox.Clear();
-				//MessageBox.Show("damn... password is wrong! Good try! But not this time");
+			
 			}
 		}
 
@@ -81,7 +79,7 @@ namespace Engineering_Database
 
 					passwordMessage.Visibility = Visibility.Visible;
 					passwordWindowTextBox.Clear();
-					//MessageBox.Show("damn... password is wrong! Good try! But not this time");
+					
 				}
 			}
 

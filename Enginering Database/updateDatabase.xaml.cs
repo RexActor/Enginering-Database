@@ -19,7 +19,7 @@ namespace Enginering_Database
 
 	public partial class updateDatabase : Window
 	{
-		//private static readonly log4net.ILog log = LogHelper.GetLogger();
+		
 
 		private string filter = "Outstanding";
 		readonly EmailClass email = new EmailClass();
@@ -231,7 +231,7 @@ namespace Enginering_Database
 							textTestLabel.MouseEnter += (sender, e) => { TextTestLabel_Hover(sender, e); };
 							textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
 						}
-						//log.Debug($"Content for text Label: {contentForTextTestLabel.ToString()}");
+						
 
 						TestStackPanel.Children.Add(textTestLabel);
 					}
@@ -254,9 +254,7 @@ namespace Enginering_Database
 			}
 
 
-			//TODO: error fix required for displaying name
-			//Frame3userNameLabel.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
-			//Frame3userNameLabel.Content = "Gatis - Fix required";
+			
 
 			Frame3userNameLabel.Content = WindowsIdentity.GetCurrent().Name;
 
@@ -277,13 +275,11 @@ namespace Enginering_Database
 				db.ConnectDB();
 			}
 
-			//TODO:testing email class
-
-			//email.SendEmail();
+			
 
 
 
-			//MouseEventArgs e
+			
 			Button lbl = (Button)sender;
 			previewStackPanel.Visibility = Visibility.Visible;
 			if (lbl == null)
@@ -351,7 +347,7 @@ namespace Enginering_Database
 
 
 
-			//log.Debug(btn.Content.ToString());
+			
 
 
 			if (db.DBStatus() == "DB not Connected")
@@ -573,11 +569,11 @@ namespace Enginering_Database
 			{
 				convJobNumber = c;
 
-				//log.Debug(c);
+				
 			}
 			string[] words = jobNumber.Split(null);
 
-			//CollectSelectedData(convJobNumber);
+			
 
 			Frame2JobNumberData.Content = words[words.Length - 1];
 			Frame2ReportedDateData.Content = Convert.ToDateTime(db.DBQuery("ReportedDate", convJobNumber)).ToShortDateString().ToString();
@@ -595,13 +591,12 @@ namespace Enginering_Database
 			Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
 
 			Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
-			//Frame3StartTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("StartTime", convJobNumber)).ToShortTimeString();
-			//Frame3FinishTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("FinishTime", convJobNumber)).ToShortTimeString();
+			
 
 			if (db.DBQuery("AssignedTo", convJobNumber) == "NotAssigned")
 			{
 				Frame3AssignedToData.Content = "Job is not assigned";
-				//AssignToDropDownBox.SelectedItem = "Please select";
+			
 				AssignToDropDownBox.Text = "Please select";
 			}
 			else
@@ -628,7 +623,7 @@ namespace Enginering_Database
 			else
 			{
 				ContractorComboBoxData.Text = "Please select";
-				//ContractorComboBoxData.SelectedItem = "Please select";
+				
 			}
 
 			if (db.DBQuery("CommentsForActionTaken", convJobNumber) != "")
@@ -660,7 +655,7 @@ namespace Enginering_Database
 
 		private void CollectSelectedData(int convJobNumber)
 		{
-			//throw new NotImplementedException();
+			
 			issueClass.Priority = db.DBQuery("Priority", convJobNumber);
 			issueClass.JobNumber = convJobNumber;
 			issueClass.ReportedDate = Convert.ToDateTime(db.DBQuery("ReportedDate", convJobNumber)).ToShortDateString().ToString();
@@ -676,10 +671,10 @@ namespace Enginering_Database
 			issueClass.AssetNumber = db.DBQuery("AssetNumber", convJobNumber);
 
 
-			//Frame2PriorityData.Content = db.DBQuery("Priority", convJobNumber);
+			
 
 			issueClass.DetailedDescription = db.DBQuery("DetailedDescription", convJobNumber);
-			//issueClass.CompletedByUsername = db.DBQuery("CompletedBy", convJobNumber);
+			
 			issueClass.AssignedTo = db.DBQuery("AssignedTo", convJobNumber);
 			issueClass.CommentsForActionsTaken = db.DBQuery("CommentsForActionTaken", convJobNumber);
 			issueClass.ReportedEmail = db.DBQuery("ReporterEmail", convJobNumber);
@@ -693,7 +688,7 @@ namespace Enginering_Database
 			if (canSubmit == true)
 			{
 
-				//MessageBox.Show(convJobNumber.ToString());
+				
 
 				if (Frame3CompleteCheckBox.IsChecked == true)
 				{
@@ -704,7 +699,7 @@ namespace Enginering_Database
 					DateTime time = DateTime.Now;
 
 
-					//timeLabelAddData.Content = time.ToString("HH:mm");
+					
 
 					db.DBQueryInsertData(convJobNumber, "CompletedTime", time.ToString("HH:mm"));
 					db.DBQueryInsertData(convJobNumber, "CompletedDate", time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture));
@@ -720,7 +715,7 @@ namespace Enginering_Database
 					{
 						isComplete = "ReOpen";
 					}
-					//DateTime? time = null;
+					
 					db.DBQueryInsertData("Completed", convJobNumber, false);
 					db.DBQueryInsertData(convJobNumber, "Action", "Action required");
 					db.DBQueryInsertData(convJobNumber, "CompletedTime", null);
@@ -785,7 +780,7 @@ namespace Enginering_Database
 				Frame2PriorityData.Content = "waiting for data";
 
 				Frame2ReportedDescription.Text = "waiting for data";
-				//MessageBox.Show(db.DBQuery("JobNumber"));
+				
 
 				if (ChangeDueDateCheckBox.IsChecked == true)
 				{
@@ -815,7 +810,7 @@ namespace Enginering_Database
 				if (tb != null)
 				{
 					String tabItem = tb.Name;
-					//log.Debug(tabItem);
+					
 					if (e.Source is TabControl)
 					{
 
@@ -854,8 +849,7 @@ namespace Enginering_Database
 
 
 							default:
-								//MessageBox.Show("Default");
-								//log.Info("default message box Called");
+							
 								break;
 						}
 					}
@@ -872,7 +866,7 @@ namespace Enginering_Database
 			TestStackPanel.Children.Clear();
 			filter = btn.Name.ToString();
 			filterExpander.IsExpanded = false;
-			//MessageBox.Show(filter);
+		
 			createJobList(filter);
 			Frame3.Refresh();
 

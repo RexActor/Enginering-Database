@@ -1,31 +1,24 @@
 ﻿using Engineering_Database;
 using System;
 using System.Security.Principal;
-//using System.IO;
+
 using System.Windows;
 using System.Windows.Threading;
-//using System.Windows.Media;
-//using System.Security.Permissions;
-//using System.Windows.Threading;
+
 
 //[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 //[assembly: AssemblyVersion("2.10.*")]
 namespace Enginering_Database
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	/// 
+
 
 	public partial class MainWindow : Window
 	{
 
-		//private static readonly log4net.ILog log = LogHelper.GetLogger();
 
-		//readonly string userName = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
 		readonly string userName = WindowsIdentity.GetCurrent().Name;
 		readonly UserSettings userSett = new UserSettings();
-		//string userName = "Gatis";
+
 		public MainWindow()
 		{
 
@@ -48,7 +41,7 @@ namespace Enginering_Database
 
 
 			InitializeComponent();
-			//MessageBox.Show(GetCPU().ToString());
+
 
 			Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 			DateTime buildDate = new DateTime(2000, 1, 1)
@@ -73,31 +66,17 @@ namespace Enginering_Database
 
 
 
-			//checkFile();
 
-			/*
-			if (userName == UserSettings.UserName || userName==UserSettings.SubAdmin1 || userName==UserSettings.SubAdmin2)
-				{
-				settingsOption.Visibility = Visibility.Visible;
-				}
-			else
-				{
-
-				settingsOption.Visibility = Visibility.Hidden;
-				}
-				*/
-
-			//upLoadingData(viewDatabase.ldata);
 
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
-			//System.Threading.TimerCallback callback = new System.Threading.TimerCallback(ProcessTimerEvent);
+
 
 
 
 			LocalTimeData.Content = DateTime.Now.ToString("HH:mm:ss");
-			//throw new Exception("2");
+
 
 		}
 
@@ -114,7 +93,7 @@ namespace Enginering_Database
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			//log.Debug("Test");
+
 			addData addnew = new addData();
 			addnew.ShowDialog();
 
@@ -129,7 +108,7 @@ namespace Enginering_Database
 
 		private void UpdateDatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
-			//UserSettings userSett = new UserSettings();
+
 
 			if (userName == UserSettings.SubAdmin1 || userName == UserSettings.SubAdmin2 || userName == UserSettings.UserName)
 			{
@@ -144,17 +123,7 @@ namespace Enginering_Database
 				PasswordRequest("UpdateDB");
 
 
-				/*else
-				{
 
-
-					UserErrorWindow userErrorMessage = new UserErrorWindow();
-					userErrorMessage.errorMessage = "Damn... something went wrong. You don't have access to this...";
-					userErrorMessage.Title = "User Access Error";
-					userErrorMessage.CallWindow();
-					userErrorMessage.ShowDialog();
-
-				}*/
 
 
 			}
@@ -171,7 +140,7 @@ namespace Enginering_Database
 			else
 			{
 
-				//userSett.Owner = this;
+
 				userSett.ShowDialog();
 			}
 		}
@@ -179,18 +148,12 @@ namespace Enginering_Database
 
 
 
-		//public void updateBar(int value)
-		//{
-		//	loadingData.Value = value;
-		//}
+
 		public static void UpdateStat()
 		{
 
 		}
-		//public void upLoadingData(int value)
-		//{
-		//	loadingData.Value = loadingData.Value + value;
-		//}
+
 
 		private void MenuItem_Click(object sender, RoutedEventArgs e)
 		{
@@ -215,7 +178,7 @@ namespace Enginering_Database
 		public string GetCPU()
 		{
 
-			//string cpu = String.Empty;
+
 			string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
 			if (cpu.IndexOf("64") > 0)
 			{

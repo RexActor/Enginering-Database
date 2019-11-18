@@ -1,7 +1,5 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Windows;
-using Engineering_Database;
 
 namespace Engineering_Database
 {
@@ -14,16 +12,16 @@ namespace Engineering_Database
 		public static string UserName;
 		public static string SubAdmin1;
 		public static string SubAdmin2;
-		public  string Email;
-		public  string ReportEmail;
-		//public static string database;
+		public string Email;
+		public string ReportEmail;
+
 		public static string jobCount;
 		public static string password;
 		public static string preview;
 		public string EmailPreview;
-		public  string contractors;
-		public  string assignToUser;
-		public  string Maintenance;
+		public string contractors;
+		public string assignToUser;
+		public string Maintenance;
 		public string DueDateGap;
 
 		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -32,12 +30,12 @@ namespace Engineering_Database
 
 		public UserSettings()
 		{
-			
+
 
 
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
-			
+
 
 
 
@@ -60,10 +58,7 @@ namespace Engineering_Database
 
 
 
-			//TODO:move to userSettings profile
-			//jobCount = Properties.Settings.Default["jobCount"].ToString();
 
-			// TODO: move to usersettings profile
 			preview = Properties.Settings.Default["preview"].ToString();
 
 
@@ -136,7 +131,7 @@ namespace Engineering_Database
 
 		private void resetAssignToList()
 		{
-			//assignToUser = assignToUser.Replace(" ", string.Empty);
+
 			AssignToUserListSettingsListBox.Items.Clear();
 			string[] splitAssignTo = assignToUser.Split('/');
 			foreach (var word in splitAssignTo)
@@ -185,7 +180,7 @@ namespace Engineering_Database
 
 			db.DBQueryUpdateGlobalSettings("DueDateGap", DueDataTextBox.Text);
 
-			//Properties.Settings.Default["Database"] = DatabaseTextBox.Text;
+
 			Properties.Settings.Default["jobCount"] = JobCountSettingData.Text;
 
 			Properties.Settings.Default["password"] = passwordTextBox.Text;
@@ -194,11 +189,11 @@ namespace Engineering_Database
 
 
 
-			//openSettings();
+
 
 			Properties.Settings.Default.Save();
 
-			
+
 
 			this.Close();
 
@@ -302,8 +297,7 @@ namespace Engineering_Database
 
 		private void ResetUserSettingsButton_Copy_Click(object sender, RoutedEventArgs e)
 		{
-			//Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			//KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
+
 
 			AdminTextBox.Text = "default";
 			SubAdmin1TextBox.Text = "default";
@@ -314,18 +308,7 @@ namespace Engineering_Database
 			passwordTextBox.Text = "default";
 			PreviewSettingComboBox.Text = "Yes";
 
-			/*
-			configCollection["UserName"].Value = "default";
-			configCollection["SubAdmin1"].Value = "default";
-			configCollection["SubAdmin2"].Value = "default";
-			configCollection["Email"].Value = "default";
-			configCollection["database"].Value = "default";
 
-	*/
-
-
-			///configManager.Save(ConfigurationSaveMode.Modified);
-			///ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
 
 
 		}

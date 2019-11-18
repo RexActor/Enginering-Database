@@ -13,8 +13,7 @@ namespace Engineering_Database
 
 		string htmlString;
 		public string sender = null;
-		//IssueClass iss = new IssueClass();
-		//data
+		
 		private bool checkOutlook()
 		{
 			int procCount = 0;
@@ -46,24 +45,15 @@ namespace Engineering_Database
 
 
 				string emailAddress = userSett.Email;
-				//var url = "mailto:gatis.jansons@ipl-ltd.com";
-
-
-				//System.Diagnostics.Process.Start(url);
+			
 				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
 
 				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
-				//sender = mailItem.SenderEmailAddress;
-
-				//sender = getSenderEmailAddress(mailItem);
-				//sender = mailItem.SenderEmailType;
-				//sender = mailItem.SendUsingAccount.ToString();
-				//sender = GetSenderSMTPAddress(mailItem);
-				///sender = "gatis.jansons@ipl-ltd.com";
+			
 
 				sender = GetSenderEmailAddress(mailItem);
 
-				//sender = mailItem.UserProperties.Session.CurrentUser.Address;
+				
 
 
 
@@ -104,7 +94,7 @@ namespace Engineering_Database
 					mailItem.To = emailAddress;
 					mailItem.CC = sender;
 					mailItem.Subject = "Engineering Attention required for: " + issue.Type + " with " + issue.Priority + " priority";
-					//issue.JobNumber;
+					
 					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
 						"<b>Priority:</b> " + issue.Priority + "<br>" +
 	  "<b>Job Number:</b> " + issue.JobNumber + "<br>" +
@@ -120,7 +110,7 @@ namespace Engineering_Database
 
 
 
-					//body = issue.JobNumber.ToString();
+					
 				}
 				else if (reply == "ReOpen")
 				{
@@ -194,7 +184,7 @@ namespace Engineering_Database
 
 
 
-				//mailItem.Send();
+			
 
 			}
 			else
@@ -271,7 +261,7 @@ namespace Engineering_Database
 					{
 						mailItem.Send();
 					}
-					//mailItem.Send();
+				
 
 				}
 

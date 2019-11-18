@@ -15,7 +15,7 @@ namespace Enginering_Database
 	/// </summary>
 	public partial class viewDatabase : Window
 	{
-		//public static int ldata = 0;
+		
 		readonly IssueClass issueClass = new IssueClass();
 
 		int jobList;
@@ -24,7 +24,7 @@ namespace Enginering_Database
 		readonly DatabaseClass db = new DatabaseClass();
 		System.Windows.Controls.Button textTestLabel;
 		public string contentForTextTestLabel;
-		//readonly IssueClass issueData = new IssueClass();
+		
 
 		public viewDatabase()
 
@@ -35,10 +35,7 @@ namespace Enginering_Database
 			InitializeComponent();
 			LogedInUser= WindowsIdentity.GetCurrent().Name;
 			LogedInUserLabel.Content = LogedInUser;
-			//viewdataGrid();
-			//this.Height = System.Windows.SystemParameters.PrimaryScreenHeight * 0.9;
-			//this.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
-			//this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+		
 
 			OutstandingReports("Outstanding");
 			ResolvedReports("Resolved");
@@ -65,38 +62,11 @@ namespace Enginering_Database
 
 
 			OustandingUserStackPanel.Children.Clear();
-			//searchCombo.Items.Insert(0, "Job Number");
-			//searchCombo.SelectedIndex = 0;
-
-
-			//userSett.openSettings();
-
-
-
-			//Frame3DueDateTextBox.Text = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
-
-
-			//int p = 0;
+		
 
 			jobList = 100;
 
-			/*
-			if (Int32.TryParse(UserSettings.jobCount, out p))
-			{
-				jobList = p;
-			}
-			else
-			{
-				jobList = 0;
-				System.Windows.Controls.Label ErrorLabel = new System.Windows.Controls.Label();
-				ErrorLabel.Content = "Error in settings. Please check job count settings";
-				ErrorLabel.Padding = new Thickness(3);
-				ErrorLabel.Margin = new Thickness(1);
-				OustandingUserStackPanel.Children.Add(ErrorLabel);
-				//TestStackPanel.Children.Add(ErrorLabel);
-
-
-			}*/
+		
 
 			if (jobList > 0)
 			{
@@ -130,16 +100,9 @@ namespace Enginering_Database
 
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
-						/*				
-					  if (userSett.PreviewSettingComboBox.Text == "Yes")
-										{
-											textTestLabel.MouseEnter += (sender, e) => { TextTestLabel_Hover(sender, e); };
-											textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
-										}
-							*/
-						//log.Debug($"Content for text Label: {contentForTextTestLabel.ToString()}");
+					
 						OustandingUserStackPanel.Children.Add(textTestLabel);
-						//TestStackPanel.Children.Add(textTestLabel);
+						
 					}
 					i++;
 				}
@@ -148,13 +111,7 @@ namespace Enginering_Database
 
 			
 
-			//TODO: error fix required for displaying name
-			//Frame3userNameLabel.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
-			//Frame3userNameLabel.Content = "Gatis - Fix required";
-
-			//Frame3userNameLabel.Content = Environment.UserName;
-
-			//Frame3CurrentDateLabel.Content = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
+			
 
 		}
 		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
@@ -216,18 +173,12 @@ namespace Enginering_Database
 				db.ConnectDB();
 			}
 
-			//TODO:testing email class
-
-			//email.SendEmail();
-
-
-
-			//MouseEventArgs e
+		
 			Button lbl = (Button)sender;
-			//previewStackPanel.Visibility = Visibility.Visible;
+		
 			if (lbl == null)
 			{
-				//previewJobNumber.Content = "looking for data";
+				
 
 			}
 			else
@@ -247,19 +198,6 @@ namespace Enginering_Database
 
 
 
-				/*
-
-				previewReportedName.Content = db.DBQuery("ReportedUsername", convertSearch);
-				prevAssetNumber.Content = db.DBQuery("AssetNumber", convertSearch);
-				prevFaultyArea.Content = db.DBQuery("FaultyArea", convertSearch);
-				prevPriority.Content = db.DBQuery("Priority", convertSearch);
-				prevDetailedDescription.Content = db.DBQuery("DetailedDescription", convertSearch);
-				prevAssignedTo.Content = db.DBQuery("AssignedTo", convertSearch);
-				prevDueDate.Content = db.DBQuery("DueDate", convertSearch);
-
-				previewJobNumber.Content = lbl.Content.ToString();
-
-	*/
 
 			}
 
@@ -273,39 +211,11 @@ namespace Enginering_Database
 
 
 			ResolvedUserstackPanel.Children.Clear();
-			
-			//searchCombo.Items.Insert(0, "Job Number");
-			//searchCombo.SelectedIndex = 0;
-
-
-			//userSett.openSettings();
-
-
-
-			//Frame3DueDateTextBox.Text = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
-
-
-		//	int p = 0;
+	
 
 			jobList = 100;
 
-			/*
-			if (Int32.TryParse(UserSettings.jobCount, out p))
-			{
-				jobList = p;
-			}
-			else
-			{
-				jobList = 0;
-				System.Windows.Controls.Label ErrorLabel = new System.Windows.Controls.Label();
-				ErrorLabel.Content = "Error in settings. Please check job count settings";
-				ErrorLabel.Padding = new Thickness(3);
-				ErrorLabel.Margin = new Thickness(1);
-				OustandingUserStackPanel.Children.Add(ErrorLabel);
-				//TestStackPanel.Children.Add(ErrorLabel);
 
-
-			}*/
 
 			if (jobList > 0)
 			{
@@ -339,17 +249,10 @@ namespace Enginering_Database
 
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
-						/*				
-					  if (userSett.PreviewSettingComboBox.Text == "Yes")
-										{
-											textTestLabel.MouseEnter += (sender, e) => { TextTestLabel_Hover(sender, e); };
-											textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
-										}
-							*/
-						//log.Debug($"Content for text Label: {contentForTextTestLabel.ToString()}");
+				
 						
 						ResolvedUserstackPanel.Children.Add(textTestLabel);
-						//TestStackPanel.Children.Add(textTestLabel);
+						
 					}
 					i++;
 				}
@@ -358,13 +261,6 @@ namespace Enginering_Database
 
 
 
-			//TODO: error fix required for displaying name
-			//Frame3userNameLabel.Content = System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName;
-			//Frame3userNameLabel.Content = "Gatis - Fix required";
-
-			//Frame3userNameLabel.Content = Environment.UserName;
-
-			//Frame3CurrentDateLabel.Content = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
 		}
 
@@ -449,7 +345,7 @@ namespace Enginering_Database
 			OutstandingReports("Outstanding");
 			ResolvedReports("Resolved");
 			
-			//MessageBox.Show("Working");
+			
 			UserJobNumberLabelData.Content = "";
 			UserReportedDateLabelData.Content = "";
 			UserAreaLabelData.Content = "";

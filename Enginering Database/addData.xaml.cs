@@ -20,22 +20,17 @@ namespace Enginering_Database
 		public addData()
 		{
 			InitializeComponent();
+
+			//hiding error message by default
 			ErrorMessageLabel.Visibility = Visibility.Hidden;
+
+			//update time and date for correct labels
 			updateTimeAndDate();
-
-
-
-
+			
+			//getting curent username from system
 			usernameLabelValue.Content = WindowsIdentity.GetCurrent().Name;
-
-
-
-			//usernameLabelValue.Content =UserPrincipal.Current.DisplayName;
-
-
-
-			//usernameLabelValue.Content = Environment.UserName;
-			//usernameLabelValue.Content = WindowsIdentity.GetCurrent().Name;
+			   
+			
 
 			//area combo box values 
 			areaComboBox.Text = "Please Choose";
@@ -796,9 +791,7 @@ namespace Enginering_Database
 
 
 
-					//issueComboBox.Items.Clear();
-					//issueComboBox.Items.Insert(0,"Waiting for faulty area");
-					//faultyAreaComboBox.SelectedIndex = 0;
+					
 					break;
 			}
 
@@ -812,14 +805,7 @@ namespace Enginering_Database
 			{
 				db.ConnectDB();
 			}
-			//Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
-			//Microsoft.Office.Interop.Excel.Workbook excelBook = excelApp.Workbooks.Open(Directory.GetCurrentDirectory() + @"\database.xlsx");
-			//Microsoft.Office.Interop.Excel.Worksheet excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)excelBook.Worksheets.get_Item(1);
-			//Microsoft.Office.Interop.Excel.Range excelRange = excelSheet.UsedRange;
-
-			//int lastUsedRow = excelRange.Row + excelRange.Rows.Count - 1;
-			//Double jobNumber = (excelSheet.Cells[lastUsedRow,2] as Microsoft.Office.Interop.Excel.Range).Value2 + 1;
-
+			
 
 			int lastJob = db.DBQueryLastJobNumber("JobNumber") + 1;
 			jobNumberDataLabel.Content = lastJob.ToString();
@@ -841,21 +827,7 @@ namespace Enginering_Database
 				db.ConnectDB();
 			}
 
-
-			/*
-			 * areaComboBox
-				issueTypeComboBox
-				dateLabelAddData
-				timeLabelAddData
-				usernameLabelValue
-				buildingComboBox
-				faultyAreaComboBox
-				issueComboBox
-				jobNumberDataLabel
-				AssetNumberTextBoxData
-				PriorityComboBox
-				DetailedDescriptionRichTextBox
-				*/
+					
 
 
 
@@ -891,9 +863,7 @@ namespace Enginering_Database
 			issue.ReportedDate = time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
 			
-			//time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)
-
-			//timeLabelAddData.Content = time.ToString("HH:mm");
+			
 
 			issue.ReportedTime = time.ToString("HH:mm");
 			issue.Type = issueTypeComboBox.Text;
@@ -921,13 +891,13 @@ namespace Enginering_Database
 			else
 			{
 				ErrorMessageLabel.Visibility = Visibility.Visible;
-				//AssetNumberLabel.Background = new SolidColorBrush(Color.FromArgb(200, 195, 195, 0));
+				
 
 			}
 
 
 
-			//db.InsertDataIntoDatabase(getLastJobNumber+1, dtNow, dtTmNow, usernameLabelValue.Content.ToString(),AssetNumberTextBox.Text,faultyAreaComboBox.Text,buildingComboBox.Text,issueComboBox.Text,PriorityComboBox.Text,issueTypeComboBox.Text,textRange.Text,dtNow,areaComboBox.Text);
+			
 
 		}
 		private void ClearRichTextBox(object sender, RoutedEventArgs e)
