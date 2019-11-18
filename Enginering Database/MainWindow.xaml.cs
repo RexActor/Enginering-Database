@@ -3,7 +3,7 @@ using System;
 using System.Security.Principal;
 //using System.IO;
 using System.Windows;
-using System.Threading;
+using System.Windows.Threading;
 //using System.Windows.Media;
 //using System.Security.Permissions;
 //using System.Windows.Threading;
@@ -61,13 +61,12 @@ namespace Enginering_Database
 
 			userSett.openSettings();
 
-			Thread thread = new Thread(delegate ()
-			{
-				MaintenanceActivation();
-			});
-			thread.IsBackground = true;
-			thread.Start();
- 
+
+			DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+			dispatcherTimer.Tick += new EventHandler(MaintenanceActivation);
+			dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+			dispatcherTimer.Start();
+
 
 
 			fileExistsLabelData.Content = dtC.DBStatus();
@@ -230,36 +229,18 @@ namespace Enginering_Database
 
 		}
 
-		public void MaintenanceActivation()
+		public void MaintenanceActivation(object sender, EventArgs e)
 		{
-	/*		
-   System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke((Action)(() =>
+
+
+			UserSettings userMaintenSett = new UserSettings();
+			userMaintenSett.openSettings();
+
+
+
+			Dispatcher.BeginInvoke(new Action(() =>
 			{
-				if (userSett.Maintenance == "Yes")
-				{
-					MaintenanceLabel.Visibility = Visibility.Visible;
-					UpdateDatabaseButton.Visibility = Visibility.Hidden;
-					UpdateDatabaseImage.Visibility = Visibility.Hidden;
-					InsertDataButton.Visibility = Visibility.Hidden;
-					InsertDataImage.Visibility = Visibility.Hidden;
-					ViewDatabaseButton.Visibility = Visibility.Hidden;
-					ViewDatabaseImage.Visibility = Visibility.Hidden;
-				}
-				else
-				{
-					MaintenanceLabel.Visibility = Visibility.Hidden;
-					UpdateDatabaseButton.Visibility = Visibility.Visible;
-					UpdateDatabaseImage.Visibility = Visibility.Visible;
-					InsertDataButton.Visibility = Visibility.Visible;
-					InsertDataImage.Visibility = Visibility.Visible;
-					ViewDatabaseButton.Visibility = Visibility.Visible;
-					ViewDatabaseImage.Visibility = Visibility.Visible;
-				}
-			}));
-			*/
-		Dispatcher.BeginInvoke(new Action(() =>
-			{
-				if (userSett.Maintenance == "Yes")
+				if (userMaintenSett.Maintenance == "Yes")
 				{
 					MaintenanceLabel.Visibility = Visibility.Visible;
 					UpdateDatabaseButton.Visibility = Visibility.Hidden;
