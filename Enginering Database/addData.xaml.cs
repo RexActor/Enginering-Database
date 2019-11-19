@@ -693,6 +693,7 @@ namespace Enginering_Database
 					issueComboBox.Items.Add("Hydraulics");
 					issueComboBox.Items.Add("Load Wheels");
 					issueComboBox.Items.Add("Caster Wheels");
+					issueComboBox.Items.Add("Drive Wheels");
 					issueComboBox.Items.Add("Battery");
 					issueComboBox.Items.Add("Forks");
 					issueComboBox.Items.Add("Pins");
