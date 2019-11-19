@@ -1,7 +1,6 @@
 ﻿using Engineering_Database;
 using System;
 using System.Security.Principal;
-
 using System.Windows;
 using System.Windows.Threading;
 
@@ -41,8 +40,7 @@ namespace Enginering_Database
 
 
 			InitializeComponent();
-
-
+			OnStartupCheckMaintenance();
 			Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 			DateTime buildDate = new DateTime(2000, 1, 1)
 									.AddDays(version.Build).AddSeconds(version.Revision * 2);
@@ -201,33 +199,80 @@ namespace Enginering_Database
 
 
 
-			Dispatcher.BeginInvoke(new Action(() =>
+			if (userMaintenSett.Maintenance == "Yes")
 			{
-				if (userMaintenSett.Maintenance == "Yes")
+				MaintenanceLabel.Visibility = Visibility.Visible;
+				MaintenanceLabel2.Visibility = Visibility.Visible;
+				UpdateDatabaseButton.Visibility = Visibility.Hidden;
+				UpdateDatabaseImage.Visibility = Visibility.Hidden;
+				InsertDataButton.Visibility = Visibility.Hidden;
+				InsertDataImage.Visibility = Visibility.Hidden;
+				ViewDatabaseButton.Visibility = Visibility.Hidden;
+				ViewDatabaseImage.Visibility = Visibility.Hidden;
+				if (UserSettings.UserName != userName || UserSettings.SubAdmin1 != userName || UserSettings.SubAdmin2 != userName)
 				{
-					MaintenanceLabel.Visibility = Visibility.Visible;
-					UpdateDatabaseButton.Visibility = Visibility.Hidden;
-					UpdateDatabaseImage.Visibility = Visibility.Hidden;
-					InsertDataButton.Visibility = Visibility.Hidden;
-					InsertDataImage.Visibility = Visibility.Hidden;
-					ViewDatabaseButton.Visibility = Visibility.Hidden;
-					ViewDatabaseImage.Visibility = Visibility.Hidden;
+
+					DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+					dispatcherTimer.Tick += new EventHandler(CloseApp);
+					dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+					dispatcherTimer.Start();
+
 				}
-				else
-				{
-					MaintenanceLabel.Visibility = Visibility.Hidden;
-					UpdateDatabaseButton.Visibility = Visibility.Visible;
-					UpdateDatabaseImage.Visibility = Visibility.Visible;
-					InsertDataButton.Visibility = Visibility.Visible;
-					InsertDataImage.Visibility = Visibility.Visible;
-					ViewDatabaseButton.Visibility = Visibility.Visible;
-					ViewDatabaseImage.Visibility = Visibility.Visible;
-				}
-			}));
+			}
+			else
+			{
+				MaintenanceLabel.Visibility = Visibility.Hidden;
+				MaintenanceLabel2.Visibility = Visibility.Hidden;
+				UpdateDatabaseButton.Visibility = Visibility.Visible;
+				UpdateDatabaseImage.Visibility = Visibility.Visible;
+				InsertDataButton.Visibility = Visibility.Visible;
+				InsertDataImage.Visibility = Visibility.Visible;
+				ViewDatabaseButton.Visibility = Visibility.Visible;
+				ViewDatabaseImage.Visibility = Visibility.Visible;
+			}
 
 
 
 
+
+
+
+
+
+
+		}
+		public void OnStartupCheckMaintenance()
+		{
+			UserSettings userMaintenSett = new UserSettings();
+			userMaintenSett.openSettings();
+			if (userMaintenSett.Maintenance == "Yes")
+			{
+				MaintenanceLabel.Visibility = Visibility.Visible;
+				MaintenanceLabel2.Visibility = Visibility.Visible;
+				UpdateDatabaseButton.Visibility = Visibility.Hidden;
+				UpdateDatabaseImage.Visibility = Visibility.Hidden;
+				InsertDataButton.Visibility = Visibility.Hidden;
+				InsertDataImage.Visibility = Visibility.Hidden;
+				ViewDatabaseButton.Visibility = Visibility.Hidden;
+				ViewDatabaseImage.Visibility = Visibility.Hidden;
+
+
+			}
+			else
+			{
+				MaintenanceLabel.Visibility = Visibility.Hidden;
+				MaintenanceLabel2.Visibility = Visibility.Hidden;
+				UpdateDatabaseButton.Visibility = Visibility.Visible;
+				UpdateDatabaseImage.Visibility = Visibility.Visible;
+				InsertDataButton.Visibility = Visibility.Visible;
+				InsertDataImage.Visibility = Visibility.Visible;
+				ViewDatabaseButton.Visibility = Visibility.Visible;
+				ViewDatabaseImage.Visibility = Visibility.Visible;
+			}
+		}
+		public void CloseApp(object sender, EventArgs e)
+		{
+			this.Close();
 		}
 
 		private void ReportAppIssue_Click(object sender, RoutedEventArgs e)

@@ -41,6 +41,7 @@
         <Label x:Name="VersionData" Content="VersionData" HorizontalAlignment="Left" Margin="39,390,0,0" VerticalAlignment="Top" Width="297" FontSize="8"/>
         <Label Name ="MaintenanceLabel" Content="Maintenance" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,105,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
         <Button Name="ReportAppIssue" Content="Report Application Issue" HorizontalAlignment="Left" Height="21" Margin="321,390,0,0" VerticalAlignment="Top" Width="133" Click="ReportAppIssue_Click"/>
+        <Label x:Name ="MaintenanceLabel2" Content="Application will close automatically in 10 seconds" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,160,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.498,0.298" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
 
 
 
