@@ -78,11 +78,12 @@ namespace Engineering_Database
 				newIs.Area = dr["Area"].ToString();
 				newIs.AssignedTo = dr["AssignedTo"].ToString();
 				newIs.Contractor = dr["Contractor"].ToString();
+				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
 
 
-
-				issueDataList.Add(newIs);
-
+				
+					issueDataList.Add(newIs);
+				
 
 			}
 		
@@ -133,7 +134,7 @@ namespace Engineering_Database
 				newIs.Area = dr["Area"].ToString();
 				newIs.AssignedTo = dr["AssignedTo"].ToString();
 				newIs.Contractor = dr["Contractor"].ToString();
-
+				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
 
 				issueDataList.Add(newIs);
 

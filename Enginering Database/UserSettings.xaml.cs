@@ -9,9 +9,9 @@ namespace Engineering_Database
 	public partial class UserSettings : Window
 	{
 
-		public static string UserName;
-		public static string SubAdmin1;
-		public static string SubAdmin2;
+		public  string UserName;
+		public  string SubAdmin1;
+		public  string SubAdmin2;
 		public string Email;
 		public string ReportEmail;
 

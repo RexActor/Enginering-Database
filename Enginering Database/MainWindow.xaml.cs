@@ -2,6 +2,7 @@
 using System;
 using System.Security.Principal;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 
@@ -59,7 +60,14 @@ namespace Enginering_Database
 			dispatcherTimer.Start();
 
 
-
+			if (dtC.DBStatus() == "DB connected")
+			{
+				fileExistsLabelData.Foreground = Brushes.Green;
+			}
+			else
+			{
+				fileExistsLabelData.Foreground = Brushes.Red;
+			}
 			fileExistsLabelData.Content = dtC.DBStatus();
 
 
@@ -69,11 +77,14 @@ namespace Enginering_Database
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
+			DispatcherTimer clock = new DispatcherTimer();
+			clock.Tick += new EventHandler(UpdateClock);
+			clock.Interval = new TimeSpan(0, 0, 1);
+			clock.Start();
 
 
 
-
-			LocalTimeData.Content = DateTime.Now.ToString("HH:mm:ss");
+			
 
 
 		}
@@ -108,7 +119,7 @@ namespace Enginering_Database
 		{
 
 
-			if (userName == UserSettings.SubAdmin1 || userName == UserSettings.SubAdmin2 || userName == UserSettings.UserName)
+			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
 			{
 
 				updateDatabase updateDB = new updateDatabase();
@@ -130,7 +141,7 @@ namespace Enginering_Database
 		{
 			UserSettings userSett = new UserSettings();
 
-			if (userName != UserSettings.SubAdmin1 || userName != UserSettings.SubAdmin2 || userName != UserSettings.UserName)
+			if (userName != userSett.SubAdmin1 || userName != userSett.SubAdmin2 || userName != userSett.UserName)
 			{
 
 				PasswordRequest("Settings");
@@ -202,17 +213,18 @@ namespace Enginering_Database
 			if (userMaintenSett.Maintenance == "Yes")
 			{
 				MaintenanceLabel.Visibility = Visibility.Visible;
-				MaintenanceLabel2.Visibility = Visibility.Visible;
+				
 				UpdateDatabaseButton.Visibility = Visibility.Hidden;
 				UpdateDatabaseImage.Visibility = Visibility.Hidden;
 				InsertDataButton.Visibility = Visibility.Hidden;
 				InsertDataImage.Visibility = Visibility.Hidden;
 				ViewDatabaseButton.Visibility = Visibility.Hidden;
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
-				if (UserSettings.UserName != userName || UserSettings.SubAdmin1 != userName || UserSettings.SubAdmin2 != userName)
+				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
 
 					DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+					MaintenanceLabel2.Visibility = Visibility.Visible;
 					dispatcherTimer.Tick += new EventHandler(CloseApp);
 					dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
 					dispatcherTimer.Start();
@@ -245,16 +257,28 @@ namespace Enginering_Database
 		{
 			UserSettings userMaintenSett = new UserSettings();
 			userMaintenSett.openSettings();
+			//MessageBox.Show("*"+UserSettings.UserName.ToString() + "* ==> *" + userName+"*");
 			if (userMaintenSett.Maintenance == "Yes")
 			{
 				MaintenanceLabel.Visibility = Visibility.Visible;
-				MaintenanceLabel2.Visibility = Visibility.Visible;
+				//MaintenanceLabel2.Visibility = Visibility.Visible;
 				UpdateDatabaseButton.Visibility = Visibility.Hidden;
 				UpdateDatabaseImage.Visibility = Visibility.Hidden;
 				InsertDataButton.Visibility = Visibility.Hidden;
 				InsertDataImage.Visibility = Visibility.Hidden;
 				ViewDatabaseButton.Visibility = Visibility.Hidden;
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
+
+				if ( userName!=userMaintenSett.UserName || userName !=userMaintenSett.SubAdmin1||  userName!=userMaintenSett.SubAdmin2)
+				{
+
+					DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+					MaintenanceLabel2.Visibility = Visibility.Visible;
+					dispatcherTimer.Tick += new EventHandler(CloseApp);
+					dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+					dispatcherTimer.Start(); 
+
+				}
 
 
 			}
@@ -279,6 +303,13 @@ namespace Enginering_Database
 		{
 			ReportAppIssue repApp = new ReportAppIssue();
 			repApp.Show();
+		}
+
+		private void UpdateClock(object sender, EventArgs e)
+		{
+			DateTime d;
+			d = DateTime.Now;
+			LocalTimeData.Content = d.ToString("HH:mm:ss");
 		}
 	}
 }
