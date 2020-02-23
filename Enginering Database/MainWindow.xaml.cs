@@ -311,6 +311,11 @@ namespace Enginering_Database
 			d = DateTime.Now;
 			LocalTimeData.Content = d.ToString("HH:mm:ss");
 		}
+
+		private void ShowReportButtonClick(object sender, RoutedEventArgs e)
+		{
+			
+		}
 	}
 }
 

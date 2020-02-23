@@ -73,6 +73,9 @@ namespace Enginering_Database
 
 		#region comboboxes set up
 
+		//TODO: need to refactore this part. 
+		//need to add option to able to add/remove/edit issue options through settings
+
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
@@ -798,6 +801,8 @@ namespace Enginering_Database
 
 		}
 		#endregion
+
+		//end of part for refactoring
 
 		public void GetJobNumber()
 		{
