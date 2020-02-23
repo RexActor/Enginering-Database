@@ -314,7 +314,8 @@ namespace Enginering_Database
 
 		private void ShowReportButtonClick(object sender, RoutedEventArgs e)
 		{
-			
+			ReportWindow repWin = new ReportWindow();
+			repWin.Show();
 		}
 	}
 }
