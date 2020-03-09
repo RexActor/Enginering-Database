@@ -1,4 +1,5 @@
 ﻿using Engineering_Database;
+
 using System;
 using System.Security.Principal;
 using System.Windows;
@@ -26,38 +27,40 @@ namespace Enginering_Database
 
 			//update time and date for correct labels
 			updateTimeAndDate();
-			
+
 			//getting curent username from system
 			usernameLabelValue.Content = WindowsIdentity.GetCurrent().Name;
-			   
-			
 
+			SetUpComboBox();
+
+
+			#region not required anymore - refactored part
 			//area combo box values 
-			areaComboBox.Text = "Please Choose";
-			areaComboBox.Items.Insert(0, "Please Choose");
-			areaComboBox.Items.Add("Production");
-			areaComboBox.Items.Add("Warehouse");
-			areaComboBox.Items.Add("Facilities");
-			areaComboBox.Items.Add("Projects");
-			areaComboBox.SelectedIndex = 0;
+			//areaComboBox.Text = "Please Choose";
+			//areaComboBox.Items.Insert(0, "Please Choose");
+			//areaComboBox.Items.Add("Production");
+			//areaComboBox.Items.Add("Warehouse");
+			//areaComboBox.Items.Add("Facilities");
+			//areaComboBox.Items.Add("Projects");
+			//areaComboBox.SelectedIndex = 0;
 
-			PriorityComboBox.Text = "Please Choose";
-			PriorityComboBox.Items.Insert(0, "Please Choose");
-			PriorityComboBox.Items.Add("Normal");
-			PriorityComboBox.Items.Add("High");
-			PriorityComboBox.Items.Add("Urgent");
-			PriorityComboBox.SelectedIndex = 0;
+			//PriorityComboBox.Text = "Please Choose";
+			//PriorityComboBox.Items.Insert(0, "Please Choose");
+			//PriorityComboBox.Items.Add("Normal");
+			//PriorityComboBox.Items.Add("High");
+			//PriorityComboBox.Items.Add("Urgent");
+			//PriorityComboBox.SelectedIndex = 0;
 
 			//disabling all comboboxes which ones not needed on start to be enabled before choosing area code
-			buildingComboBox.IsEnabled = false;
-			faultyAreaComboBox.IsEnabled = false;
-			issueComboBox.IsEnabled = false;
-			issueTypeComboBox.IsEnabled = false;
 
-			issueTypeComboBox.Text = "Please Choose";
-			issueTypeComboBox.Items.Insert(0, "Please Choose");
-			issueTypeComboBox.SelectedIndex = 0;
+			//faultyAreaComboBox.IsEnabled = false;
+			//issueComboBox.IsEnabled = false;
+			//issueTypeComboBox.IsEnabled = false;
 
+			//issueTypeComboBox.Text = "Please Choose";
+			//issueTypeComboBox.Items.Insert(0, "Please Choose");
+			//issueTypeComboBox.SelectedIndex = 0;
+			#endregion
 
 			GetJobNumber();
 		}
@@ -78,7 +81,8 @@ namespace Enginering_Database
 
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
+			#region not required - in progress refactoring
+			/*
 			switch (areaComboBox.SelectedItem)
 			{
 				case "Production":
@@ -162,10 +166,10 @@ namespace Enginering_Database
 					issueTypeComboBox.SelectedIndex = 0;
 
 					//update building drop down list
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Waiting for Issue Type");
-					buildingComboBox.SelectedIndex = 0;
-					buildingComboBox.IsEnabled = false;
+					//buildingComboBox.Items.Clear();
+					//buildingComboBox.Items.Insert(0, "Waiting for Issue Type");
+					//buildingComboBox.SelectedIndex = 0;
+					//buildingComboBox.IsEnabled = false;
 
 
 					//update issue drop down list
@@ -217,10 +221,10 @@ namespace Enginering_Database
 					break;
 
 				default:
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Waiting for issue area");
-					buildingComboBox.SelectedIndex = 0;
-					buildingComboBox.IsEnabled = false;
+					//buildingComboBox.Items.Clear();
+					//buildingComboBox.Items.Insert(0, "Waiting for issue area");
+					//buildingComboBox.SelectedIndex = 0;
+					//buildingComboBox.IsEnabled = false;
 
 					issueTypeComboBox.Items.Clear();
 					issueTypeComboBox.Items.Insert(0, "Waiting for issue area");
@@ -243,13 +247,46 @@ namespace Enginering_Database
 
 
 			}
+			*/
+			#endregion
+
+			db.ConnectDB();
+			issueTypeComboBox.Items.Clear();
+
+
+			//checks if area combox box have selected value other than default
+			//if there is not selected value --> issuetype combo box is being disabled and default value is being selected for this combo box
+			if (areaComboBox.SelectedIndex == 0)
+			{
+
+				issueTypeComboBox.IsEnabled = false;
+				issueTypeComboBox.SelectedIndex = 0;
+			}
+			else
+			{
+				issueTypeComboBox.IsEnabled = true;
+			}
+
+
+			//areacombobox - static --> still dependant on settings window
+			var setIssueTypeComboBox = db.SetUpComboBoxBasedonUID("IssueTypeComboBox", areaComboBox.SelectedIndex);
+			issueTypeComboBox.Items.Add("Please Select");
+			//gets all values from database where UID is linked with area combo box ID
+			while (setIssueTypeComboBox.Read())
+			{
+				issueTypeComboBox.Items.Add(setIssueTypeComboBox[1]);
+			}
+			//select value by default -- > "Please Select"
+			issueTypeComboBox.SelectedIndex = 0;
+
 
 
 		}
 
 		private void IssueTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
+			#region not required --> being refactored
+			/*
 			switch (issueTypeComboBox.SelectedItem)
 			{
 
@@ -487,9 +524,9 @@ namespace Enginering_Database
 
 				default:
 
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Waiting for issue type");
-					buildingComboBox.SelectedIndex = 0;
+					//buildingComboBox.Items.Clear();
+					//buildingComboBox.Items.Insert(0, "Waiting for issue type");
+					//buildingComboBox.SelectedIndex = 0;
 
 
 
@@ -503,14 +540,12 @@ namespace Enginering_Database
 
 
 					break;
-
-
-
-
-
-
+									   					 				  				  
 			}
 
+
+	*/
+			#endregion
 
 
 		}
@@ -795,14 +830,86 @@ namespace Enginering_Database
 
 
 
-					
+
 					break;
 			}
 
 		}
 		#endregion
 
-		//end of part for refactoring
+
+
+		#region dynamic ComboBoxSetup - initialization at launch of application
+		public void SetUpComboBox()
+		{
+			//refactoring ComboBox Setup
+
+
+			//TODO: set up database connection for getting issue codes etc.
+
+			//set up comboboxes based on previous data selected
+			//there are 2 objects which ones don't have dynamic values. Still needs to be able to change on settings window
+
+			//set up default comboboxes with default values
+
+
+
+
+
+			db.ConnectDB();
+
+
+			//areacombobox - static --> still dependant on settings window
+			var getAreaComboBox = db.SetUpComboBox("AreaComboBox");
+			areaComboBox.Items.Add("Please Select");
+			while (getAreaComboBox.Read())
+			{
+				areaComboBox.Items.Add(getAreaComboBox[1]);
+			}
+			areaComboBox.SelectedIndex = 0;
+
+			//PriorityComboBox - static --> still dependant on settings window
+			var getPriorityComboBox = db.SetUpComboBox("PriorityComboBox");
+			PriorityComboBox.Items.Add("Please Select");
+			while (getPriorityComboBox.Read())
+			{
+				PriorityComboBox.Items.Add(getPriorityComboBox[1]);
+			}
+			PriorityComboBox.SelectedIndex = 0;
+
+			//buildingComboBox - static --> still dependant on settings window
+
+			var getBuildingComboBox = db.SetUpComboBox("BuildingComboBox");
+			buildingComboBox.Items.Add("Please Select");
+			while (getBuildingComboBox.Read())
+			{
+				buildingComboBox.Items.Add(getBuildingComboBox[1]);
+			}
+			buildingComboBox.SelectedIndex = 0;
+			//buildingComboBox.IsEnabled = true;
+
+
+			db.CloseDB();
+
+
+
+			//issueTypeComboBox - dynamic
+			issueTypeComboBox.Items.Add("Waiting for data");
+			issueTypeComboBox.SelectedIndex = 0;
+
+			//faultyAreaComboBo - dynamic
+			faultyAreaComboBox.Items.Add("Waiting for data");
+			faultyAreaComboBox.SelectedIndex = 0;
+
+
+			//issueComboBox - dynamic
+			issueComboBox.Items.Add("Waiting for data");
+			issueComboBox.SelectedIndex = 0;
+
+
+			//end of part for refactoring
+		}
+		#endregion
 
 		public void GetJobNumber()
 		{
@@ -811,7 +918,7 @@ namespace Enginering_Database
 			{
 				db.ConnectDB();
 			}
-			
+
 
 			int lastJob = db.DBQueryLastJobNumber("JobNumber") + 1;
 			jobNumberDataLabel.Content = lastJob.ToString();
@@ -833,13 +940,13 @@ namespace Enginering_Database
 				db.ConnectDB();
 			}
 
-					
+
 
 
 
 			int getLastJobNumber = db.DBQueryLastJobNumber("JobNumber");
 
-			DateTime dueDate  = DateTime.Now.AddDays(float.Parse(userrSet.DueDateGap));
+			DateTime dueDate = DateTime.Now.AddDays(float.Parse(userrSet.DueDateGap));
 
 
 			string dtNow = dueDate.ToString("dd/MM/yyyy");
@@ -868,8 +975,8 @@ namespace Enginering_Database
 
 			issue.ReportedDate = time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
-			
-			
+
+
 
 			issue.ReportedTime = time.ToString("HH:mm");
 			issue.Type = issueTypeComboBox.Text;
@@ -897,13 +1004,13 @@ namespace Enginering_Database
 			else
 			{
 				ErrorMessageLabel.Visibility = Visibility.Visible;
-				
+
 
 			}
 
 
 
-			
+
 
 		}
 		private void ClearRichTextBox(object sender, RoutedEventArgs e)

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using Engineering_Database;
 
 namespace Engineering_Database
 {
@@ -15,10 +15,10 @@ namespace Engineering_Database
 		 */
 
 		readonly UserErrorWindow userErr = new UserErrorWindow();
-		
+
 
 		readonly OleDbConnection con = new OleDbConnection();
-		
+
 
 		#region connect DB close DB and DB status DB count lines functions
 
@@ -49,12 +49,12 @@ namespace Engineering_Database
 					userErr.Show();
 				}
 
-			
 
-				
+
+
 
 			}
-		
+
 
 
 
@@ -66,7 +66,7 @@ namespace Engineering_Database
 
 			con.Dispose();
 			con.Close();
-			
+
 
 		}
 
@@ -92,10 +92,10 @@ namespace Engineering_Database
 		{
 
 			string queryString = "SELECT COUNT(*) FROM engineeringDatabaseTable";
-			
+
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-			
+
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
 			return data;
@@ -136,7 +136,7 @@ namespace Engineering_Database
 			var data = reader[table].ToString();
 			cmd.Dispose();
 
-			
+
 			reader.Close();
 			return data;
 
@@ -144,10 +144,10 @@ namespace Engineering_Database
 		public OleDbCommand DBQuery()
 		{
 
-		
+
 			string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed =false";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-			
+
 			return cmd;
 
 		}
@@ -171,7 +171,7 @@ namespace Engineering_Database
 
 			}
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-		
+
 			return cmd;
 
 		}
@@ -196,7 +196,7 @@ namespace Engineering_Database
 			}
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-			
+
 			return cmd;
 
 		}
@@ -209,7 +209,7 @@ namespace Engineering_Database
 			string queryString = "SELECT * FROM engineeringDatabaseTable";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-		
+
 			return cmd;
 
 		}
@@ -220,14 +220,14 @@ namespace Engineering_Database
 			string queryString = $"SELECT * FROM engineeringDatabaseTable WHERE JobNumber ={jobNumber}";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-			
+
 			return cmd;
 
 		}
 
 
 
-		
+
 		public int DBQueryLastJobNumber(string table)
 		{
 
@@ -251,7 +251,7 @@ namespace Engineering_Database
 					cmd.Dispose();
 					return 0;
 				}
-			
+
 			}
 
 			var data = reader[table].ToString();
@@ -262,7 +262,7 @@ namespace Engineering_Database
 
 			if (LastJobNumberIsNumber)
 			{
-				
+
 				LastJobNumber = number;
 				return LastJobNumber;
 			}
@@ -272,7 +272,7 @@ namespace Engineering_Database
 
 				return 0;
 			}
-			
+
 
 		}
 		#endregion
@@ -335,20 +335,20 @@ namespace Engineering_Database
 		public void DBQueryInsertData(int jobnumber, string table, string value)
 		{
 
-			
+
 
 			string queryString = "UPDATE engineeringDatabaseTable SET [" + table + "] = @value WHERE [JobNumber] = @jobnumber";
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-			
 
 
-			
-			cmd.Parameters.AddWithValue("@value", value==null?DBNull.Value:(object)value);
+
+
+			cmd.Parameters.AddWithValue("@value", value == null ? DBNull.Value : (object)value);
 			cmd.Parameters.AddWithValue("@jobnumber", jobnumber);
 
 
-			
+
 
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
@@ -362,7 +362,7 @@ namespace Engineering_Database
 		public void DBQueryUpdateGlobalSettings(string table, string value)
 		{
 
-			
+
 			string queryString = "Update GlobalSettings SET [" + table + "] = @value  ";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@value", value);
@@ -376,10 +376,10 @@ namespace Engineering_Database
 		public string DBQueryForGlobalSettings(string table)
 		{
 
-			
+
 			string queryString = $"SELECT * FROM GlobalSettings";
 
-			
+
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 
@@ -417,7 +417,7 @@ namespace Engineering_Database
 			cmd.Parameters.AddWithValue("@Priority", Priority);
 			cmd.Parameters.AddWithValue("@Type", type);
 			cmd.Parameters.AddWithValue("@DetailedDescription", detailedDesc);
-			
+
 			cmd.Parameters.AddWithValue("@DueDate", DueDate);
 			cmd.Parameters.AddWithValue("@Area", Area);
 			cmd.Parameters.AddWithValue("@ReporterEmail", ReporterEmail);
@@ -437,13 +437,82 @@ namespace Engineering_Database
 		public string GetCPU()
 		{
 
-			
+
 			string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
-			
+
 			return cpu;
 
 		}
 
+
+
+		#region getting information for combobox setups
+
+		public OleDbDataReader SetUpComboBox(string table)
+		{
+
+
+			string queryString = $"SELECT * FROM {table}";
+
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+
+
+
+			cmd.Dispose();
+			
+			return reader;
+
+		}
+
+		public int GetUID(string table,string text)
+		{
+
+
+			string queryString = $"SELECT * FROM {table} WHERE text = {text}";
+
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+			var data = (int)reader["ID"];
+
+
+			cmd.Dispose();
+
+			return data;
+
+		}
+
+		public OleDbDataReader SetUpComboBoxBasedonUID(string table,int UID)
+		{
+
+
+			string queryString = $"SELECT * FROM {table} WHERE UID = {UID}";
+
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+
+
+
+			cmd.Dispose();
+
+			return reader;
+
+		}
+
+
+		#endregion
 
 	}
 }

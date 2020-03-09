@@ -279,13 +279,35 @@ namespace Engineering_Database {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class engineeringDatabaseTableDataTable : global::System.Data.TypedTableBase<engineeringDatabaseTableRow> {
             
-            private global::System.Data.DataColumn columnUID;
-            
             private global::System.Data.DataColumn columnJobNumber;
             
             private global::System.Data.DataColumn columnReportedDate;
             
             private global::System.Data.DataColumn columnReportedUsername;
+            
+            private global::System.Data.DataColumn columnAssetNumber;
+            
+            private global::System.Data.DataColumn columnFaultyArea;
+            
+            private global::System.Data.DataColumn columnBuilding;
+            
+            private global::System.Data.DataColumn columnCompletedDate;
+            
+            private global::System.Data.DataColumn columnDetailedDescription;
+            
+            private global::System.Data.DataColumn columnCompleted;
+            
+            private global::System.Data.DataColumn columnIssueCode;
+            
+            private global::System.Data.DataColumn columnArea;
+            
+            private global::System.Data.DataColumn columnDueDate;
+            
+            private global::System.Data.DataColumn columnCommentsForActionTaken;
+            
+            private global::System.Data.DataColumn columnType;
+            
+            private global::System.Data.DataColumn columnPriority;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -322,14 +344,6 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn UIDColumn {
-                get {
-                    return this.columnUID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn JobNumberColumn {
                 get {
                     return this.columnJobNumber;
@@ -349,6 +363,102 @@ namespace Engineering_Database {
             public global::System.Data.DataColumn ReportedUsernameColumn {
                 get {
                     return this.columnReportedUsername;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AssetNumberColumn {
+                get {
+                    return this.columnAssetNumber;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FaultyAreaColumn {
+                get {
+                    return this.columnFaultyArea;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BuildingColumn {
+                get {
+                    return this.columnBuilding;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CompletedDateColumn {
+                get {
+                    return this.columnCompletedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DetailedDescriptionColumn {
+                get {
+                    return this.columnDetailedDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CompletedColumn {
+                get {
+                    return this.columnCompleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IssueCodeColumn {
+                get {
+                    return this.columnIssueCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AreaColumn {
+                get {
+                    return this.columnArea;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DueDateColumn {
+                get {
+                    return this.columnDueDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CommentsForActionTakenColumn {
+                get {
+                    return this.columnCommentsForActionTaken;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TypeColumn {
+                get {
+                    return this.columnType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PriorityColumn {
+                get {
+                    return this.columnPriority;
                 }
             }
             
@@ -389,23 +499,27 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public engineeringDatabaseTableRow AddengineeringDatabaseTableRow(int UID, System.DateTime ReportedDate, string ReportedUsername) {
+            public engineeringDatabaseTableRow AddengineeringDatabaseTableRow(System.DateTime ReportedDate, string ReportedUsername, string AssetNumber, string FaultyArea, string Building, System.DateTime CompletedDate, string DetailedDescription, bool Completed, string IssueCode, string Area, System.DateTime DueDate, string CommentsForActionTaken, string Type, string Priority) {
                 engineeringDatabaseTableRow rowengineeringDatabaseTableRow = ((engineeringDatabaseTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        UID,
                         null,
                         ReportedDate,
-                        ReportedUsername};
+                        ReportedUsername,
+                        AssetNumber,
+                        FaultyArea,
+                        Building,
+                        CompletedDate,
+                        DetailedDescription,
+                        Completed,
+                        IssueCode,
+                        Area,
+                        DueDate,
+                        CommentsForActionTaken,
+                        Type,
+                        Priority};
                 rowengineeringDatabaseTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowengineeringDatabaseTableRow);
                 return rowengineeringDatabaseTableRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public engineeringDatabaseTableRow FindByUID(int UID) {
-                return ((engineeringDatabaseTableRow)(this.Rows.Find(new object[] {
-                            UID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -425,31 +539,69 @@ namespace Engineering_Database {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnUID = base.Columns["UID"];
                 this.columnJobNumber = base.Columns["JobNumber"];
                 this.columnReportedDate = base.Columns["ReportedDate"];
                 this.columnReportedUsername = base.Columns["ReportedUsername"];
+                this.columnAssetNumber = base.Columns["AssetNumber"];
+                this.columnFaultyArea = base.Columns["FaultyArea"];
+                this.columnBuilding = base.Columns["Building"];
+                this.columnCompletedDate = base.Columns["CompletedDate"];
+                this.columnDetailedDescription = base.Columns["DetailedDescription"];
+                this.columnCompleted = base.Columns["Completed"];
+                this.columnIssueCode = base.Columns["IssueCode"];
+                this.columnArea = base.Columns["Area"];
+                this.columnDueDate = base.Columns["DueDate"];
+                this.columnCommentsForActionTaken = base.Columns["CommentsForActionTaken"];
+                this.columnType = base.Columns["Type"];
+                this.columnPriority = base.Columns["Priority"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnUID = new global::System.Data.DataColumn("UID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUID);
                 this.columnJobNumber = new global::System.Data.DataColumn("JobNumber", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnJobNumber);
                 this.columnReportedDate = new global::System.Data.DataColumn("ReportedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReportedDate);
                 this.columnReportedUsername = new global::System.Data.DataColumn("ReportedUsername", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReportedUsername);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnUID}, true));
-                this.columnUID.AllowDBNull = false;
-                this.columnUID.Unique = true;
+                this.columnAssetNumber = new global::System.Data.DataColumn("AssetNumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAssetNumber);
+                this.columnFaultyArea = new global::System.Data.DataColumn("FaultyArea", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFaultyArea);
+                this.columnBuilding = new global::System.Data.DataColumn("Building", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuilding);
+                this.columnCompletedDate = new global::System.Data.DataColumn("CompletedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompletedDate);
+                this.columnDetailedDescription = new global::System.Data.DataColumn("DetailedDescription", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDetailedDescription);
+                this.columnCompleted = new global::System.Data.DataColumn("Completed", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompleted);
+                this.columnIssueCode = new global::System.Data.DataColumn("IssueCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIssueCode);
+                this.columnArea = new global::System.Data.DataColumn("Area", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArea);
+                this.columnDueDate = new global::System.Data.DataColumn("DueDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDueDate);
+                this.columnCommentsForActionTaken = new global::System.Data.DataColumn("CommentsForActionTaken", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCommentsForActionTaken);
+                this.columnType = new global::System.Data.DataColumn("Type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnType);
+                this.columnPriority = new global::System.Data.DataColumn("Priority", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriority);
                 this.columnJobNumber.AutoIncrement = true;
                 this.columnJobNumber.AutoIncrementSeed = -1;
                 this.columnJobNumber.AutoIncrementStep = -1;
                 this.columnReportedUsername.MaxLength = 255;
+                this.columnAssetNumber.MaxLength = 255;
+                this.columnFaultyArea.MaxLength = 255;
+                this.columnBuilding.MaxLength = 255;
+                this.columnDetailedDescription.MaxLength = 536870910;
+                this.columnIssueCode.MaxLength = 255;
+                this.columnArea.MaxLength = 255;
+                this.columnCommentsForActionTaken.MaxLength = 536870910;
+                this.columnType.MaxLength = 255;
+                this.columnPriority.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -592,17 +744,6 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int UID {
-                get {
-                    return ((int)(this[this.tableengineeringDatabaseTable.UIDColumn]));
-                }
-                set {
-                    this[this.tableengineeringDatabaseTable.UIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int JobNumber {
                 get {
                     try {
@@ -653,6 +794,202 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string AssetNumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.AssetNumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AssetNumber\' in table \'engineeringDatabaseTable\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.AssetNumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FaultyArea {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.FaultyAreaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FaultyArea\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.FaultyAreaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Building {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.BuildingColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Building\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.BuildingColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime CompletedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableengineeringDatabaseTable.CompletedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CompletedDate\' in table \'engineeringDatabaseTable\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.CompletedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DetailedDescription {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.DetailedDescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DetailedDescription\' in table \'engineeringDatabaseTable\' is" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.DetailedDescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Completed {
+                get {
+                    try {
+                        return ((bool)(this[this.tableengineeringDatabaseTable.CompletedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Completed\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.CompletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string IssueCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.IssueCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IssueCode\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.IssueCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Area {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.AreaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Area\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.AreaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime DueDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableengineeringDatabaseTable.DueDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DueDate\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.DueDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CommentsForActionTaken {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.CommentsForActionTakenColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CommentsForActionTaken\' in table \'engineeringDatabaseTable\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.CommentsForActionTakenColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Type {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.TypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Type\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.TypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Priority {
+                get {
+                    try {
+                        return ((string)(this[this.tableengineeringDatabaseTable.PriorityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Priority\' in table \'engineeringDatabaseTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableengineeringDatabaseTable.PriorityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsJobNumberNull() {
                 return this.IsNull(this.tableengineeringDatabaseTable.JobNumberColumn);
             }
@@ -685,6 +1022,150 @@ namespace Engineering_Database {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetReportedUsernameNull() {
                 this[this.tableengineeringDatabaseTable.ReportedUsernameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAssetNumberNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.AssetNumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAssetNumberNull() {
+                this[this.tableengineeringDatabaseTable.AssetNumberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFaultyAreaNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.FaultyAreaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFaultyAreaNull() {
+                this[this.tableengineeringDatabaseTable.FaultyAreaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBuildingNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.BuildingColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBuildingNull() {
+                this[this.tableengineeringDatabaseTable.BuildingColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCompletedDateNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.CompletedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCompletedDateNull() {
+                this[this.tableengineeringDatabaseTable.CompletedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDetailedDescriptionNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.DetailedDescriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDetailedDescriptionNull() {
+                this[this.tableengineeringDatabaseTable.DetailedDescriptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCompletedNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.CompletedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCompletedNull() {
+                this[this.tableengineeringDatabaseTable.CompletedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsIssueCodeNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.IssueCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetIssueCodeNull() {
+                this[this.tableengineeringDatabaseTable.IssueCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAreaNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.AreaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAreaNull() {
+                this[this.tableengineeringDatabaseTable.AreaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDueDateNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.DueDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDueDateNull() {
+                this[this.tableengineeringDatabaseTable.DueDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCommentsForActionTakenNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.CommentsForActionTakenColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCommentsForActionTakenNull() {
+                this[this.tableengineeringDatabaseTable.CommentsForActionTakenColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTypeNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.TypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTypeNull() {
+                this[this.tableengineeringDatabaseTable.TypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPriorityNull() {
+                return this.IsNull(this.tableengineeringDatabaseTable.PriorityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPriorityNull() {
+                this[this.tableengineeringDatabaseTable.PriorityColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -847,39 +1328,22 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "engineeringDatabaseTable";
-            tableMapping.ColumnMappings.Add("UID", "UID");
             tableMapping.ColumnMappings.Add("JobNumber", "JobNumber");
             tableMapping.ColumnMappings.Add("ReportedDate", "ReportedDate");
             tableMapping.ColumnMappings.Add("ReportedUsername", "ReportedUsername");
+            tableMapping.ColumnMappings.Add("AssetNumber", "AssetNumber");
+            tableMapping.ColumnMappings.Add("FaultyArea", "FaultyArea");
+            tableMapping.ColumnMappings.Add("Building", "Building");
+            tableMapping.ColumnMappings.Add("CompletedDate", "CompletedDate");
+            tableMapping.ColumnMappings.Add("DetailedDescription", "DetailedDescription");
+            tableMapping.ColumnMappings.Add("Completed", "Completed");
+            tableMapping.ColumnMappings.Add("IssueCode", "IssueCode");
+            tableMapping.ColumnMappings.Add("Area", "Area");
+            tableMapping.ColumnMappings.Add("DueDate", "DueDate");
+            tableMapping.ColumnMappings.Add("CommentsForActionTaken", "CommentsForActionTaken");
+            tableMapping.ColumnMappings.Add("Type", "Type");
+            tableMapping.ColumnMappings.Add("Priority", "Priority");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `engineeringDatabaseTable` WHERE ((`UID` = ?) AND ((? = 1 AND `JobNum" +
-                "ber` IS NULL) OR (`JobNumber` = ?)) AND ((? = 1 AND `ReportedDate` IS NULL) OR (" +
-                "`ReportedDate` = ?)) AND ((? = 1 AND `ReportedUsername` IS NULL) OR (`ReportedUs" +
-                "ername` = ?)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_UID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_JobNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "JobNumber", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_JobNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "JobNumber", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReportedDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReportedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReportedUsername", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedUsername", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReportedUsername", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedUsername", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `engineeringDatabaseTable` SET `UID` = ?, `ReportedDate` = ?, `ReportedUsername` = ? WHERE ((`UID` = ?) AND ((? = 1 AND `JobNumber` IS NULL) OR (`JobNumber` = ?)) AND ((? = 1 AND `ReportedDate` IS NULL) OR (`ReportedDate` = ?)) AND ((? = 1 AND `ReportedUsername` IS NULL) OR (`ReportedUsername` = ?)))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReportedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReportedUsername", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedUsername", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_UID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "UID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_JobNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "JobNumber", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_JobNumber", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "JobNumber", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReportedDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReportedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReportedUsername", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedUsername", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReportedUsername", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedUsername", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -892,20 +1356,36 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[2];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        UID, JobNumber, ReportedDate, ReportedUsername\r\nFROM            eng" +
-                "ineeringDatabaseTable";
+            this._commandCollection[0].CommandText = @"SELECT        JobNumber, ReportedDate, ReportedUsername, AssetNumber, FaultyArea, Building, CompletedDate, DetailedDescription, Completed, IssueCode, Area, DueDate, CommentsForActionTaken, Type, Priority
+FROM            engineeringDatabaseTable
+WHERE        (JobNumber = ?) OR
+                         (ReportedDate = ?)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("RepDate", global::System.Data.OleDb.OleDbType.DBTimeStamp, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[1] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = @"SELECT        JobNumber, ReportedDate, ReportedUsername, AssetNumber, FaultyArea, Building, CompletedDate, DetailedDescription, Completed, IssueCode, Area, DueDate, CommentsForActionTaken, Type, Priority
+FROM            engineeringDatabaseTable
+WHERE         (ReportedDate = ?)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReportedDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReportedDate", global::System.Data.DataRowVersion.Current, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int ReportFill(DataSetForReport.engineeringDatabaseTableDataTable dataTable) {
+        public virtual int ReportFill(DataSetForReport.engineeringDatabaseTableDataTable dataTable, global::System.Nullable<global::System.DateTime> RepDate) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((RepDate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(RepDate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -917,8 +1397,14 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DataSetForReport.engineeringDatabaseTableDataTable GetData() {
+        public virtual DataSetForReport.engineeringDatabaseTableDataTable GetData(global::System.Nullable<global::System.DateTime> RepDate) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((RepDate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(RepDate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             DataSetForReport.engineeringDatabaseTableDataTable dataTable = new DataSetForReport.engineeringDatabaseTableDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -927,112 +1413,15 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DataSetForReport.engineeringDatabaseTableDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DataSetForReport dataSet) {
-            return this.Adapter.Update(dataSet, "engineeringDatabaseTable");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_UID, int Original_JobNumber, System.DateTime Original_ReportedDate, string Original_ReportedUsername) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_UID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_JobNumber));
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((System.DateTime)(Original_ReportedDate));
-            if ((Original_ReportedUsername == null)) {
-                throw new global::System.ArgumentNullException("Original_ReportedUsername");
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(DataSetForReport.engineeringDatabaseTableDataTable dataTable, System.DateTime ReportedDate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(ReportedDate));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
             }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_ReportedUsername));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int UID, System.DateTime ReportedDate, string ReportedUsername, int Original_UID, int Original_JobNumber, System.DateTime Original_ReportedDate, string Original_ReportedUsername) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(UID));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(ReportedDate));
-            if ((ReportedUsername == null)) {
-                throw new global::System.ArgumentNullException("ReportedUsername");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(ReportedUsername));
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_UID));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_JobNumber));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_ReportedDate));
-            if ((Original_ReportedUsername == null)) {
-                throw new global::System.ArgumentNullException("Original_ReportedUsername");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_ReportedUsername));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime ReportedDate, string ReportedUsername, int Original_UID, int Original_JobNumber, System.DateTime Original_ReportedDate, string Original_ReportedUsername) {
-            return this.Update(Original_UID, ReportedDate, ReportedUsername, Original_UID, Original_JobNumber, Original_ReportedDate, Original_ReportedUsername);
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
     }
     
@@ -1048,8 +1437,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         
         private UpdateOrderOption _updateOrder;
         
-        private engineeringDatabaseTableTableAdapter _engineeringDatabaseTableTableAdapter;
-        
         private bool _backupDataSetBeforeUpdate;
         
         private global::System.Data.IDbConnection _connection;
@@ -1062,20 +1449,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
             }
             set {
                 this._updateOrder = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public engineeringDatabaseTableTableAdapter engineeringDatabaseTableTableAdapter {
-            get {
-                return this._engineeringDatabaseTableTableAdapter;
-            }
-            set {
-                this._engineeringDatabaseTableTableAdapter = value;
             }
         }
         
@@ -1098,10 +1471,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
-                if (((this._engineeringDatabaseTableTableAdapter != null) 
-                            && (this._engineeringDatabaseTableTableAdapter.Connection != null))) {
-                    return this._engineeringDatabaseTableTableAdapter.Connection;
-                }
                 return null;
             }
             set {
@@ -1115,9 +1484,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
-                if ((this._engineeringDatabaseTableTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 return count;
             }
         }
@@ -1129,15 +1495,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(DataSetForReport dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._engineeringDatabaseTableTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.engineeringDatabaseTable.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._engineeringDatabaseTableTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -1148,14 +1505,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(DataSetForReport dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._engineeringDatabaseTableTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.engineeringDatabaseTable.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._engineeringDatabaseTableTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -1166,14 +1515,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(DataSetForReport dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._engineeringDatabaseTableTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.engineeringDatabaseTable.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._engineeringDatabaseTableTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             return result;
         }
         
@@ -1213,11 +1554,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
-            if (((this._engineeringDatabaseTableTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._engineeringDatabaseTableTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
             global::System.Data.IDbConnection workConnection = this.Connection;
             if ((workConnection == null)) {
                 throw new global::System.ApplicationException("TableAdapterManager contains no connection information. Set each TableAdapterMana" +
@@ -1250,15 +1586,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
-                if ((this._engineeringDatabaseTableTableAdapter != null)) {
-                    revertConnections.Add(this._engineeringDatabaseTableTableAdapter, this._engineeringDatabaseTableTableAdapter.Connection);
-                    this._engineeringDatabaseTableTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
-                    this._engineeringDatabaseTableTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
-                    if (this._engineeringDatabaseTableTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._engineeringDatabaseTableTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._engineeringDatabaseTableTableAdapter.Adapter);
-                    }
-                }
                 // 
                 //---- Perform updates -----------
                 //
@@ -1316,10 +1643,6 @@ namespace Engineering_Database.DataSetForReportTableAdapters {
             finally {
                 if (workConnOpened) {
                     workConnection.Close();
-                }
-                if ((this._engineeringDatabaseTableTableAdapter != null)) {
-                    this._engineeringDatabaseTableTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._engineeringDatabaseTableTableAdapter]));
-                    this._engineeringDatabaseTableTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];
