@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 
@@ -464,16 +463,16 @@ namespace Engineering_Database
 
 
 			cmd.Dispose();
-			
+
 			return reader;
 
 		}
 
-		public int GetUID(string table,string text)
+		public OleDbDataReader SetUpComboBox(string table, string text)
 		{
 
 
-			string queryString = $"SELECT * FROM {table} WHERE text = {text}";
+			string queryString = $"SELECT ID FROM {table} WHERE parrent = {text}";
 
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -481,20 +480,40 @@ namespace Engineering_Database
 
 			OleDbDataReader reader = cmd.ExecuteReader();
 
-			var data = (int)reader["ID"];
+
 
 
 			cmd.Dispose();
 
-			return data;
+			return reader;
 
 		}
 
-		public OleDbDataReader SetUpComboBoxBasedonUID(string table,int UID)
+		public OleDbDataReader SetUpComboBoxBasedonParrent(string table, string UID)
 		{
 
 
-			string queryString = $"SELECT * FROM {table} WHERE UID = {UID}";
+			string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID+"'";
+
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+
+
+
+			cmd.Dispose();
+
+			return reader;
+
+		}
+		public OleDbDataReader SetUpComboBoxBasedonUID(string table, int UID, int GUID)
+		{
+
+
+			string queryString = $"SELECT * FROM {table} WHERE UID = {UID} AND GUID = {GUID}";
 
 
 			OleDbCommand cmd = new OleDbCommand(queryString, con);

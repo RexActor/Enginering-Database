@@ -258,28 +258,44 @@ namespace Enginering_Database
 			//if there is not selected value --> issuetype combo box is being disabled and default value is being selected for this combo box
 			if (areaComboBox.SelectedIndex == 0)
 			{
-
+				
 				issueTypeComboBox.IsEnabled = false;
+				issueComboBox.Items.Add("Waiting for data");
+				issueTypeComboBox.Items.Add("Waiting for data");
+				faultyAreaComboBox.Items.Add("Waiting for data");
+				issueComboBox.SelectedIndex = 0;
+				faultyAreaComboBox.SelectedIndex = 0;
 				issueTypeComboBox.SelectedIndex = 0;
+				
 			}
 			else
 			{
+				
 				issueTypeComboBox.IsEnabled = true;
 			}
 
 
 			//areacombobox - static --> still dependant on settings window
-			var setIssueTypeComboBox = db.SetUpComboBoxBasedonUID("IssueTypeComboBox", areaComboBox.SelectedIndex);
-			issueTypeComboBox.Items.Add("Please Select");
-			//gets all values from database where UID is linked with area combo box ID
-			while (setIssueTypeComboBox.Read())
+			if (areaComboBox.SelectedIndex > 0)
 			{
-				issueTypeComboBox.Items.Add(setIssueTypeComboBox[1]);
+				var setIssueTypeComboBox = db.SetUpComboBoxBasedonParrent("IssueTypeComboBox", areaComboBox.SelectedItem.ToString());
+				issueTypeComboBox.Items.Add("Please Select");
+				//gets all values from database where UID is linked with area combo box ID
+				while (setIssueTypeComboBox.Read())
+				{
+					issueTypeComboBox.Items.Add(setIssueTypeComboBox[1]);
+				}
+				//select value by default -- > "Please Select"
+				issueTypeComboBox.SelectedIndex = 0;
+				faultyAreaComboBox.Items.Add("Waiting for data");
+				faultyAreaComboBox.SelectedIndex = 0;
+				faultyAreaComboBox.IsEnabled = false;
+				issueComboBox.Items.Add("Waiting for data");
+				issueComboBox.SelectedIndex = 0;
+				issueComboBox.IsEnabled = false;
+
+
 			}
-			//select value by default -- > "Please Select"
-			issueTypeComboBox.SelectedIndex = 0;
-
-
 
 		}
 
@@ -547,173 +563,250 @@ namespace Enginering_Database
 	*/
 			#endregion
 
+			db.ConnectDB();
+			faultyAreaComboBox.Items.Clear();
 
-		}
-
-		private void BuildingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-
-			if (issueTypeComboBox.SelectedItem != null)
+			if (areaComboBox.SelectedIndex == 0)
 			{
 
-
-				if (issueTypeComboBox.SelectedItem.ToString() == "Lines Mechanical")
-				{
-					faultyAreaComboBox.Items.Clear();
-
-
-					switch (buildingComboBox.SelectedItem)
-					{
-
-						case "Building 1":
-							faultyAreaComboBox.IsEnabled = true;
-							faultyAreaComboBox.Items.Clear();
-							faultyAreaComboBox.Items.Insert(0, "Choose option");
-							faultyAreaComboBox.Items.Add("Line 1");
-							faultyAreaComboBox.Items.Add("Line 2");
-							faultyAreaComboBox.Items.Add("Line 3");
-							faultyAreaComboBox.Items.Add("Line 4");
-							faultyAreaComboBox.Items.Add("Line 5");
-							faultyAreaComboBox.Items.Add("Line 6");
-							faultyAreaComboBox.Items.Add("Line 7");
-							faultyAreaComboBox.Items.Add("Line 8");
-							faultyAreaComboBox.Items.Add("Condition line");
-							faultyAreaComboBox.SelectedIndex = 0;
-
-							issueComboBox.Items.Clear();
-							issueComboBox.Items.Insert(0, "Waiting for faulty area");
-							issueComboBox.SelectedIndex = 0;
-							issueComboBox.IsEnabled = false;
-
-
-							break;
-
-						case "Building 2":
-							faultyAreaComboBox.IsEnabled = true;
-							faultyAreaComboBox.Items.Clear();
-							faultyAreaComboBox.Items.Insert(0, "Choose option");
-							faultyAreaComboBox.Items.Add("Line 1");
-							faultyAreaComboBox.Items.Add("Line 2");
-							faultyAreaComboBox.Items.Add("Line 3");
-							faultyAreaComboBox.Items.Add("Line 4");
-							faultyAreaComboBox.Items.Add("Line 5");
-							faultyAreaComboBox.Items.Add("Line 6");
-							faultyAreaComboBox.Items.Add("Line 7");
-							faultyAreaComboBox.Items.Add("Line 8");
-							faultyAreaComboBox.SelectedIndex = 0;
-
-							issueComboBox.Items.Clear();
-							issueComboBox.Items.Insert(0, "Waiting for faulty area");
-							issueComboBox.SelectedIndex = 0;
-							issueComboBox.IsEnabled = false;
-							break;
-
-						default:
-							faultyAreaComboBox.IsEnabled = true;
-
-							break;
-
-
-					}
-
-
-
-
-				}
-				else if (issueTypeComboBox.SelectedItem.ToString() == "MHE Equipment")
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Choose option");
-					faultyAreaComboBox.Items.Add("Flexi");
-					faultyAreaComboBox.Items.Add("Scissor Lift");
-					faultyAreaComboBox.Items.Add("PPT");
-					faultyAreaComboBox.Items.Add("Electric FLT");
-					faultyAreaComboBox.Items.Add("Gas FLT");
-					faultyAreaComboBox.Items.Add("Pump truck");
-					faultyAreaComboBox.SelectedIndex = 0;
-					faultyAreaComboBox.IsEnabled = true;
-				}
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Rackings")
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please Choose12");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-					faultyAreaComboBox.IsEnabled = false;
-					issueComboBox.IsEnabled = false;
-				}
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Projects")
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please Choose");
-					faultyAreaComboBox.Items.Add("Projects");
-					faultyAreaComboBox.SelectedIndex = 1;
-					issueComboBox.IsEnabled = false;
-				}
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Security")
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Loading Bays");
-					faultyAreaComboBox.Items.Add("Roller Doors");
-					faultyAreaComboBox.Items.Add("Alarm");
-					faultyAreaComboBox.SelectedIndex = 0;
-					faultyAreaComboBox.IsEnabled = true;
-
-				}
-
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Drains")
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Indoor");
-					faultyAreaComboBox.Items.Add("Outdoor");
-					faultyAreaComboBox.SelectedIndex = 0;
-					faultyAreaComboBox.IsEnabled = true;
-				}
-
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Office Equipment")
-				{
-
-					faultyAreaComboBox.Items.Clear();
-
-					faultyAreaComboBox.Items.Insert(0, "Please Choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-					faultyAreaComboBox.IsEnabled = false;
-					issueComboBox.IsEnabled = false;
-				}
-
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Boxing")
-				{
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please Choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-
-				}
-				else if (issueTypeComboBox.SelectedItem.ToString() == "Cleaning Equipment")
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please Choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-				}
-				else
-				{
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose it");
-					faultyAreaComboBox.SelectedIndex = 0;
-				}
-
-
+				faultyAreaComboBox.IsEnabled = false;
+				faultyAreaComboBox.Items.Add("Waiting for data");
+				issueComboBox.Items.Add("Waiting for data");
+				faultyAreaComboBox.SelectedIndex = 0;
+				issueComboBox.SelectedIndex = 0;
+				issueComboBox.IsEnabled = false;
 			}
+			else
+			{
+				if (issueTypeComboBox.SelectedIndex > 0)
+				{
+					
+					var setFaultyAreaComboBox = db.SetUpComboBoxBasedonParrent("FaultyAreaComboBox",issueTypeComboBox.SelectedItem.ToString());
+
+					faultyAreaComboBox.Items.Add("Please Select");
+					//gets all values from database where UID is linked with area combo box ID
+					while (setFaultyAreaComboBox.Read())
+					{
+						faultyAreaComboBox.Items.Add(setFaultyAreaComboBox[1]);
+					}
+					//select value by default -- > "Please Select"
+					faultyAreaComboBox.SelectedIndex = 0;
+				}
+				faultyAreaComboBox.IsEnabled = true;
+				issueComboBox.Items.Add("Waiting for data");
+				issueComboBox.SelectedIndex = 0;
+				issueComboBox.IsEnabled = false;
+			}
+
+			
+			
+			
+			
+
+
 		}
 
+		#region not required anymore - building combobox change
+		
+		private void BuildingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			/*
+						if (issueTypeComboBox.SelectedItem != null)
+						{
+
+
+							if (issueTypeComboBox.SelectedItem.ToString() == "Lines Mechanical")
+							{
+								faultyAreaComboBox.Items.Clear();
+
+
+								switch (buildingComboBox.SelectedItem)
+								{
+
+									case "Building 1":
+										faultyAreaComboBox.IsEnabled = true;
+										faultyAreaComboBox.Items.Clear();
+										faultyAreaComboBox.Items.Insert(0, "Choose option");
+										faultyAreaComboBox.Items.Add("Line 1");
+										faultyAreaComboBox.Items.Add("Line 2");
+										faultyAreaComboBox.Items.Add("Line 3");
+										faultyAreaComboBox.Items.Add("Line 4");
+										faultyAreaComboBox.Items.Add("Line 5");
+										faultyAreaComboBox.Items.Add("Line 6");
+										faultyAreaComboBox.Items.Add("Line 7");
+										faultyAreaComboBox.Items.Add("Line 8");
+										faultyAreaComboBox.Items.Add("Condition line");
+										faultyAreaComboBox.SelectedIndex = 0;
+
+										issueComboBox.Items.Clear();
+										issueComboBox.Items.Insert(0, "Waiting for faulty area");
+										issueComboBox.SelectedIndex = 0;
+										issueComboBox.IsEnabled = false;
+
+
+										break;
+
+									case "Building 2":
+										faultyAreaComboBox.IsEnabled = true;
+										faultyAreaComboBox.Items.Clear();
+										faultyAreaComboBox.Items.Insert(0, "Choose option");
+										faultyAreaComboBox.Items.Add("Line 1");
+										faultyAreaComboBox.Items.Add("Line 2");
+										faultyAreaComboBox.Items.Add("Line 3");
+										faultyAreaComboBox.Items.Add("Line 4");
+										faultyAreaComboBox.Items.Add("Line 5");
+										faultyAreaComboBox.Items.Add("Line 6");
+										faultyAreaComboBox.Items.Add("Line 7");
+										faultyAreaComboBox.Items.Add("Line 8");
+										faultyAreaComboBox.SelectedIndex = 0;
+
+										issueComboBox.Items.Clear();
+										issueComboBox.Items.Insert(0, "Waiting for faulty area");
+										issueComboBox.SelectedIndex = 0;
+										issueComboBox.IsEnabled = false;
+										break;
+
+									default:
+										faultyAreaComboBox.IsEnabled = true;
+
+										break;
+
+
+								}
+
+
+
+
+							}
+							else if (issueTypeComboBox.SelectedItem.ToString() == "MHE Equipment")
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Choose option");
+								faultyAreaComboBox.Items.Add("Flexi");
+								faultyAreaComboBox.Items.Add("Scissor Lift");
+								faultyAreaComboBox.Items.Add("PPT");
+								faultyAreaComboBox.Items.Add("Electric FLT");
+								faultyAreaComboBox.Items.Add("Gas FLT");
+								faultyAreaComboBox.Items.Add("Pump truck");
+								faultyAreaComboBox.SelectedIndex = 0;
+								faultyAreaComboBox.IsEnabled = true;
+							}
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Rackings")
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please Choose12");
+								faultyAreaComboBox.Items.Add("Other");
+								faultyAreaComboBox.SelectedIndex = 1;
+								faultyAreaComboBox.IsEnabled = false;
+								issueComboBox.IsEnabled = false;
+							}
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Projects")
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please Choose");
+								faultyAreaComboBox.Items.Add("Projects");
+								faultyAreaComboBox.SelectedIndex = 1;
+								issueComboBox.IsEnabled = false;
+							}
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Security")
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please choose");
+								faultyAreaComboBox.Items.Add("Loading Bays");
+								faultyAreaComboBox.Items.Add("Roller Doors");
+								faultyAreaComboBox.Items.Add("Alarm");
+								faultyAreaComboBox.SelectedIndex = 0;
+								faultyAreaComboBox.IsEnabled = true;
+
+							}
+
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Drains")
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please choose");
+								faultyAreaComboBox.Items.Add("Indoor");
+								faultyAreaComboBox.Items.Add("Outdoor");
+								faultyAreaComboBox.SelectedIndex = 0;
+								faultyAreaComboBox.IsEnabled = true;
+							}
+
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Office Equipment")
+							{
+
+								faultyAreaComboBox.Items.Clear();
+
+								faultyAreaComboBox.Items.Insert(0, "Please Choose");
+								faultyAreaComboBox.Items.Add("Other");
+								faultyAreaComboBox.SelectedIndex = 1;
+								faultyAreaComboBox.IsEnabled = false;
+								issueComboBox.IsEnabled = false;
+							}
+
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Boxing")
+							{
+
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please Choose");
+								faultyAreaComboBox.Items.Add("Other");
+								faultyAreaComboBox.SelectedIndex = 1;
+
+							}
+							else if (issueTypeComboBox.SelectedItem.ToString() == "Cleaning Equipment")
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please Choose");
+								faultyAreaComboBox.Items.Add("Other");
+								faultyAreaComboBox.SelectedIndex = 1;
+							}
+							else
+							{
+								faultyAreaComboBox.Items.Clear();
+								faultyAreaComboBox.Items.Insert(0, "Please choose it");
+								faultyAreaComboBox.SelectedIndex = 0;
+							}
+
+
+						}*/
+		}
+
+		#endregion
 		private void FaultyAreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			issueComboBox.IsEnabled = true;
+
+			db.ConnectDB();
+			issueComboBox.Items.Clear();
+
+			if (faultyAreaComboBox.SelectedIndex == 0)
+			{
+
+				issueComboBox.IsEnabled = false;
+				issueComboBox.Items.Add("Waiting for data");
+				issueComboBox.SelectedIndex = 0;
+				
+			}
+			else
+			{
+				if (issueTypeComboBox.SelectedIndex > 0)
+				{
+
+					var setIssueComboBox = db.SetUpComboBoxBasedonParrent("IssueComboBox", issueTypeComboBox.SelectedItem.ToString());
+
+					issueComboBox.Items.Add("Please Select");
+					//gets all values from database where UID is linked with area combo box ID
+					while (setIssueComboBox.Read())
+					{
+						issueComboBox.Items.Add(setIssueComboBox[1]);
+					}
+					//select value by default -- > "Please Select"
+					issueComboBox.SelectedIndex = 0;
+				}
+				issueComboBox.IsEnabled = true;
+			}
+			db.CloseDB();
+
+
+			/*
+			 issueComboBox.IsEnabled = true;
 
 			switch (faultyAreaComboBox.SelectedItem)
 			{
@@ -833,7 +926,7 @@ namespace Enginering_Database
 
 					break;
 			}
-
+			*/
 		}
 		#endregion
 
@@ -896,15 +989,18 @@ namespace Enginering_Database
 			//issueTypeComboBox - dynamic
 			issueTypeComboBox.Items.Add("Waiting for data");
 			issueTypeComboBox.SelectedIndex = 0;
+			issueTypeComboBox.IsEnabled = false;
 
 			//faultyAreaComboBo - dynamic
 			faultyAreaComboBox.Items.Add("Waiting for data");
 			faultyAreaComboBox.SelectedIndex = 0;
+			faultyAreaComboBox.IsEnabled = false;
 
 
 			//issueComboBox - dynamic
 			issueComboBox.Items.Add("Waiting for data");
 			issueComboBox.SelectedIndex = 0;
+			issueComboBox.IsEnabled = false;
 
 
 			//end of part for refactoring
