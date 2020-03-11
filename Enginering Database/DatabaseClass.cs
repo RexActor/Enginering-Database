@@ -491,23 +491,23 @@ namespace Engineering_Database
 
 		public OleDbDataReader SetUpComboBoxBasedonParrent(string table, string UID)
 		{
+			
+				//string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
+				string queryString = $"SELECT * FROM {table} WHERE parrent = '"+ UID+"'";
+
+				OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 
-			string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID+"'";
-
-
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
-			OleDbDataReader reader = cmd.ExecuteReader();
+				OleDbDataReader reader = cmd.ExecuteReader();
 
 
 
 
-			cmd.Dispose();
+				cmd.Dispose();
 
+
+		
 			return reader;
-
 		}
 		public OleDbDataReader SetUpComboBoxBasedonUID(string table, int UID, int GUID)
 		{
