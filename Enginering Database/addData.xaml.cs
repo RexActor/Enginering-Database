@@ -258,7 +258,7 @@ namespace Enginering_Database
 			//if there is not selected value --> issuetype combo box is being disabled and default value is being selected for this combo box
 			if (areaComboBox.SelectedIndex == 0)
 			{
-				
+
 				issueTypeComboBox.IsEnabled = false;
 				issueComboBox.Items.Add("Waiting for data");
 				issueTypeComboBox.Items.Add("Waiting for data");
@@ -266,11 +266,11 @@ namespace Enginering_Database
 				issueComboBox.SelectedIndex = 0;
 				faultyAreaComboBox.SelectedIndex = 0;
 				issueTypeComboBox.SelectedIndex = 0;
-				
+
 			}
 			else
 			{
-				
+
 				issueTypeComboBox.IsEnabled = true;
 			}
 
@@ -301,267 +301,7 @@ namespace Enginering_Database
 
 		private void IssueTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			#region not required --> being refactored
-			/*
-			switch (issueTypeComboBox.SelectedItem)
-			{
 
-				case "Lines Mechanical":
-					buildingComboBox.IsEnabled = true;
-
-
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please Choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-					//update faulty area combobox
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Line 1");
-					faultyAreaComboBox.Items.Add("Line 2");
-					faultyAreaComboBox.Items.Add("Line 3");
-					faultyAreaComboBox.Items.Add("Line 4");
-					faultyAreaComboBox.Items.Add("Line 5");
-					faultyAreaComboBox.Items.Add("Line 6");
-					faultyAreaComboBox.Items.Add("Line 7");
-					faultyAreaComboBox.Items.Add("Line 8");
-
-
-					faultyAreaComboBox.SelectedIndex = 0;
-
-					//update issue code combobox
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Bucket filler - Bercomex");
-					issueComboBox.Items.Add("Carousel LHS conveyer");
-					issueComboBox.Items.Add("Carousel RHS conveyer");
-					issueComboBox.Items.Add("Boxing modular belt");
-					issueComboBox.Items.Add("Blade");
-					issueComboBox.Items.Add("Strimmer");
-					issueComboBox.Items.Add("Take off belt");
-					issueComboBox.Items.Add("Pull cord");
-					issueComboBox.Items.Add("E-Stop overhead");
-					issueComboBox.Items.Add("Waste conveyer belt");
-					issueComboBox.Items.Add("Binder");
-					issueComboBox.Items.Add("Robotag");
-					issueComboBox.Items.Add("Terra Machine - Binder");
-					issueComboBox.Items.Add("Terra Machine - Taper");
-					issueComboBox.Items.Add("Terra Machine - Sleeving Section");
-					issueComboBox.Items.Add("Green Compactor");
-					issueComboBox.Items.Add("Water supply");
-					issueComboBox.Items.Add("Air pipe supply");
-					issueComboBox.Items.Add("Power supply");
-					issueComboBox.SelectedIndex = 0;
-					issueComboBox.IsEnabled = false;
-					break;
-
-				case "Boxing":
-
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please Choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-					//update faulty area combobox
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-
-					//update issue code combobox values
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Conveyer belt");
-					issueComboBox.Items.Add("Power sockets");
-
-					issueComboBox.SelectedIndex = 0;
-
-
-					break;
-
-				case "MHE Equipment":
-
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please Choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Choose option");
-					faultyAreaComboBox.Items.Add("Flexi");
-					faultyAreaComboBox.Items.Add("Scissor Lift");
-					faultyAreaComboBox.Items.Add("PPT");
-					faultyAreaComboBox.Items.Add("Electric FLT");
-					faultyAreaComboBox.Items.Add("Gas FLT");
-					faultyAreaComboBox.Items.Add("Pump truck");
-					faultyAreaComboBox.SelectedIndex = 0;
-					faultyAreaComboBox.IsEnabled = true;
-
-
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Waiting for faulty area");
-					issueComboBox.SelectedIndex = 0;
-					issueComboBox.IsEnabled = false;
-
-					break;
-
-				case "Rackings":
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-					faultyAreaComboBox.IsEnabled = false;
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Other");
-					issueComboBox.SelectedIndex = 1;
-					issueComboBox.IsEnabled = false;
-
-					break;
-
-				case "Security":
-
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Loading Bays");
-					faultyAreaComboBox.Items.Add("Roller Doors");
-					faultyAreaComboBox.Items.Add("Alarm");
-					faultyAreaComboBox.SelectedIndex = 0;
-					faultyAreaComboBox.IsEnabled = true;
-
-					issueComboBox.Items.Clear();
-
-					issueComboBox.Items.Insert(0, "Waiting for faulty area");
-					issueComboBox.SelectedIndex = 0;
-					issueComboBox.IsEnabled = false;
-
-
-					break;
-
-				case "Drains":
-
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Indoor");
-					faultyAreaComboBox.Items.Add("Outdoor");
-					faultyAreaComboBox.SelectedIndex = 0;
-					faultyAreaComboBox.IsEnabled = true;
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please Choose");
-					issueComboBox.Items.Add("Other");
-					issueComboBox.SelectedIndex = 1;
-					issueComboBox.IsEnabled = false;
-
-					break;
-
-				case "Office Equipment":
-
-
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-					faultyAreaComboBox.Items.Clear();
-
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-					faultyAreaComboBox.IsEnabled = false;
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Other");
-					issueComboBox.SelectedIndex = 1;
-					issueComboBox.IsEnabled = false;
-
-					break;
-
-				case "Cleaning Equipment":
-					buildingComboBox.IsEnabled = true;
-					buildingComboBox.Items.Clear();
-					buildingComboBox.Items.Insert(0, "Please choose");
-					buildingComboBox.Items.Add("Building 1");
-					buildingComboBox.Items.Add("Building 2");
-					buildingComboBox.SelectedIndex = 0;
-
-					faultyAreaComboBox.Items.Clear();
-
-					faultyAreaComboBox.Items.Insert(0, "Please choose");
-					faultyAreaComboBox.Items.Add("Other");
-					faultyAreaComboBox.SelectedIndex = 1;
-					faultyAreaComboBox.IsEnabled = false;
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Floor scrubber");
-					issueComboBox.Items.Add("Ride On floor scrubber");
-					issueComboBox.SelectedIndex = 0;
-					issueComboBox.IsEnabled = false;
-
-
-					break;
-
-
-				default:
-
-					//buildingComboBox.Items.Clear();
-					//buildingComboBox.Items.Insert(0, "Waiting for issue type");
-					//buildingComboBox.SelectedIndex = 0;
-
-
-
-					faultyAreaComboBox.Items.Clear();
-					faultyAreaComboBox.Items.Insert(0, "Waiting for issue type");
-					faultyAreaComboBox.SelectedIndex = 0;
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Waiting for issue type");
-					faultyAreaComboBox.SelectedIndex = 0;
-
-
-					break;
-									   					 				  				  
-			}
-
-
-	*/
-			#endregion
 
 			db.ConnectDB();
 			faultyAreaComboBox.Items.Clear();
@@ -580,8 +320,8 @@ namespace Enginering_Database
 			{
 				if (issueTypeComboBox.SelectedIndex > 0)
 				{
-					
-					var setFaultyAreaComboBox = db.SetUpComboBoxBasedonParrent("FaultyAreaComboBox",issueTypeComboBox.SelectedItem.ToString());
+
+					var setFaultyAreaComboBox = db.SetUpComboBoxBasedonParrent("FaultyAreaComboBox", issueTypeComboBox.SelectedItem.ToString());
 
 					faultyAreaComboBox.Items.Add("Please Select");
 					//gets all values from database where UID is linked with area combo box ID
@@ -598,178 +338,18 @@ namespace Enginering_Database
 				issueComboBox.IsEnabled = false;
 			}
 
-			
-			
-			
-			
+
+
+
+
 
 
 		}
 
-		#region not required anymore - building combobox change
 		
-		private void BuildingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			/*
-						if (issueTypeComboBox.SelectedItem != null)
-						{
 
-
-							if (issueTypeComboBox.SelectedItem.ToString() == "Lines Mechanical")
-							{
-								faultyAreaComboBox.Items.Clear();
-
-
-								switch (buildingComboBox.SelectedItem)
-								{
-
-									case "Building 1":
-										faultyAreaComboBox.IsEnabled = true;
-										faultyAreaComboBox.Items.Clear();
-										faultyAreaComboBox.Items.Insert(0, "Choose option");
-										faultyAreaComboBox.Items.Add("Line 1");
-										faultyAreaComboBox.Items.Add("Line 2");
-										faultyAreaComboBox.Items.Add("Line 3");
-										faultyAreaComboBox.Items.Add("Line 4");
-										faultyAreaComboBox.Items.Add("Line 5");
-										faultyAreaComboBox.Items.Add("Line 6");
-										faultyAreaComboBox.Items.Add("Line 7");
-										faultyAreaComboBox.Items.Add("Line 8");
-										faultyAreaComboBox.Items.Add("Condition line");
-										faultyAreaComboBox.SelectedIndex = 0;
-
-										issueComboBox.Items.Clear();
-										issueComboBox.Items.Insert(0, "Waiting for faulty area");
-										issueComboBox.SelectedIndex = 0;
-										issueComboBox.IsEnabled = false;
-
-
-										break;
-
-									case "Building 2":
-										faultyAreaComboBox.IsEnabled = true;
-										faultyAreaComboBox.Items.Clear();
-										faultyAreaComboBox.Items.Insert(0, "Choose option");
-										faultyAreaComboBox.Items.Add("Line 1");
-										faultyAreaComboBox.Items.Add("Line 2");
-										faultyAreaComboBox.Items.Add("Line 3");
-										faultyAreaComboBox.Items.Add("Line 4");
-										faultyAreaComboBox.Items.Add("Line 5");
-										faultyAreaComboBox.Items.Add("Line 6");
-										faultyAreaComboBox.Items.Add("Line 7");
-										faultyAreaComboBox.Items.Add("Line 8");
-										faultyAreaComboBox.SelectedIndex = 0;
-
-										issueComboBox.Items.Clear();
-										issueComboBox.Items.Insert(0, "Waiting for faulty area");
-										issueComboBox.SelectedIndex = 0;
-										issueComboBox.IsEnabled = false;
-										break;
-
-									default:
-										faultyAreaComboBox.IsEnabled = true;
-
-										break;
-
-
-								}
-
-
-
-
-							}
-							else if (issueTypeComboBox.SelectedItem.ToString() == "MHE Equipment")
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Choose option");
-								faultyAreaComboBox.Items.Add("Flexi");
-								faultyAreaComboBox.Items.Add("Scissor Lift");
-								faultyAreaComboBox.Items.Add("PPT");
-								faultyAreaComboBox.Items.Add("Electric FLT");
-								faultyAreaComboBox.Items.Add("Gas FLT");
-								faultyAreaComboBox.Items.Add("Pump truck");
-								faultyAreaComboBox.SelectedIndex = 0;
-								faultyAreaComboBox.IsEnabled = true;
-							}
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Rackings")
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please Choose12");
-								faultyAreaComboBox.Items.Add("Other");
-								faultyAreaComboBox.SelectedIndex = 1;
-								faultyAreaComboBox.IsEnabled = false;
-								issueComboBox.IsEnabled = false;
-							}
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Projects")
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please Choose");
-								faultyAreaComboBox.Items.Add("Projects");
-								faultyAreaComboBox.SelectedIndex = 1;
-								issueComboBox.IsEnabled = false;
-							}
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Security")
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please choose");
-								faultyAreaComboBox.Items.Add("Loading Bays");
-								faultyAreaComboBox.Items.Add("Roller Doors");
-								faultyAreaComboBox.Items.Add("Alarm");
-								faultyAreaComboBox.SelectedIndex = 0;
-								faultyAreaComboBox.IsEnabled = true;
-
-							}
-
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Drains")
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please choose");
-								faultyAreaComboBox.Items.Add("Indoor");
-								faultyAreaComboBox.Items.Add("Outdoor");
-								faultyAreaComboBox.SelectedIndex = 0;
-								faultyAreaComboBox.IsEnabled = true;
-							}
-
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Office Equipment")
-							{
-
-								faultyAreaComboBox.Items.Clear();
-
-								faultyAreaComboBox.Items.Insert(0, "Please Choose");
-								faultyAreaComboBox.Items.Add("Other");
-								faultyAreaComboBox.SelectedIndex = 1;
-								faultyAreaComboBox.IsEnabled = false;
-								issueComboBox.IsEnabled = false;
-							}
-
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Boxing")
-							{
-
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please Choose");
-								faultyAreaComboBox.Items.Add("Other");
-								faultyAreaComboBox.SelectedIndex = 1;
-
-							}
-							else if (issueTypeComboBox.SelectedItem.ToString() == "Cleaning Equipment")
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please Choose");
-								faultyAreaComboBox.Items.Add("Other");
-								faultyAreaComboBox.SelectedIndex = 1;
-							}
-							else
-							{
-								faultyAreaComboBox.Items.Clear();
-								faultyAreaComboBox.Items.Insert(0, "Please choose it");
-								faultyAreaComboBox.SelectedIndex = 0;
-							}
-
-
-						}*/
-		}
-
-		#endregion
+	
+	
 		private void FaultyAreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
@@ -782,7 +362,7 @@ namespace Enginering_Database
 				issueComboBox.IsEnabled = false;
 				issueComboBox.Items.Add("Waiting for data");
 				issueComboBox.SelectedIndex = 0;
-				
+
 			}
 			else
 			{
@@ -805,130 +385,8 @@ namespace Enginering_Database
 			db.CloseDB();
 
 
-			/*
-			 issueComboBox.IsEnabled = true;
-
-			switch (faultyAreaComboBox.SelectedItem)
-			{
-
-				case "Flexi":
-				case "Scissor Lift":
-				case "PPT":
-				case "Electric FLT":
-				case "Gas FLT":
-				case "Pump truck":
-
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Hydraulics");
-					issueComboBox.Items.Add("Load Wheels");
-					issueComboBox.Items.Add("Caster Wheels");
-					issueComboBox.Items.Add("Drive Wheels");
-					issueComboBox.Items.Add("Battery");
-					issueComboBox.Items.Add("Forks");
-					issueComboBox.Items.Add("Pins");
-					issueComboBox.Items.Add("Access Code");
-					issueComboBox.Items.Add("Electrical Issue");
-					issueComboBox.Items.Add("Hose Pipe");
-					issueComboBox.Items.Add("Oil leak");
-					issueComboBox.Items.Add("Gas leak");
-					issueComboBox.Items.Add("Other");
-					issueComboBox.SelectedIndex = 0;
-
-					break;
-
-				case "Line 1":
-				case "Line 2":
-				case "Line 3":
-				case "Line 4":
-				case "Line 5":
-				case "Line 6":
-				case "Line 7":
-				case "Line 8":
-				case "Condition line":
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Bucket filler - Bercomex");
-					issueComboBox.Items.Add("Carousel LHS conveyer");
-					issueComboBox.Items.Add("Carousel RHS conveyer");
-					issueComboBox.Items.Add("Boxing modular belt");
-					issueComboBox.Items.Add("Blade");
-					issueComboBox.Items.Add("Strimmer");
-					issueComboBox.Items.Add("Take off belt");
-					issueComboBox.Items.Add("Pull cord");
-					issueComboBox.Items.Add("E-Stop overhead");
-					issueComboBox.Items.Add("Waste conveyer belt");
-					issueComboBox.Items.Add("Binder");
-					issueComboBox.Items.Add("Robotag");
-					issueComboBox.Items.Add("Terra Machine - Binder");
-					issueComboBox.Items.Add("Terra Machine - Taper");
-					issueComboBox.Items.Add("Terra Machine - Sleeving Section");
-					issueComboBox.Items.Add("Green Compactor");
-					issueComboBox.Items.Add("Water supply");
-					issueComboBox.Items.Add("Air pipe supply");
-					issueComboBox.Items.Add("Power supply");
-					issueComboBox.SelectedIndex = 0;
-
-
-					break;
-				case "Loading Bays":
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Bay 1");
-					issueComboBox.Items.Add("Bay 2");
-					issueComboBox.Items.Add("Bay 3");
-					issueComboBox.Items.Add("Bay 4");
-					issueComboBox.SelectedIndex = 0;
-
-					break;
-
-				case "Alarm":
-
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Intruder alarm");
-					issueComboBox.Items.Add("Fire Alarm");
-					issueComboBox.SelectedIndex = 0;
-
-					break;
-
-				case "Roller Doors":
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please choose");
-					issueComboBox.Items.Add("Chiller 1");
-					issueComboBox.Items.Add("Chiller 2");
-					issueComboBox.Items.Add("Chiller 3");
-					issueComboBox.Items.Add("Chiller 4");
-					issueComboBox.Items.Add("Warehouse 1");
-					issueComboBox.Items.Add("Warehouse 2");
-					issueComboBox.SelectedIndex = 0;
-
-					break;
-
-				case "Indoor":
-				case "Outdoor":
-					issueComboBox.Items.Clear();
-					issueComboBox.Items.Insert(0, "Please Choose");
-					issueComboBox.Items.Add("Other");
-					issueComboBox.SelectedIndex = 1;
-					break;
-
-
-
-
-				default:
-
-
-
-
-					break;
-			}
-			*/
 		}
-		#endregion
+		
 
 
 
@@ -1006,7 +464,7 @@ namespace Enginering_Database
 			//end of part for refactoring
 		}
 		#endregion
-
+		#endregion
 		public void GetJobNumber()
 		{
 
