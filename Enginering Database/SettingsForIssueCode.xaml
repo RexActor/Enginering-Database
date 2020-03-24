@@ -11,12 +11,12 @@
         <Label Name="SettingsAreaLabel" Content="Area" HorizontalAlignment="Left" Height="30" Margin="10,26,0,0" VerticalAlignment="Top" Width="58"/>
         <Button Name ="SettingsAddNewArea" Content="Add New" HorizontalAlignment="Left" Height="32" Margin="327,26,0,0" VerticalAlignment="Top" Width="93" Click="SettingsAddNewArea_Click"/>
         <Button Name ="SettingsRemoveArea" Content="Remove Area" HorizontalAlignment="Left" Height="30" Margin="444,26,0,0" VerticalAlignment="Top" Width="100" Click="SettingsRemoveArea_Click"/>
-        <ListBox Name ="SettingsIssueTypeListBox" HorizontalAlignment="Left" Height="362" Margin="8,159,0,0" VerticalAlignment="Top" Width="210"  SelectionChanged="SettingsIssueTypeListBox_SelectionChanged"/>
-        <ListBox Name ="SettingsFaultyAreaListBox" HorizontalAlignment="Left" Height="362" Margin="228,160,0,0" VerticalAlignment="Top" Width="220" />
-        <ListBox Name ="SettingsIssueCodeListBox" HorizontalAlignment="Left" Height="362" Margin="456,161,0,0" VerticalAlignment="Top" Width="220"/>
-        <TextBox Name ="SettingsAddIssueTypeTextBox"  Text="IssueTypeTextBox" HorizontalAlignment="Left" Height="28" Margin="21,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" KeyDown="SettingsAddIssueTypeTextBox_KeyDown"/>
-        <TextBox x:Name ="SettingsAddFaultyAreaTextBox"  Text="FaultyAreaTextBox" HorizontalAlignment="Left" Height="28" Margin="246,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" KeyDown="SettingsAddFaultyAreaTextBox_KeyDown"/>
-        <TextBox x:Name ="SettingsAddIssueCodeTextBox" Text="IssueCodeTextBox"  HorizontalAlignment="Left" Height="28" Margin="474,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184" KeyDown="SettingsAddIssueCodeTextBox_KeyDown"/>
+        <ListBox Name ="SettingsIssueTypeListBox" HorizontalAlignment="Left" Height="362" Margin="8,159,0,0" VerticalAlignment="Top" Width="210"  SelectionChanged="SettingsIssueTypeListBox_SelectionChanged" MouseDoubleClick="SettingsIssueTypeListBox_MouseDoubleClick"/>
+        <ListBox Name ="SettingsFaultyAreaListBox" HorizontalAlignment="Left" Height="362" Margin="228,160,0,0" VerticalAlignment="Top" Width="220" MouseDoubleClick="SettingsFaultyAreaListBox_MouseDoubleClick"/>
+        <ListBox Name ="SettingsIssueCodeListBox" HorizontalAlignment="Left" Height="362" Margin="456,161,0,0" VerticalAlignment="Top" Width="220" MouseDoubleClick="SettingsIssueCodeListBox_MouseDoubleClick"/>
+        <TextBox Name ="SettingsAddIssueTypeTextBox"  Text="" HorizontalAlignment="Left" Height="28" Margin="21,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" KeyDown="SettingsAddIssueTypeTextBox_KeyDown" />
+        <TextBox x:Name ="SettingsAddFaultyAreaTextBox"  Text="" HorizontalAlignment="Left" Height="28" Margin="246,128,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" KeyDown="SettingsAddFaultyAreaTextBox_KeyDown"/>
+        <TextBox x:Name ="SettingsAddIssueCodeTextBox" Text=""  HorizontalAlignment="Left" Height="28" Margin="474,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184" KeyDown="SettingsAddIssueCodeTextBox_KeyDown"/>
         <ListBox x:Name ="SettingsPriorityListBox" HorizontalAlignment="Left" Height="136" Margin="686,161,0,0" VerticalAlignment="Top" Width="184"/>
         <ListBox x:Name ="SettingsBuildingListBox" HorizontalAlignment="Left" Height="136" Margin="686,387,0,0" VerticalAlignment="Top" Width="184"/>
         <Label Content="Issue Type" HorizontalAlignment="Left" Height="30" Margin="21,94,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>

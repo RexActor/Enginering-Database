@@ -533,5 +533,78 @@ namespace Engineering_Database
 
 		#endregion
 
+
+
+		public void InsertIssueIntoDatabase(string table,string description)
+		{
+
+			string queryString = $"INSERT INTO {table} (description) Values(@description)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			cmd.Parameters.AddWithValue("@JobNumber", description);
+			
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+		public void InsertIssueIntoDatabase(string table, string description,string parrent )
+		{
+
+			string queryString = $"INSERT INTO {table} (description, parrent) Values(@description, @parrent)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			cmd.Parameters.AddWithValue("@description", description);
+			cmd.Parameters.AddWithValue("@parrent", parrent);
+
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+		public void DeleteIssueFromDatabase(string table, string description, string parrent)
+		{
+
+			string queryString = $"DELETE FROM  {table} Where description='{description}' and parrent='{parrent}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@description", description);
+			//cmd.Parameters.AddWithValue("@parrent", parrent);
+
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+		public void DeleteIssueFromDatabase(string table, string description)
+		{
+
+			string queryString = $"DELETE FROM  {table} Where description={description}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@description", description);
+			//cmd.Parameters.AddWithValue("@parrent", parrent);
+
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+		public void DeleteParrentFromDatabase(string table, string parrent)
+		{
+
+			string queryString = $"DELETE FROM  {table} Where parrent='{parrent}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@description", description);
+			//cmd.Parameters.AddWithValue("@parrent", parrent);
+
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+
+
 	}
 }
