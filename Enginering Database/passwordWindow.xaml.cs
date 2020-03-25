@@ -33,12 +33,12 @@ namespace Engineering_Database
 				if (targetWindow == "UpdateDB")
 				{
 					this.Close();
-					updateDatabase.ShowDialog();
+					updateDatabase.Show();
 				}
 				else if (targetWindow == "Settings")
 				{
 					this.Close();
-					userSett.ShowDialog();
+					userSett.Show();
 				}
 
 			}

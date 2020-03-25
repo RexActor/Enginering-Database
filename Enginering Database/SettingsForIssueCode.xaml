@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Settings For Issue Code" Height="564.033" Width="889.943">
+        Title="Settings For Issue Code" Height="564.033" Width="889.943" ResizeMode="NoResize">
     <Grid>
         <ComboBox Name ="SettingsAreaDropDown" HorizontalAlignment="Left" Height="32" Margin="73,24,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="SettingsAreaDropDown_SelectionChanged"/>
         <Label Name="SettingsAreaLabel" Content="Area" HorizontalAlignment="Left" Height="30" Margin="10,26,0,0" VerticalAlignment="Top" Width="58"/>
@@ -24,6 +24,7 @@
         <Label Content="Issue Code" HorizontalAlignment="Left" Height="30" Margin="474,94,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
         <Label Content="Priority" HorizontalAlignment="Left" Height="30" Margin="686,126,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
         <Label Content="Building" HorizontalAlignment="Left" Height="30" Margin="686,352,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center" FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"/>
+        <Button Name="RefreshAreaList" Content="Refresh " HorizontalAlignment="Left" Height="30" Margin="565,26,0,0" VerticalAlignment="Top" Width="111" Click="RefreshAreaList_Click"/>
 
     </Grid>
 </Window>

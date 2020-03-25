@@ -562,6 +562,21 @@ namespace Engineering_Database
 
 
 		}
+		public void InsertIssueIntoDatabase(string table, string description, string parrent,string area)
+		{
+
+			string queryString = $"INSERT INTO {table} (description, parrent, area) Values(@description, @parrent, @area)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			cmd.Parameters.AddWithValue("@description", description);
+			cmd.Parameters.AddWithValue("@parrent", parrent);
+			cmd.Parameters.AddWithValue("@area", area);
+
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
 		public void DeleteIssueFromDatabase(string table, string description, string parrent)
 		{
 
@@ -579,7 +594,7 @@ namespace Engineering_Database
 		public void DeleteIssueFromDatabase(string table, string description)
 		{
 
-			string queryString = $"DELETE FROM  {table} Where description={description}";
+			string queryString = $"DELETE FROM  {table} Where description='{description}'";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			//cmd.Parameters.AddWithValue("@description", description);
@@ -594,6 +609,20 @@ namespace Engineering_Database
 		{
 
 			string queryString = $"DELETE FROM  {table} Where parrent='{parrent}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@description", description);
+			//cmd.Parameters.AddWithValue("@parrent", parrent);
+
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+		public void DeleteAreaFromDatabase(string table, string area)
+		{
+
+			string queryString = $"DELETE FROM  {table} Where area='{area}'";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			//cmd.Parameters.AddWithValue("@description", description);

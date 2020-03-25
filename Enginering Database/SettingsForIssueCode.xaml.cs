@@ -9,18 +9,25 @@ namespace Engineering_Database
 	public partial class SettingsForIssueCode : Window
 	{
 		readonly DatabaseClass db = new DatabaseClass();
+
+
 		int selectedIndex;
+
 		public SettingsForIssueCode()
 		{
 			InitializeComponent();
 
 			setUpArea();
-			
+
+
 		}
 
-		private void setUpArea()
+		public void setUpArea()
 		{
 			db.ConnectDB();
+			SettingsAreaDropDown.Items.Clear();
+			SettingsPriorityListBox.Items.Clear();
+			SettingsBuildingListBox.Items.Clear();
 
 			var getAreaComboBox = db.SetUpComboBox("AreaComboBox");
 			SettingsAreaDropDown.Items.Add("Please Select");
@@ -45,21 +52,65 @@ namespace Engineering_Database
 			}
 
 		}
+		private void RefreshAreaList_Click(object sender, RoutedEventArgs e)
+		{
 
+			//reloading area combobox
+			reloadArea();
+
+		}
+		public void reloadArea()
+		{
+
+			db.ConnectDB();
+			SettingsAreaDropDown.Items.Clear();
+
+			var getAreaComboBox = db.SetUpComboBox("AreaComboBox");
+			SettingsAreaDropDown.Items.Add("Please Select");
+			while (getAreaComboBox.Read())
+			{
+				SettingsAreaDropDown.Items.Add(getAreaComboBox[1]);
+			}
+			SettingsAreaDropDown.SelectedIndex = 0;
+		}
 		//once SettingsAreaDropDown selection is changed --> will change values in SettingsIssueTypeListBox
 		private void SettingsAreaDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
 			UpdateListBox();
+
 		}
 
+
+		//setting up new area. New window will pop up with texbox and will be required to fill textbox
 		private void SettingsAddNewArea_Click(object sender, RoutedEventArgs e)
 		{
+			InteractionWindow interWindow = new InteractionWindow();
+			interWindow.Title = "Adding Area Code";
+			interWindow.InteractionWindowLabel.Content = "Please enter Area code which one you want to add";
+			interWindow.ShowDialog();
+
 
 		}
+
+
 
 		private void SettingsRemoveArea_Click(object sender, RoutedEventArgs e)
 		{
+
+			if (SettingsAreaDropDown.SelectedIndex > 0)
+			{
+
+
+				db.DeleteAreaFromDatabase("IssueComboBox", SettingsAreaDropDown.SelectedItem.ToString());
+				db.DeleteParrentFromDatabase("IssueTypeComboBox", SettingsAreaDropDown.SelectedItem.ToString());
+				db.DeleteAreaFromDatabase("FaultyAreaComboBox", SettingsAreaDropDown.SelectedItem.ToString());
+				db.DeleteIssueFromDatabase("AreaComboBox", SettingsAreaDropDown.SelectedItem.ToString());
+
+				//reload area combobox
+				setUpArea();
+
+			}
 
 		}
 
@@ -71,13 +122,12 @@ namespace Engineering_Database
 				//check if area is selected. Otherwise return. As to be able to insert into database issue type, we need to have area code selected
 				if (SettingsAreaDropDown.SelectedIndex > 0)
 				{
-					//MessageBox.Show($"Area selected -> {SettingsAreaDropDown.SelectedItem}");
 					db.InsertIssueIntoDatabase("IssueTypeComboBox", SettingsAddIssueTypeTextBox.Text, SettingsAreaDropDown.SelectedItem.ToString());
 					UpdateListBox();
 
 					SettingsAddIssueTypeTextBox.Clear();
 				}
-				
+
 
 			}
 		}
@@ -93,14 +143,13 @@ namespace Engineering_Database
 				{
 					if (SettingsAreaDropDown.SelectedIndex > 0)
 					{
-						//MessageBox.Show($"Area selected -> {SettingsAreaDropDown.SelectedItem}");
-						db.InsertIssueIntoDatabase("FaultyAreaComboBox", SettingsAddFaultyAreaTextBox.Text, SettingsIssueTypeListBox.SelectedItem.ToString());
+						db.InsertIssueIntoDatabase("FaultyAreaComboBox", SettingsAddFaultyAreaTextBox.Text, SettingsIssueTypeListBox.SelectedItem.ToString(), SettingsAreaDropDown.SelectedItem.ToString());
 						UpdateListBox();
 
 						SettingsAddFaultyAreaTextBox.Clear();
 					}
 				}
-				//MessageBox.Show(selectedIndex.ToString());
+
 				//selecting back default issuetype when you were inserting data
 				SettingsIssueTypeListBox.SelectedIndex = selectedIndex;
 
@@ -117,31 +166,29 @@ namespace Engineering_Database
 				{
 					if (SettingsAreaDropDown.SelectedIndex > 0)
 					{
-						//MessageBox.Show($"Area selected -> {SettingsAreaDropDown.SelectedItem}");
-						db.InsertIssueIntoDatabase("IssueComboBox", SettingsAddIssueCodeTextBox.Text, SettingsIssueTypeListBox.SelectedItem.ToString());
+						db.InsertIssueIntoDatabase("IssueComboBox", SettingsAddIssueCodeTextBox.Text, SettingsIssueTypeListBox.SelectedItem.ToString(), SettingsAreaDropDown.SelectedItem.ToString());
 						UpdateListBox();
-						
+
 						SettingsAddIssueCodeTextBox.Clear();
 					}
 				}
-				//MessageBox.Show(selectedIndex.ToString());
 				//selecting back default issuetype when you were inserting data
 				SettingsIssueTypeListBox.SelectedIndex = selectedIndex;
 
 			}
-		
+
 		}
 
 
 		//once SettingsIssueTypeListBox have item selected it will update Faulty Area List box with required information
 		private void SettingsIssueTypeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			
+
 			db.ConnectDB();
 			SettingsFaultyAreaListBox.SelectedIndex = -1;
 			SettingsFaultyAreaListBox.Items.Clear();
 			SettingsIssueCodeListBox.Items.Clear();
-			
+
 
 			if (SettingsIssueTypeListBox.SelectedIndex >= 0 && SettingsAreaDropDown.SelectedIndex > 0)
 			{
@@ -172,8 +219,8 @@ namespace Engineering_Database
 
 			if (SettingsIssueTypeListBox.SelectedIndex >= 0)
 			{
-				//MessageBox.Show($"Double click detected for line {SettingsIssueTypeListBox.SelectedItem}");
-				 var result = MessageBox.Show($"Are you sure that you want to remove  [{SettingsIssueTypeListBox.SelectedItem}] from list?", "Removing issue", MessageBoxButton.YesNo);
+
+				var result = MessageBox.Show($"Are you sure that you want to remove  [{SettingsIssueTypeListBox.SelectedItem}] from list?", "Removing issue", MessageBoxButton.YesNo);
 				if (result == MessageBoxResult.Yes)
 				{
 
@@ -227,7 +274,7 @@ namespace Engineering_Database
 		{
 			if (SettingsIssueCodeListBox.SelectedIndex >= 0)
 			{
-				//MessageBox.Show($"Double click detected for line {SettingsIssueTypeListBox.SelectedItem}");
+
 				var result = MessageBox.Show($"Are you sure that you want to remove  [{SettingsIssueCodeListBox.SelectedItem}] from list?", "Removing issue", MessageBoxButton.YesNo);
 				if (result == MessageBoxResult.Yes)
 				{
@@ -247,7 +294,7 @@ namespace Engineering_Database
 		{
 			if (SettingsFaultyAreaListBox.SelectedIndex >= 0)
 			{
-				//MessageBox.Show($"Double click detected for line {SettingsIssueTypeListBox.SelectedItem}");
+
 				var result = MessageBox.Show($"Are you sure that you want to remove  [{SettingsFaultyAreaListBox.SelectedItem}] from list?", "Removing issue", MessageBoxButton.YesNo);
 				if (result == MessageBoxResult.Yes)
 				{
@@ -263,6 +310,6 @@ namespace Engineering_Database
 			}
 		}
 
-	
+
 	}
 }

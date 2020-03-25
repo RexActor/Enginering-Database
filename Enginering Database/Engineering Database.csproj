@@ -245,6 +245,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>engineeringDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="InteractionWindow.xaml.cs">
+      <DependentUpon>InteractionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IssueClass.cs" />
     <Compile Include="issuedata.cs" />
     <Compile Include="LogHelper.cs" />
@@ -280,6 +283,10 @@
       <DependentUpon>viewDatabase.xaml</DependentUpon>
     </Compile>
     <Page Include="addData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InteractionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
