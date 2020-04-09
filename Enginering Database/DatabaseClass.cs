@@ -15,44 +15,53 @@ namespace Engineering_Database
 
 		readonly UserErrorWindow userErr = new UserErrorWindow();
 
-
-		readonly OleDbConnection con = new OleDbConnection();
-
+		string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+		// OleDbConnection con = new OleDbConnection();
+		OleDbConnection con = new OleDbConnection();
 
 		#region connect DB close DB and DB status DB count lines functions
 
 		public void ConnectDB()
 		{
+			Console.WriteLine($"{con.State} before if {DateTime.Now}");
+			//string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+			//using (OleDbConnection con = new OleDbConnection(ConnectionString))
+			//{
+
+
+
+
+			//	con.Open();
+			//}
+
+			//using (con = new OleDbConnection(ConnectionString))
+			//{
+
+			//	//OleDbConnection.ReleaseObjectPool();
+
+
+			//	Console.WriteLine($"{con.State} before if {DateTime.Now}");
+			//}
 
 
 			if (con.State == ConnectionState.Closed)
 			{
-
-				try
-				{
-					if (GetCPU().IndexOf("64") > 0)
-					{
-						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.16.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-					}
-					else
-					{
-						con.ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-					}
-					con.Open();
-
-				}
-				catch
-				{
-					userErr.errorMessage = "Ace.OLEDB error";
-					userErr.CallWindow();
-					userErr.Show();
-				}
-
-
+				OleDbConnection.ReleaseObjectPool();
+				con.ConnectionString = ConnectionString;
+				//con.ConnectionString(ConnectionString);
+				con.Open();
 
 
 
 			}
+			else
+			{
+				OleDbConnection.ReleaseObjectPool();
+			}
+
+
+
+			Console.WriteLine($"{con.State} after if {DateTime.Now}");
 
 
 
@@ -71,20 +80,26 @@ namespace Engineering_Database
 
 		public string DBStatus()
 		{
-
-			if (con.State == System.Data.ConnectionState.Open)
+			if (con != null)
 			{
+				if (con.State == System.Data.ConnectionState.Open)
+				{
 
-				return "DB connected";
+					return "DB connected";
+				}
+				else if (con.State == System.Data.ConnectionState.Closed)
+				{
+					return "DB not Connected";
+				}
+
+				else
+
+					return "Some kind of error";
 			}
-			else if (con.State == System.Data.ConnectionState.Closed)
+			else
 			{
 				return "DB not Connected";
 			}
-
-			else
-
-				return "Some kind of error";
 		}
 
 		public int DBCountLines()
@@ -212,6 +227,24 @@ namespace Engineering_Database
 			return cmd;
 
 		}
+
+		public OleDbDataReader DBQueryForOldEntries(string table, string completed)
+		{
+
+			//string queryString = $"SELECT * FROM {table} WHERE ReportedDate = '09-05-2019'";
+			string queryString = $"SELECT * FROM {table} WHERE Completed ={completed} ORDER BY DueDate ASC";
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+			cmd.Dispose();
+
+			return reader;
+
+		}
+
 
 
 		public OleDbCommand DBQueryForViewDatabase(int jobNumber)
@@ -472,6 +505,7 @@ namespace Engineering_Database
 		{
 
 
+
 			string queryString = $"SELECT ID FROM {table} WHERE parrent = {text}";
 
 
@@ -491,22 +525,22 @@ namespace Engineering_Database
 
 		public OleDbDataReader SetUpComboBoxBasedonParrent(string table, string UID)
 		{
-			
-				//string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
-				string queryString = $"SELECT * FROM {table} WHERE parrent = '"+ UID+"'";
 
-				OleDbCommand cmd = new OleDbCommand(queryString, con);
+			//string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
+			string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
 
-
-				OleDbDataReader reader = cmd.ExecuteReader();
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 
+			OleDbDataReader reader = cmd.ExecuteReader();
 
 
-				cmd.Dispose();
 
 
-		
+			cmd.Dispose();
+
+
+
 			return reader;
 		}
 		public OleDbDataReader SetUpComboBoxBasedonUID(string table, int UID, int GUID)
@@ -535,20 +569,20 @@ namespace Engineering_Database
 
 
 
-		public void InsertIssueIntoDatabase(string table,string description)
+		public void InsertIssueIntoDatabase(string table, string description)
 		{
 
 			string queryString = $"INSERT INTO {table} (description) Values(@description)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			cmd.Parameters.AddWithValue("@JobNumber", description);
-			
+
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 
 
 		}
-		public void InsertIssueIntoDatabase(string table, string description,string parrent )
+		public void InsertIssueIntoDatabase(string table, string description, string parrent)
 		{
 
 			string queryString = $"INSERT INTO {table} (description, parrent) Values(@description, @parrent)";
@@ -562,7 +596,7 @@ namespace Engineering_Database
 
 
 		}
-		public void InsertIssueIntoDatabase(string table, string description, string parrent,string area)
+		public void InsertIssueIntoDatabase(string table, string description, string parrent, string area)
 		{
 
 			string queryString = $"INSERT INTO {table} (description, parrent, area) Values(@description, @parrent, @area)";
@@ -633,6 +667,8 @@ namespace Engineering_Database
 
 
 		}
+
+
 
 
 	}

@@ -53,65 +53,66 @@ namespace Engineering_Database
 				db.ConnectDB();
 
 			}
-
-
-
-
-
-
-			preview = Properties.Settings.Default["preview"].ToString();
-
-
-			UserName = db.DBQueryForGlobalSettings("Admin");
-			SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
-			SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
-			Email = db.DBQueryForGlobalSettings("EmailAddress");
-			ReportEmail = db.DBQueryForGlobalSettings("EmailAddress2");
-			contractors = db.DBQueryForGlobalSettings("Contractors");
-			assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
-			password = db.DBQueryForGlobalSettings("Password");
-			Maintenance = db.DBQueryForGlobalSettings("Maintenance");
-			DueDateGap = db.DBQueryForGlobalSettings("DueDateGap");
-			jobCount = db.DBQueryForGlobalSettings("JobCount");
-			EmailPreview = db.DBQueryForGlobalSettings("EmailPreview");
-
-
-
-			AdminTextBox.Text = UserName;
-			SubAdmin1TextBox.Text = SubAdmin1;
-			SubAdmin2TextBox.Text = SubAdmin2;
-			emailTextBox.Text = Email;
-			DueDataTextBox.Text = DueDateGap;
-			JobCountSettingData.Text = jobCount;
-			passwordTextBox.Text = password;
-			PreviewSettingComboBox.Text = preview;
-			EmailAddress2TextBox.Text = ReportEmail;
-
-
-			if (Maintenance == "Yes")
-			{
-				MaintenanceCheckBox.IsChecked = true;
-
-			}
 			else
 			{
-				MaintenanceCheckBox.IsChecked = false;
+
+
+
+
+
+				preview = Properties.Settings.Default["preview"].ToString();
+
+
+				UserName = db.DBQueryForGlobalSettings("Admin");
+				SubAdmin1 = db.DBQueryForGlobalSettings("SubAdmin1");
+				SubAdmin2 = db.DBQueryForGlobalSettings("SubAdmin2");
+				Email = db.DBQueryForGlobalSettings("EmailAddress");
+				ReportEmail = db.DBQueryForGlobalSettings("EmailAddress2");
+				contractors = db.DBQueryForGlobalSettings("Contractors");
+				assignToUser = db.DBQueryForGlobalSettings("AssignToUser");
+				password = db.DBQueryForGlobalSettings("Password");
+				Maintenance = db.DBQueryForGlobalSettings("Maintenance");
+				DueDateGap = db.DBQueryForGlobalSettings("DueDateGap");
+				jobCount = db.DBQueryForGlobalSettings("JobCount");
+				EmailPreview = db.DBQueryForGlobalSettings("EmailPreview");
+
+
+
+				AdminTextBox.Text = UserName;
+				SubAdmin1TextBox.Text = SubAdmin1;
+				SubAdmin2TextBox.Text = SubAdmin2;
+				emailTextBox.Text = Email;
+				DueDataTextBox.Text = DueDateGap;
+				JobCountSettingData.Text = jobCount;
+				passwordTextBox.Text = password;
+				PreviewSettingComboBox.Text = preview;
+				EmailAddress2TextBox.Text = ReportEmail;
+
+
+				if (Maintenance == "Yes")
+				{
+					MaintenanceCheckBox.IsChecked = true;
+
+				}
+				else
+				{
+					MaintenanceCheckBox.IsChecked = false;
+				}
+
+				if (EmailPreview == "Yes")
+				{
+					EmailPreview_CheckBox.IsChecked = true;
+
+				}
+				else
+				{
+					EmailPreview_CheckBox.IsChecked = false;
+				}
+
+
+				ResetContractors();
+				resetAssignToList();
 			}
-
-			if (EmailPreview == "Yes")
-			{
-				EmailPreview_CheckBox.IsChecked = true;
-
-			}
-			else
-			{
-				EmailPreview_CheckBox.IsChecked = false;
-			}
-
-
-			ResetContractors();
-			resetAssignToList();
-
 
 		}
 

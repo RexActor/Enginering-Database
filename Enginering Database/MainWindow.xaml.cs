@@ -18,7 +18,7 @@ namespace Enginering_Database
 
 		readonly string userName = WindowsIdentity.GetCurrent().Name;
 		readonly UserSettings userSett = new UserSettings();
-
+		UserSettings userMaintenSett = new UserSettings();
 		public MainWindow()
 		{
 
@@ -37,7 +37,7 @@ namespace Enginering_Database
 			currApp.ShutdownMode = ShutdownMode.OnLastWindowClose;
 
 
-
+			dtC.ConnectDB();
 
 
 			InitializeComponent();
@@ -49,9 +49,9 @@ namespace Enginering_Database
 			VersionData.Content = displayableVersion;
 
 
-			dtC.ConnectDB();
+			
 
-			userSett.openSettings();
+			//userSett.openSettings();
 
 
 			DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -84,8 +84,8 @@ namespace Enginering_Database
 
 
 
-			
 
+			dtC.CloseDB();
 
 		}
 
@@ -118,7 +118,7 @@ namespace Enginering_Database
 		private void UpdateDatabaseButton_Click(object sender, RoutedEventArgs e)
 		{
 
-
+			userSett.openSettings();
 			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
 			{
 
@@ -139,7 +139,8 @@ namespace Enginering_Database
 		}
 		private void SettingsShow(object sender, RoutedEventArgs e)
 		{
-			UserSettings userSett = new UserSettings();
+			//UserSettings userSett = new UserSettings();
+			userSett.openSettings();
 
 			if (userName != userSett.SubAdmin1 || userName != userSett.SubAdmin2 || userName != userSett.UserName)
 			{
@@ -205,7 +206,7 @@ namespace Enginering_Database
 		{
 
 
-			UserSettings userMaintenSett = new UserSettings();
+		
 			userMaintenSett.openSettings();
 
 
@@ -255,7 +256,7 @@ namespace Enginering_Database
 		}
 		public void OnStartupCheckMaintenance()
 		{
-			UserSettings userMaintenSett = new UserSettings();
+			//UserSettings userMaintenSett = new UserSettings();
 			userMaintenSett.openSettings();
 			//MessageBox.Show("*"+UserSettings.UserName.ToString() + "* ==> *" + userName+"*");
 			if (userMaintenSett.Maintenance == "Yes")

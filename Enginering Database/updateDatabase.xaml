@@ -5,40 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enginering_Database"
         mc:Ignorable="d"
-        Title="Update Database" Height="681.392" Width="800" ResizeMode="NoResize"
+        Title="Update Database" Height=" 800.392" Width="800" ResizeMode="NoResize"
         >
-    <Grid>
-        <TabControl x:Name="Frame1" HorizontalAlignment="Left" Height="630" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" SelectionChanged="TabControl_SelectionChanged">
+    <Grid Margin="0,10,0,-7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="318*"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="Frame1" HorizontalAlignment="Left" Margin="10,109,0,10" Width="772" SelectionChanged="TabControl_SelectionChanged" Grid.Row="1">
             <TabItem Header="Outstanding Issues" Name ="OutstandingIssues" TabIndex="1">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="534*"/>
+                        <RowDefinition Height="73*"/>
+                    </Grid.RowDefinitions>
                     <Frame x:Name="Frame4" Content="" HorizontalAlignment="Left" Height="202" VerticalAlignment="Top" Width="249" BorderBrush="#FF0C0101" BorderThickness="1" />
 
-                    <Frame x:Name="Frame2" Content="" HorizontalAlignment="Left" Height="602" Margin="249,0,0,0" VerticalAlignment="Top" Width="517" BorderBrush="#FF0C0000" BorderThickness="1"/>
-                    <Frame x:Name="Frame3" Content="" HorizontalAlignment="Left" Height="400" Margin="0,202,0,0" VerticalAlignment="Top" Width="249" BorderBrush="#FF0A0101" BorderThickness="1"/>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,28,518,402" HorizontalAlignment="Right" Width="247">
+                    <Frame x:Name="Frame2" Content="" HorizontalAlignment="Left" Height="602" Margin="249,0,0,0" VerticalAlignment="Top" Width="517" BorderBrush="#FF0C0000" BorderThickness="1" Grid.RowSpan="2"/>
+                    <Frame x:Name="Frame3" Content="" HorizontalAlignment="Left" Height="400" Margin="0,202,0,0" VerticalAlignment="Top" Width="249" BorderBrush="#FF0A0101" BorderThickness="1" Grid.RowSpan="2"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,28,518,329" HorizontalAlignment="Right" Width="247">
                         <StackPanel Name="TestStackPanel" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="220"  Margin="5,0,0,0"/>
 
 
                     </ScrollViewer>
-                    <StackPanel x:Name="Frame2StackPanel" HorizontalAlignment="Left" Height="582" Margin="254,10,0,0" VerticalAlignment="Top" Width="493"/>
+                    <StackPanel x:Name="Frame2StackPanel" HorizontalAlignment="Left" Height="582" Margin="254,10,0,0" VerticalAlignment="Top" Width="493" Grid.RowSpan="2"/>
                     <DatePicker x:Name="Frame3UpdateDueDateDatePicker" HorizontalAlignment="Left" Margin="121,331,0,0" VerticalAlignment="Top" Width="114" SelectedDateChanged="DueDateChange_change"/>
                     <Label x:Name="Frame3UpdateDueDateLabel" Content="Update due date" HorizontalAlignment="Left" Margin="7,331,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="109" VerticalContentAlignment="Center"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="155,572,0,0" VerticalAlignment="Top" Width="75" Click="Submit_Click"/>
+                    <Button Content="Submit" HorizontalAlignment="Left" Margin="155,38,0,0" VerticalAlignment="Top" Width="75" Click="Submit_Click" Grid.Row="1"/>
                     <Label x:Name="Frame3userNameLabel" Content="UserName" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3CurrentDateLabel" Content="Date" HorizontalAlignment="Left" Margin="111,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3CompleteLabel" Content="Complete?" HorizontalAlignment="Left" Margin="133,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
-                    <CheckBox x:Name="Frame3CompleteCheckBox" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="210,232,0,0" VerticalAlignment="Top" Height="21" Checked="CompleteCheckboxOnCheck" MouseEnter="CompleteCheckBoxMouseOver" MouseLeave="CompleteCheckBoxMouseLeave"/>
+                    <CheckBox x:Name="Frame3CompleteCheckBox" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="210,232,0,0" Checked="CompleteCheckboxOnCheck" MouseEnter="CompleteCheckBoxMouseOver" MouseLeave="CompleteCheckBoxMouseLeave" Height="21" VerticalAlignment="Top" Width="21"/>
                     <Label x:Name="Frame3DueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center"/>
                     <TextBox x:Name="Frame3DueDateTextBox" HorizontalAlignment="Left" Height="23" Margin="110,279,0,0" TextWrapping="Wrap" Text="DueDateDate" VerticalAlignment="Top" Width="120" />
                     <Label x:Name="Frame3ChangeDueDateLabel" Content="Change due Date" HorizontalAlignment="Left" Margin="8,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="121,310,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave"/>
-                    <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="173" Margin="272,389,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470"/>
-                    <Border BorderThickness="1" BorderBrush="Black" Width="470" Height="136" Margin="272,239,24,227">
-                        <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="469" Margin="0,0,-1,-2"/>
+                    <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="173" Margin="272,389,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470" Grid.RowSpan="2"/>
+                    <Border BorderThickness="1" BorderBrush="Black" Width="470" Height="136" Margin="272,242,24,156">
+                        <ScrollViewer>
+                            <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="469" Margin="0,0,-1,-2" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+
+                        </ScrollViewer>
                     </Border>
                     <Label Content="Job Numer" HorizontalAlignment="Left" Margin="272,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="117"/>
                     <Label Content="Reported Date" HorizontalAlignment="Left" Margin="272,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="117"/>
-                    <Label Content="Reported Username" HorizontalAlignment="Left" Margin="272,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6"/>
+                    <Label Content="Reported Username" HorizontalAlignment="Left" Margin="272,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="117"/>
                     <Label Content="Area" HorizontalAlignment="Left" Margin="272,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="117"/>
                     <Label Content="Issue Type" HorizontalAlignment="Left" Margin="272,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="117"/>
                     <Label Content="Building" HorizontalAlignment="Left" Margin="272,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="117"/>
@@ -114,8 +125,8 @@
 
                     <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,388,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="115,390,0,0" VerticalAlignment="Top" Width="120"/>
-                    <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="115,577,0,0" VerticalAlignment="Top" Height="21" Checked="ConfirmEmailCheckBox_Change" Unchecked="ConfirmEmailCheckBox_Change" MouseEnter="ConfirmEmailCheckBoxMouseOver" MouseLeave="ConfirmEmailCheckBoxMouseLeave"/>
-                    <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,572,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="115,43,0,0" Checked="ConfirmEmailCheckBox_Change" Unchecked="ConfirmEmailCheckBox_Change" MouseEnter="ConfirmEmailCheckBoxMouseOver" MouseLeave="ConfirmEmailCheckBoxMouseLeave" Height="21" VerticalAlignment="Top" Width="21" Grid.Row="1"/>
+                    <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center" Grid.Row="1"/>
                     <Label x:Name="CurrentDateLabel" Content="Current Date" HorizontalAlignment="Left" Margin="7,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="98" VerticalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
@@ -133,7 +144,7 @@
             </TabItem>
 
         </TabControl>
-        <StackPanel x:Name="previewStackPanel" HorizontalAlignment="Left" Height="332" Margin="277,68,0,0" VerticalAlignment="Top" Width="406" OpacityMask="#D8F3ECEC" Background="Black">
+        <StackPanel x:Name="previewStackPanel" HorizontalAlignment="Left" Height="332" Margin="277,54,0,0" VerticalAlignment="Top" Width="406" OpacityMask="#D8F3ECEC" Background="Black" Visibility="Hidden" Grid.Row="1">
             <Grid Height="329" HorizontalAlignment="Left" Width="406">
                 <Label  x:Name="TitleForPreview" Content="Preview" Foreground="#19EEEE0A" Margin="22,1,32,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="100" RenderTransformOrigin="0.5,0.5">
                     <Label.RenderTransform>
@@ -167,6 +178,23 @@
 
 
         </StackPanel>
+        <ListView Name="OldEntriesListView" Height="122" Margin="10,0,12,0" VerticalAlignment="Top" Background="#FFFFF4F4" MouseDoubleClick="OldEntriesListView_MouseDoubleClick" BorderBrush="#FFF90B00" BorderThickness="2" Grid.RowSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Job Number"  Width="100" DisplayMemberBinding="{Binding JobNumber}"/>
+                    <GridViewColumn Header="Priority" Width="100" DisplayMemberBinding="{Binding Priority}"/>
+                    <GridViewColumn Header="Reported Date" Width="100" DisplayMemberBinding="{Binding ReportedDate}"/>
+                    <GridViewColumn Header="Detailed Description" Width="400" DisplayMemberBinding="{Binding DetailedDescription}"/>
+                </GridView>
+            </ListView.View>
+            <ListView Height="100" Width="100">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ListView>
 
     </Grid>
 </Window>
