@@ -538,14 +538,14 @@ namespace Enginering_Database
 		private void GetOldEntries()
 		{
 
-
+			
 
 
 			var getEntries = db.DBQueryForOldEntries("engineeringDatabaseTable", "false");
 
 			while (getEntries.Read())
 			{
-				IssueClass issueOldEntries = new IssueClass();
+				
 				DateTime date = Convert.ToDateTime(getEntries["DueDate"]);
 
 				DateTime now = DateTime.Now;
@@ -553,15 +553,24 @@ namespace Enginering_Database
 				if (diff.Days > 0)
 				{
 
+					IssueClass issueOldEntries = new IssueClass();
+					OutstandingIssuesLabel.Visibility = Visibility.Hidden;
 					issueOldEntries.JobNumber = (int)getEntries["JobNumber"];
 					issueOldEntries.Priority = getEntries["Priority"].ToString();
 					issueOldEntries.ReportedDate = String.Format("{0:d}", getEntries["ReportedDate"]);
 					issueOldEntries.DetailedDescription = getEntries["DetailedDescription"].ToString();
-					Console.WriteLine($"{issueOldEntries.JobNumber}  {issueOldEntries.ReportedDate} {issueOldEntries.Priority} {issueOldEntries.DetailedDescription}");
+					//Console.WriteLine($"{issueOldEntries.JobNumber}  {issueOldEntries.ReportedDate} {issueOldEntries.Priority} {issueOldEntries.DetailedDescription}");
 					//OutstandingIssuesListView.Items.Add(new IssueClass() { JobNumber = (int)getEntries["JobNumber"], Priority = getEntries["Priority"].ToString(), ReportedDate = String.Format("{0:d}", getEntries["ReportedDate"]), DetailedDescription = getEntries["DetailedDescription"].ToString() });
 
 					//OldEntriesListView.ItemsSource = issueListOld;
 					OldEntriesListView.Items.Add(issueOldEntries);
+				}
+				
+				if (OldEntriesListView.Items.Count < 2)
+				{
+					OldEntriesListView.Visibility=Visibility.Hidden;
+					OutstandingIssuesLabel.Visibility = Visibility.Visible;
+
 				}
 
 				

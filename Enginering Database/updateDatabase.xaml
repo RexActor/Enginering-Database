@@ -117,7 +117,7 @@
 
                     <Label Content="Limited User Access Panel" HorizontalAlignment="Left" Margin="1,202,0,0" VerticalAlignment="Top" Height="27" Width="247" HorizontalContentAlignment="Center" Background="#FFB48181"/>
                     <Label x:Name="Frame3DaysTillDue" Content="Days till due" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
-                    <Label x:Name="Frame3DaysTillDueData" Content="DaysTillDueData" HorizontalAlignment="Left" Margin="123,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
+                    <Label x:Name="Frame3DaysTillDueData" Content="" HorizontalAlignment="Left" Margin="123,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3AssignedTo" Content="Assigned to" HorizontalAlignment="Left" Margin="7,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
                     <Label x:Name="Frame3AssignedToData" Content="Assigned to" HorizontalAlignment="Left" Margin="115,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center"/>
                     <Label x:Name="ContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="10,443,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center"/>
@@ -194,7 +194,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+
         </ListView>
+        <Label Name ="OutstandingIssuesLabel" Visibility="Hidden" Content="There are no outstanding issues (past due date)" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Width="772" Grid.Row="1" Height="73" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30"/>
 
     </Grid>
 </Window>

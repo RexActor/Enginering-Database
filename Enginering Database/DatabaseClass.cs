@@ -23,7 +23,7 @@ namespace Engineering_Database
 
 		public void ConnectDB()
 		{
-			Console.WriteLine($"{con.State} before if {DateTime.Now}");
+			//Console.WriteLine($"{con.State} before if {DateTime.Now}");
 			//string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
 			//using (OleDbConnection con = new OleDbConnection(ConnectionString))
 			//{
@@ -61,7 +61,56 @@ namespace Engineering_Database
 
 
 
-			Console.WriteLine($"{con.State} after if {DateTime.Now}");
+			//Console.WriteLine($"{con.State} after if {DateTime.Now}");
+
+
+
+
+
+
+		}
+		public void ConnectDB(string databaseName)
+		{
+			string ConnectionString = $"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = {databaseName}.accdb; Jet OLEDB:Database Password = test";
+			//Console.WriteLine($"{con.State} before if {DateTime.Now}");
+			//string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+			//using (OleDbConnection con = new OleDbConnection(ConnectionString))
+			//{
+
+
+
+
+			//	con.Open();
+			//}
+
+			//using (con = new OleDbConnection(ConnectionString))
+			//{
+
+			//	//OleDbConnection.ReleaseObjectPool();
+
+
+			//	Console.WriteLine($"{con.State} before if {DateTime.Now}");
+			//}
+
+
+			if (con.State == ConnectionState.Closed)
+			{
+				OleDbConnection.ReleaseObjectPool();
+				con.ConnectionString = ConnectionString;
+				//con.ConnectionString(ConnectionString);
+				con.Open();
+
+
+
+			}
+			else
+			{
+				OleDbConnection.ReleaseObjectPool();
+			}
+
+
+
+			//Console.WriteLine($"{con.State} after if {DateTime.Now}");
 
 
 
@@ -243,6 +292,21 @@ namespace Engineering_Database
 
 			return reader;
 
+		}
+
+		public OleDbDataReader DBQueryForAssets(string table)
+		{
+			//string queryString = $"SELECT * FROM {table} WHERE ReportedDate = '09-05-2019'";
+			string queryString = $"SELECT * FROM {table} ORDER BY ID ASC";
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+			cmd.Dispose();
+
+			return reader;
 		}
 
 

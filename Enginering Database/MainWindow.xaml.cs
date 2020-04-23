@@ -318,6 +318,12 @@ namespace Enginering_Database
 			ReportWindow repWin = new ReportWindow();
 			repWin.Show();
 		}
+
+		private void AssetListButton_Click(object sender, RoutedEventArgs e)
+		{
+			AssetList assetList = new AssetList();
+			assetList.Show();
+		}
 	}
 }
 
