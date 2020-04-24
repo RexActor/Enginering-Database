@@ -1,0 +1,38 @@
+﻿<Window x:Class="Engineering_Database.AddAsset"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Add Asset" Height="452" Width="467" ResizeMode="NoResize">
+    <Grid>
+        <Label  Content="Add asset into database" HorizontalAlignment="Left" Height="57" Margin="10,10,0,0" VerticalAlignment="Top" Width="441" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+        <Label x:Name="AssetDescriptionLabel" Content="Asset Description" HorizontalAlignment="Left" Height="25" Margin="34,82,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="AsseMakeLabel" Content="Asset Make" HorizontalAlignment="Left" Height="25" Margin="34,112,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="AssetModelLabel" Content="Asset Model" HorizontalAlignment="Left" Height="25" Margin="34,142,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="AssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" Height="25" Margin="34,172,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="SerialNumberLabel" Content="Serial Number" HorizontalAlignment="Left" Height="25" Margin="34,202,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="DateOfManufactureLabel" Content="Date of Manufacture" HorizontalAlignment="Left" Height="25" Margin="34,232,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="DateOfInstallationLabel" Content="Date of Installation" HorizontalAlignment="Left" Height="25" Margin="34,262,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="IssueLevelLabel" Content="Issue Level" HorizontalAlignment="Left" Height="25" Margin="34,292,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="InstalledOnLabel" Content="Installed On" HorizontalAlignment="Left" Height="25" Margin="34,322,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="DecomissionedLabel" Content="Decomissioned?" HorizontalAlignment="Left" Height="25" Margin="34,352,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="OnSiteLabel" Content="On site?" HorizontalAlignment="Left" Height="25" Margin="34,382,0,0" VerticalAlignment="Top" Width="134" FontWeight="Bold" Background="#FFD4BEBE" BorderBrush="Black" BorderThickness="1"/>
+
+        <TextBox x:Name="AssetDescriptionTextBox" HorizontalAlignment="Left" Height="25" Margin="173,82,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center" />
+        <TextBox x:Name="AssetMakeTextBox" HorizontalAlignment="Left" Height="25" Margin="173,112,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AssetModelTextBox" HorizontalAlignment="Left" Height="25" Margin="173,142,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AssetNumberTextBox" HorizontalAlignment="Left" Height="25" Margin="173,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="25" Margin="173,202,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="DateOfManufactureTextBox" HorizontalAlignment="Left" Height="25" Margin="173,232,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="62" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="IssueLevelTextBox" HorizontalAlignment="Left" Height="25" Margin="173,292,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AssetInstalledOnTextBox" HorizontalAlignment="Left" Height="25" Margin="173,322,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="decomissionedCheckBox" Content="" HorizontalAlignment="Left" Height="25" Margin="173,358,0,0" VerticalAlignment="Top" Width="44" />
+        <CheckBox x:Name="onSiteCheckBox" Content="" HorizontalAlignment="Left" Height="25" Margin="173,387,0,0" VerticalAlignment="Top" Width="44" IsChecked="True"/>
+        <Label Content="(year)" HorizontalAlignment="Left" Margin="240,231,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <DatePicker Name="DateOfInstallationDatePicker" HorizontalAlignment="Left" Margin="173,262,0,0" VerticalAlignment="Top" Width="246" VerticalContentAlignment="Center"/>
+        <Button x:Name="InsertAssetButton" Content="Insert Asset" HorizontalAlignment="Left" Height="36" Margin="273,364,0,0" VerticalAlignment="Top" Width="146" Click="InsertAssetButton_Click"/>
+
+    </Grid>
+</Window>

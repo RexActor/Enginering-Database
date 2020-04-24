@@ -10,6 +10,8 @@ namespace Engineering_Database
 	{
 		readonly UserSettings userSett = new UserSettings();
 		readonly updateDatabase updateDatabase = new updateDatabase();
+		readonly AssetList assetList = new AssetList();
+		readonly Report reports = new Report();
 		public string targetWindow;
 		public passwordWindow()
 		{
@@ -39,6 +41,17 @@ namespace Engineering_Database
 				{
 					this.Close();
 					userSett.Show();
+				}
+				else if(targetWindow == "AssetList")
+				{
+					this.Close();
+					assetList.Show();
+				}
+				else if (targetWindow == "Reports")
+				{
+					this.Close();
+					reports.Show();
+
 				}
 
 			}

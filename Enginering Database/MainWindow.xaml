@@ -42,7 +42,7 @@
         <Label Name ="MaintenanceLabel" Visibility="Hidden" Content="Maintenance" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,105,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
         <Button Name="ReportAppIssue" Content="Report Application Issue" HorizontalAlignment="Left" Height="21" Margin="321,390,0,0" VerticalAlignment="Top" Width="133" Click="ReportAppIssue_Click"/>
         <Label x:Name ="MaintenanceLabel2" Visibility="Hidden" Content="Application will close automatically in 10 seconds" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,160,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.498,0.298" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
-        <Button Content="Show Report" HorizontalAlignment="Left" Height="50" Margin="10,233,0,0" VerticalAlignment="Top" Width="218" Click="ShowReportButtonClick"/>
+        <Button Name="ShowReportButton"  Content="Show Report" HorizontalAlignment="Left" Height="50" Margin="10,233,0,0" VerticalAlignment="Top" Width="218" Click="ShowReportButtonClick"/>
         <Button Name="AssetListButton" Content="Asset List" HorizontalAlignment="Left" Height="50" Margin="247,233,0,0" VerticalAlignment="Top" Width="216" Click="AssetListButton_Click"/>
 
 

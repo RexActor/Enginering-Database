@@ -227,6 +227,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAsset.xaml.cs">
+      <DependentUpon>AddAsset.xaml</DependentUpon>
+    </Compile>
     <Compile Include="addData.xaml.cs">
       <DependentUpon>addData.xaml</DependentUpon>
     </Compile>
@@ -289,6 +292,10 @@
     <Compile Include="viewDatabase.xaml.cs">
       <DependentUpon>viewDatabase.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddAsset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="addData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

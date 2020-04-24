@@ -542,6 +542,33 @@ namespace Engineering_Database
 		}
 
 
+		//insert Asset into Database
+		public void InsertAssetIntoDatabase( string table, string description, string make, string model, string assetNumber, string serialNumber, string dateOfManufacture, DateTime DateOfInstallation, string IssueLevel, string installedOn, bool decomissioned, bool onSite)
+		{
+
+			string queryString = $"INSERT INTO {table} (Description,Make,Model,AssetNumber,SerialNumber,DateOfManufacture,DateOfInstallation,IssueLevel,InstalledOn,Decomissioned,OnSite) Values(@Description,@Make,@Model,@AssetNumber,@SerialNumber,@DateOfManufacture,@DateOfInstallation,@IssueLevel,@InstalledOn,@Decomissioned,@OnSite)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			cmd.Parameters.AddWithValue("@Description", description);
+			cmd.Parameters.AddWithValue("@Make", make);
+			cmd.Parameters.AddWithValue("@Model", model);
+			cmd.Parameters.AddWithValue("@AssetNumber", assetNumber);
+			cmd.Parameters.AddWithValue("@SerialNumber", serialNumber);
+			cmd.Parameters.AddWithValue("@DateOfManufacture", dateOfManufacture);
+			cmd.Parameters.AddWithValue("@DateOfInstallation", DateOfInstallation);
+			cmd.Parameters.AddWithValue("@IssueLevel", IssueLevel);
+			cmd.Parameters.AddWithValue("@InstalledOn", installedOn);
+			cmd.Parameters.AddWithValue("@Decomissioned", decomissioned);
+			cmd.Parameters.AddWithValue("@OnSite", onSite);
+
+			
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+
+
+		}
+
+
 
 		#endregion
 

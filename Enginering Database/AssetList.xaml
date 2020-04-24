@@ -20,8 +20,8 @@
                     <GridViewColumn Header="Model" Width="200" DisplayMemberBinding="{Binding Model}"/>
                     <GridViewColumn Header="Asset Number" Width="200" DisplayMemberBinding="{Binding AssetNumber}"/>
                     <GridViewColumn Header="Serial Number" Width="200" DisplayMemberBinding="{Binding SerialNumber}"/>
-                    <GridViewColumn Header="Date Of Manufacture" Width="60" DisplayMemberBinding="{Binding DateOfManufacture}"/>
-                    <GridViewColumn Header="Date Of Installation" Width="200" DisplayMemberBinding="{Binding DateOfInstallation}"/>
+                    <GridViewColumn Header="Date Of Manufacture" Width="60" DisplayMemberBinding="{Binding DateofManufacture}"/>
+                    <GridViewColumn Header="Date Of Installation" Width="200" DisplayMemberBinding="{Binding DateofInstallation}"/>
                     <GridViewColumn Header="Issue Level" Width="100" DisplayMemberBinding="{Binding IssueLevel}"/>
                     <GridViewColumn Header="Installed On" Width="100" DisplayMemberBinding="{Binding InstalledOn}"/>
                     <GridViewColumn Header="Decomissioned?" Width="100" DisplayMemberBinding="{Binding Decomissioned}"/>
@@ -31,6 +31,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button x:Name="AddAssetButton" Content="Add Asset" HorizontalAlignment="Left" Height="43" Margin="973,10,0,0" VerticalAlignment="Top" Width="211" Click="AddAssetButton_Click"/>
 
     </Grid>
     

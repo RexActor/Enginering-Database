@@ -880,8 +880,8 @@ namespace Enginering_Database
 							case "OutstandingIssues":
 								WindowState = System.Windows.WindowState.Normal;
 								//681.392f;
-								this.Height = 800.392f;
-								this.Width = 800f;
+								this.Height = 683f;
+								this.Width = 1113f;
 								this.Left = (ScreenWidht / 2) - (this.Width / 2);
 								this.Top = (ScreenHeight / 2) - (this.Height / 2);
 
@@ -892,8 +892,9 @@ namespace Enginering_Database
 								break;
 							case "ViewDatabase":
 
+								OldEntriesListView.Visibility = Visibility.Hidden;
 								WindowState = System.Windows.WindowState.Normal;
-								this.Height = 800.392f;
+								this.Height = 683f;
 								this.Width = 1800f;
 								emplistDataGrid.Width = 1750;
 								Frame1.Width = 1790f;

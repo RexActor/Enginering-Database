@@ -1,4 +1,5 @@
 ﻿using Engineering_Database;
+
 using System;
 using System.Security.Principal;
 using System.Windows;
@@ -49,7 +50,7 @@ namespace Enginering_Database
 			VersionData.Content = displayableVersion;
 
 
-			
+
 
 			//userSett.openSettings();
 
@@ -206,7 +207,7 @@ namespace Enginering_Database
 		{
 
 
-		
+
 			userMaintenSett.openSettings();
 
 
@@ -214,7 +215,7 @@ namespace Enginering_Database
 			if (userMaintenSett.Maintenance == "Yes")
 			{
 				MaintenanceLabel.Visibility = Visibility.Visible;
-				
+
 				UpdateDatabaseButton.Visibility = Visibility.Hidden;
 				UpdateDatabaseImage.Visibility = Visibility.Hidden;
 				InsertDataButton.Visibility = Visibility.Hidden;
@@ -269,15 +270,17 @@ namespace Enginering_Database
 				InsertDataImage.Visibility = Visibility.Hidden;
 				ViewDatabaseButton.Visibility = Visibility.Hidden;
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
+				AssetListButton.Visibility = Visibility.Hidden;
+				ShowReportButton.Visibility = Visibility.Hidden;
 
-				if ( userName!=userMaintenSett.UserName || userName !=userMaintenSett.SubAdmin1||  userName!=userMaintenSett.SubAdmin2)
+				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
 
 					DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
 					MaintenanceLabel2.Visibility = Visibility.Visible;
 					dispatcherTimer.Tick += new EventHandler(CloseApp);
 					dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-					dispatcherTimer.Start(); 
+					dispatcherTimer.Start();
 
 				}
 
@@ -293,6 +296,8 @@ namespace Enginering_Database
 				InsertDataImage.Visibility = Visibility.Visible;
 				ViewDatabaseButton.Visibility = Visibility.Visible;
 				ViewDatabaseImage.Visibility = Visibility.Visible;
+				AssetListButton.Visibility = Visibility.Visible;
+				ShowReportButton.Visibility = Visibility.Visible;
 			}
 		}
 		public void CloseApp(object sender, EventArgs e)
@@ -315,14 +320,42 @@ namespace Enginering_Database
 
 		private void ShowReportButtonClick(object sender, RoutedEventArgs e)
 		{
-			ReportWindow repWin = new ReportWindow();
-			repWin.Show();
+
+			userSett.openSettings();
+			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
+			{
+
+				ReportWindow repWin = new ReportWindow();
+				repWin.Show();
+			}
+			else
+			{
+
+				PasswordRequest("Reports");
+
+			}
+			
 		}
 
 		private void AssetListButton_Click(object sender, RoutedEventArgs e)
 		{
-			AssetList assetList = new AssetList();
-			assetList.Show();
+
+			userSett.openSettings();
+			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
+			{
+
+				AssetList assetList = new AssetList();
+				assetList.Show();
+			}
+			else
+			{
+
+				PasswordRequest("AssetList");
+
+			}
+
+
+
 		}
 	}
 }

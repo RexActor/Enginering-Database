@@ -1,4 +1,5 @@
-﻿using System.Data.OleDb;
+﻿using System;
+using System.Data.OleDb;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,7 +10,7 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class AssetList : Window
 	{
-
+		private bool haveInstallationDate = false;
 		public AssetList()
 		{
 			InitializeComponent();
@@ -41,7 +42,12 @@ namespace Engineering_Database
 				assets.Make = reader["Make"].ToString();
 				assets.SerialNumber = reader["SerialNumber"].ToString();
 				assets.DateofManufacture = reader["DateOfManufacture"].ToString();
-				//assets.DateofInstallation = Convert.ToDateTime(reader["DateOfInstallation"]);
+				if (reader["DateOfInstallation"] !=DBNull.Value)
+				{
+					
+					assets.DateofInstallation = Convert.ToDateTime(reader["DateOfInstallation"]);
+				
+				}
 				assets.IssueLevel = reader["IssueLevel"].ToString();
 				assets.InstalledOn = reader["InstalledOn"].ToString();
 				assets.Decomissioned = (bool)reader["Decomissioned"];
@@ -50,7 +56,7 @@ namespace Engineering_Database
 				AssetListView.Items.Add(assets);
 
 			}
-
+			assetDB.CloseDB();
 
 		}
 
@@ -94,8 +100,17 @@ namespace Engineering_Database
 			assetDetail.AssetDetailAssetNumber.Content = item.AssetNumber.ToString();
 			assetDetail.AssetDetailSerialNumber.Content = item.SerialNumber.ToString();
 			assetDetail.AssetDetailDateOfManufacture.Content = item.DateofManufacture.ToString();
-			assetDetail.AssetDetailDateOfInstalation.Content = item.DateofInstallation.ToString();
-			assetDetail.AssetDetailIssueLevel.Content = item.IssueLevel.ToString();
+
+			if (item.DateofInstallation.ToString() =="01-Jan-01 12:00:00 AM")
+			{
+				assetDetail.AssetDetailDateOfInstalation.Content = "Date Not Set";
+				
+			}
+			else
+			{
+				assetDetail.AssetDetailDateOfInstalation.Content = item.DateofInstallation.ToString();
+			}
+				assetDetail.AssetDetailIssueLevel.Content = item.IssueLevel.ToString();
 			assetDetail.AssetDetailInstalledOn.Content = item.InstalledOn.ToString();
 			assetDetail.AssetDetailDecomissioned.Content = decomissioned;
 			assetDetail.AssetDetailOnSite.Content = onSite;
@@ -115,7 +130,7 @@ namespace Engineering_Database
 
 				issue.JobNumber = (int)reader["JobNumber"];
 				issue.DetailedDescription = reader["DetailedDescription"].ToString();
-				issue.ReportedDate = string.Format("{0:d}",reader["ReportedDate"].ToString());
+				issue.ReportedDate = string.Format("{0:d}", reader["ReportedDate"].ToString());
 				issue.CompletedByUsername = reader["CompletedBy"].ToString();
 				issue.Action = reader["Action"].ToString();
 
@@ -125,11 +140,16 @@ namespace Engineering_Database
 
 
 
-
+			jobDB.CloseDB();
 			assetDetail.Show();
 
 
 		}
 
+		private void AddAssetButton_Click(object sender, RoutedEventArgs e)
+		{
+			AddAsset addAsset = new AddAsset();
+			addAsset.Show();
+		}
 	}
 }
