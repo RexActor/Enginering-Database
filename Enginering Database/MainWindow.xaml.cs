@@ -272,6 +272,11 @@ namespace Enginering_Database
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
 				AssetListButton.Visibility = Visibility.Hidden;
 				ShowReportButton.Visibility = Visibility.Hidden;
+				ShowReportImage.Visibility = Visibility.Hidden;
+				AssetListImage.Visibility = Visibility.Hidden;
+				PasswordProtectImage1.Visibility = Visibility.Hidden;
+				PasswordProtectImage2.Visibility = Visibility.Hidden;
+				PasswordProtectImage3.Visibility = Visibility.Hidden;
 
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
@@ -298,6 +303,11 @@ namespace Enginering_Database
 				ViewDatabaseImage.Visibility = Visibility.Visible;
 				AssetListButton.Visibility = Visibility.Visible;
 				ShowReportButton.Visibility = Visibility.Visible;
+				ShowReportImage.Visibility = Visibility.Visible;
+				AssetListImage.Visibility = Visibility.Visible;
+				PasswordProtectImage1.Visibility = Visibility.Visible;
+				PasswordProtectImage2.Visibility = Visibility.Visible;
+				PasswordProtectImage3.Visibility = Visibility.Visible;
 			}
 		}
 		public void CloseApp(object sender, EventArgs e)

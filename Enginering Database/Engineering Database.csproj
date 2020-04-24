@@ -468,7 +468,15 @@
     <Resource Include="settings.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="User Settings-02-WF.png" />
+    <Resource Include="update.png" />
+    <Resource Include="User Reported Issues.png" />
+    <Resource Include="assetlist.png" />
+    <Resource Include="AssetList.ico" />
     <Content Include="engineeringDatabase.accdb" />
+    <Resource Include="ReportIssue.png" />
+    <Resource Include="PasswordProtected.png" />
+    <Resource Include="Load Report.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -482,6 +490,7 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="UserIssues.ico" />
     <Resource Include="Oustanding.png" />
     <Resource Include="oustandingIssues.png" />
   </ItemGroup>
