@@ -37,10 +37,11 @@ namespace Enginering_Database
 		readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
 
 		//if data is not selected = can't change due date
-		private bool canChangeDueDate = false;
-		private bool canSendEmail = false;
-		private bool canComplete = false;
-		private bool canSubmit = false;
+		public bool canChangeDueDate = false;
+		public bool canSendEmail = false;
+		public bool canComplete = false;
+		public bool canSubmit = false;
+		public bool seperateWindow = false;
 		private string jobStatus = null;
 		private string isComplete = null;
 		//Tooltip opbjet
@@ -611,7 +612,7 @@ namespace Enginering_Database
 
 		}
 
-		private void UpdateFrame2(string jobNumber)
+		public void UpdateFrame2(string jobNumber)
 		{
 
 
@@ -707,7 +708,7 @@ namespace Enginering_Database
 
 		}
 
-		private void CollectSelectedData(int convJobNumber)
+		public void CollectSelectedData(int convJobNumber)
 		{
 
 			issueClass.Priority = db.DBQuery("Priority", convJobNumber);
@@ -839,6 +840,10 @@ namespace Enginering_Database
 				if (ChangeDueDateCheckBox.IsChecked == true)
 				{
 					ChangeDueDateCheckBox.IsChecked = false;
+				}
+				if (seperateWindow == true)
+				{
+					this.Close();
 				}
 
 			}

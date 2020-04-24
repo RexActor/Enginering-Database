@@ -309,6 +309,21 @@ namespace Engineering_Database
 			return reader;
 		}
 
+		public OleDbDataReader DBQueryForAssetsWithFilter(string table, string fieldfilter,string fieldfiltervalue)
+		{
+			//string queryString = $"SELECT * FROM {table} WHERE ReportedDate = '09-05-2019'";
+			string queryString = $"SELECT * FROM {table} where {fieldfilter}='{fieldfiltervalue}' ORDER BY JobNumber ASC";
+
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+			OleDbDataReader reader = cmd.ExecuteReader();
+
+			cmd.Dispose();
+
+			return reader;
+		}
+
 
 
 		public OleDbCommand DBQueryForViewDatabase(int jobNumber)

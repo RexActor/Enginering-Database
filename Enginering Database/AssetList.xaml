@@ -13,7 +13,7 @@
            
             <ListView.View>
                 
-                <GridView AllowsColumnReorder="False">
+                <GridView AllowsColumnReorder="False" >
                     <GridViewColumn Header="ID" Width="70" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Description}" />
                     <GridViewColumn Header="Make" Width="200" DisplayMemberBinding="{Binding Make}"/>

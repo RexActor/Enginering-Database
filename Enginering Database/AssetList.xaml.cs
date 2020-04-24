@@ -1,9 +1,5 @@
-﻿using System;
-using System.Data;
-using System.Data.OleDb;
-using System.Linq;
+﻿using System.Data.OleDb;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace Engineering_Database
@@ -13,7 +9,7 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class AssetList : Window
 	{
-		
+
 		public AssetList()
 		{
 			InitializeComponent();
@@ -31,7 +27,7 @@ namespace Engineering_Database
 		{
 			DatabaseClass assetDB = new DatabaseClass();
 			assetDB.ConnectDB("Assets");
-			
+
 
 			OleDbDataReader reader = assetDB.DBQueryForAssets("AssetList");
 
@@ -63,12 +59,77 @@ namespace Engineering_Database
 			//var selectedItem = AssetListView.SelectedItem as DataRowView;
 
 			//System.Windows.MessageBox.Show(selectedItem["ID"].ToString());
-
+			string decomissioned;
+			string onSite;
 
 			Assets item = (Assets)AssetListView.SelectedItem;
 
-			System.Windows.MessageBox.Show(item.ID.ToString());
+			AssetDetail assetDetail = new AssetDetail();
+
+			if (item.Decomissioned.ToString() == "False")
+			{
+				decomissioned = "No";
+			}
+			else
+			{
+				decomissioned = "Yes";
+			}
+
+			if (item.OnSite.ToString() == "False")
+			{
+				onSite = "Yes";
+			}
+			else
+			{
+				onSite = "No";
+			}
+
+			//assetDetail.assetDetailIDCont2 = item.AssetNumber.ToString();
+
+
+			assetDetail.AssetDetailId.Content = item.ID.ToString();
+			assetDetail.AssetDetailDescription.Content = item.Description.ToString();
+			assetDetail.AssetDetailMake.Content = item.Make.ToString();
+			assetDetail.AssetDetailModel.Content = item.Model.ToString();
+			assetDetail.AssetDetailAssetNumber.Content = item.AssetNumber.ToString();
+			assetDetail.AssetDetailSerialNumber.Content = item.SerialNumber.ToString();
+			assetDetail.AssetDetailDateOfManufacture.Content = item.DateofManufacture.ToString();
+			assetDetail.AssetDetailDateOfInstalation.Content = item.DateofInstallation.ToString();
+			assetDetail.AssetDetailIssueLevel.Content = item.IssueLevel.ToString();
+			assetDetail.AssetDetailInstalledOn.Content = item.InstalledOn.ToString();
+			assetDetail.AssetDetailDecomissioned.Content = decomissioned;
+			assetDetail.AssetDetailOnSite.Content = onSite;
+
+
+			DatabaseClass jobDB = new DatabaseClass();
+			jobDB.ConnectDB();
+
+
+			OleDbDataReader reader = jobDB.DBQueryForAssetsWithFilter("engineeringDatabaseTable", "AssetNumber", item.AssetNumber.ToString());
+
+
+			while (reader.Read())
+			{
+				IssueClass issue = new IssueClass();
+
+
+				issue.JobNumber = (int)reader["JobNumber"];
+				issue.DetailedDescription = reader["DetailedDescription"].ToString();
+				issue.ReportedDate = string.Format("{0:d}",reader["ReportedDate"].ToString());
+				issue.CompletedByUsername = reader["CompletedBy"].ToString();
+				issue.Action = reader["Action"].ToString();
+
+				assetDetail.JobListForAssetDetails.Items.Add(issue);
+
+			}
+
+
+
+
+			assetDetail.Show();
+
 
 		}
+
 	}
 }
