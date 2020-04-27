@@ -16,7 +16,7 @@ namespace Enginering_Database
 	{
 		readonly DatabaseClass db = new DatabaseClass();
 		readonly EmailClass email = new EmailClass();
-		readonly UserSettings userrSet = new UserSettings();
+		//readonly UserSettings userrSet = new UserSettings();
 		bool richTextBoxTextChanged = false;
 		public addData()
 		{
@@ -333,8 +333,8 @@ namespace Enginering_Database
 			}
 
 
-
-
+			UserSettings userrSet = new UserSettings();
+			userrSet.openSettings();
 
 			int getLastJobNumber = db.DBQueryLastJobNumber("JobNumber");
 

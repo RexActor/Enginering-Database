@@ -38,12 +38,12 @@ namespace Engineering_Database
 		public void SendEmail(string jobStatus = null, IssueClass issue = null, string reply = null)
 		{
 
-
+			
 
 			if (checkOutlook() == true)
 			{
 
-
+				userSett.openSettings();
 				string emailAddress = userSett.Email;
 			
 				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
