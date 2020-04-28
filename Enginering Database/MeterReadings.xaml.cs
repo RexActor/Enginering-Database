@@ -30,7 +30,7 @@ namespace Engineering_Database
 			double result = convertToDouble(MeterReadingTextBox.Text);
 
 
-			if (dataExists == false || MultipleValueCheckBox.IsChecked==true)
+			if (dataExists == false)
 			{
 
 
@@ -102,6 +102,7 @@ namespace Engineering_Database
 
 		private void CheckOldEntries()
 		{
+			dataExists = false;
 			DatabaseClass db = new DatabaseClass();
 			db.ConnectDB();
 
@@ -114,9 +115,21 @@ namespace Engineering_Database
 					dataExists = true;
 					return;
 				}
+				
 			}
 
 		}
 
+		private void EditableDate_Click(object sender, RoutedEventArgs e)
+		{
+			if (EditableDate.IsChecked == true)
+			{
+				MeterReadingDatePicker.IsEnabled = true;
+			}
+			else
+			{
+				MeterReadingDatePicker.IsEnabled = false;
+			}
+		}
 	}
 }
