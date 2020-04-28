@@ -56,7 +56,7 @@ namespace Engineering_Database
 			db.InsertAssetIntoDatabase("AssetList",AssetDescriptionTextBox.Text,AssetMakeTextBox.Text,AssetModelTextBox.Text,AssetNumberTextBox.Text,SerialNumberTextBox.Text,DateOfManufactureTextBox.Text,Convert.ToDateTime(DateOfInstallationDatePicker.SelectedDate.Value.Date),IssueLevelTextBox.Text,AssetInstalledOnTextBox.Text,decomissioned, onSite);
 
 			db.CloseDB();
-
+			this.Close();
 
 		}
 	}

@@ -16,115 +16,43 @@ namespace Engineering_Database
 		readonly UserErrorWindow userErr = new UserErrorWindow();
 
 		string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-		// OleDbConnection con = new OleDbConnection();
+
 		OleDbConnection con = new OleDbConnection();
 
 		#region connect DB close DB and DB status DB count lines functions
 
 		public void ConnectDB()
 		{
-			//Console.WriteLine($"{con.State} before if {DateTime.Now}");
-			//string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-			//using (OleDbConnection con = new OleDbConnection(ConnectionString))
-			//{
-
-
-
-
-			//	con.Open();
-			//}
-
-			//using (con = new OleDbConnection(ConnectionString))
-			//{
-
-			//	//OleDbConnection.ReleaseObjectPool();
-
-
-			//	Console.WriteLine($"{con.State} before if {DateTime.Now}");
-			//}
-
-
 			if (con.State == ConnectionState.Closed)
 			{
 				OleDbConnection.ReleaseObjectPool();
 				con.ConnectionString = ConnectionString;
-				//con.ConnectionString(ConnectionString);
 				con.Open();
-
-
-
 			}
 			else
 			{
 				OleDbConnection.ReleaseObjectPool();
 			}
-
-
-
-			//Console.WriteLine($"{con.State} after if {DateTime.Now}");
-
-
-
-
-
-
 		}
 		public void ConnectDB(string databaseName)
 		{
 			string ConnectionString = $"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = {databaseName}.accdb; Jet OLEDB:Database Password = test";
-			//Console.WriteLine($"{con.State} before if {DateTime.Now}");
-			//string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-			//using (OleDbConnection con = new OleDbConnection(ConnectionString))
-			//{
-
-
-
-
-			//	con.Open();
-			//}
-
-			//using (con = new OleDbConnection(ConnectionString))
-			//{
-
-			//	//OleDbConnection.ReleaseObjectPool();
-
-
-			//	Console.WriteLine($"{con.State} before if {DateTime.Now}");
-			//}
-
 
 			if (con.State == ConnectionState.Closed)
 			{
 				OleDbConnection.ReleaseObjectPool();
 				con.ConnectionString = ConnectionString;
-				//con.ConnectionString(ConnectionString);
 				con.Open();
-
-
-
 			}
 			else
 			{
 				OleDbConnection.ReleaseObjectPool();
 			}
-
-
-
-			//Console.WriteLine($"{con.State} after if {DateTime.Now}");
-
-
-
-
-
-
 		}
 		public void CloseDB()
 		{
-
 			con.Dispose();
 			con.Close();
-
-
 		}
 
 		public string DBStatus()
@@ -133,17 +61,16 @@ namespace Engineering_Database
 			{
 				if (con.State == System.Data.ConnectionState.Open)
 				{
-
 					return "DB connected";
 				}
 				else if (con.State == System.Data.ConnectionState.Closed)
 				{
 					return "DB not Connected";
 				}
-
 				else
-
+				{
 					return "Some kind of error";
+				}
 			}
 			else
 			{
@@ -153,71 +80,48 @@ namespace Engineering_Database
 
 		public int DBCountLines()
 		{
-
 			string queryString = "SELECT COUNT(*) FROM engineeringDatabaseTable";
-
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
 			return data;
-
 		}
 		#endregion
 		#region db query functions --> retreive data from database 3 overloaded functions string (table)/string (table) int(jobNumber)/ simple without any parameters
 		public string DBQuery(string table)
 		{
-
-
 			string queryString = $"SELECT * FROM engineeringDatabaseTable";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
 			var data = reader[table].ToString();
 			cmd.Dispose();
 			return data;
-
-
 		}
 		public string DBQuery(string table, int jobnumber)
 		{
-
 			string queryString = $"SELECT * FROM engineeringDatabaseTable WHERE JobNumber in (@param1)";
-
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.Add(new OleDbParameter("@param1", jobnumber));
-
 			OleDbDataReader reader = cmd.ExecuteReader();
 			if (reader != null)
 			{
 				reader.Read();
 			}
-
 			var data = reader[table].ToString();
 			cmd.Dispose();
-
-
 			reader.Close();
 			return data;
-
 		}
 		public OleDbCommand DBQuery()
 		{
-
-
 			string queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed =false";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			return cmd;
-
 		}
 
 		public OleDbCommand DBQueryforJobList(string filter)
 		{
-
 			string queryString;
 			if (filter == "Outstanding")
 			{
@@ -227,22 +131,17 @@ namespace Engineering_Database
 			{
 				queryString = "SELECT * FROM engineeringDatabaseTable WHERE Completed=true ORDER BY JobNumber DESC";
 			}
-
 			else
 			{
 				queryString = "SELECT * FROM engineeringDatabaseTable ORDER BY JobNumber DESC";
-
 			}
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			return cmd;
-
 		}
 
 
 		public OleDbCommand DBQueryforUsers(string filter, string reporter)
 		{
-
 			string queryString;
 			if (filter == "Outstanding")
 			{
@@ -255,72 +154,44 @@ namespace Engineering_Database
 			else
 			{
 				queryString = "SELECT * FROM engineeringDatabaseTable";
-
 			}
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			return cmd;
-
 		}
 
 
 
 		public OleDbCommand DBQueryForAllLines()
 		{
-
 			string queryString = "SELECT * FROM engineeringDatabaseTable";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			return cmd;
-
 		}
 
 		public OleDbDataReader DBQueryForOldEntries(string table, string completed)
 		{
-
-			//string queryString = $"SELECT * FROM {table} WHERE ReportedDate = '09-05-2019'";
 			string queryString = $"SELECT * FROM {table} WHERE Completed ={completed} ORDER BY DueDate ASC";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
 			OleDbDataReader reader = cmd.ExecuteReader();
-
 			cmd.Dispose();
-
 			return reader;
-
 		}
 
 		public OleDbDataReader DBQueryForAssets(string table)
 		{
-			//string queryString = $"SELECT * FROM {table} WHERE ReportedDate = '09-05-2019'";
 			string queryString = $"SELECT * FROM {table} ORDER BY ID ASC";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
 			OleDbDataReader reader = cmd.ExecuteReader();
-
 			cmd.Dispose();
-
 			return reader;
 		}
 
-		public OleDbDataReader DBQueryForAssetsWithFilter(string table, string fieldfilter,string fieldfiltervalue)
+		public OleDbDataReader DBQueryForAssetsWithFilter(string table, string fieldfilter, string fieldfiltervalue)
 		{
-			//string queryString = $"SELECT * FROM {table} WHERE ReportedDate = '09-05-2019'";
 			string queryString = $"SELECT * FROM {table} where {fieldfilter}='{fieldfiltervalue}' ORDER BY JobNumber ASC";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
 			OleDbDataReader reader = cmd.ExecuteReader();
-
 			cmd.Dispose();
-
 			return reader;
 		}
 
@@ -329,194 +200,111 @@ namespace Engineering_Database
 		public OleDbCommand DBQueryForViewDatabase(int jobNumber)
 		{
 			string queryString = $"SELECT * FROM engineeringDatabaseTable WHERE JobNumber ={jobNumber}";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			return cmd;
-
 		}
-
-
-
 
 		public int DBQueryLastJobNumber(string table)
 		{
-
 			bool LastJobNumberIsNumber;
 			int number;
 			int LastJobNumber;
 			string queryString = "SELECT TOP 1  *  FROM engineeringDatabaseTable ORDER BY JobNumber DESC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
-
 			if (reader != null)
 			{
 				if (reader.HasRows)
 				{
 					reader.Read();
 					cmd.Dispose();
-
 				}
 				else
 				{
 					cmd.Dispose();
 					return 0;
 				}
-
 			}
-
 			var data = reader[table].ToString();
 			//converts data into integer. If successfull returns value as int, else returns 0 (there will not be job number as 0, so can perform check. 
 			//if job number was returned as 0, then there wasn't number in database recorded. 
-
 			LastJobNumberIsNumber = Int32.TryParse(data, out number);
-
 			if (LastJobNumberIsNumber)
 			{
-
 				LastJobNumber = number;
 				return LastJobNumber;
 			}
 			else
 			{
 				cmd.Dispose();
-
 				return 0;
 			}
-
-
 		}
 		#endregion
 
 		#region updateDatabase with values 3 overloaded functions - bool/string/int
 		public void DBQueryInsertData(string table, int jobnumber, bool value)
 		{
-
 			string queryString = "UPDATE engineeringDatabaseTable SET " + table + " = @value WHERE JobNumber = @jobnumber";
-
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			cmd.Parameters.AddWithValue("@value", value);
 			cmd.Parameters.AddWithValue("@jobnumber", jobnumber);
-
-
-
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
 		}
 		public void DBQueryInsertData(string table, int jobnumber, string value)
 		{
-
 			string queryString = "UPDATE engineeringDatabaseTable SET " + table + " = @value WHERE JobNumber = @jobnumber";
-
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			cmd.Parameters.AddWithValue("@value", value);
 			cmd.Parameters.AddWithValue("@jobnumber", jobnumber);
-
-
-
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-
 		}
 		public void DBQueryInsertData(string table, int jobnumber, int value)
 		{
-
-
 			string queryString = "UPDATE engineeringDatabaseTable SET " + table + " = @value WHERE JobNumber = @jobnumber";
-
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			cmd.Parameters.AddWithValue("@value", value);
 			cmd.Parameters.AddWithValue("@jobnumber", jobnumber);
-
-
-
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-
 		}
 		public void DBQueryInsertData(int jobnumber, string table, string value)
 		{
-
-
-
 			string queryString = "UPDATE engineeringDatabaseTable SET [" + table + "] = @value WHERE [JobNumber] = @jobnumber";
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
-
-
 			cmd.Parameters.AddWithValue("@value", value == null ? DBNull.Value : (object)value);
 			cmd.Parameters.AddWithValue("@jobnumber", jobnumber);
-
-
-
-
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-
 		}
-
-
-
-
 		public void DBQueryUpdateGlobalSettings(string table, string value)
 		{
-
-
 			string queryString = "Update GlobalSettings SET [" + table + "] = @value  ";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@value", value);
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-
 		}
-
-
 		public string DBQueryForGlobalSettings(string table)
 		{
-
-
 			string queryString = $"SELECT * FROM GlobalSettings";
-
-
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
 			var data = reader[table].ToString();
 			reader.Close();
-
 			cmd.Dispose();
 			return data;
-
 		}
-
-
-
-
-
 		#endregion
 
 		#region insert values into database
 		public void InsertDataIntoDatabase(int jobNumber, string repdate, string repTime, string ReportedUsername, string assetNumber, string faultyArea, string Building, string IssueCode, string Priority, string type, string detailedDesc, string DueDate, string Area, string ReporterEmail)
 		{
-
 			string queryString = "INSERT INTO engineeringDatabaseTable (JobNumber,ReportedDate,ReportedTime,ReportedUsername,AssetNumber,FaultyArea,Building,IssueCode,Priority,Type,DetailedDescription,DueDate,Area,ReporterEmail) Values(@JobNumber,@ReportedDate,@ReportedTime,@ReportedUsername,@AssetNumber,@FaultyArea,@Building,@IssueCode,@Priority,@Type,@DetailedDescription,@DueDate,@Area,@ReporterEmail)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			cmd.Parameters.AddWithValue("@JobNumber", jobNumber);
 			cmd.Parameters.AddWithValue("@ReportedDate", repdate);
 			cmd.Parameters.AddWithValue("@ReportedTime", repTime);
@@ -528,27 +316,127 @@ namespace Engineering_Database
 			cmd.Parameters.AddWithValue("@Priority", Priority);
 			cmd.Parameters.AddWithValue("@Type", type);
 			cmd.Parameters.AddWithValue("@DetailedDescription", detailedDesc);
-
 			cmd.Parameters.AddWithValue("@DueDate", DueDate);
 			cmd.Parameters.AddWithValue("@Area", Area);
 			cmd.Parameters.AddWithValue("@ReporterEmail", ReporterEmail);
-
-
-
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-
 		}
 
+		
+		#endregion
 
-		//insert Asset into Database
-		public void InsertAssetIntoDatabase( string table, string description, string make, string model, string assetNumber, string serialNumber, string dateOfManufacture, DateTime DateOfInstallation, string IssueLevel, string installedOn, bool decomissioned, bool onSite)
+		//public string GetCPU()
+		//{
+
+		//	string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
+
+		//	return cpu;
+
+		//}
+
+		#region getting information for combobox setups
+
+		public OleDbDataReader SetUpComboBox(string table)
 		{
+			string queryString = $"SELECT * FROM {table}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
 
+		public OleDbDataReader SetUpComboBox(string table, string text)
+		{
+			string queryString = $"SELECT ID FROM {table} WHERE parrent = {text}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+
+		public OleDbDataReader SetUpComboBoxBasedonParrent(string table, string UID)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader SetUpComboBoxBasedonUID(string table, int UID, int GUID)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE UID = {UID} AND GUID = {GUID}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		#endregion
+
+		#region issuecode add/remove from database
+
+		public void InsertIssueIntoDatabase(string table, string description)
+		{
+			string queryString = $"INSERT INTO {table} (description) Values(@description)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@JobNumber", description);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void InsertIssueIntoDatabase(string table, string description, string parrent)
+		{
+			string queryString = $"INSERT INTO {table} (description, parrent) Values(@description, @parrent)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@description", description);
+			cmd.Parameters.AddWithValue("@parrent", parrent);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void InsertIssueIntoDatabase(string table, string description, string parrent, string area)
+		{
+			string queryString = $"INSERT INTO {table} (description, parrent, area) Values(@description, @parrent, @area)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@description", description);
+			cmd.Parameters.AddWithValue("@parrent", parrent);
+			cmd.Parameters.AddWithValue("@area", area);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void DeleteIssueFromDatabase(string table, string description, string parrent)
+		{
+			string queryString = $"DELETE FROM  {table} Where description='{description}' and parrent='{parrent}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void DeleteIssueFromDatabase(string table, string description)
+		{
+			string queryString = $"DELETE FROM  {table} Where description='{description}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void DeleteParrentFromDatabase(string table, string parrent)
+		{
+			string queryString = $"DELETE FROM  {table} Where parrent='{parrent}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void DeleteAreaFromDatabase(string table, string area)
+		{
+			string queryString = $"DELETE FROM  {table} Where area='{area}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		#endregion
+		#region inserting/updating asset list into database
+		//insert Asset into Database
+		public void InsertAssetIntoDatabase(string table, string description, string make, string model, string assetNumber, string serialNumber, string dateOfManufacture, DateTime DateOfInstallation, string IssueLevel, string installedOn, bool decomissioned, bool onSite)
+		{
 			string queryString = $"INSERT INTO {table} (Description,Make,Model,AssetNumber,SerialNumber,DateOfManufacture,DateOfInstallation,IssueLevel,InstalledOn,Decomissioned,OnSite) Values(@Description,@Make,@Model,@AssetNumber,@SerialNumber,@DateOfManufacture,@DateOfInstallation,@IssueLevel,@InstalledOn,@Decomissioned,@OnSite)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
 			cmd.Parameters.AddWithValue("@Description", description);
 			cmd.Parameters.AddWithValue("@Make", make);
 			cmd.Parameters.AddWithValue("@Model", model);
@@ -560,222 +448,29 @@ namespace Engineering_Database
 			cmd.Parameters.AddWithValue("@InstalledOn", installedOn);
 			cmd.Parameters.AddWithValue("@Decomissioned", decomissioned);
 			cmd.Parameters.AddWithValue("@OnSite", onSite);
-
-			
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-
 		}
-
-
-
-		#endregion
-
-		public string GetCPU()
+		public void UpdateAsset(string table,string field, int assetID, string value)
 		{
-
-
-			string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
-
-			return cpu;
-
-		}
-
-
-
-		#region getting information for combobox setups
-
-		public OleDbDataReader SetUpComboBox(string table)
-		{
-
-
-			string queryString = $"SELECT * FROM {table}";
-
-
+			string queryString = "UPDATE " +table +" SET " + field + " = @value WHERE ID = @assetID";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
-			OleDbDataReader reader = cmd.ExecuteReader();
-
-
-
-
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@assetID", assetID);
+			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-			return reader;
-
 		}
-
-		public OleDbDataReader SetUpComboBox(string table, string text)
+		public void UpdateAsset(string table, string field, int assetID, DateTime value)
 		{
-
-
-
-			string queryString = $"SELECT ID FROM {table} WHERE parrent = {text}";
-
-
+			string queryString = "UPDATE " + table + " SET " + field + " = @value WHERE ID = @assetID";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
-			OleDbDataReader reader = cmd.ExecuteReader();
-
-
-
-
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@assetID", assetID);
+			cmd.ExecuteNonQuery();
 			cmd.Dispose();
-
-			return reader;
-
-		}
-
-		public OleDbDataReader SetUpComboBoxBasedonParrent(string table, string UID)
-		{
-
-			//string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
-			string queryString = $"SELECT * FROM {table} WHERE parrent = '" + UID + "'";
-
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
-			OleDbDataReader reader = cmd.ExecuteReader();
-
-
-
-
-			cmd.Dispose();
-
-
-
-			return reader;
-		}
-		public OleDbDataReader SetUpComboBoxBasedonUID(string table, int UID, int GUID)
-		{
-
-
-			string queryString = $"SELECT * FROM {table} WHERE UID = {UID} AND GUID = {GUID}";
-
-
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-
-			OleDbDataReader reader = cmd.ExecuteReader();
-
-
-
-
-			cmd.Dispose();
-
-			return reader;
-
 		}
 
 
 		#endregion
-
-
-
-		public void InsertIssueIntoDatabase(string table, string description)
-		{
-
-			string queryString = $"INSERT INTO {table} (description) Values(@description)";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			cmd.Parameters.AddWithValue("@JobNumber", description);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-		public void InsertIssueIntoDatabase(string table, string description, string parrent)
-		{
-
-			string queryString = $"INSERT INTO {table} (description, parrent) Values(@description, @parrent)";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			cmd.Parameters.AddWithValue("@description", description);
-			cmd.Parameters.AddWithValue("@parrent", parrent);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-		public void InsertIssueIntoDatabase(string table, string description, string parrent, string area)
-		{
-
-			string queryString = $"INSERT INTO {table} (description, parrent, area) Values(@description, @parrent, @area)";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			cmd.Parameters.AddWithValue("@description", description);
-			cmd.Parameters.AddWithValue("@parrent", parrent);
-			cmd.Parameters.AddWithValue("@area", area);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-		public void DeleteIssueFromDatabase(string table, string description, string parrent)
-		{
-
-			string queryString = $"DELETE FROM  {table} Where description='{description}' and parrent='{parrent}'";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			//cmd.Parameters.AddWithValue("@description", description);
-			//cmd.Parameters.AddWithValue("@parrent", parrent);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-		public void DeleteIssueFromDatabase(string table, string description)
-		{
-
-			string queryString = $"DELETE FROM  {table} Where description='{description}'";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			//cmd.Parameters.AddWithValue("@description", description);
-			//cmd.Parameters.AddWithValue("@parrent", parrent);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-		public void DeleteParrentFromDatabase(string table, string parrent)
-		{
-
-			string queryString = $"DELETE FROM  {table} Where parrent='{parrent}'";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			//cmd.Parameters.AddWithValue("@description", description);
-			//cmd.Parameters.AddWithValue("@parrent", parrent);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-		public void DeleteAreaFromDatabase(string table, string area)
-		{
-
-			string queryString = $"DELETE FROM  {table} Where area='{area}'";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-
-			//cmd.Parameters.AddWithValue("@description", description);
-			//cmd.Parameters.AddWithValue("@parrent", parrent);
-
-			cmd.ExecuteNonQuery();
-			cmd.Dispose();
-
-
-		}
-
-
-
-
 	}
 }

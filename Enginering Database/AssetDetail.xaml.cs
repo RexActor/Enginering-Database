@@ -1,6 +1,7 @@
 ﻿using Enginering_Database;
-using System.Windows;
 
+using System.Windows;
+using System.Windows.Media;
 
 namespace Engineering_Database
 {
@@ -11,16 +12,91 @@ namespace Engineering_Database
 
 	public partial class AssetDetail : Window
 	{
-		public string assetDetailIDCont2 { get; set; }
+		public int assetDetailIDForDatabase { get; set; }
+		DatabaseClass db = new DatabaseClass();
+		bool editMode = false;
 		public AssetDetail()
 		{
 			InitializeComponent();
-
+			AssetDetailEditModeLabel.Content = "{edit mode}";
 		}
 
 		private void AssetUpdateButton_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("Not Implemented Yet");
+			if (!editMode)
+			{
+				editMode = true;
+
+
+				AssetDetailEditModeLabel.Visibility = Visibility.Visible;
+
+				AssetDetailMakeTextBox.IsReadOnly = false;
+				AssetDetailModelTextBox.IsReadOnly = false;
+				AssetDetailAssetNumberTextBox.IsReadOnly = false;
+				AssetDetailSerialNumberTextBox.IsReadOnly = false;
+				AssetDetailDateManufacturedTextBox.IsReadOnly = false;
+				AssetDetailIssueLevelTextBox.IsReadOnly = false;
+				AssetDetailInstalledOnTextBox.IsReadOnly = false;
+				AssetDetailDescriptionTextBox.IsReadOnly = false;
+				AssetDetailDatePicker.IsEnabled = true;
+
+				AssetDetailMakeTextBox.Background = Brushes.PeachPuff;
+				AssetDetailDescriptionTextBox.Background = Brushes.PeachPuff;
+				AssetDetailModelTextBox.Background = Brushes.PeachPuff;
+				AssetDetailAssetNumberTextBox.Background = Brushes.PeachPuff;
+				AssetDetailSerialNumberTextBox.Background = Brushes.PeachPuff;
+				AssetDetailDateManufacturedTextBox.Background = Brushes.PeachPuff;
+				AssetDetailIssueLevelTextBox.Background = Brushes.PeachPuff;
+				AssetDetailInstalledOnTextBox.Background = Brushes.PeachPuff;
+				AssetDetailDescriptionTextBox.Background = Brushes.PeachPuff;
+				AssetDetailDatePicker.Background = Brushes.PeachPuff;
+
+				AssetUpdateButton.Content = "Save Details";
+				
+			}
+			else
+			{
+				editMode = false;
+				AssetDetailEditModeLabel.Visibility = Visibility.Hidden;
+
+				AssetDetailMakeTextBox.IsReadOnly = true;
+				AssetDetailModelTextBox.IsReadOnly = true;
+				AssetDetailAssetNumberTextBox.IsReadOnly = true;
+				AssetDetailSerialNumberTextBox.IsReadOnly = true;
+				AssetDetailDateManufacturedTextBox.IsReadOnly = true;
+				AssetDetailIssueLevelTextBox.IsReadOnly = true;
+				AssetDetailInstalledOnTextBox.IsReadOnly = true;
+				AssetDetailDescriptionTextBox.IsReadOnly = true;
+				AssetDetailDatePicker.IsEnabled = false;
+
+				AssetDetailMakeTextBox.Background = Brushes.White;
+				AssetDetailDescriptionTextBox.Background = Brushes.White;
+				AssetDetailModelTextBox.Background = Brushes.White;
+				AssetDetailAssetNumberTextBox.Background = Brushes.White;
+				AssetDetailSerialNumberTextBox.Background = Brushes.White;
+				AssetDetailDateManufacturedTextBox.Background = Brushes.White;
+				AssetDetailIssueLevelTextBox.Background = Brushes.White;
+				AssetDetailInstalledOnTextBox.Background = Brushes.White;
+				AssetDetailDescriptionTextBox.Background = Brushes.White;
+				AssetDetailDatePicker.Background = Brushes.White;
+
+				AssetUpdateButton.Content = "Edit Details";
+				db.ConnectDB("Assets");
+
+				db.UpdateAsset("AssetList", "Description", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "Make", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "Model", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "AssetNumber", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "SerialNumber", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "DateOfManufacture", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "DateOfInstallation", assetDetailIDForDatabase, AssetDetailDatePicker.SelectedDate.Value.Date);
+				db.UpdateAsset("AssetList", "IssueLevel", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "InstalledOn", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+
+
+
+
+			}
 		}
 
 		private void JobListForAssetDetails_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

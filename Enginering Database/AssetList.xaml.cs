@@ -42,11 +42,11 @@ namespace Engineering_Database
 				assets.Make = reader["Make"].ToString();
 				assets.SerialNumber = reader["SerialNumber"].ToString();
 				assets.DateofManufacture = reader["DateOfManufacture"].ToString();
-				if (reader["DateOfInstallation"] !=DBNull.Value)
+				if (reader["DateOfInstallation"] != DBNull.Value)
 				{
-					
+
 					assets.DateofInstallation = Convert.ToDateTime(reader["DateOfInstallation"]);
-				
+
 				}
 				assets.IssueLevel = reader["IssueLevel"].ToString();
 				assets.InstalledOn = reader["InstalledOn"].ToString();
@@ -62,9 +62,7 @@ namespace Engineering_Database
 
 		private void AssetListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			//var selectedItem = AssetListView.SelectedItem as DataRowView;
-
-			//System.Windows.MessageBox.Show(selectedItem["ID"].ToString());
+			
 			string decomissioned;
 			string onSite;
 
@@ -90,30 +88,44 @@ namespace Engineering_Database
 				onSite = "No";
 			}
 
-			//assetDetail.assetDetailIDCont2 = item.AssetNumber.ToString();
 
 
+
+			//refactored to use textbox for information showing.
+			//when will need to edit asset details, texbot will be enabled, as by default texboxes are disabled
+
+			assetDetail.assetDetailIDForDatabase = item.ID;
 			assetDetail.AssetDetailId.Content = item.ID.ToString();
-			assetDetail.AssetDetailDescription.Content = item.Description.ToString();
-			assetDetail.AssetDetailMake.Content = item.Make.ToString();
-			assetDetail.AssetDetailModel.Content = item.Model.ToString();
-			assetDetail.AssetDetailAssetNumber.Content = item.AssetNumber.ToString();
-			assetDetail.AssetDetailSerialNumber.Content = item.SerialNumber.ToString();
-			assetDetail.AssetDetailDateOfManufacture.Content = item.DateofManufacture.ToString();
+			assetDetail.AssetDetailMakeTextBox.Text = item.Make.ToString();
+			assetDetail.AssetDetailModelTextBox.Text = item.Model.ToString();
+			assetDetail.AssetDetailAssetNumberTextBox.Text = item.AssetNumber.ToString();
+			assetDetail.AssetDetailSerialNumberTextBox.Text = item.SerialNumber.ToString();
+			assetDetail.AssetDetailDateManufacturedTextBox.Text = item.DateofManufacture.ToString();
+			
+			assetDetail.AssetDetailIssueLevelTextBox.Text = item.IssueLevel.ToString();
+			assetDetail.AssetDetailInstalledOnTextBox.Text = item.InstalledOn.ToString();
+			assetDetail.AssetDetailDescriptionTextBox.Text = item.Description.ToString();
+			assetDetail.AssetDetailDecomissioned.Content = decomissioned;
+			assetDetail.AssetDetailOnSite.Content = onSite;
 
-			if (item.DateofInstallation.ToString() =="01-Jan-01 12:00:00 AM")
+			if (item.DateofInstallation.ToString() == "01-Jan-01 12:00:00 AM" || item.DateofInstallation.ToString() == "01-Jan-01 00:00:00 AM")
 			{
-				assetDetail.AssetDetailDateOfInstalation.Content = "Date Not Set";
 				
+
 			}
 			else
 			{
-				assetDetail.AssetDetailDateOfInstalation.Content = item.DateofInstallation.ToString();
+				assetDetail.AssetDetailDatePicker.SelectedDate = item.DateofInstallation;
+
 			}
-				assetDetail.AssetDetailIssueLevel.Content = item.IssueLevel.ToString();
-			assetDetail.AssetDetailInstalledOn.Content = item.InstalledOn.ToString();
-			assetDetail.AssetDetailDecomissioned.Content = decomissioned;
-			assetDetail.AssetDetailOnSite.Content = onSite;
+
+
+
+
+
+
+
+
 
 
 			DatabaseClass jobDB = new DatabaseClass();

@@ -11,38 +11,29 @@
         <Label Name ="AssetDetailId" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,55,0,0" VerticalAlignment="Top" Width="78" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailDescriptionLabel" Content="Description:" HorizontalAlignment="Left" Height="28" Margin="5,88,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailDescription" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,88,0,0" VerticalAlignment="Top" Width="748" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailMakeLabel" Content="Make:" HorizontalAlignment="Left" Height="28" Margin="5,154,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailMake" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,154,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailModelLabel" Content="Model:" HorizontalAlignment="Left" Height="28" Margin="5,121,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailModel" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,121,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailAssetNumberLabel" Content="Asset Number:" HorizontalAlignment="Left" Height="28" Margin="5,187,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailAssetNumber" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,187,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailSerialNumberLabel" Content="Serial Number:" HorizontalAlignment="Left" Height="28" Margin="5,220,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailSerialNumber" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,220,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailDateOfManufactureLabel" Content="Date Manufactured:" HorizontalAlignment="Left" Height="28" Margin="5,253,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailDateOfManufacture" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,253,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailDateOfInstallationLabel" Content="Date Installed:" HorizontalAlignment="Left" Height="28" Margin="5,286,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailDateOfInstalation" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,286,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailIssueLevelLabel" Content="Issue Level:" HorizontalAlignment="Left" Height="28" Margin="5,319,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailIssueLevel" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,319,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailInstalledOnLabel" Content="Installed On:" HorizontalAlignment="Left" Height="28" Margin="5,352,0,0" VerticalAlignment="Top" Width="126" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Name ="AssetDetailInstalledOn" Content="x" HorizontalAlignment="Left" Height="28" Margin="136,352,0,0" VerticalAlignment="Top" Width="181" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailDecomissionedLabel" Content="Decomissioned?" HorizontalAlignment="Left" Height="28" Margin="389,55,0,0" VerticalAlignment="Top" Width="119" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
         <Label Name ="AssetDetailDecomissioned" Content="x" HorizontalAlignment="Left" Height="28" Margin="515,55,0,0" VerticalAlignment="Top" Width="54" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
 
         <Label x:Name ="AssetDetailOnSiteLabel" Content="On Site?" HorizontalAlignment="Left" Height="28" Margin="220,55,0,0" VerticalAlignment="Top" Width="96" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" Background="#FFD48C8C" Foreground="#FF0D0E0D" FontWeight="Bold" FontStyle="Italic"/>
         <Label Name ="AssetDetailOnSite" Content="x" HorizontalAlignment="Left" Height="28" Margin="320,55,0,0" VerticalAlignment="Top" Width="57" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center"/>
-        <Label Content="Asset Details" HorizontalAlignment="Left" Height="40" Margin="24,10,0,0" VerticalAlignment="Top" Width="758" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24" BorderBrush="#FFA47F7F"/>
+        <Label Name ="AssetDetailTitle" Content="Asset Details" HorizontalAlignment="Left" Height="40" Margin="24,10,0,0" VerticalAlignment="Top" Width="758" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24" BorderBrush="#FFA47F7F"/>
         <ListView x:Name="JobListForAssetDetails" HorizontalAlignment="Left" Height="355" Margin="5,406,0,0" VerticalAlignment="Top" Width="879" MouseDoubleClick="JobListForAssetDetails_MouseDoubleClick">
             <ListView.View>
                 <GridView>
@@ -55,7 +46,17 @@
             </ListView.View>
         </ListView>
         <Label Content="Issues Reported for Asset" HorizontalAlignment="Left" Height="28" Margin="193,380,0,0" VerticalAlignment="Top" Width="376" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="14"/>
-        <Button x:Name="AssetUpdateButton" Content="Update Asset" HorizontalAlignment="Left" Height="33" Margin="732,347,0,0" VerticalAlignment="Top" Width="152" Click="AssetUpdateButton_Click"/>
+        <Button x:Name="AssetUpdateButton" Content="Edit Details" HorizontalAlignment="Left" Height="33" Margin="732,347,0,0" VerticalAlignment="Top" Width="152" Click="AssetUpdateButton_Click"/>
+        <TextBox Name="AssetDetailInstalledOnTextBox" HorizontalAlignment="Left" Height="28" Margin="136,352,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox x:Name="AssetDetailIssueLevelTextBox" HorizontalAlignment="Left" Height="28" Margin="136,319,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox x:Name="AssetDetailDateManufacturedTextBox" HorizontalAlignment="Left" Height="28" Margin="136,253,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox x:Name="AssetDetailSerialNumberTextBox" HorizontalAlignment="Left" Height="28" Margin="136,220,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox x:Name="AssetDetailAssetNumberTextBox" HorizontalAlignment="Left" Height="28" Margin="136,187,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox x:Name="AssetDetailMakeTextBox" HorizontalAlignment="Left" Height="28" Margin="136,154,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox x:Name="AssetDetailModelTextBox" HorizontalAlignment="Left" Height="28" Margin="136,121,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <TextBox Name="AssetDetailDescriptionTextBox" HorizontalAlignment="Left" Height="28" Margin="136,88,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="748" VerticalContentAlignment="Center" IsReadOnly="True"/>
+        <Label Name="AssetDetailEditModeLabel" Content="edit mode" HorizontalAlignment="Left" Height="40" Margin="475,10,0,0" VerticalAlignment="Top" Width="135" Foreground="#FFF50B0B" VerticalContentAlignment="Bottom" FontSize="20" FontWeight="Bold" Visibility="Hidden"/>
+        <DatePicker Name="AssetDetailDatePicker" HorizontalAlignment="Left" Height="28" Margin="136,286,0,0" VerticalAlignment="Top" Width="181" IsEnabled="False" />
 
 
 
