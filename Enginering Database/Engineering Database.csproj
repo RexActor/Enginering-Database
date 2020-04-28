@@ -261,6 +261,13 @@
     <Compile Include="IssueClass.cs" />
     <Compile Include="issuedata.cs" />
     <Compile Include="LogHelper.cs" />
+    <Compile Include="MeterReadingClass.cs" />
+    <Compile Include="MeterReadings.xaml.cs">
+      <DependentUpon>MeterReadings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MeterReadingSummary.xaml.cs">
+      <DependentUpon>MeterReadingSummary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="passwordWindow.xaml.cs">
       <DependentUpon>passwordWindow.xaml</DependentUpon>
     </Compile>
@@ -324,6 +331,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MeterReadings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MeterReadingSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="passwordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -477,6 +492,7 @@
     <Resource Include="ReportIssue.png" />
     <Resource Include="PasswordProtected.png" />
     <Resource Include="Load Report.png" />
+    <Resource Include="Meter-02.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

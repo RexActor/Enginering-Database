@@ -47,6 +47,9 @@
         <Image x:Name="ViewDatabaseImage" Margin="247,175,169,198" Source="User Reported Issues.png" Stretch="Fill"/>
         <Image x:Name="UpdateDatabaseImage" Margin="10,175,406,198" Source="update.png" Stretch="Fill"/>
         <Image Margin="432,3,1,385" Source="User Settings-02-WF.png" Stretch="Fill" MouseDown="SettingsShow"/>
+        <Button Name ="MeterReadingButton" Content="Meter Readings" HorizontalAlignment="Left" Height="48" Margin="247,287,0,0" VerticalAlignment="Top" Width="216" Click="MeterReadingButton_Click"/>
+        <Image x:Name="PasswordProtectImage3_Copy" Margin="440,292,4,109" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
+        <Image Margin="247,287,169,86" Source="Meter-02.png" Stretch="Fill"/>
 
 
 

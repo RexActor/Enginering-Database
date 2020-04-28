@@ -1,0 +1,10 @@
+﻿using System;
+
+namespace Engineering_Database
+{
+	class MeterReadingClass
+	{
+		public string InsertDate { get; set; }
+		public double meterReading { get; set; }
+	}
+}

@@ -472,5 +472,43 @@ namespace Engineering_Database
 
 
 		#endregion
+
+
+		/// <summary>
+		/// Function to insert into database meter Readings. Values - Date Time and float number
+		/// </summary>
+		/// <param name="table"></param>
+		/// <param name="insertDate"></param>
+		/// <param name="meterReading"></param>
+		public void InsertReadingIntoDatabase(string table, DateTime insertDate, double meterReading)
+		{
+			string queryString = $"INSERT INTO {table} (InsertDate,MeterReading) Values(@InsertDate,@MeterReading)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@InsertDate", insertDate);
+			cmd.Parameters.AddWithValue("@MeterReading", meterReading);
+			
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public OleDbDataReader GetMeterReadingData(string table)
+		{
+			string queryString = $"SELECT * FROM {table}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public string GetMeterReadingData(string table, string field, DateTime date)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			reader.Read();
+			var data = reader[field].ToString();
+			reader.Close();
+			cmd.Dispose();
+			return data;
+		}
+
 	}
 }

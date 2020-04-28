@@ -367,6 +367,23 @@ namespace Enginering_Database
 
 
 		}
+
+		private void MeterReadingButton_Click(object sender, RoutedEventArgs e)
+		{
+			userSett.openSettings();
+			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
+			{
+
+				MeterReadings meterReadings = new MeterReadings();
+				meterReadings.Show();
+			}
+			else
+			{
+
+				PasswordRequest("MeterReadings");
+
+			}
+		}
 	}
 }
 

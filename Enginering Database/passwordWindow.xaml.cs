@@ -12,6 +12,7 @@ namespace Engineering_Database
 		readonly updateDatabase updateDatabase = new updateDatabase();
 		readonly AssetList assetList = new AssetList();
 		readonly Report reports = new Report();
+		readonly MeterReadings meterReadings = new MeterReadings();
 		public string targetWindow;
 		public passwordWindow()
 		{
@@ -51,6 +52,12 @@ namespace Engineering_Database
 				{
 					this.Close();
 					reports.Show();
+
+				}
+				else if (targetWindow == "MeterReadings")
+				{
+					this.Close();
+					meterReadings.Show();
 
 				}
 

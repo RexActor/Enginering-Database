@@ -1,0 +1,21 @@
+﻿<Window x:Class="Engineering_Database.MeterReadingSummary"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="MeterReadingSummary" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
+        <ListView x:Name="MeterReadingListView" HorizontalAlignment="Left" Height="354" Margin="10,57,0,0" VerticalAlignment="Top" Width="174" SelectionChanged="MeterReadingListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="Recorded Date" Width="174" DisplayMemberBinding="{Binding InsertDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Name ="testLabel" Content="Label" HorizontalAlignment="Left" Height="33" Margin="227,57,0,0" VerticalAlignment="Top" Width="300"/>
+
+    </Grid>
+</Window>
