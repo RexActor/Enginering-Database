@@ -492,7 +492,15 @@ namespace Engineering_Database
 		}
 		public OleDbDataReader GetMeterReadingData(string table)
 		{
-			string queryString = $"SELECT * FROM {table}";
+			string queryString = $"SELECT * FROM {table} ORDER BY InsertDate ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetMeterReadingData(string table,string month)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE ReadingMonth='{month}'  ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -500,12 +508,33 @@ namespace Engineering_Database
 		}
 		public string GetMeterReadingData(string table, string field, DateTime date)
 		{
-			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date}'";
+			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date}'  ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
 			var data = reader[field].ToString();
 			reader.Close();
+			cmd.Dispose();
+			return data;
+		}
+
+		/// <summary>
+		/// Counting lines in MeterReading table
+		/// </summary>
+		/// <returns></returns>
+		public int DBMeterReadingCountLines()
+		{
+			string queryString = "SELECT COUNT(*) FROM MeterReadings";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			var data = (int)cmd.ExecuteScalar();
+			cmd.Dispose();
+			return data;
+		}
+		public int DBMeterReadingCountLines(string month)
+		{
+			string queryString = $"SELECT COUNT(*) FROM MeterReadings Where ReadingMonth='{month}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
 			return data;
 		}

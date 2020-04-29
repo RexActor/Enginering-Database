@@ -3,19 +3,56 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Engineering_Database"
+        xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Compatible;assembly=DotNetProjects.DataVisualization.Toolkit"
+        xmlns:local="clr-namespace:Engineering_Database" xmlns:DVC1="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
         mc:Ignorable="d"
-        Title="MeterReadingSummary" Height="450" Width="800" ResizeMode="NoResize">
-    <Grid>
-        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
+        Title="MeterReadingSummary" Height="450" Width="1299.115" ResizeMode="NoResize">
+            
+        <Grid>
+        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="10,10,0,0" VerticalAlignment="Top" Width="1273" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
         <ListView x:Name="MeterReadingListView" HorizontalAlignment="Left" Height="354" Margin="10,57,0,0" VerticalAlignment="Top" Width="174" SelectionChanged="MeterReadingListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn  Header="Recorded Date" Width="174" DisplayMemberBinding="{Binding InsertDate}"/>
+                    <GridViewColumn  Header="Recorded Date" Width="174" DisplayMemberBinding="{Binding ReadingMonth}"/>
                 </GridView>
             </ListView.View>
+            <ComboBox Height="100" Width="120"/>
         </ListView>
-        <Label Name ="testLabel" Content="Label" HorizontalAlignment="Left" Height="33" Margin="227,57,0,0" VerticalAlignment="Top" Width="300"/>
+        <Label Name ="testLabel" Content="Label" HorizontalAlignment="Left" Height="33" Margin="189,57,0,0" VerticalAlignment="Top" Width="95"/>
+        
+        <DVC1:Chart x:Name="TestChart" Height="Auto" Title="Water Consumption" Margin="314,53,10,10" Background="#FF327E4A" Foreground="#FFE2D8D6" FontWeight="Bold" FontSize="20">
+            <DVC1:Chart.LegendStyle>
+                <Style TargetType="DVC1:Legend">
+                    <Setter Property="Width" Value="0"></Setter>
+                </Style>
+            </DVC1:Chart.LegendStyle>
+                          
+           
+            <DVC1:Chart.Series>
+               
+                <DVC1:ColumnSeries  IndependentValuePath="Key" DependentValuePath="Value" Background="Black"/>
+                <DVC1:LineSeries   IndependentValuePath="Key" DependentValuePath="Value" Background="Red"/>
+            </DVC1:Chart.Series>
+            <DVC1:Chart.Axes>
 
+                <DVC1:CategoryAxis Orientation="X" Title="Period"  Foreground="#FFE2D8D6" Background="#FF327E4A" FontFamily="Georgia" FontSize="14" FontWeight="Bold" Margin="0,4,0,-4">
+                    <DVC1:CategoryAxis.AxisLabelStyle>
+                        <Style TargetType="DVC1:AxisLabel">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DVC1:AxisLabel">
+                                        <TextBlock Text="{TemplateBinding FormattedContent}">
+                                            <TextBlock.LayoutTransform>
+                                                
+                                                <RotateTransform Angle="-90"/>
+                                            </TextBlock.LayoutTransform>
+                                        </TextBlock>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style></DVC1:CategoryAxis.AxisLabelStyle>
+                </DVC1:CategoryAxis>
+            </DVC1:Chart.Axes>
+        </DVC1:Chart>
     </Grid>
 </Window>
