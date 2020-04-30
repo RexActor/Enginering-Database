@@ -8,5 +8,6 @@ namespace Engineering_Database
 		public double meterReading { get; set; }
 
 		public string ReadingMonth { get; set; }
+		public string ReadingYear { get; set; }
 	}
 }

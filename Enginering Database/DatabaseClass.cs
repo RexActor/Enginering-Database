@@ -323,7 +323,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 		}
 
-		
+
 		#endregion
 
 		//public string GetCPU()
@@ -451,9 +451,9 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
-		public void UpdateAsset(string table,string field, int assetID, string value)
+		public void UpdateAsset(string table, string field, int assetID, string value)
 		{
-			string queryString = "UPDATE " +table +" SET " + field + " = @value WHERE ID = @assetID";
+			string queryString = "UPDATE " + table + " SET " + field + " = @value WHERE ID = @assetID";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@value", value);
 			cmd.Parameters.AddWithValue("@assetID", assetID);
@@ -486,7 +486,7 @@ namespace Engineering_Database
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@InsertDate", insertDate);
 			cmd.Parameters.AddWithValue("@MeterReading", meterReading);
-			
+
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
@@ -498,7 +498,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table,string month)
+		public OleDbDataReader GetMeterReadingData(string table, string month)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE ReadingMonth='{month}'  ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -506,6 +506,22 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
+		public OleDbDataReader GetMeterReadingData(string table,string field, string month)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='{month}'  ORDER BY InsertDate ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+
+		/// <summary>
+		/// gets data  for specific date in specific field in database table
+		/// </summary>
+		/// <param name="table"></param>
+		/// <param name="field"></param>
+		/// <param name="date"></param>
+		/// <returns></returns>
 		public string GetMeterReadingData(string table, string field, DateTime date)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date}'  ORDER BY InsertDate ASC";
@@ -530,6 +546,12 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return data;
 		}
+
+		/// <summary>
+		/// Counts lines in database MeterReadings table. Months are recorded as Jan, Feb, Apr etc.
+		/// </summary>
+		/// <param name="month"></param>
+		/// <returns></returns>
 		public int DBMeterReadingCountLines(string month)
 		{
 			string queryString = $"SELECT COUNT(*) FROM MeterReadings Where ReadingMonth='{month}'";
@@ -538,6 +560,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return data;
 		}
+
 
 	}
 }
