@@ -1,0 +1,93 @@
+﻿using System;
+using System.Windows;
+
+namespace Engineering_Database
+{
+	/// <summary>
+	/// Interaction logic for MeterReadingEdit.xaml
+	/// </summary>
+	public partial class MeterReadingEdit : Window
+	{
+		private int meterID;
+		public string InsertedDate2;
+		public double meterReading;
+		bool itemFound = false;
+
+		DatabaseClass db = new DatabaseClass();
+		/*
+				public string InsertDate { get; set; }
+				public double meterReading { get; set; }
+
+				public string ReadingMonth { get; set; }
+				public string ReadingYear { get; set; }
+
+
+			*/
+		public MeterReadingEdit()
+		{
+
+
+			InitializeComponent();
+
+
+		}
+
+		public void setValues(string date, double reading)
+		{
+			InsertedDate2 = String.Format("{0:dd-MMM-yyyy}", date);
+			meterReading = reading;
+			title.Content = $"Edit Meter reading Data for date [{InsertedDate2}]";
+
+			MeterReadingTextBox.Text = meterReading.ToString();
+			dateInsertedData.Content = InsertedDate2.ToString();
+			GetReadingID(meterReading, InsertedDate2);
+			recordIDdata.Content = meterID.ToString();
+		}
+
+
+		private void GetReadingID(double value, string dateValue)
+		{
+			db.ConnectDB();
+			var reader = db.GetMeterReadingData("MeterReadings");
+			while (reader.Read())
+			{
+				DateTime dt = Convert.ToDateTime(reader["InsertDate"]);
+				string dtString = dt.ToString("dd/MMM/yy");
+				//Console.WriteLine($"Comparing {dtString} and comparing against {dateValue}");
+				if (dtString == dateValue)
+				{
+					meterID = Convert.ToInt32(reader["ID"].ToString());
+					//Console.WriteLine($"Found in firts if loop {meterID}");
+					itemFound = true;
+					return;
+				}
+					
+
+			}
+			if (itemFound == false)
+			{
+				while (reader.Read())
+				{
+					DateTime dt = Convert.ToDateTime(reader["InsertDate"]);
+					string dtString = dt.ToString("dd-MMM-yy");
+
+					if (dtString == dateValue)
+					{
+						meterID = Convert.ToInt32(reader["ID"].ToString());
+						Console.WriteLine($"Found in second if loop {meterID}");
+						itemFound = true;
+						return;
+					}
+
+
+				}
+			}
+		}
+
+		private void SaveButton_Click(object sender, RoutedEventArgs e)
+		{
+			db.MeterReadingsUpdate("MeterReadings", "MeterReading", meterID, Convert.ToDouble(MeterReadingTextBox.Text));
+			this.Close();
+		}
+	}
+}

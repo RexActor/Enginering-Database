@@ -9,14 +9,17 @@
     <Grid>
         <Label Content="Insert Reading into database" HorizontalAlignment="Left" Height="45" Margin="10,1,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="515" FontWeight="Bold" FontSize="24"/>
         <Label Content="Reading" HorizontalAlignment="Left" Height="28" Margin="10,101,0,0" VerticalAlignment="Top" Width="81" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right"/>
-        <DatePicker Name="MeterReadingDatePicker" HorizontalAlignment="Left" Height="28" Margin="96,68,0,0" VerticalAlignment="Top" Width="159"/>
+        <DatePicker Name="MeterReadingDatePicker" HorizontalAlignment="Left" Height="28" Margin="96,68,0,0" VerticalAlignment="Top" Width="159" SelectedDateChanged="MeterReadingDatePicker_SelectedDateChanged"/>
         <Label Content="Current Date" HorizontalAlignment="Left" Height="28" Margin="10,68,0,0" VerticalAlignment="Top" Width="81" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right"/>
-        <TextBox Name="MeterReadingTextBox" HorizontalAlignment="Left" Height="28" Margin="96,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80"/>
+        <TextBox Name="MeterReadingTextBox" HorizontalAlignment="Left" Height="28" Margin="96,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" PreviewMouseDown="MeterReadingTextBox_MouseDown" TextChanged="MeterReadingTextBox_TextChanged"/>
         <Button Name="SaveReadingButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="10,142,0,0" VerticalAlignment="Top" Width="97" Click="SaveReadingButton_Click"/>
         <Button x:Name="ShowSummary" Content="Show Data" HorizontalAlignment="Left" Height="26" Margin="259,142,0,0" VerticalAlignment="Top" Width="97" Click="ShowSummary_Click"/>
-        <Label Name ="TryParseErrorLabel" Content="Please enter correct value. Please enter integer {1} or double value {1.0}" HorizontalAlignment="Left" Height="28" Margin="176,101,0,0" VerticalAlignment="Top" Width="349" VerticalContentAlignment="Center" FontSize="10" Foreground="#FFF10D0D" FontWeight="Bold" Visibility="Hidden"/>
+        <Label Name ="TryParseErrorLabel" Content="Please enter correct value." HorizontalAlignment="Left" Height="28" Margin="353,101,0,0" VerticalAlignment="Top" Width="141" VerticalContentAlignment="Center" FontSize="10" Foreground="#FFF10D0D" FontWeight="Bold" Visibility="Hidden"/>
         <Label Name ="DataAlreadyUploadedErrors" Content="Data was already uploaded for today" HorizontalAlignment="Left" Height="28" Margin="260,68,0,0" VerticalAlignment="Top" Width="255" FontWeight="Bold" Foreground="#FFF50505" Visibility="Hidden"/>
         <CheckBox Name ="EditableDate" Content="Choose different date" HorizontalAlignment="Left" Height="14" Margin="96,49,0,0" VerticalAlignment="Top" Width="150" Click="EditableDate_Click"  />
+        <Label Name="saveInfoLabel" Content="Data Saved" HorizontalAlignment="Left" Height="34" Margin="112,134,0,0" VerticalAlignment="Top" Width="118" Visibility="Hidden" Foreground="#FF145D0D" FontWeight="Bold" FontSize="16"/>
+        <Label Name="Consumption" Content="" HorizontalAlignment="Left" Height="28" Margin="181,101,0,0" VerticalAlignment="Top" Width="49" HorizontalContentAlignment="Right"/>
+        <Label Content="Consumption" HorizontalAlignment="Left" Height="28" Margin="235,101,0,0" VerticalAlignment="Top" Width="93"/>
 
     </Grid>
 </Window>

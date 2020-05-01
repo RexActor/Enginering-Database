@@ -480,13 +480,13 @@ namespace Engineering_Database
 		/// <param name="table"></param>
 		/// <param name="insertDate"></param>
 		/// <param name="meterReading"></param>
-		public void InsertReadingIntoDatabase(string table, DateTime insertDate, double meterReading)
+		public void InsertReadingIntoDatabase(string table, DateTime insertDate, double meterReading, double consumption)
 		{
-			string queryString = $"INSERT INTO {table} (InsertDate,MeterReading) Values(@InsertDate,@MeterReading)";
+			string queryString = $"INSERT INTO {table} (InsertDate,MeterReading,MeterCalculation) Values(@InsertDate,@MeterReading,@MeterCalculation)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@InsertDate", insertDate);
 			cmd.Parameters.AddWithValue("@MeterReading", meterReading);
-
+			cmd.Parameters.AddWithValue("@MeterCalculation", consumption);
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
@@ -506,9 +506,34 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table,string field, string month)
+		public OleDbDataReader GetMeterReadingData(string table, string field, string month)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE {field}='{month}'  ORDER BY InsertDate ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetMeterReadingData(string table, string field, double value)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='" + value + "'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetMeterReadingData(string table, string field, int value)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='" + value + "'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+
+		public OleDbDataReader GetMeterReadingDataForField(string table, string field, DateTime date)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='{date}'  ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -524,7 +549,19 @@ namespace Engineering_Database
 		/// <returns></returns>
 		public string GetMeterReadingData(string table, string field, DateTime date)
 		{
-			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date}'  ORDER BY InsertDate ASC";
+			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date.ToOADate()}'";
+		
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			reader.Read();
+			var data = reader[field].ToString();
+			reader.Close();
+			cmd.Dispose();
+			return data;
+		}
+		public string GetMeterReadingLastReading(string table, string field)
+		{
+			string queryString = $"SELECT TOP 1 * FROM {table} ORDER BY InsertDate DESC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
@@ -545,6 +582,15 @@ namespace Engineering_Database
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
 			return data;
+		}
+		public void MeterReadingsUpdate(string table, string field, int ID, double value)
+		{
+			string queryString = $"UPDATE {table} SET " + field + " = @value WHERE ID = @ID";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@ID", ID);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
 		}
 
 		/// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Windows;
@@ -15,20 +16,22 @@ namespace Engineering_Database
 	public partial class MeterReadingSummary : Window
 	{
 		DatabaseClass db = new DatabaseClass();
-
-
+		ToolTip tp = new ToolTip();
+		
+		bool canEditData = false;
 		List<string> CollectionForListView = new List<string>();
-		bool chartOnLoad = true;
+
 		public MeterReadingSummary()
 		{
 			InitializeComponent();
 
 			//getReadings("ReadingYear", "Year");
 
-			
+
 			MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
 			getReadings("ReadingMonth", "Year");
 			loadChart("Year");
+			MeterReadingListView.SelectedIndex = 0;
 		}
 
 
@@ -61,7 +64,7 @@ namespace Engineering_Database
 
 				MeterReadingClass meter = new MeterReadingClass();
 				DateTime pulledDate = (DateTime)reader["InsertDate"];
-				meter.InsertDate = pulledDate.ToString("d/MMM/yyyy");
+				meter.InsertDate = pulledDate.ToString("d/MMM/yy");
 				meter.meterReading = Convert.ToDouble(reader["MeterReading"]);
 				meter.ReadingMonth = reader["ReadingMonth"].ToString();
 				meter.ReadingYear = reader["ReadingYear"].ToString();
@@ -118,7 +121,7 @@ namespace Engineering_Database
 
 		private void MeterReadingListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (MeterReadingListView.SelectedIndex >=0)
+			if (MeterReadingListView.SelectedIndex >= 0)
 			{
 
 				if (FilterSlider.Value == 1)
@@ -134,16 +137,17 @@ namespace Engineering_Database
 					MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
 					loadChart(selectedItem.ReadingYear, "Year");
 				}
-				
+
 			}
-		
-		
+
+
 		}
 
 
 		//need to change function to show in chart All month Data if specific month is not selected
 		private void loadChart(string month = null, string filter = null)
 		{
+			ColumnSeriesData.IsSelectionEnabled = false;
 			db.ConnectDB();
 			int t = 0;
 			int i = 0;
@@ -158,7 +162,7 @@ namespace Engineering_Database
 			if (filter == "Month")
 			{
 
-
+				canEditData = true;
 
 				t = db.DBMeterReadingCountLines(month);
 				reader = db.GetMeterReadingData("MeterReadings", month);
@@ -168,7 +172,7 @@ namespace Engineering_Database
 
 				while (getAverage.Read())
 				{
-					sum += Convert.ToInt32(getAverage["MeterReading"]);
+					sum += Convert.ToInt32(getAverage["MeterCalculation"]);
 				}
 				averageValue = sum / t;
 
@@ -176,8 +180,8 @@ namespace Engineering_Database
 				{
 					DateTime dt = (DateTime)reader["InsertDate"];
 
-					average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MM"), averageValue);
-					data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MM"), Convert.ToInt32(reader["MeterReading"]));
+					average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), averageValue);
+					data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), Convert.ToInt32(reader["MeterCalculation"]));
 
 					i++;
 				}
@@ -189,12 +193,13 @@ namespace Engineering_Database
 			}
 			else if (filter == "Year")
 			{
+				canEditData = false;
 				var list = new List<Data>();
 
 
 				//reads through all and create list with Month values
 
-				t = db.DBMeterReadingCountLines(month);
+				//t = db.DBMeterReadingCountLines(month);
 				reader = db.GetMeterReadingData("MeterReadings");
 				//getAverage = db.GetMeterReadingData("MeterReadings");
 				int total = 0;
@@ -203,7 +208,7 @@ namespace Engineering_Database
 				{
 					string myString = reader["ReadingMonth"].ToString();
 
-					int addingValue = Convert.ToInt32(reader["MeterReading"]);
+					int addingValue = Convert.ToInt32(reader["MeterCalculation"]);
 
 					bool containsElement = list.Any(x => x.Month == myString);
 					total = list.Where(x => x.Month == myString).Sum(y => y.sum);
@@ -278,6 +283,8 @@ namespace Engineering_Database
 
 		private void FilterSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
+			canEditData = false;
+			ChangeDataCheckBox.IsChecked = false;
 			if (FilterSlider.Value == 0)
 			{
 				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
@@ -293,6 +300,55 @@ namespace Engineering_Database
 
 		}
 
+		private void ColumnSeriesData_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			if (ChangeDataCheckBox.IsChecked == true)
+			{
 
+				ColumnSeries cs = (ColumnSeries)sender;
+				KeyValuePair<string, int> kv = (KeyValuePair<string, int>)cs.SelectedItem;
+
+				MeterReadingEdit editMeterReading = new MeterReadingEdit();
+				editMeterReading.setValues(kv.Key, kv.Value);
+				//MessageBox.Show(kv.Key);
+				editMeterReading.Show();
+				ChangeDataCheckBox.IsChecked = false;
+
+			}
+			else
+			{
+				return;
+			}
+		}
+
+		private void ChangeDataCheckBox_Click(object sender, RoutedEventArgs e)
+		{
+
+
+			if (canEditData == false)
+			{
+				ColumnSeriesData.IsSelectionEnabled = false;
+				tp.IsOpen = false;
+				ChangeDataCheckBox.IsChecked = false;
+				tp.ToolTip = "Testing";
+				tp.Content = "Please choose listing in Month's rather than Year";
+				tp.IsOpen = true;
+				tp.StaysOpen = false;
+				tp.IsEnabled = true;
+
+			}
+			else
+			{
+				tp.IsOpen = false;
+				if (ChangeDataCheckBox.IsChecked == true)
+				{
+					ColumnSeriesData.IsSelectionEnabled = true;
+				}
+				else
+				{
+					ColumnSeriesData.IsSelectionEnabled = false;
+				}
+			}
+		}
 	}
 }

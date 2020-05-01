@@ -6,10 +6,10 @@
         xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Compatible;assembly=DotNetProjects.DataVisualization.Toolkit"
         xmlns:local="clr-namespace:Engineering_Database" xmlns:DVC1="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
         mc:Ignorable="d"
-        Title="Meter Reading Summary" Height="450" Width="1028.319" ResizeMode="NoResize">
+        Title="Meter Reading Summary" Height="450" Width="946.319" ResizeMode="NoResize">
 
     <Grid>
-        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="192,15,0,0" VerticalAlignment="Top" Width="816" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
+        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="95,15,0,0" VerticalAlignment="Top" Width="836" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
         <ListView x:Name="MeterReadingListView" HorizontalAlignment="Left" Height="354" Margin="10,57,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="MeterReadingListView_SelectionChanged" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -23,9 +23,8 @@
             </ListView.View>
             <ComboBox Height="100" Width="120"/>
         </ListView>
-        <Label Name ="testLabel" Content="Label" HorizontalAlignment="Left" Height="33" Margin="95,57,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-0.149,-7.214"/>
 
-        <DVC1:Chart x:Name="TestChart" Height="Auto" Title="Meter Reading Chart" Margin="172,57,0,6" Background="#FF327E4A" Foreground="#FFE2D8D6" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Width="836">
+        <DVC1:Chart x:Name="TestChart" Height="Auto" Title="Meter Reading Chart" Margin="95,57,0,10" Background="#FF327E4A" Foreground="#FFE2D8D6" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Width="836">
             <DVC1:Chart.LegendStyle>
                 <Style TargetType="DVC1:Legend">
                     <Setter Property="Width" Value="0"></Setter>
@@ -35,8 +34,8 @@
 
             <DVC1:Chart.Series>
 
-                <DVC1:ColumnSeries  IndependentValuePath="Key" DependentValuePath="Value" Background="Black"/>
-                <DVC1:LineSeries   IndependentValuePath="Key" DependentValuePath="Value" Background="Red" />
+                <DVC1:ColumnSeries  x:Name="ColumnSeriesData"  IndependentValuePath="Key" DependentValuePath="Value" Background="Black" MouseDoubleClick="ColumnSeriesData_MouseDoubleClick" IsSelectionEnabled="False" />
+                <DVC1:LineSeries   IndependentValuePath="Key" DependentValuePath="Value" Background="Red"  />
             </DVC1:Chart.Series>
             <DVC1:Chart.Axes>
 
@@ -63,5 +62,6 @@
         <Slider Name="FilterSlider" HorizontalAlignment="Left" Height="26" Margin="52,26,0,0" VerticalAlignment="Top" Width="84" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="1" Value="0" ValueChanged="FilterSlider_ValueChanged"/>
         <Label Content="Year" HorizontalAlignment="Left" Height="26" Margin="10,23,0,0" VerticalAlignment="Top" Width="64"/>
         <Label Content="Month" HorizontalAlignment="Left" Height="26" Margin="141,23,0,0" VerticalAlignment="Top" Width="64"/>
+        <CheckBox x:Name="ChangeDataCheckBox" Content="Change Data" HorizontalAlignment="Left" Height="21" Margin="18,5,0,0" VerticalAlignment="Top" Width="118" IsChecked="False" Click="ChangeDataCheckBox_Click"/>
     </Grid>
 </Window>

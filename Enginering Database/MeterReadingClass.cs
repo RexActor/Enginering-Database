@@ -9,5 +9,6 @@ namespace Engineering_Database
 
 		public string ReadingMonth { get; set; }
 		public string ReadingYear { get; set; }
+		public int DifferenceInDays { get; set; }
 	}
 }

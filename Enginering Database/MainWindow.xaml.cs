@@ -222,6 +222,16 @@ namespace Enginering_Database
 				InsertDataImage.Visibility = Visibility.Hidden;
 				ViewDatabaseButton.Visibility = Visibility.Hidden;
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
+				AssetListButton.Visibility = Visibility.Hidden;
+				ShowReportButton.Visibility = Visibility.Hidden;
+				ShowReportImage.Visibility = Visibility.Hidden;
+				AssetListImage.Visibility = Visibility.Hidden;
+				PasswordProtectImage1.Visibility = Visibility.Hidden;
+				PasswordProtectImage2.Visibility = Visibility.Hidden;
+				PasswordProtectImage3.Visibility = Visibility.Hidden;
+				PasswordProtectImage4.Visibility = Visibility.Hidden;
+				MeterReadingButton.Visibility = Visibility.Hidden;
+
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
 
@@ -243,6 +253,15 @@ namespace Enginering_Database
 				InsertDataImage.Visibility = Visibility.Visible;
 				ViewDatabaseButton.Visibility = Visibility.Visible;
 				ViewDatabaseImage.Visibility = Visibility.Visible;
+				AssetListButton.Visibility = Visibility.Visible;
+				ShowReportButton.Visibility = Visibility.Visible;
+				ShowReportImage.Visibility = Visibility.Visible;
+				AssetListImage.Visibility = Visibility.Visible;
+				PasswordProtectImage1.Visibility = Visibility.Visible;
+				PasswordProtectImage2.Visibility = Visibility.Visible;
+				PasswordProtectImage3.Visibility = Visibility.Visible;
+				PasswordProtectImage4.Visibility = Visibility.Visible;
+				MeterReadingButton.Visibility = Visibility.Visible;
 			}
 
 
@@ -277,6 +296,8 @@ namespace Enginering_Database
 				PasswordProtectImage1.Visibility = Visibility.Hidden;
 				PasswordProtectImage2.Visibility = Visibility.Hidden;
 				PasswordProtectImage3.Visibility = Visibility.Hidden;
+				PasswordProtectImage4.Visibility = Visibility.Hidden;
+				MeterReadingButton.Visibility = Visibility.Hidden;
 
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
@@ -308,6 +329,8 @@ namespace Enginering_Database
 				PasswordProtectImage1.Visibility = Visibility.Visible;
 				PasswordProtectImage2.Visibility = Visibility.Visible;
 				PasswordProtectImage3.Visibility = Visibility.Visible;
+				PasswordProtectImage4.Visibility = Visibility.Visible;
+				MeterReadingButton.Visibility = Visibility.Visible;
 			}
 		}
 		public void CloseApp(object sender, EventArgs e)

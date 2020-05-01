@@ -265,6 +265,9 @@
     <Compile Include="issuedata.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="MeterReadingClass.cs" />
+    <Compile Include="MeterReadingEdit.xaml.cs">
+      <DependentUpon>MeterReadingEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MeterReadings.xaml.cs">
       <DependentUpon>MeterReadings.xaml</DependentUpon>
     </Compile>
@@ -334,6 +337,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MeterReadingEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MeterReadings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
