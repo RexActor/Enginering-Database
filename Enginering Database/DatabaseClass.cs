@@ -491,6 +491,7 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
+		
 		public OleDbDataReader GetMeterReadingData(string table)
 		{
 			string queryString = $"SELECT * FROM {table} ORDER BY InsertDate ASC";
@@ -592,9 +593,9 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return data;
 		}
-		public void MeterReadingsUpdate(string table, string field, int ID, double value)
+		public void MeterReadingsUpdate(string table, string fieldToUpdate, int ID, double value)
 		{
-			string queryString = $"UPDATE {table} SET " + field + " = @value WHERE ID = @ID";
+			string queryString = $"UPDATE {table} SET " + fieldToUpdate + " = @value WHERE ID = @ID";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@value", value);
 			cmd.Parameters.AddWithValue("@ID", ID);

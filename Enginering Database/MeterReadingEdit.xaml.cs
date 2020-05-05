@@ -61,8 +61,6 @@ namespace Engineering_Database
 					itemFound = true;
 					return;
 				}
-					
-
 			}
 			if (itemFound == false)
 			{
@@ -78,8 +76,6 @@ namespace Engineering_Database
 						itemFound = true;
 						return;
 					}
-
-
 				}
 			}
 		}

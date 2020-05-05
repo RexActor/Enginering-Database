@@ -9,7 +9,7 @@
         Title="Meter Reading Summary" Height="450" Width="946.319" ResizeMode="NoResize">
 
     <Grid>
-        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="95,15,0,0" VerticalAlignment="Top" Width="836" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
+        <Label Content="Meter Reading Summary" HorizontalAlignment="Left" Height="42" Margin="95,15,0,0" VerticalAlignment="Top" Width="835" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="24"/>
         <ListView x:Name="MeterReadingListView" HorizontalAlignment="Left" Height="354" Margin="10,57,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="MeterReadingListView_SelectionChanged" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -24,19 +24,27 @@
             <ComboBox Height="100" Width="120"/>
         </ListView>
 
-        <DVC1:Chart x:Name="TestChart" Height="Auto" Title="Meter Reading Chart" Margin="95,57,0,10" Background="#FF327E4A" Foreground="#FFE2D8D6" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Width="836">
+        <DVC1:Chart x:Name="TestChart" Height="Auto" Title="Meter Reading Chart" LegendTitle="" Margin="95,57,0,10" Background="#FF327E4A" Foreground="#FFE2D8D6" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Width="836">
             <DVC1:Chart.LegendStyle>
                 <Style TargetType="DVC1:Legend">
-                    <Setter Property="Width" Value="0"></Setter>
+                    <Setter Property="FontSize" Value="14"></Setter>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                    <Setter Property="BorderThickness" Value="0"></Setter>
+                    <Setter Property="Foreground" Value="Black"></Setter>
                 </Style>
+             
             </DVC1:Chart.LegendStyle>
-
-
+           
             <DVC1:Chart.Series>
 
-                <DVC1:ColumnSeries  x:Name="ColumnSeriesData"  IndependentValuePath="Key" DependentValuePath="Value" Background="Black" MouseDoubleClick="ColumnSeriesData_MouseDoubleClick" IsSelectionEnabled="False" />
-                <DVC1:LineSeries   IndependentValuePath="Key" DependentValuePath="Value" Background="Red"  />
+                <DVC1:ColumnSeries   x:Name="ColumnSeriesData"  IndependentValuePath="Key" Title ="Usage" DependentValuePath="Value" Background="Black" MouseDoubleClick="ColumnSeriesData_MouseDoubleClick" IsSelectionEnabled="False">
+                   
+             
+                </DVC1:ColumnSeries>
+                <DVC1:LineSeries   IndependentValuePath="Key" DependentValuePath="Value" Title="Limit"  Background="Red" Foreground="#FF702D2D"  />
             </DVC1:Chart.Series>
+            
             <DVC1:Chart.Axes>
 
                 <DVC1:CategoryAxis Orientation="X" Title="Period"  Foreground="#FFE2D8D6" Background="#FF327E4A" FontFamily="Georgia" FontSize="14" FontWeight="Bold" Margin="0,4,0,-4">
@@ -60,8 +68,11 @@
             </DVC1:Chart.Axes>
         </DVC1:Chart>
         <Slider Name="FilterSlider" HorizontalAlignment="Left" Height="26" Margin="52,26,0,0" VerticalAlignment="Top" Width="84" Minimum="0" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="1" Value="0" ValueChanged="FilterSlider_ValueChanged"/>
-        <Label Content="Year" HorizontalAlignment="Left" Height="26" Margin="10,23,0,0" VerticalAlignment="Top" Width="64"/>
+        <Label Name="TestScript" Content="Year" HorizontalAlignment="Left" Height="26" Margin="10,23,0,0" VerticalAlignment="Top" Width="64"/>
         <Label Content="Month" HorizontalAlignment="Left" Height="26" Margin="141,23,0,0" VerticalAlignment="Top" Width="64"/>
         <CheckBox x:Name="ChangeDataCheckBox" Content="Change Data" HorizontalAlignment="Left" Height="21" Margin="18,5,0,0" VerticalAlignment="Top" Width="118" IsChecked="False" Click="ChangeDataCheckBox_Click"/>
+        <Button Name ="ReCalculateButton" Content="Re-Calculate" HorizontalAlignment="Left" Height="26" Margin="793,23,0,0" VerticalAlignment="Top" Width="137" Click="ReCalculateButton_Click"/>
+        <ProgressBar Name="testProgressBar" HorizontalAlignment="Center" Height="31" Margin="125,207,87,0" VerticalAlignment="Top" Width="728" Visibility="Hidden" Background="White" Foreground="Green"/>
+        <Label Name="testLabelContent" Content="{Binding contentLabelText}" HorizontalAlignment="Center" Height="36" Margin="125,155,87,0" VerticalAlignment="Top" Width="728" Visibility="Hidden" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" FontWeight="Bold"/>
     </Grid>
 </Window>

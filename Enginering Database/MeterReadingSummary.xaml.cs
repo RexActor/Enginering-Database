@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
-using System.Security;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
@@ -20,25 +21,23 @@ namespace Engineering_Database
 		ToolTip tp = new ToolTip();
 		int selectedYear = 0;
 		bool canEditData = false;
+		string contentLabelText = string.Empty;
 		List<string> CollectionForListView = new List<string>();
-
+		BackgroundWorker worker = new BackgroundWorker();
+		LoadingWindow loadingWind = new LoadingWindow();
 		public MeterReadingSummary()
 		{
 			InitializeComponent();
-
-			//getReadings("ReadingYear", "Year");
-
 
 			MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
 			getReadings("ReadingMonth", "Year");
 			loadChart("Year");
 			MeterReadingListView.SelectedIndex = 0;
-		}
 
+		}
 
 		private bool checkData(string value)
 		{
-
 			if (CollectionForListView.Contains(value))
 			{
 				return true;
@@ -47,7 +46,6 @@ namespace Engineering_Database
 			{
 				return false;
 			}
-
 		}
 
 		public void getReadings(string field = null, string filter = null)
@@ -58,26 +56,23 @@ namespace Engineering_Database
 			OleDbDataReader reader;
 			db.ConnectDB();
 
-			if (filter=="Month")
+			if (filter == "Month")
 			{
-				 reader = db.GetMeterReadingData("MeterReadings", selectedYear);
+				reader = db.GetMeterReadingData("MeterReadings", selectedYear);
 			}
 			else
 			{
-				 reader = db.GetMeterReadingData("MeterReadings");
+				reader = db.GetMeterReadingData("MeterReadings");
 			}
 
 			while (reader.Read())
 			{
-
-
 				MeterReadingClass meter = new MeterReadingClass();
 				DateTime pulledDate = (DateTime)reader["InsertDate"];
 				meter.InsertDate = pulledDate.ToString("d/MMM/yy");
 				meter.meterReading = Convert.ToDouble(reader["MeterReading"]);
 				meter.ReadingMonth = reader["ReadingMonth"].ToString();
 				meter.ReadingYear = reader["ReadingYear"].ToString();
-
 
 				switch (filter)
 				{
@@ -106,11 +101,7 @@ namespace Engineering_Database
 						}
 						break;
 				}
-
-
 			}
-
-
 		}
 		/// <summary>
 		/// pulling specific field from desired database and returning value
@@ -132,14 +123,10 @@ namespace Engineering_Database
 		{
 			if (MeterReadingListView.SelectedIndex >= 0)
 			{
-
 				if (FilterSlider.Value == 1)
 				{
-
-					
 					MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
 					loadChart(selectedItem.ReadingMonth, "Month");
-
 				}
 				else
 				{
@@ -151,12 +138,8 @@ namespace Engineering_Database
 					selectedYear = Convert.ToInt32(selectedItem.ReadingYear);
 					loadChart(selectedItem.ReadingYear, "Year");
 				}
-
 			}
-
-
 		}
-
 
 		//need to change function to show in chart All month Data if specific month is not selected
 		private void loadChart(string month = null, string filter = null)
@@ -166,20 +149,18 @@ namespace Engineering_Database
 			int t = 0;
 			int i = 0;
 			int sum = 0;
-			int averageValue;
+			int averageValue = 20;
 			OleDbDataReader reader;
 			OleDbDataReader getAverage;
 			KeyValuePair<string, int>[] data;
 			KeyValuePair<string, int>[] average;
 			((ColumnSeries)TestChart.Series[0]).ItemsSource = null;
-			if (selectedYear!=0)
+			if (selectedYear != 0)
 			{
 				if (filter == "Month")
 				{
-
 					canEditData = true;
-					//MessageBox.Show(selectedYear.ToString());
-					t = db.DBMeterReadingCountLines(month,selectedYear);
+					t = db.DBMeterReadingCountLines(month, selectedYear);
 					reader = db.GetMeterReadingData("MeterReadings", month, selectedYear);
 					getAverage = db.GetMeterReadingData("MeterReadings", month, selectedYear);
 					data = new KeyValuePair<string, int>[t];
@@ -189,21 +170,15 @@ namespace Engineering_Database
 					{
 						sum += Convert.ToInt32(getAverage["MeterCalculation"]);
 					}
-					averageValue = sum / t;
 
 					while (reader.Read())
 					{
 						DateTime dt = (DateTime)reader["InsertDate"];
-
 						average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), averageValue);
 						data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), Convert.ToInt32(reader["MeterCalculation"]));
-
 						i++;
 					}
-					//db.CloseDB();
 					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
-
-
 					((LineSeries)TestChart.Series[1]).ItemsSource = average;
 				}
 				else if (filter == "Year")
@@ -211,20 +186,14 @@ namespace Engineering_Database
 					canEditData = false;
 					var list = new List<Data>();
 
-
 					//reads through all and create list with Month values
-
-					//t = db.DBMeterReadingCountLines(month);
 					reader = db.GetMeterReadingData("MeterReadings", selectedYear);
-					//getAverage = db.GetMeterReadingData("MeterReadings");
 					int total = 0;
 					int averageGet = 0;
 					while (reader.Read())
 					{
 						string myString = reader["ReadingMonth"].ToString();
-
 						int addingValue = Convert.ToInt32(reader["MeterCalculation"]);
-
 						bool containsElement = list.Any(x => x.Month == myString);
 						total = list.Where(x => x.Month == myString).Sum(y => y.sum);
 						averageGet = averageGet + addingValue;
@@ -233,10 +202,7 @@ namespace Engineering_Database
 
 						if (!containsElement)
 						{
-
-
 							list.Add(new Data(myString, addingValue));
-
 						}
 						else
 						{
@@ -246,18 +212,12 @@ namespace Engineering_Database
 								var oldItem = list[indexOfItem];
 								var newCustomItem = new Data();
 								newCustomItem.Month = myString;
-
 								int oldSum = oldItem.sum;
-
 								newCustomItem.sum = oldSum + addingValue;
-
-
 								list[indexOfItem] = newCustomItem;
 							}
 
 						}
-
-						//Console.WriteLine(indexOfItem);
 
 					}
 					int z = 0;
@@ -268,15 +228,10 @@ namespace Engineering_Database
 
 					foreach (var item in list)
 					{
-
-
 						data[z] = new KeyValuePair<string, int>(list[z].Month, list[z].sum);
 						average[z] = new KeyValuePair<string, int>(list[z].Month, averageValuePerMonth);
 						z++;
-
-
 					}
-
 					((LineSeries)TestChart.Series[1]).ItemsSource = average;
 					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
 				}
@@ -284,6 +239,89 @@ namespace Engineering_Database
 
 		}
 
+		#region temporary script 
+		//script for recalculating consumption based on meter readings for already inserted data
+		//required due that data was inserted without populating data for consumption
+		//script needs to be runned once. 
+		//This script is not meant for regular re-calculation. But once for filling missing data
+
+		private void runScript(object sender, DoWorkEventArgs e)
+		{
+			int increase = 0;
+			int newId = 0;
+
+
+			List<ExistingData> existingData = new List<ExistingData>();
+			var reader = db.GetMeterReadingData("MeterReadings");
+			while (reader.Read())
+			{
+				existingData.Add(
+					new ExistingData(
+					Convert.ToInt32(reader["ID"]),
+					Convert.ToDateTime(reader["InsertDate"]),
+					Convert.ToDouble(reader["MeterReading"]),
+					Convert.ToInt32(reader["MeterCalculation"])
+					));
+			}
+			existingData.OrderBy(x => x.insertDate);
+			int newConsumption = 0;
+			for (int i = 0; i < existingData.Count; i++)
+			{
+				if (i > 0)
+				{
+					newId = i - 1;
+					if (existingData[i].meterReading == 0)
+					{
+						newConsumption = 0;
+					}
+					else
+					{
+						newConsumption = Convert.ToInt32(existingData[i].meterReading - existingData[i - 1].meterReading);
+					}
+
+					//Console.WriteLine($" ID==>{existingData[i].ID}|| Insert Date ==>{existingData[i].insertDate} || Meter Reading ==> {existingData[i].meterReading} || Meter Calculation {existingData[i].consumption} ==> but should be {newConsumption}");
+
+					db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, newConsumption);
+
+				}
+				else
+				{
+					newId = 0;
+
+					//Console.WriteLine($" ID==>{existingData[i].ID}|| Insert Date ==>{existingData[i].insertDate} || Meter Reading ==> {existingData[i].meterReading} || Meter Calculation {existingData[i].consumption} ==> but should be 0");
+					db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, 0);
+				}
+
+				increase = Convert.ToInt32(((double)i / existingData.Count) * 100);
+				contentLabelText = $"Updating Database Id [{existingData[i].ID}] with date [{string.Format("{0:d}", existingData[i].insertDate)}] value is [{existingData[i].consumption}] ==> calculated  {existingData[i].meterReading} subtracted {existingData[newId].meterReading} ";
+				Dispatcher.Invoke(new System.Action(() => { worker.ReportProgress(increase); }));
+				Thread.Sleep(100);
+
+				//loadingWind.increaseLoading(1);
+			}
+		}
+
+
+
+		public struct ExistingData
+		{
+
+			public ExistingData(int _id, DateTime _insertDate, double _meterReading, int _consumption)
+			{
+				ID = _id;
+				insertDate = _insertDate;
+				meterReading = _meterReading;
+				consumption = _consumption;
+			}
+
+			public int ID { get; set; }
+			public DateTime insertDate { get; set; }
+			public double meterReading { get; set; }
+			public int consumption { get; set; }
+
+		}
+
+		#endregion
 		public struct Data
 		{
 			public Data(string value, int number)
@@ -299,18 +337,21 @@ namespace Engineering_Database
 		private void FilterSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			int result;
-			bool success = int.TryParse(MeterReadingListView.SelectedItem.ToString(), out result);
-			if (success)
+			if (MeterReadingListView.SelectedItem != null)
 			{
-				selectedYear = Convert.ToInt32(MeterReadingListView.SelectedItem.ToString());
+				bool success = int.TryParse(MeterReadingListView.SelectedItem.ToString(), out result);
+				if (success)
+				{
+					selectedYear = Convert.ToInt32(MeterReadingListView.SelectedItem.ToString());
+				}
 			}
 
 			canEditData = false;
 			ChangeDataCheckBox.IsChecked = false;
 			if (FilterSlider.Value == 0)
 			{
-				
-			
+
+
 				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
 				getReadings("ReadingMonth", "Year");
 
@@ -374,5 +415,42 @@ namespace Engineering_Database
 				}
 			}
 		}
+
+
+		private void ReCalculateButton_Click(object sender, RoutedEventArgs e)
+		{
+			TestChart.Visibility = Visibility.Hidden;
+			MeterReadingListView.Visibility = Visibility.Hidden;
+			//loadingWind.Owner = this;
+			//loadingWind.Show();
+			testProgressBar.Visibility = Visibility.Visible;
+			testLabelContent.Visibility = Visibility.Visible;
+
+			worker.ProgressChanged += progressChanged;
+			worker.DoWork += runScript;
+			worker.WorkerReportsProgress = true;
+			worker.RunWorkerCompleted += JobFinished;
+
+			worker.RunWorkerAsync();
+		}
+
+
+		public void progressChanged(object sender, ProgressChangedEventArgs e)
+		{
+
+			testProgressBar.Value = e.ProgressPercentage;
+			testLabelContent.Content = contentLabelText;
+
+		}
+		public void JobFinished(object sender, RunWorkerCompletedEventArgs e)
+		{
+			testProgressBar.Visibility = Visibility.Hidden;
+			testLabelContent.Visibility = Visibility.Hidden;
+			TestChart.Visibility = Visibility.Visible;
+			MeterReadingListView.Visibility = Visibility.Visible;
+
+		}
 	}
+
 }
+
