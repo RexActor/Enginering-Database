@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
+using System.Security;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
@@ -17,7 +18,7 @@ namespace Engineering_Database
 	{
 		DatabaseClass db = new DatabaseClass();
 		ToolTip tp = new ToolTip();
-		
+		int selectedYear = 0;
 		bool canEditData = false;
 		List<string> CollectionForListView = new List<string>();
 
@@ -54,10 +55,18 @@ namespace Engineering_Database
 			CollectionForListView.Clear();
 			MeterReadingListView.Items.Clear();
 			DatabaseClass db = new DatabaseClass();
+			OleDbDataReader reader;
 			db.ConnectDB();
 
+			if (filter=="Month")
+			{
+				 reader = db.GetMeterReadingData("MeterReadings", selectedYear);
+			}
+			else
+			{
+				 reader = db.GetMeterReadingData("MeterReadings");
+			}
 
-			OleDbDataReader reader = db.GetMeterReadingData("MeterReadings");
 			while (reader.Read())
 			{
 
@@ -127,14 +136,19 @@ namespace Engineering_Database
 				if (FilterSlider.Value == 1)
 				{
 
-
+					
 					MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
 					loadChart(selectedItem.ReadingMonth, "Month");
 
 				}
 				else
 				{
+					if (selectedYear != 0)
+					{
+						MeterReadingListView.SelectedItem = selectedYear;
+					}
 					MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
+					selectedYear = Convert.ToInt32(selectedItem.ReadingYear);
 					loadChart(selectedItem.ReadingYear, "Year");
 				}
 
@@ -158,114 +172,115 @@ namespace Engineering_Database
 			KeyValuePair<string, int>[] data;
 			KeyValuePair<string, int>[] average;
 			((ColumnSeries)TestChart.Series[0]).ItemsSource = null;
-
-			if (filter == "Month")
+			if (selectedYear!=0)
 			{
-
-				canEditData = true;
-
-				t = db.DBMeterReadingCountLines(month);
-				reader = db.GetMeterReadingData("MeterReadings", month);
-				getAverage = db.GetMeterReadingData("MeterReadings", month);
-				data = new KeyValuePair<string, int>[t];
-				average = new KeyValuePair<string, int>[t];
-
-				while (getAverage.Read())
+				if (filter == "Month")
 				{
-					sum += Convert.ToInt32(getAverage["MeterCalculation"]);
-				}
-				averageValue = sum / t;
 
-				while (reader.Read())
-				{
-					DateTime dt = (DateTime)reader["InsertDate"];
+					canEditData = true;
+					//MessageBox.Show(selectedYear.ToString());
+					t = db.DBMeterReadingCountLines(month,selectedYear);
+					reader = db.GetMeterReadingData("MeterReadings", month, selectedYear);
+					getAverage = db.GetMeterReadingData("MeterReadings", month, selectedYear);
+					data = new KeyValuePair<string, int>[t];
+					average = new KeyValuePair<string, int>[t];
 
-					average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), averageValue);
-					data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), Convert.ToInt32(reader["MeterCalculation"]));
-
-					i++;
-				}
-				//db.CloseDB();
-				((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
-
-
-				((LineSeries)TestChart.Series[1]).ItemsSource = average;
-			}
-			else if (filter == "Year")
-			{
-				canEditData = false;
-				var list = new List<Data>();
-
-
-				//reads through all and create list with Month values
-
-				//t = db.DBMeterReadingCountLines(month);
-				reader = db.GetMeterReadingData("MeterReadings");
-				//getAverage = db.GetMeterReadingData("MeterReadings");
-				int total = 0;
-				int averageGet = 0;
-				while (reader.Read())
-				{
-					string myString = reader["ReadingMonth"].ToString();
-
-					int addingValue = Convert.ToInt32(reader["MeterCalculation"]);
-
-					bool containsElement = list.Any(x => x.Month == myString);
-					total = list.Where(x => x.Month == myString).Sum(y => y.sum);
-					averageGet = averageGet + addingValue;
-					int indexOfItem = list.FindIndex(x => x.Month == myString);
-
-
-					if (!containsElement)
+					while (getAverage.Read())
 					{
-
-
-						list.Add(new Data(myString, addingValue));
-
+						sum += Convert.ToInt32(getAverage["MeterCalculation"]);
 					}
-					else
+					averageValue = sum / t;
+
+					while (reader.Read())
 					{
+						DateTime dt = (DateTime)reader["InsertDate"];
 
-						if (indexOfItem != -1)
+						average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), averageValue);
+						data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), Convert.ToInt32(reader["MeterCalculation"]));
+
+						i++;
+					}
+					//db.CloseDB();
+					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
+
+
+					((LineSeries)TestChart.Series[1]).ItemsSource = average;
+				}
+				else if (filter == "Year")
+				{
+					canEditData = false;
+					var list = new List<Data>();
+
+
+					//reads through all and create list with Month values
+
+					//t = db.DBMeterReadingCountLines(month);
+					reader = db.GetMeterReadingData("MeterReadings", selectedYear);
+					//getAverage = db.GetMeterReadingData("MeterReadings");
+					int total = 0;
+					int averageGet = 0;
+					while (reader.Read())
+					{
+						string myString = reader["ReadingMonth"].ToString();
+
+						int addingValue = Convert.ToInt32(reader["MeterCalculation"]);
+
+						bool containsElement = list.Any(x => x.Month == myString);
+						total = list.Where(x => x.Month == myString).Sum(y => y.sum);
+						averageGet = averageGet + addingValue;
+						int indexOfItem = list.FindIndex(x => x.Month == myString);
+
+
+						if (!containsElement)
 						{
-							var oldItem = list[indexOfItem];
-							var newCustomItem = new Data();
-							newCustomItem.Month = myString;
-
-							int oldSum = oldItem.sum;
-
-							newCustomItem.sum = oldSum + addingValue;
 
 
-							list[indexOfItem] = newCustomItem;
+							list.Add(new Data(myString, addingValue));
+
+						}
+						else
+						{
+
+							if (indexOfItem != -1)
+							{
+								var oldItem = list[indexOfItem];
+								var newCustomItem = new Data();
+								newCustomItem.Month = myString;
+
+								int oldSum = oldItem.sum;
+
+								newCustomItem.sum = oldSum + addingValue;
+
+
+								list[indexOfItem] = newCustomItem;
+							}
+
 						}
 
+						//Console.WriteLine(indexOfItem);
+
+					}
+					int z = 0;
+
+					data = new KeyValuePair<string, int>[list.Count];
+					average = new KeyValuePair<string, int>[list.Count];
+					int averageValuePerMonth = averageGet / list.Count;
+
+					foreach (var item in list)
+					{
+
+
+						data[z] = new KeyValuePair<string, int>(list[z].Month, list[z].sum);
+						average[z] = new KeyValuePair<string, int>(list[z].Month, averageValuePerMonth);
+						z++;
+
+
 					}
 
-					//Console.WriteLine(indexOfItem);
-
+					((LineSeries)TestChart.Series[1]).ItemsSource = average;
+					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
 				}
-				int z = 0;
-
-				data = new KeyValuePair<string, int>[list.Count];
-				average = new KeyValuePair<string, int>[list.Count];
-				int averageValuePerMonth = averageGet / list.Count;
-
-				foreach (var item in list)
-				{
-
-
-					data[z] = new KeyValuePair<string, int>(list[z].Month, list[z].sum);
-					average[z] = new KeyValuePair<string, int>(list[z].Month, averageValuePerMonth);
-					z++;
-
-
-				}
-
-				((LineSeries)TestChart.Series[1]).ItemsSource = average;
-				((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
 			}
-
 
 		}
 
@@ -283,10 +298,19 @@ namespace Engineering_Database
 
 		private void FilterSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
+			int result;
+			bool success = int.TryParse(MeterReadingListView.SelectedItem.ToString(), out result);
+			if (success)
+			{
+				selectedYear = Convert.ToInt32(MeterReadingListView.SelectedItem.ToString());
+			}
+
 			canEditData = false;
 			ChangeDataCheckBox.IsChecked = false;
 			if (FilterSlider.Value == 0)
 			{
+				
+			
 				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
 				getReadings("ReadingMonth", "Year");
 

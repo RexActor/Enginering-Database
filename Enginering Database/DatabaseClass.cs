@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalDecisions.ReportAppServer.DataDefModel;
+using System;
 using System.Data;
 using System.Data.OleDb;
 
@@ -498,17 +499,25 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table, string month)
+		public OleDbDataReader GetMeterReadingData(string table, int year)
 		{
-			string queryString = $"SELECT * FROM {table} WHERE ReadingMonth='{month}'  ORDER BY InsertDate ASC";
+			string queryString = $"SELECT * FROM {table} WHERE ReadingYear = {year} ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table, string field, string month)
+		public OleDbDataReader GetMeterReadingData(string table, string month,int year)
 		{
-			string queryString = $"SELECT * FROM {table} WHERE {field}='{month}'  ORDER BY InsertDate ASC";
+			string queryString = $"SELECT * FROM {table} WHERE ReadingMonth='{month}' AND ReadingYear ={year} ORDER BY InsertDate ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetMeterReadingData(string table, string field, string month, string field2,string value2)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='{month}' AND {field2}='{value2}'  ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -522,7 +531,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table, string field, int value)
+		public OleDbDataReader GetMeterReadingDataSelectedYear(string table, string field, int value)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE {field}='" + value + "'";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -598,9 +607,9 @@ namespace Engineering_Database
 		/// </summary>
 		/// <param name="month"></param>
 		/// <returns></returns>
-		public int DBMeterReadingCountLines(string month)
+		public int DBMeterReadingCountLines(string month,int year)
 		{
-			string queryString = $"SELECT COUNT(*) FROM MeterReadings Where ReadingMonth='{month}'";
+			string queryString = $"SELECT COUNT(*) FROM MeterReadings Where ReadingMonth='{month}' AND ReadingYear ={year}";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
