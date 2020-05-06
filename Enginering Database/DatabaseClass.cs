@@ -7,6 +7,8 @@ namespace Engineering_Database
 {
 	class DatabaseClass
 	{
+
+
 		/*
 		 * 
 		 * 

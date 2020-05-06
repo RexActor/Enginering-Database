@@ -433,6 +433,7 @@
     <None Include="engineeringDatabaseDataSet.xss">
       <DependentUpon>engineeringDatabaseDataSet.xsd</DependentUpon>
     </None>
+    <None Include="Enginering Database.licenseheader" />
     <None Include="Enginering Database_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Engineering_Database.engineeringDatabaseDataSet1TableAdapters.engineeringDatabaseTableTableAdapter.datasource" />

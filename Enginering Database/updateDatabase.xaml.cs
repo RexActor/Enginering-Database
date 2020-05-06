@@ -42,8 +42,8 @@ namespace Enginering_Database
 		public bool canComplete = false;
 		public bool canSubmit = false;
 		public bool seperateWindow = false;
-		private string jobStatus = null;
-		private string isComplete = null;
+		public string jobStatus = null;
+		public string isComplete = null;
 		//Tooltip opbjet
 		readonly ToolTip myToolTip = new ToolTip();
 

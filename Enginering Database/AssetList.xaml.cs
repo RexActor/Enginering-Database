@@ -145,7 +145,8 @@ namespace Engineering_Database
 				issue.ReportedDate = string.Format("{0:d}", reader["ReportedDate"].ToString());
 				issue.CompletedByUsername = reader["CompletedBy"].ToString();
 				issue.Action = reader["Action"].ToString();
-
+				issue.Completed = (bool)reader["Completed"];
+				issue.AssignedTo = reader["AssignedTo"].ToString();
 				assetDetail.JobListForAssetDetails.Items.Add(issue);
 
 			}

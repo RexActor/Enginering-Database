@@ -38,10 +38,11 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Job Nr." Width="60" DisplayMemberBinding="{Binding JobNumber}"/>
-                    <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding Action}"/>
+                    <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding Completed}"/>
                     <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding ReportedDate}"/>
                     <GridViewColumn Header="Description" Width="540" DisplayMemberBinding="{Binding DetailedDescription}"/>
                     <GridViewColumn Header="Completed By" Width="100" DisplayMemberBinding="{Binding CompletedByUsername}"/>
+                    <GridViewColumn Header="Assigned To" Width="100" DisplayMemberBinding="{Binding AssignedTo}"/>
                 </GridView>
             </ListView.View>
         </ListView>

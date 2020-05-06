@@ -1,4 +1,9 @@
-﻿using System;
+﻿//File MeterReadingSummary.xaml.cs Created by Rexactor
+// @12:55 PM  28/4/2020 
+// Copyright (c) 2020  Rexactor 
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -419,6 +424,7 @@ namespace Engineering_Database
 
 		private void ReCalculateButton_Click(object sender, RoutedEventArgs e)
 		{
+			
 			TestChart.Visibility = Visibility.Hidden;
 			MeterReadingListView.Visibility = Visibility.Hidden;
 			//loadingWind.Owner = this;
@@ -437,13 +443,14 @@ namespace Engineering_Database
 
 		public void progressChanged(object sender, ProgressChangedEventArgs e)
 		{
-
+			
 			testProgressBar.Value = e.ProgressPercentage;
 			testLabelContent.Content = contentLabelText;
 
 		}
 		public void JobFinished(object sender, RunWorkerCompletedEventArgs e)
 		{
+			//this.ReCalculateButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 			testProgressBar.Visibility = Visibility.Hidden;
 			testLabelContent.Visibility = Visibility.Hidden;
 			TestChart.Visibility = Visibility.Visible;
