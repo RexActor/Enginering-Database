@@ -96,22 +96,16 @@ namespace Engineering_Database
 			update.canChangeDueDate = true;
 			update.seperateWindow = true;
 
-			if (item.Completed == true) {
+			if (item.Completed == true)
+			{
 				update.Frame3CompleteCheckBox.IsChecked = true;
-				
 			}
 			else
 			{
 				update.Frame3CompleteCheckBox.IsChecked = false;
 			}
-
-			//update.CollectSelectedData((int)item.JobNumber);
 			update.UpdateFrame2(item.JobNumber.ToString());
-					
 			update.AssignToDropDownBox.SelectedItem = item.AssignedTo;
-
-			
-			
 			update.Show();
 		}
 	}

@@ -94,6 +94,9 @@
     <StartupObject>Enginering_Database.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CBComponents.HeaderTableLayoutPanel, Version=1.2.6307.23101, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CBComponents.HeaderTableLayoutPanel.1.2.6307.23101\lib\net35\CBComponents.HeaderTableLayoutPanel.dll</HintPath>
+    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <HintPath>..\packages\CrystalReports.Engine.13.0.3501\lib\net20\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
@@ -249,6 +252,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetForReport.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DynamicMaintenanceTable.xaml.cs">
+      <DependentUpon>DynamicMaintenanceTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EmailClass.cs" />
     <Compile Include="engineeringDatabaseDataSet.cs">
       <DependentUpon>engineeringDatabaseDataSet.xsd</DependentUpon>
@@ -263,10 +269,16 @@
     </Compile>
     <Compile Include="IssueClass.cs" />
     <Compile Include="issuedata.cs" />
+    <Compile Include="LineMaintenance.xaml.cs">
+      <DependentUpon>LineMaintenance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LogHelper.cs" />
+    <Compile Include="MaintenancePage.xaml.cs">
+      <DependentUpon>MaintenancePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MeterReadingClass.cs" />
     <Compile Include="MeterReadingEdit.xaml.cs">
       <DependentUpon>MeterReadingEdit.xaml</DependentUpon>
@@ -324,11 +336,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DynamicMaintenanceTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InteractionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LineMaintenance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -501,6 +525,7 @@
     <Resource Include="settings.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Tools-WF.png" />
     <Resource Include="User Settings-02-WF.png" />
     <Resource Include="update.png" />
     <Resource Include="User Reported Issues.png" />

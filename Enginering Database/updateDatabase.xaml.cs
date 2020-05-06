@@ -1,6 +1,4 @@
-﻿
-
-using Engineering_Database;
+﻿using Engineering_Database;
 
 using System;
 using System.ComponentModel;
@@ -12,21 +10,15 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-
 namespace Enginering_Database
 {
-
-
-
 	public partial class updateDatabase : Window
 	{
-
-
 		private string filter = "Outstanding";
 		readonly EmailClass email = new EmailClass();
 		int convJobNumber;
 		public string contentForTextTestLabel;
-		System.Windows.Controls.Button textTestLabel;
+		Button textTestLabel;
 		int jobList;
 		readonly IssueClass issueClass = new IssueClass();
 		readonly UserSettings userSett = new UserSettings();
@@ -44,13 +36,8 @@ namespace Enginering_Database
 		public bool seperateWindow = false;
 		public string jobStatus = null;
 		public string isComplete = null;
-		//Tooltip opbjet
+		//Tooltip object
 		readonly ToolTip myToolTip = new ToolTip();
-
-
-
-
-
 
 		public updateDatabase()
 		{
@@ -65,9 +52,7 @@ namespace Enginering_Database
 			///disable preview window at start
 			previewStackPanel.Visibility = Visibility.Hidden;
 
-
 			//set all values in frame2 for default
-
 			Frame2JobNumberData.Content = "waiting for data";
 			Frame2ReportedDateData.Content = "waiting for data";
 			Frame2ReportedUserData.Content = "waiting for data";
@@ -85,27 +70,20 @@ namespace Enginering_Database
 			//update contractor ComboBox with latest data
 			UpdateContractorComboBox();
 
-
 			//update assigntocombo box with latest data 
 			UpdateAssignToComboBox();
-
 
 			//TODO:requires fix for this function. Show exception error on work PC
 			createJobList(filter);
 			GetOldEntries();
-
 		}
-
 
 		//pulls configuration from app.config file and updates drop down list with latest information
 		private void UpdateContractorComboBox()
 		{
-
 			//open usersettings configuration file
 			userSett.openSettings();
-
 			userSett.contractors = userSett.contractors.Replace(" ", string.Empty);
-
 			ContractorComboBoxData.Items.Clear();
 
 			//contractors are splited by "/" due that all contractors are saved under one configuration name
@@ -113,7 +91,6 @@ namespace Enginering_Database
 
 			foreach (var word in splitContractors)
 			{
-
 				//checks if first value is not empty string. If so, then ignore it
 				if (!word.Equals(""))
 				{
@@ -122,11 +99,8 @@ namespace Enginering_Database
 			}
 		}
 
-
 		private void UpdateAssignToComboBox()
 		{
-
-
 			//open usersettings configuration file
 			userSett.openSettings();
 			//userSett.assignToUser = userSett.assignToUser.Replace(" ", string.Empty);
@@ -142,44 +116,27 @@ namespace Enginering_Database
 					AssignToDropDownBox.Items.Add(word);
 				}
 			}
-
-
-
 		}
 
 		private void UpdateAllDb()
 		{
-
-
 			if (emplistDataGrid.ItemsSource == null)
 			{
 				emplistDataGrid.ItemsSource = issueClass.updateIssueDataList();
 			}
-
-
 		}
 
 		private void createJobList(string filter)
 		{
 			issueClass.updateIssueDataList();
-
-
-
 			TestStackPanel.Children.Clear();
 			searchCombo.Items.Clear();
 			searchCombo.Items.Insert(0, "Job Number");
 			searchCombo.SelectedIndex = 0;
-
-
 			userSett.openSettings();
-
-
-
 			Frame3DueDateTextBox.Text = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
 
-
 			int p = 0;
-
 
 			if (Int32.TryParse(UserSettings.jobCount, out p))
 			{
@@ -193,40 +150,29 @@ namespace Enginering_Database
 				ErrorLabel.Padding = new Thickness(3);
 				ErrorLabel.Margin = new Thickness(1);
 				TestStackPanel.Children.Add(ErrorLabel);
-
-
 			}
 
 			if (jobList > 0)
 			{
-
 				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQueryforJobList(filter));
 				DataTable dt = new DataTable();
 				int i = 0;
 				da.Fill(dt);
 				da.Dispose();
 
-
-
-
 				foreach (DataRow dr in dt.Rows)
 				{
 					if (i <= dt.Rows.Count && i < jobList)
 					{
 
-
 						textTestLabel = new System.Windows.Controls.Button();
 						textTestLabel.BorderThickness = new Thickness(0);
 						textTestLabel.Background = new SolidColorBrush(Color.FromArgb(195, 195, 195, 0));
-
 						textTestLabel.Height = 30;
 						textTestLabel.Padding = new Thickness(3);
 						textTestLabel.Margin = new Thickness(2);
 						contentForTextTestLabel = dr["JobNumber"].ToString();
 						textTestLabel.Content = contentForTextTestLabel;
-
-
-
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
 						if (userSett.PreviewSettingComboBox.Text == "Yes")
@@ -235,12 +181,10 @@ namespace Enginering_Database
 							textTestLabel.MouseLeave += (sender, e) => { TextTestLabel_Leave(sender, e); };
 						}
 
-
 						TestStackPanel.Children.Add(textTestLabel);
 					}
 					i++;
 				}
-
 			}
 
 			if (ChangeDueDateCheckBox.IsChecked == true)
@@ -249,25 +193,18 @@ namespace Enginering_Database
 				Frame3UpdateDueDateDatePicker.Visibility = Visibility.Visible;
 				Frame3DueDateTextBox.Foreground = Brushes.Red;
 			}
-
 			else
 			{
 				Frame3UpdateDueDateLabel.Visibility = Visibility.Hidden;
 				Frame3UpdateDueDateDatePicker.Visibility = Visibility.Hidden;
 			}
 
-
-
-
 			Frame3userNameLabel.Content = WindowsIdentity.GetCurrent().Name;
-
 			Frame3CurrentDateLabel.Content = DateTime.Now.ToString("dd/MM/yyy", System.Globalization.CultureInfo.InvariantCulture);
-
 		}
 
 		private void TextTestLabel_Leave(object sender, MouseEventArgs e)
 		{
-
 			previewStackPanel.Visibility = Visibility.Hidden;
 		}
 
@@ -278,36 +215,24 @@ namespace Enginering_Database
 				db.ConnectDB();
 			}
 
-
-
-
-
-
 			Button lbl = (Button)sender;
 			previewStackPanel.Visibility = Visibility.Visible;
 			if (lbl == null)
 			{
 				previewJobNumber.Content = "looking for data";
-
 			}
 			else
 			{
-
 				int convertSearch;
 				int p;
 				if (Int32.TryParse(lbl.Content.ToString(), out p))
 				{
 					convertSearch = p;
-
 				}
 				else
 				{
 					convertSearch = 1;
 				}
-
-
-
-
 
 				previewReportedName.Content = db.DBQuery("ReportedUsername", convertSearch);
 				prevAssetNumber.Content = db.DBQuery("AssetNumber", convertSearch);
@@ -316,15 +241,8 @@ namespace Enginering_Database
 				prevDetailedDescription.Content = db.DBQuery("DetailedDescription", convertSearch);
 				prevAssignedTo.Content = db.DBQuery("AssignedTo", convertSearch);
 				prevDueDate.Content = db.DBQuery("DueDate", convertSearch);
-
 				previewJobNumber.Content = lbl.Content.ToString();
-
-
-
 			}
-
-
-
 		}
 
 		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
@@ -343,47 +261,24 @@ namespace Enginering_Database
 			{
 				ConfirmEmailCheckBox.IsChecked = false;
 			}
-
-
-
 			Button btn = sender as Button;
-
-
-
-
-
 
 			if (db.DBStatus() == "DB not Connected")
 			{
 				db.ConnectDB();
 			}
 
-
 			Frame2StackPanel.Children.Clear();
-
-
-			System.Windows.Controls.TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
-
-
+			TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
 			UpdateFrame2(btn.Content.ToString());
-
-
-
 			Frame2StackPanel.Children.Add(frame2TextBlock);
-
-
-
 		}
-
-
 
 		private void searchCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 
 		{
 			searchCombo.IsReadOnly = false;
 		}
-
-
 
 		private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
@@ -398,13 +293,9 @@ namespace Enginering_Database
 					if (emplistDataGrid != null)
 					{
 						emplistDataGrid.ItemsSource = null;
-
-
 						emplistDataGrid.ItemsSource = issueClass.updateIssueDataListForSpecificJob(convertSearch);
 					}
-
 				}
-
 			}
 			else
 			{
@@ -438,10 +329,6 @@ namespace Enginering_Database
 			{
 				Frame3CompleteCheckBox.IsChecked = false;
 			}
-
-
-
-
 		}
 
 		private void ChangeDueDateCheckBox_Change(object sender, RoutedEventArgs e)
@@ -455,7 +342,6 @@ namespace Enginering_Database
 					Frame3DueDateTextBox.Foreground = Brushes.Red;
 					Frame3DueDateTextBox.FontWeight = FontWeights.Bold;
 				}
-
 				else
 				{
 					Frame3UpdateDueDateLabel.Visibility = Visibility.Hidden;
@@ -470,7 +356,6 @@ namespace Enginering_Database
 				ChangeDueDateCheckBox.IsChecked = false;
 			}
 		}
-
 
 		private void ConfirmEmailCheckBox_Change(object sender, RoutedEventArgs e)
 		{
@@ -538,17 +423,11 @@ namespace Enginering_Database
 
 		private void GetOldEntries()
 		{
-
-
-
-
 			var getEntries = db.DBQueryForOldEntries("engineeringDatabaseTable", "false");
 
 			while (getEntries.Read())
 			{
-
 				DateTime date = Convert.ToDateTime(getEntries["DueDate"]);
-
 				DateTime now = DateTime.Now;
 				TimeSpan diff = now - date;
 				if (diff.Days > 0)
@@ -564,11 +443,7 @@ namespace Enginering_Database
 				{
 					OldEntriesListView.Visibility = Visibility.Hidden;
 					OutstandingIssuesLabel.Visibility = Visibility.Visible;
-
 				}
-
-
-
 			}
 
 			if (OldEntriesListView.Items.Count > 0)
@@ -580,13 +455,7 @@ namespace Enginering_Database
 				OldEntriesListView.Visibility = Visibility.Hidden;
 				this.Height = 686;
 			}
-
-
 		}
-
-
-
-
 
 		private void DueDateChange_change(object sender, SelectionChangedEventArgs e)
 		{
@@ -603,26 +472,17 @@ namespace Enginering_Database
 					Frame3DaysTillDueData.Content = daysBetween;
 				}
 			}
-
 		}
 
 		public void UpdateFrame2(string jobNumber)
 		{
-
-
-
 			int c;
-
 
 			if (Int32.TryParse(jobNumber, out c))
 			{
 				convJobNumber = c;
-
-
 			}
 			string[] words = jobNumber.Split(null);
-
-
 
 			Frame2JobNumberData.Content = words[words.Length - 1];
 			Frame2ReportedDateData.Content = Convert.ToDateTime(db.DBQuery("ReportedDate", convJobNumber)).ToShortDateString().ToString();
@@ -636,12 +496,8 @@ namespace Enginering_Database
 			Frame2IssueCodeData.Content = db.DBQuery("IssueCode", convJobNumber);
 			Frame2AssetData.Content = db.DBQuery("AssetNumber", convJobNumber);
 			Frame2PriorityData.Content = db.DBQuery("Priority", convJobNumber);
-
 			Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
-
 			Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
-
-
 			if (db.DBQuery("AssignedTo", convJobNumber) == "NotAssigned")
 			{
 				Frame3AssignedToData.Content = "Job is not assigned";
@@ -662,7 +518,6 @@ namespace Enginering_Database
 			{
 				jobStatus = "Open";
 				Frame3CompleteCheckBox.IsChecked = false;
-
 			}
 
 			if (db.DBQuery("Contractor", convJobNumber) != "")
@@ -672,7 +527,6 @@ namespace Enginering_Database
 			else
 			{
 				ContractorComboBoxData.Text = "Please select";
-
 			}
 
 			if (db.DBQuery("CommentsForActionTaken", convJobNumber) != "")
@@ -688,7 +542,6 @@ namespace Enginering_Database
 			DateTime EndDate = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber));
 			Double daysBetween = (EndDate - StartDate).TotalDays;
 
-
 			if (daysBetween < 0)
 			{
 				Frame3DaysTillDueData.Foreground = Brushes.Red;
@@ -698,8 +551,6 @@ namespace Enginering_Database
 				Frame3DaysTillDueData.Foreground = Brushes.Green;
 			}
 			Frame3DaysTillDueData.Content = daysBetween;
-
-
 		}
 
 		public void CollectSelectedData(int convJobNumber)
@@ -716,50 +567,30 @@ namespace Enginering_Database
 			issueClass.DueDate = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 			issueClass.FaulyArea = db.DBQuery("FaultyArea", convJobNumber);
 			issueClass.Code = db.DBQuery("IssueCode", convJobNumber);
-
 			issueClass.AssetNumber = db.DBQuery("AssetNumber", convJobNumber);
-
-
-
-
 			issueClass.DetailedDescription = db.DBQuery("DetailedDescription", convJobNumber);
-
 			issueClass.AssignedTo = db.DBQuery("AssignedTo", convJobNumber);
 			issueClass.CommentsForActionsTaken = db.DBQuery("CommentsForActionTaken", convJobNumber);
 			issueClass.ReportedEmail = db.DBQuery("ReporterEmail", convJobNumber);
-
-
 		}
 
 		private void Submit_Click(object sender, RoutedEventArgs e)
 		{
-
 			if (canSubmit == true)
 			{
-
-
-
 				if (Frame3CompleteCheckBox.IsChecked == true)
 				{
-
-
 					db.DBQueryInsertData("Completed", convJobNumber, true);
 					isComplete = "Complete";
 					DateTime time = DateTime.Now;
-
-
-
-
 					db.DBQueryInsertData(convJobNumber, "CompletedTime", time.ToString("HH:mm"));
 					db.DBQueryInsertData(convJobNumber, "CompletedDate", time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture));
 					db.DBQueryInsertData(convJobNumber, "Action", "Actioned");
 					db.DBQueryInsertData(convJobNumber, "CompletedBy", Frame3userNameLabel.Content.ToString());
-
 					Frame3CompleteCheckBox.IsChecked = false;
 				}
 				else
 				{
-
 					if (jobStatus == "Closed")
 					{
 						isComplete = "ReOpen";
@@ -791,12 +622,10 @@ namespace Enginering_Database
 					db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());
 				}
 
-
 				CollectSelectedData(convJobNumber);
 
 				if (ConfirmEmailCheckBox.IsChecked == true && canSendEmail == true)
 				{
-
 					email.SendEmail(jobStatus, issueClass, isComplete);
 					ConfirmEmailCheckBox.IsChecked = false;
 					canSendEmail = false;
@@ -811,10 +640,8 @@ namespace Enginering_Database
 					userError.ShowDialog();
 				}
 
-
 				createJobList(filter);
 				Frame3.Refresh();
-
 				Frame2JobNumberData.Content = "waiting for data";
 				Frame2ReportedDateData.Content = "waiting for data";
 				Frame2ReportedUserData.Content = "waiting for data";
@@ -827,9 +654,7 @@ namespace Enginering_Database
 				Frame2IssueCodeData.Content = "waiting for data";
 				Frame2AssetData.Content = "waiting for data";
 				Frame2PriorityData.Content = "waiting for data";
-
 				Frame2ReportedDescription.Text = "waiting for data";
-
 
 				if (ChangeDueDateCheckBox.IsChecked == true)
 				{
@@ -839,7 +664,6 @@ namespace Enginering_Database
 				{
 					this.Close();
 				}
-
 			}
 			else
 			{
@@ -850,15 +674,11 @@ namespace Enginering_Database
 			}
 		}
 
-
 		public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var tc = sender as TabControl;
-
-
 			if (tc != null)
 			{
-
 				TabItem tb = tc.SelectedItem as TabItem;
 				if (tb != null)
 				{
@@ -866,11 +686,8 @@ namespace Enginering_Database
 
 					if (e.Source is TabControl)
 					{
-
-
 						switch (tabItem)
 						{
-
 							case "OutstandingIssues":
 								WindowState = System.Windows.WindowState.Normal;
 								//681.392f;
@@ -878,14 +695,11 @@ namespace Enginering_Database
 								this.Width = 1113f;
 								this.Left = (ScreenWidht / 2) - (this.Width / 2);
 								this.Top = (ScreenHeight / 2) - (this.Height / 2);
-
-
 								Frame1.Width = 772;
 								emplistDataGrid.Width = 746;
-
 								break;
-							case "ViewDatabase":
 
+							case "ViewDatabase":
 								OldEntriesListView.Visibility = Visibility.Hidden;
 								WindowState = System.Windows.WindowState.Normal;
 								this.Height = 683f;
@@ -894,14 +708,8 @@ namespace Enginering_Database
 								Frame1.Width = 1790f;
 								this.Left = (ScreenWidht / 2) - (this.Width / 2);
 								this.Top = (ScreenHeight / 2) - (this.Height / 2);
-
 								UpdateAllDb();
-
-
-
-
 								break;
-
 
 							default:
 
@@ -915,16 +723,12 @@ namespace Enginering_Database
 
 		private void FilterLabelClicked(Object sender, EventArgs e)
 		{
-
 			Label btn = sender as Label;
-
 			TestStackPanel.Children.Clear();
 			filter = btn.Name.ToString();
 			filterExpander.IsExpanded = false;
-
 			createJobList(filter);
 			Frame3.Refresh();
-
 		}
 
 		private void OldEntriesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -1,0 +1,382 @@
+﻿<Window x:Class="Engineering_Database.LineMaintenance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Maintenance" Height="700" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="278*"/>
+            <ColumnDefinition Width="119*"/>
+        </Grid.ColumnDefinitions>
+        <FlowDocumentReader  UseLayoutRounding="False" SnapsToDevicePixels="False" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2">
+            <FlowDocumentReader.Resources >
+                <Style TargetType="TableCell">
+                    <Setter Property="TextAlignment" Value="Center"></Setter>
+                </Style>
+            </FlowDocumentReader.Resources>
+
+            <FlowDocument ColumnWidth="500">
+                <Table CellSpacing="2" BorderThickness="1" BorderBrush="Black">
+
+                    <Table.Columns>
+                        <TableColumn Width="100"/>
+                        <TableColumn Width="100"/>
+                        <TableColumn Width="80"/>
+                        <TableColumn Width="50"/>
+                        <TableColumn Width="50"/>
+                    </Table.Columns>
+                    <TableRowGroup>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="10">
+                                <Paragraph FontWeight="Bold">Monthly Servicing of Production Lines and Multifillers</Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="4" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">Month</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1">
+                                <Paragraph>
+                                    <TextBlock x:Name="MonthTextBlock" Text="{Binding currentMonth}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="4" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">Date</Paragraph>
+                            </TableCell>
+                            <TableCell ColumnSpan="2">
+                                <Paragraph>
+                                    <TextBlock x:Name="YearTextBlock" Text="{Binding currentYear}"></TextBlock>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="4" ColumnSpan="2">
+                                <Paragraph FontWeight="Medium">Line Number</Paragraph>
+                            </TableCell>
+                            <TableCell ColumnSpan="2"  BorderBrush="Black" BorderThickness="1">
+                                <Paragraph>
+                                    <TextBlock x:Name="LineNumberTextBlock" Text="{Binding lineNumber}"></TextBlock>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Bold">Flower Line</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">Yes</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">No</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">Replaced</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="3" TextAlignment="Center">
+                                <Paragraph FontWeight="Medium" FontSize="12">Comments</Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock24" Text="All safety switches and e-stops tested"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol2" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol12" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol22" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol32" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock2" Text="Cutting blades checked and elastic bands removed"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol3" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol42" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol52" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol72" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock3" Text="Drive belts and chains checked for damage and wear"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol4" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol92" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol62" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol722" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock4" Text="Motors and Gear box checked for leakage"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol5" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol212" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol232" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol342" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock5" Text="Check all bearings for signs of failure"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCo6" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol152" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol422" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol332" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock6" Text="All rollers checked, blown out and cleaned of debris"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol7" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol162" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol272" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol952" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock7" Text="Cutter blade sensor checked"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol8" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol122" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol224" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol325" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock8" Text="Photocells cleaned and checked for damage"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol9" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol412" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol622" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol732" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock9" Text="Condition of main belt and joints checked"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol10" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol612" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol282" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol372" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontWeight="Normal" FontSize="13">
+                                    <TextBlock x:Name="testTextBlock10" Text="Electrical cabinet checked for damage and blown out"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol11" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol132" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol292" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="0.5" ColumnSpan="3">
+                                <Paragraph>
+                                    <TextBlock x:Name="testTextBlockCol352" Text="{Binding test}"/>
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4">
+                                <Paragraph FontSize="15" FontWeight="Bold">
+                                    <TextBlock >Binder</TextBlock></Paragraph></TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">Yes</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">No</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="1">
+                                <Paragraph FontWeight="Medium">Replaced</Paragraph>
+                            </TableCell>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="3" TextAlignment="Center">
+                                <Paragraph FontWeight="Medium" FontSize="12">Comments</Paragraph>
+                            </TableCell>
+                        </TableRow>
+                        
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4"></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell BorderBrush="Black" BorderThickness="1" ColumnSpan="4"></TableCell>
+                        </TableRow>
+                    </TableRowGroup>
+                </Table>
+            </FlowDocument>
+        </FlowDocumentReader>
+    </Grid>
+</Window>

@@ -19,17 +19,12 @@ namespace Engineering_Database
 
 		public void createListView()
 		{
-
-
 			CollectAssetData();
-
 		}
 		public void CollectAssetData()
 		{
 			DatabaseClass assetDB = new DatabaseClass();
 			assetDB.ConnectDB("Assets");
-
-
 			OleDbDataReader reader = assetDB.DBQueryForAssets("AssetList");
 
 			while (reader.Read())
@@ -44,9 +39,7 @@ namespace Engineering_Database
 				assets.DateofManufacture = reader["DateOfManufacture"].ToString();
 				if (reader["DateOfInstallation"] != DBNull.Value)
 				{
-
 					assets.DateofInstallation = Convert.ToDateTime(reader["DateOfInstallation"]);
-
 				}
 				assets.IssueLevel = reader["IssueLevel"].ToString();
 				assets.InstalledOn = reader["InstalledOn"].ToString();
@@ -54,20 +47,15 @@ namespace Engineering_Database
 				assets.OnSite = (bool)reader["OnSite"];
 
 				AssetListView.Items.Add(assets);
-
 			}
 			assetDB.CloseDB();
-
 		}
 
 		private void AssetListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			
 			string decomissioned;
 			string onSite;
-
 			Assets item = (Assets)AssetListView.SelectedItem;
-
 			AssetDetail assetDetail = new AssetDetail();
 
 			if (item.Decomissioned.ToString() == "False")
@@ -88,9 +76,6 @@ namespace Engineering_Database
 				onSite = "No";
 			}
 
-
-
-
 			//refactored to use textbox for information showing.
 			//when will need to edit asset details, texbot will be enabled, as by default texboxes are disabled
 
@@ -101,7 +86,6 @@ namespace Engineering_Database
 			assetDetail.AssetDetailAssetNumberTextBox.Text = item.AssetNumber.ToString();
 			assetDetail.AssetDetailSerialNumberTextBox.Text = item.SerialNumber.ToString();
 			assetDetail.AssetDetailDateManufacturedTextBox.Text = item.DateofManufacture.ToString();
-			
 			assetDetail.AssetDetailIssueLevelTextBox.Text = item.IssueLevel.ToString();
 			assetDetail.AssetDetailInstalledOnTextBox.Text = item.InstalledOn.ToString();
 			assetDetail.AssetDetailDescriptionTextBox.Text = item.Description.ToString();
@@ -110,7 +94,7 @@ namespace Engineering_Database
 
 			if (item.DateofInstallation.ToString() == "01-Jan-01 12:00:00 AM" || item.DateofInstallation.ToString() == "01-Jan-01 00:00:00 AM")
 			{
-				
+
 
 			}
 			else
@@ -119,21 +103,9 @@ namespace Engineering_Database
 
 			}
 
-
-
-
-
-
-
-
-
-
 			DatabaseClass jobDB = new DatabaseClass();
 			jobDB.ConnectDB();
-
-
 			OleDbDataReader reader = jobDB.DBQueryForAssetsWithFilter("engineeringDatabaseTable", "AssetNumber", item.AssetNumber.ToString());
-
 
 			while (reader.Read())
 			{
@@ -150,13 +122,8 @@ namespace Engineering_Database
 				assetDetail.JobListForAssetDetails.Items.Add(issue);
 
 			}
-
-
-
 			jobDB.CloseDB();
 			assetDetail.Show();
-
-
 		}
 
 		private void AddAssetButton_Click(object sender, RoutedEventArgs e)

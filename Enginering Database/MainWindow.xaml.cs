@@ -231,6 +231,9 @@ namespace Enginering_Database
 				PasswordProtectImage3.Visibility = Visibility.Hidden;
 				PasswordProtectImage4.Visibility = Visibility.Hidden;
 				MeterReadingButton.Visibility = Visibility.Hidden;
+				LineMaintenanceButton.Visibility = Visibility.Hidden;
+				PasswordProtectImage5.Visibility = Visibility.Hidden;
+				MaintenancePic.Visibility = Visibility.Hidden;
 
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
@@ -262,6 +265,9 @@ namespace Enginering_Database
 				PasswordProtectImage3.Visibility = Visibility.Visible;
 				PasswordProtectImage4.Visibility = Visibility.Visible;
 				MeterReadingButton.Visibility = Visibility.Visible;
+				LineMaintenanceButton.Visibility = Visibility.Visible;
+				PasswordProtectImage5.Visibility = Visibility.Visible;
+				MaintenancePic.Visibility = Visibility.Visible;
 			}
 
 
@@ -298,6 +304,9 @@ namespace Enginering_Database
 				PasswordProtectImage3.Visibility = Visibility.Hidden;
 				PasswordProtectImage4.Visibility = Visibility.Hidden;
 				MeterReadingButton.Visibility = Visibility.Hidden;
+				LineMaintenanceButton.Visibility = Visibility.Hidden;
+				PasswordProtectImage5.Visibility = Visibility.Hidden;
+				MaintenancePic.Visibility = Visibility.Hidden;
 
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
@@ -331,6 +340,9 @@ namespace Enginering_Database
 				PasswordProtectImage3.Visibility = Visibility.Visible;
 				PasswordProtectImage4.Visibility = Visibility.Visible;
 				MeterReadingButton.Visibility = Visibility.Visible;
+				LineMaintenanceButton.Visibility = Visibility.Visible;
+				PasswordProtectImage5.Visibility = Visibility.Visible;
+				MaintenancePic.Visibility = Visibility.Visible;
 			}
 		}
 		public void CloseApp(object sender, EventArgs e)
@@ -406,6 +418,26 @@ namespace Enginering_Database
 				PasswordRequest("MeterReadings");
 
 			}
+		}
+
+		private void LineMaintenanceButton_Click(object sender, RoutedEventArgs e)
+		{
+			userSett.openSettings();
+			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
+			{
+				//LineMaintenance lineMaintenance = new LineMaintenance();
+				//lineMaintenance.Show();
+				DynamicMaintenanceTable dynamictable = new DynamicMaintenanceTable();
+				
+				dynamictable.Show();
+			}
+			else
+			{
+
+				PasswordRequest("LineMaintenance");
+
+			}
+
 		}
 	}
 }
