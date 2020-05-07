@@ -276,8 +276,8 @@
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LogHelper.cs" />
-    <Compile Include="MaintenancePage.xaml.cs">
-      <DependentUpon>MaintenancePage.xaml</DependentUpon>
+    <Compile Include="LineMaintenancePage.xaml.cs">
+      <DependentUpon>LineMaintenancePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MeterReadingClass.cs" />
     <Compile Include="MeterReadingEdit.xaml.cs">
@@ -308,6 +308,9 @@
       <DependentUpon>SettingsForIssueCode.xaml</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="TerraMaintenancePage.xaml.cs">
+      <DependentUpon>TerraMaintenancePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="updateDatabase.xaml.cs">
       <DependentUpon>updateDatabase.xaml</DependentUpon>
     </Compile>
@@ -352,7 +355,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MaintenancePage.xaml">
+    <Page Include="LineMaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -393,6 +396,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingsForIssueCode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TerraMaintenancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

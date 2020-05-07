@@ -9,9 +9,9 @@
 
     
     <Grid>
-             <FlowDocumentPageViewer  Width="800">
+             <FlowDocumentPageViewer  Width="800" MinZoom="100" MaxZoom="100" Zoom="100">
             
-            <FlowDocument ColumnWidth="500">
+            <FlowDocument ColumnWidth="500" Focusable="False" MaxPageHeight="720" MaxPageWidth="820">
                 <Table CellSpacing="2" BorderThickness="0" BorderBrush="Black" TextAlignment="Center" >
 
                     <Table.Columns>

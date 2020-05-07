@@ -22,6 +22,7 @@ namespace Engineering_Database
 		public MaintenancePage()
 		{
 			InitializeComponent();
+			
 		}
 	}
 }

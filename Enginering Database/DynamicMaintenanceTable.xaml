@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="DynamicMaintenanceTable" Height="700" Width="800">
+        Title="DynamicMaintenanceTable" Height="828.606" Width="850">
     <Grid>
-        <Frame x:Name="MaintenanceFrame" HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="792"/>
+        <Frame x:Name="MaintenanceFrame" HorizontalAlignment="Left" Height="788" VerticalAlignment="Top" Width="822" Margin="10,0,0,0"/>
+        <ComboBox Name ="testCombo" HorizontalAlignment="Left" Height="23" Margin="342,0,0,0" VerticalAlignment="Top" Width="277" SelectionChanged="testCombo_SelectionChanged"/>
 
     </Grid>
 </Window>
