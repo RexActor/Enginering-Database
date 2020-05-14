@@ -1,4 +1,4 @@
-﻿using CrystalDecisions.ReportAppServer.DataDefModel;
+﻿using DocumentFormat.OpenXml.Vml;
 using System;
 using System.Data;
 using System.Data.OleDb;
@@ -493,7 +493,7 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
-		
+
 		public OleDbDataReader GetMeterReadingData(string table)
 		{
 			string queryString = $"SELECT * FROM {table} ORDER BY InsertDate ASC";
@@ -510,7 +510,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table, string month,int year)
+		public OleDbDataReader GetMeterReadingData(string table, string month, int year)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE ReadingMonth='{month}' AND ReadingYear ={year} ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -518,7 +518,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetMeterReadingData(string table, string field, string month, string field2,string value2)
+		public OleDbDataReader GetMeterReadingData(string table, string field, string month, string field2, string value2)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE {field}='{month}' AND {field2}='{value2}'  ORDER BY InsertDate ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -562,7 +562,7 @@ namespace Engineering_Database
 		public string GetMeterReadingData(string table, string field, DateTime date)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE InsertDate = '{date.ToOADate()}'";
-		
+
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
@@ -610,13 +610,73 @@ namespace Engineering_Database
 		/// </summary>
 		/// <param name="month"></param>
 		/// <returns></returns>
-		public int DBMeterReadingCountLines(string month,int year)
+		public int DBMeterReadingCountLines(string month, int year)
 		{
 			string queryString = $"SELECT COUNT(*) FROM MeterReadings Where ReadingMonth='{month}' AND ReadingYear ={year}";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();
 			return data;
+		}
+
+		public void uploadFile(string table, byte[] file,string lineOfMaintenance,DateTime dateOfMaintenance,DateTime uploadDate,string EngineerComment)
+		{
+			string queryString = "INSERT INTO " + table + " (UploadedFile,LineOfMaintenance,DateOfMaintenance,UploadDate,EngineerComment) " + " Values(@UploadedFile,@LineOfMaintenance,@DateOfMaintenance,@UploadDate,@EngineerComment)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@UploadDate", date);
+			//cmd.Parameters.AddWithValue("@UploadedFile", file);
+
+			cmd.Parameters.Add("@UploadedFile", OleDbType.Binary).Value = (object)file;
+			cmd.Parameters.Add("LineOfMaintenance", OleDbType.VarWChar).Value = lineOfMaintenance;
+			cmd.Parameters.Add("DateOfMaintenance", OleDbType.Date).Value = dateOfMaintenance;
+			cmd.Parameters.Add("UploadDate", OleDbType.Date).Value = uploadDate;
+			cmd.Parameters.Add("EngineerComment", OleDbType.VarWChar).Value = EngineerComment;
+
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+		}
+
+		public OleDbDataReader GetPDFFileFromDatabase(string table, string field, int id)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}={id}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetAllPDFIds(string table,int lookingYear,string lookingMonth,string lineOfMaintenance)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE YearOfMaintenance ={lookingYear} AND MonthOfMaintenance = '{lookingMonth}' AND LineOfMaintenance='{lineOfMaintenance}' ORDER BY DateOfMaintenance ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetAllPDFIds(string table)
+		{
+			string queryString = $"SELECT * FROM {table} ORDER BY DateOfMaintenance ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetAllPDFIds(string table,int year)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE YearOfMaintenance={year} ORDER BY DateOfMaintenance ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetAllPDFIds(string table, string month)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE MonthOfMaintenance='{month}' ORDER BY DateOfMaintenance ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
 		}
 
 

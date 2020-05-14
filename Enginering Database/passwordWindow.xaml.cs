@@ -1,5 +1,4 @@
-﻿using Enginering_Database;
-
+﻿
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,11 +9,8 @@ namespace Engineering_Database
 	public partial class passwordWindow : Window
 	{
 		readonly UserSettings userSett = new UserSettings();
-		readonly updateDatabase updateDatabase = new updateDatabase();
-		readonly AssetList assetList = new AssetList();
-		readonly Report reports = new Report();
-		readonly MeterReadings meterReadings = new MeterReadings();
-		readonly LineMaintenance lineMaintenance = new LineMaintenance();
+		readonly Admin admin = new Admin();
+
 		public string targetWindow;
 		public passwordWindow()
 		{
@@ -31,39 +27,16 @@ namespace Engineering_Database
 			if (pass == UserSettings.password)
 			{
 
-				if (targetWindow == "UpdateDB")
+				if (targetWindow == "Admin")
 				{
 					this.Close();
-					updateDatabase.Show();
+					admin.Show();
 				}
 				else if (targetWindow == "Settings")
 				{
 					this.Close();
 					userSett.Show();
 				}
-				else if (targetWindow == "AssetList")
-				{
-					this.Close();
-					assetList.Show();
-				}
-				else if (targetWindow == "Reports")
-				{
-					this.Close();
-					reports.Show();
-
-				}
-				else if (targetWindow == "MeterReadings")
-				{
-					this.Close();
-					meterReadings.Show();
-
-				}
-				else if (targetWindow == "LineMaintenance")
-				{
-					this.Close();
-					lineMaintenance.Show();
-				}
-
 			}
 			else
 			{
@@ -71,7 +44,6 @@ namespace Engineering_Database
 
 				passwordMessage.Visibility = Visibility.Visible;
 				passwordWindowTextBox.Clear();
-
 			}
 		}
 
@@ -84,47 +56,22 @@ namespace Engineering_Database
 				if (pass == UserSettings.password)
 				{
 
-					if (targetWindow == "UpdateDB")
+					if (targetWindow == "Admin")
 					{
 						this.Close();
-						updateDatabase.ShowDialog();
+						admin.Show();
 					}
 					else if (targetWindow == "Settings")
 					{
 						this.Close();
-						userSett.ShowDialog();
+						userSett.Show();
 					}
-					else if (targetWindow == "AssetList")
-					{
-						this.Close();
-						assetList.Show();
-					}
-					else if (targetWindow == "Reports")
-					{
-						this.Close();
-						reports.Show();
-
-					}
-					else if (targetWindow == "MeterReadings")
-					{
-						this.Close();
-						meterReadings.Show();
-
-					}
-					else if (targetWindow == "LineMaintenance")
-					{
-						this.Close();
-						lineMaintenance.Show();
-					}
-
 				}
 				else
 				{
 					passwordMessage.Foreground = Brushes.Red;
-
 					passwordMessage.Visibility = Visibility.Visible;
 					passwordWindowTextBox.Clear();
-
 				}
 			}
 

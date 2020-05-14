@@ -1,5 +1,4 @@
-﻿using Microsoft.Reporting.WinForms;
-
+﻿
 using System;
 using System.Windows.Forms;
 
@@ -28,12 +27,12 @@ namespace Engineering_Database
 
 
 
-			
-			this.engineeringDatabaseTableTableAdapter.ReportFill(DataSetForReport.engineeringDatabaseTable,Convert.ToDateTime(comboBox1.Text));
-			
+
+			this.engineeringDatabaseTableTableAdapter.ReportFill(DataSetForReport.engineeringDatabaseTable, Convert.ToDateTime(comboBox1.Text));
+
 			this.reportViewer1.RefreshReport();
 		}
 
-		
+
 	}
 }

@@ -16,17 +16,13 @@ namespace Engineering_Database
 			testCombo.Items.Add(lineMaint);
 			testCombo.Items.Add(terraMaint);
 			testCombo.SelectedIndex = 0;
-			for (int i = 0; i < 10; i++)
-			{
-				LoadPage(testCombo.SelectedItem.ToString());
-			}
 		}
 
 		public void LoadPage(string value)
 		{
-		
-				MaintenanceFrame.Source = new Uri(value, UriKind.RelativeOrAbsolute);
-			
+
+			MaintenanceFrame.Source = new Uri(value, UriKind.RelativeOrAbsolute);
+
 		}
 
 		private void testCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

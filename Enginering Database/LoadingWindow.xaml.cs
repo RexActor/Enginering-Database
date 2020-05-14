@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Engineering_Database
 {
@@ -24,17 +23,17 @@ namespace Engineering_Database
 		}
 		public void StartLoadingScreen()
 		{
-			
-		
+
+
 		}
 
-	
+
 		public void progressChanged(object sender, ProgressChangedEventArgs e)
 		{
 
 			ProgressBar.Value = e.ProgressPercentage;
 			contentLabel.Content = contentLabelText;
-		
+
 		}
 		public void JobFinished(object sender, RunWorkerCompletedEventArgs e)
 		{

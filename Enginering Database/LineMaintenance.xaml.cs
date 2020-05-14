@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Documents.DocumentStructures;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Engineering_Database
 {
@@ -19,13 +8,15 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class LineMaintenance : Window
 	{
+#pragma warning disable CS0414 // The field 'LineMaintenance.test' is assigned but its value is never used
 		string test = "test";
+#pragma warning restore CS0414 // The field 'LineMaintenance.test' is assigned but its value is never used
 		string currentMonth = string.Empty;
 		string currentYear = string.Empty;
 		string lineNumber = string.Empty;
 		public LineMaintenance()
 		{
-			
+
 			InitializeComponent();
 
 			Random rnd = new Random();

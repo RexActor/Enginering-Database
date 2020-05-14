@@ -12,16 +12,10 @@
 
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="42*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid Margin="247,162,10,202" Grid.ColumnSpan="2">
-            <Button Name="ViewDatabaseButton" Content="      User Reported Issues" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="225" HorizontalContentAlignment="Center" Margin="-9,0,0,0"/>
-        </Grid>
-        <Grid Margin="10,162,236,202">
-            <Button Name ="UpdateDatabaseButton" Content="Update Database" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="223" Height="55" VerticalAlignment="Top" Margin="0,0,-5,0"/>
-        </Grid>
+
+
+        <Button Name="ViewDatabaseButton" Content="      User Reported Issues" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453" HorizontalContentAlignment="Center" Margin="10,165,0,0"/>
+
         <Label Content="Local Tme:" FontSize="10" HorizontalContentAlignment="Right" Margin="5,363,0,0" Foreground="#FF251604" FontWeight="Bold" BorderBrush="#FF170202" OpacityMask="#FF130202" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
         <Label Content="Database Connected?" Margin="5,332,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
         <Label x:Name ="LocalTimeData" Content="data" FontSize="10" Margin="122,363,0,0" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="106" Height="26" VerticalAlignment="Top"/>
@@ -36,24 +30,13 @@
         <Label Name ="MaintenanceLabel" Visibility="Hidden" Content="Maintenance" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,105,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
         <Button Name="ReportAppIssue" Content="Report Application Issue" HorizontalAlignment="Left" Height="21" Margin="321,390,0,0" VerticalAlignment="Top" Width="133" Click="ReportAppIssue_Click"/>
         <Label x:Name ="MaintenanceLabel2" Visibility="Hidden" Content="Application will close automatically in 10 seconds" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,160,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.498,0.298" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
-        <Button Name="ShowReportButton"  Content="Show Report" HorizontalAlignment="Left" Height="50" Margin="10,222,0,0" VerticalAlignment="Top" Width="223" Click="ShowReportButtonClick"/>
-        <Button Name="AssetListButton" Content="Asset List" HorizontalAlignment="Left" Height="50" Margin="238,222,0,0" VerticalAlignment="Top" Width="225" Click="AssetListButton_Click"/>
-        <Image x:Name="AssetListImage" Margin="239,223,177,150" Source="assetlist.png" Stretch="Fill"/>
         <Image x:Name="InsertDataImage" Margin="10,105,406,268" Source="ReportIssue.png" Stretch="Fill"/>
-        <Image x:Name="PasswordProtectImage1" Margin="209,225,235,176" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
-        <Image x:Name="PasswordProtectImage2" Margin="209,166,235,235" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
-        <Image x:Name="PasswordProtectImage3" Margin="440,225,4,176" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
-        <Image x:Name="ShowReportImage" Margin="10,224,406,149" Source="Load Report.png" Stretch="Fill"/>
-        <Image x:Name="ViewDatabaseImage" Margin="239,166,177,207" Source="User Reported Issues.png" Stretch="Fill"/>
-        <Image x:Name="UpdateDatabaseImage" Margin="10,166,406,207" Source="update.png" Stretch="Fill"/>
+      
+        <Image x:Name="ViewDatabaseImage" Margin="13,167,418,204" Source="User Reported Issues.png" Stretch="Fill"/>
         <Image Margin="432,3,1,385" Source="User Settings-02-WF.png" Stretch="Fill" MouseDown="SettingsShow"/>
-        <Button Name ="MeterReadingButton" Content="Meter Readings" HorizontalAlignment="Left" Height="48" Margin="238,277,0,0" VerticalAlignment="Top" Width="225" Click="MeterReadingButton_Click"/>
-        <Image x:Name="PasswordProtectImage4" Margin="440,282,4,119" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
-        <Image Margin="239,277,177,96" Source="Meter-02.png" Stretch="Fill"/>
-        <Button Name="LineMaintenanceButton" Content="Maintenance" HorizontalAlignment="Left" Height="48" Margin="10,277,0,0" VerticalAlignment="Top" Width="223" Click="LineMaintenanceButton_Click"/>
-        <Image x:Name="PasswordProtectImage5" Margin="208,282,236,119" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
-        <Image Name="MaintenancePic" Margin="10,277,406,96" Source="Tools-WF.png" Stretch="Fill"/>
-
+        <Button Name="AdministratorButton" Content="Administrator" HorizontalAlignment="Left" Height="55" Margin="10,228,0,0" VerticalAlignment="Top" Width="453" Click="AdministratorButton_Click"/>
+        <Image x:Name="PasswordProtectImage2" Margin="442,229,13,172" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
+        <Image Name ="AdministratorImage" Margin="13,233,414,140" Source="Admin.png" Stretch="Fill"/>
 
 
 

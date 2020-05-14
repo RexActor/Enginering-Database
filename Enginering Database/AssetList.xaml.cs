@@ -10,7 +10,9 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class AssetList : Window
 	{
+#pragma warning disable CS0414 // The field 'AssetList.haveInstallationDate' is assigned but its value is never used
 		private bool haveInstallationDate = false;
+#pragma warning restore CS0414 // The field 'AssetList.haveInstallationDate' is assigned but its value is never used
 		public AssetList()
 		{
 			InitializeComponent();

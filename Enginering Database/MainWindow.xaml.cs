@@ -116,28 +116,7 @@ namespace Enginering_Database
 			win2.ShowDialog();
 		}
 
-		private void UpdateDatabaseButton_Click(object sender, RoutedEventArgs e)
-		{
-
-			userSett.openSettings();
-			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
-			{
-
-				updateDatabase updateDB = new updateDatabase();
-
-				updateDB.ShowDialog();
-			}
-			else
-			{
-
-				PasswordRequest("UpdateDB");
-
-
-
-
-
-			}
-		}
+	
 		private void SettingsShow(object sender, RoutedEventArgs e)
 		{
 			//UserSettings userSett = new UserSettings();
@@ -216,24 +195,15 @@ namespace Enginering_Database
 			{
 				MaintenanceLabel.Visibility = Visibility.Visible;
 
-				UpdateDatabaseButton.Visibility = Visibility.Hidden;
-				UpdateDatabaseImage.Visibility = Visibility.Hidden;
+			
 				InsertDataButton.Visibility = Visibility.Hidden;
 				InsertDataImage.Visibility = Visibility.Hidden;
 				ViewDatabaseButton.Visibility = Visibility.Hidden;
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
-				AssetListButton.Visibility = Visibility.Hidden;
-				ShowReportButton.Visibility = Visibility.Hidden;
-				ShowReportImage.Visibility = Visibility.Hidden;
-				AssetListImage.Visibility = Visibility.Hidden;
-				PasswordProtectImage1.Visibility = Visibility.Hidden;
+				AdministratorButton.Visibility = Visibility.Hidden;
+				AdministratorImage.Visibility = Visibility.Hidden;
 				PasswordProtectImage2.Visibility = Visibility.Hidden;
-				PasswordProtectImage3.Visibility = Visibility.Hidden;
-				PasswordProtectImage4.Visibility = Visibility.Hidden;
-				MeterReadingButton.Visibility = Visibility.Hidden;
-				LineMaintenanceButton.Visibility = Visibility.Hidden;
-				PasswordProtectImage5.Visibility = Visibility.Hidden;
-				MaintenancePic.Visibility = Visibility.Hidden;
+				
 
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
@@ -250,24 +220,15 @@ namespace Enginering_Database
 			{
 				MaintenanceLabel.Visibility = Visibility.Hidden;
 				MaintenanceLabel2.Visibility = Visibility.Hidden;
-				UpdateDatabaseButton.Visibility = Visibility.Visible;
-				UpdateDatabaseImage.Visibility = Visibility.Visible;
+				
 				InsertDataButton.Visibility = Visibility.Visible;
 				InsertDataImage.Visibility = Visibility.Visible;
 				ViewDatabaseButton.Visibility = Visibility.Visible;
 				ViewDatabaseImage.Visibility = Visibility.Visible;
-				AssetListButton.Visibility = Visibility.Visible;
-				ShowReportButton.Visibility = Visibility.Visible;
-				ShowReportImage.Visibility = Visibility.Visible;
-				AssetListImage.Visibility = Visibility.Visible;
-				PasswordProtectImage1.Visibility = Visibility.Visible;
+				AdministratorButton.Visibility = Visibility.Visible;
+				AdministratorImage.Visibility = Visibility.Visible;
 				PasswordProtectImage2.Visibility = Visibility.Visible;
-				PasswordProtectImage3.Visibility = Visibility.Visible;
-				PasswordProtectImage4.Visibility = Visibility.Visible;
-				MeterReadingButton.Visibility = Visibility.Visible;
-				LineMaintenanceButton.Visibility = Visibility.Visible;
-				PasswordProtectImage5.Visibility = Visibility.Visible;
-				MaintenancePic.Visibility = Visibility.Visible;
+				
 			}
 
 
@@ -289,24 +250,15 @@ namespace Enginering_Database
 			{
 				MaintenanceLabel.Visibility = Visibility.Visible;
 				//MaintenanceLabel2.Visibility = Visibility.Visible;
-				UpdateDatabaseButton.Visibility = Visibility.Hidden;
-				UpdateDatabaseImage.Visibility = Visibility.Hidden;
+				
 				InsertDataButton.Visibility = Visibility.Hidden;
 				InsertDataImage.Visibility = Visibility.Hidden;
 				ViewDatabaseButton.Visibility = Visibility.Hidden;
 				ViewDatabaseImage.Visibility = Visibility.Hidden;
-				AssetListButton.Visibility = Visibility.Hidden;
-				ShowReportButton.Visibility = Visibility.Hidden;
-				ShowReportImage.Visibility = Visibility.Hidden;
-				AssetListImage.Visibility = Visibility.Hidden;
-				PasswordProtectImage1.Visibility = Visibility.Hidden;
+				AdministratorButton.Visibility = Visibility.Hidden;
+				AdministratorImage.Visibility = Visibility.Hidden;
 				PasswordProtectImage2.Visibility = Visibility.Hidden;
-				PasswordProtectImage3.Visibility = Visibility.Hidden;
-				PasswordProtectImage4.Visibility = Visibility.Hidden;
-				MeterReadingButton.Visibility = Visibility.Hidden;
-				LineMaintenanceButton.Visibility = Visibility.Hidden;
-				PasswordProtectImage5.Visibility = Visibility.Hidden;
-				MaintenancePic.Visibility = Visibility.Hidden;
+				
 
 				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
 				{
@@ -325,24 +277,15 @@ namespace Enginering_Database
 			{
 				MaintenanceLabel.Visibility = Visibility.Hidden;
 				MaintenanceLabel2.Visibility = Visibility.Hidden;
-				UpdateDatabaseButton.Visibility = Visibility.Visible;
-				UpdateDatabaseImage.Visibility = Visibility.Visible;
+				AdministratorButton.Visibility = Visibility.Visible;
+				AdministratorImage.Visibility = Visibility.Visible;
 				InsertDataButton.Visibility = Visibility.Visible;
 				InsertDataImage.Visibility = Visibility.Visible;
 				ViewDatabaseButton.Visibility = Visibility.Visible;
 				ViewDatabaseImage.Visibility = Visibility.Visible;
-				AssetListButton.Visibility = Visibility.Visible;
-				ShowReportButton.Visibility = Visibility.Visible;
-				ShowReportImage.Visibility = Visibility.Visible;
-				AssetListImage.Visibility = Visibility.Visible;
-				PasswordProtectImage1.Visibility = Visibility.Visible;
+				
 				PasswordProtectImage2.Visibility = Visibility.Visible;
-				PasswordProtectImage3.Visibility = Visibility.Visible;
-				PasswordProtectImage4.Visibility = Visibility.Visible;
-				MeterReadingButton.Visibility = Visibility.Visible;
-				LineMaintenanceButton.Visibility = Visibility.Visible;
-				PasswordProtectImage5.Visibility = Visibility.Visible;
-				MaintenancePic.Visibility = Visibility.Visible;
+				
 			}
 		}
 		public void CloseApp(object sender, EventArgs e)
@@ -363,78 +306,26 @@ namespace Enginering_Database
 			LocalTimeData.Content = d.ToString("HH:mm:ss");
 		}
 
-		private void ShowReportButtonClick(object sender, RoutedEventArgs e)
+
+
+
+		private void AdministratorButton_Click(object sender, RoutedEventArgs e)
 		{
-
-			userSett.openSettings();
-			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
-			{
-
-				ReportWindow repWin = new ReportWindow();
-				repWin.Show();
-			}
-			else
-			{
-
-				PasswordRequest("Reports");
-
-			}
 			
-		}
 
-		private void AssetListButton_Click(object sender, RoutedEventArgs e)
-		{
-
-			userSett.openSettings();
-			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
-			{
-
-				AssetList assetList = new AssetList();
-				assetList.Show();
-			}
-			else
-			{
-
-				PasswordRequest("AssetList");
-
-			}
-
-
-
-		}
-
-		private void MeterReadingButton_Click(object sender, RoutedEventArgs e)
-		{
-			userSett.openSettings();
-			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
-			{
-
-				MeterReadings meterReadings = new MeterReadings();
-				meterReadings.Show();
-			}
-			else
-			{
-
-				PasswordRequest("MeterReadings");
-
-			}
-		}
-
-		private void LineMaintenanceButton_Click(object sender, RoutedEventArgs e)
-		{
 			userSett.openSettings();
 			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
 			{
 				//LineMaintenance lineMaintenance = new LineMaintenance();
 				//lineMaintenance.Show();
-				DynamicMaintenanceTable dynamictable = new DynamicMaintenanceTable();
-				
-				dynamictable.Show();
+				Admin admin = new Admin();
+				admin.Show();
+
 			}
 			else
 			{
 
-				PasswordRequest("LineMaintenance");
+				PasswordRequest("Admin");
 
 			}
 

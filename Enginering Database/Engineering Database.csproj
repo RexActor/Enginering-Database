@@ -206,6 +206,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.DirectoryServices.Protocols" />
@@ -238,6 +239,12 @@
     </Compile>
     <Compile Include="addData.xaml.cs">
       <DependentUpon>addData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddMaintenanceReport.xaml.cs">
+      <DependentUpon>AddMaintenanceReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssetDetail.xaml.cs">
       <DependentUpon>AssetDetail.xaml</DependentUpon>
@@ -278,6 +285,9 @@
     <Compile Include="LogHelper.cs" />
     <Compile Include="LineMaintenancePage.xaml.cs">
       <DependentUpon>LineMaintenancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintenanceSummary.xaml.cs">
+      <DependentUpon>MaintenanceSummary.xaml</DependentUpon>
     </Compile>
     <Compile Include="MeterReadingClass.cs" />
     <Compile Include="MeterReadingEdit.xaml.cs">
@@ -331,6 +341,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddMaintenanceReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AssetDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -356,6 +374,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LineMaintenancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintenanceSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -538,6 +560,7 @@
     <Resource Include="User Reported Issues.png" />
     <Resource Include="assetlist.png" />
     <Resource Include="AssetList.ico" />
+    <Resource Include="Admin.png" />
     <Content Include="engineeringDatabase.accdb" />
     <Resource Include="ReportIssue.png" />
     <Resource Include="PasswordProtected.png" />

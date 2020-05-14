@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Engineering_Database;
 
 namespace Engineering_Database
 {
@@ -40,14 +39,14 @@ namespace Engineering_Database
 			{
 				InteractionWindowLabel.Content = "Please enter value in textbox. It can't be empty";
 			}
-			
+
 		}
 
 
 		private void AddAreaCode(string table, string areaCode)
 		{
 
-			
+
 			db.ConnectDB();
 			db.InsertIssueIntoDatabase(table, areaCode);
 

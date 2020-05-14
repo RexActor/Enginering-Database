@@ -1,4 +1,5 @@
 ﻿using Engineering_Database;
+
 using System;
 using System.Data;
 using System.Data.OleDb;
@@ -15,7 +16,7 @@ namespace Enginering_Database
 	/// </summary>
 	public partial class viewDatabase : Window
 	{
-		
+
 		readonly IssueClass issueClass = new IssueClass();
 
 		int jobList;
@@ -24,7 +25,7 @@ namespace Enginering_Database
 		readonly DatabaseClass db = new DatabaseClass();
 		System.Windows.Controls.Button textTestLabel;
 		public string contentForTextTestLabel;
-		
+
 
 		public viewDatabase()
 
@@ -33,9 +34,9 @@ namespace Enginering_Database
 			db.ConnectDB();
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
-			LogedInUser= WindowsIdentity.GetCurrent().Name;
+			LogedInUser = WindowsIdentity.GetCurrent().Name;
 			LogedInUserLabel.Content = LogedInUser;
-		
+
 
 			OutstandingReports("Outstanding");
 			ResolvedReports("Resolved");
@@ -50,11 +51,11 @@ namespace Enginering_Database
 
 			//throw new NotImplementedException();
 
-			
+
 
 		}
 
-		
+
 		private void OutstandingReports(string filter)
 		{
 			issueClass.updateIssueDataList();
@@ -62,16 +63,16 @@ namespace Enginering_Database
 
 
 			OustandingUserStackPanel.Children.Clear();
-		
+
 
 			jobList = 100;
 
-		
+
 
 			if (jobList > 0)
 			{
 
-				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQueryforUsers(filter,LogedInUser));
+				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQueryforUsers(filter, LogedInUser));
 				DataTable dt = new DataTable();
 				int i = 0;
 				da.Fill(dt);
@@ -100,18 +101,18 @@ namespace Enginering_Database
 
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
-					
+
 						OustandingUserStackPanel.Children.Add(textTestLabel);
-						
+
 					}
 					i++;
 				}
 
 			}
 
-			
 
-			
+
+
 
 		}
 		private void TextTestLabel_Click(object sender, RoutedEventArgs e)
@@ -173,12 +174,12 @@ namespace Enginering_Database
 				db.ConnectDB();
 			}
 
-		
+
 			Button lbl = (Button)sender;
-		
+
 			if (lbl == null)
 			{
-				
+
 
 			}
 			else
@@ -211,7 +212,7 @@ namespace Enginering_Database
 
 
 			ResolvedUserstackPanel.Children.Clear();
-	
+
 
 			jobList = 100;
 
@@ -220,7 +221,7 @@ namespace Enginering_Database
 			if (jobList > 0)
 			{
 
-				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQueryforUsers(filter,LogedInUser));
+				OleDbDataAdapter da = new OleDbDataAdapter(db.DBQueryforUsers(filter, LogedInUser));
 				DataTable dt = new DataTable();
 				int i = 0;
 				da.Fill(dt);
@@ -249,10 +250,10 @@ namespace Enginering_Database
 
 
 						textTestLabel.Click += (sender, e) => { TextTestLabel_Click(sender, e); };
-				
-						
+
+
 						ResolvedUserstackPanel.Children.Add(textTestLabel);
-						
+
 					}
 					i++;
 				}
@@ -292,8 +293,8 @@ namespace Enginering_Database
 			UserPriorityLabelData.Content = db.DBQuery("Priority", convJobNumber);
 
 			//Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
-			UserDescTextBox.Text= db.DBQuery("DetailedDescription", convJobNumber);
-			
+			UserDescTextBox.Text = db.DBQuery("DetailedDescription", convJobNumber);
+
 			//Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 			//Frame3StartTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("StartTime", convJobNumber)).ToShortTimeString();
 			//Frame3FinishTimeTextBox.Text = Convert.ToDateTime(db.DBQuery("FinishTime", convJobNumber)).ToShortTimeString();
@@ -301,38 +302,38 @@ namespace Enginering_Database
 			if (db.DBQuery("AssignedTo", convJobNumber) == "")
 			{
 				UserAssignedToLabelData.Content = "Job is not assigned";
-				
+
 			}
 			else
 			{
-			
+
 				UserAssignedToLabelData.Content = db.DBQuery("AssignedTo", convJobNumber);
 			}
-			
+
 
 			if (db.DBQuery("Contractor", convJobNumber) != "")
 			{
-				
-				UserContractorLabelData.Content= db.DBQuery("Contractor", convJobNumber);
+
+				UserContractorLabelData.Content = db.DBQuery("Contractor", convJobNumber);
 			}
 			else
 			{
-				
+
 				UserContractorLabelData.Content = "No Contractors Assigned";
 			}
 
 			if (db.DBQuery("CommentsForActionTaken", convJobNumber) != "")
 			{
-	
+
 				UserEngineerTextBox.Text = db.DBQuery("CommentsForActionTaken", convJobNumber);
 			}
 			else
 			{
-				
+
 				UserEngineerTextBox.Text = "There are no comment from Enginner";
 			}
 
-			
+
 
 
 		}
@@ -344,8 +345,8 @@ namespace Enginering_Database
 
 			OutstandingReports("Outstanding");
 			ResolvedReports("Resolved");
-			
-			
+
+
 			UserJobNumberLabelData.Content = "";
 			UserReportedDateLabelData.Content = "";
 			UserAreaLabelData.Content = "";

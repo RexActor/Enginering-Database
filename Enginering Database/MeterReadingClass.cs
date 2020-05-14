@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Engineering_Database
+﻿namespace Engineering_Database
 {
 	class MeterReadingClass
 	{

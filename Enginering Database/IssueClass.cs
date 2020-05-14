@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using System.Data;
 using System.Data.OleDb;
@@ -19,7 +18,7 @@ namespace Engineering_Database
 		public string FaulyArea { get; set; }
 
 		public string Building { get; set; }
-	
+
 		public string Code { get; set; }
 		public string Priority { get; set; }
 		public string Type { get; set; }
@@ -44,7 +43,7 @@ namespace Engineering_Database
 			issueDataList.Clear();
 			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForAllLines());
 			DataTable dt2 = new DataTable();
-			
+
 			upIsDtList.Fill(dt2);
 
 
@@ -63,9 +62,9 @@ namespace Engineering_Database
 				newIs.ReportedUserName = dr["ReportedUsername"].ToString();
 				newIs.AssetNumber = dr["AssetNumber"].ToString();
 				newIs.FaulyArea = dr["FaultyArea"].ToString();
-		
+
 				newIs.Building = dr["Building"].ToString();
-			
+
 				newIs.Code = dr["IssueCode"].ToString();
 				newIs.Priority = dr["Priority"].ToString();
 				newIs.Type = dr["Type"].ToString();
@@ -81,12 +80,12 @@ namespace Engineering_Database
 				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
 
 
-				
-					issueDataList.Add(newIs);
-				
+
+				issueDataList.Add(newIs);
+
 
 			}
-		
+
 			upIsDtList.Dispose();
 			return issueDataList;
 
@@ -119,9 +118,9 @@ namespace Engineering_Database
 				newIs.ReportedUserName = dr["ReportedUsername"].ToString();
 				newIs.AssetNumber = dr["AssetNumber"].ToString();
 				newIs.FaulyArea = dr["FaultyArea"].ToString();
-			
+
 				newIs.Building = dr["Building"].ToString();
-			
+
 				newIs.Code = dr["IssueCode"].ToString();
 				newIs.Priority = dr["Priority"].ToString();
 				newIs.Type = dr["Type"].ToString();
@@ -161,5 +160,5 @@ namespace Engineering_Database
 
 
 
-	}
+}
 

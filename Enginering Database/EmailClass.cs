@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Outlook;
+
 using System.Diagnostics;
 
 namespace Engineering_Database
@@ -13,7 +14,7 @@ namespace Engineering_Database
 
 		string htmlString;
 		public string sender = null;
-		
+
 		private bool checkOutlook()
 		{
 			int procCount = 0;
@@ -38,22 +39,22 @@ namespace Engineering_Database
 		public void SendEmail(string jobStatus = null, IssueClass issue = null, string reply = null)
 		{
 
-			
+
 
 			if (checkOutlook() == true)
 			{
 
 				userSett.openSettings();
 				string emailAddress = userSett.Email;
-			
+
 				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
 
 				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
-			
+
 
 				sender = GetSenderEmailAddress(mailItem);
 
-				
+
 
 
 
@@ -94,7 +95,7 @@ namespace Engineering_Database
 					mailItem.To = emailAddress;
 					mailItem.CC = sender;
 					mailItem.Subject = "Engineering Attention required for: " + issue.Type + " with " + issue.Priority + " priority";
-					
+
 					htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
 						"<b>Priority:</b> " + issue.Priority + "<br>" +
 	  "<b>Job Number:</b> " + issue.JobNumber + "<br>" +
@@ -110,7 +111,7 @@ namespace Engineering_Database
 
 
 
-					
+
 				}
 				else if (reply == "ReOpen")
 				{
@@ -184,7 +185,7 @@ namespace Engineering_Database
 
 
 
-			
+
 
 			}
 			else
@@ -261,7 +262,7 @@ namespace Engineering_Database
 					{
 						mailItem.Send();
 					}
-				
+
 
 				}
 

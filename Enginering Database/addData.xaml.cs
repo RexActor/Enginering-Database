@@ -180,14 +180,14 @@ namespace Enginering_Database
 
 		}
 
-		
+
 
 		private void BuildingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			
+
 		}
 
-	
+
 		private void FaultyAreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
@@ -343,7 +343,7 @@ namespace Enginering_Database
 
 			string dtNow = dueDate.ToString("dd/MM/yyyy");
 
-			
+
 
 			TextRange textRange = new TextRange(DetailedDescriptionRichTextBox.Document.ContentStart, DetailedDescriptionRichTextBox.Document.ContentEnd);
 

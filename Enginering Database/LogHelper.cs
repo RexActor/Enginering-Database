@@ -1,9 +1,4 @@
-﻿using System;
-//using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System.Collections.Generic;
 
 namespace Engineering_Database
 {
@@ -12,7 +7,7 @@ namespace Engineering_Database
 
 		//public static log4net.ILog GetLogger([CallerFilePath]String filename= "")
 		//{
-			//return log4net.LogManager.GetLogger(filename);
+		//return log4net.LogManager.GetLogger(filename);
 		//}
 	}
 }

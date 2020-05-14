@@ -1,0 +1,51 @@
+﻿<Window x:Class="Engineering_Database.AddMaintenanceReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Add Maintenance Report" Height="635" Width="688" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="389*"/>
+            <ColumnDefinition Width="293*"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox  Margin="296,28,0,0" HorizontalAlignment="Left" Width="376" Grid.ColumnSpan="2" Height="573" VerticalAlignment="Top">
+            <WebBrowser  Name="PDFBrowser" Margin="10,74,10,10" Width="1439" Height="2113" RenderTransformOrigin="0.5,0.5">
+                <WebBrowser.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </WebBrowser.RenderTransform>
+            </WebBrowser>
+
+        </Viewbox>
+        <Label x:Name="dateErrorLabel" Content="Date can't be in future. Please amend date" HorizontalAlignment="Left" Height="25" Margin="31,104,0,0" Foreground="Red" VerticalAlignment="Top" HorizontalContentAlignment="Right" FontSize="10" Width="247"/>
+
+        <Frame Name="adminFrame" BorderBrush="Black" BorderThickness="1" Content="" HorizontalAlignment="Left" Height="336" Margin="10,42,0,0" VerticalAlignment="Top" Width="281"/>
+        <TextBox Name ="fileLocation" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="18,159,0,0" TextWrapping="Wrap" Text="" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190"/>
+        <Button Name="ChooseFileButton" Content="Choose File" Height="19" Margin="213,159,0,0" VerticalAlignment="Top" Click="ChooseFileButton_Click" HorizontalAlignment="Left" Width="65"/>
+        <Button Name="UploadFileToDatabase" Content="Upload" Height="22" Margin="152,342,0,0" VerticalAlignment="Top" Click="UploadFileToDatabase_Click" HorizontalAlignment="Left" Width="124"/>
+        <Label Content="Upload Date" HorizontalAlignment="Left" Height="25" Margin="20,54,0,0" VerticalAlignment="Top" Width="86"/>
+        <DatePicker Name="uploadDateDatePicker" HorizontalAlignment="Left" Height="25" Margin="111,55,0,0" VerticalAlignment="Top" Width="156"/>
+        <DatePicker x:Name="DateOfMaintenanceDatePicker" HorizontalAlignment="Left" Height="25" Margin="153,85,0,0" VerticalAlignment="Top"  Width="125" SelectedDateChanged="DateOfMaintenanceDatePicker_SelectedDateChanged"/>
+        <Label Content="Date Of Maintenance" HorizontalAlignment="Left" Height="25" Margin="21,84,0,0" VerticalAlignment="Top" Width="127"/>
+        <TextBox x:Name ="LineOfMaintenance" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="84,130,0,0" TextWrapping="Wrap" Text="" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194"/>
+        <Label Content="Line" HorizontalAlignment="Left" Height="25" Margin="21,129,0,0" VerticalAlignment="Top" Width="42"/>
+        <RichTextBox Name="engineerCommentRichTextBox" HorizontalAlignment="Left" Height="154" Margin="18,183,0,0" VerticalAlignment="Top" Width="258">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Label Content="File Upload controls" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" Background="#7CBB6C" BorderThickness="1" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="281"/>
+        <Label Content="Uploading file  Preview" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderBrush="Black" BorderThickness="1" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="296,8,0,0" VerticalAlignment="Top" Width="376" Grid.ColumnSpan="2"/>
+        <Label Name="uploadConfirmationLabel" Foreground="Green" FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="File uploaded" HorizontalAlignment="Left" Margin="46,383,0,0" VerticalAlignment="Top" Width="205"/>
+
+    </Grid>
+</Window>

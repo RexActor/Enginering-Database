@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Engineering_Database
 {
@@ -33,7 +23,7 @@ namespace Engineering_Database
 
 			db.ConnectDB("Assets");
 
-			if (decomissionedCheckBox.IsChecked==true)
+			if (decomissionedCheckBox.IsChecked == true)
 			{
 				decomissioned = true;
 			}
@@ -53,7 +43,7 @@ namespace Engineering_Database
 
 
 
-			db.InsertAssetIntoDatabase("AssetList",AssetDescriptionTextBox.Text,AssetMakeTextBox.Text,AssetModelTextBox.Text,AssetNumberTextBox.Text,SerialNumberTextBox.Text,DateOfManufactureTextBox.Text,Convert.ToDateTime(DateOfInstallationDatePicker.SelectedDate.Value.Date),IssueLevelTextBox.Text,AssetInstalledOnTextBox.Text,decomissioned, onSite);
+			db.InsertAssetIntoDatabase("AssetList", AssetDescriptionTextBox.Text, AssetMakeTextBox.Text, AssetModelTextBox.Text, AssetNumberTextBox.Text, SerialNumberTextBox.Text, DateOfManufactureTextBox.Text, Convert.ToDateTime(DateOfInstallationDatePicker.SelectedDate.Value.Date), IssueLevelTextBox.Text, AssetInstalledOnTextBox.Text, decomissioned, onSite);
 
 			db.CloseDB();
 			this.Close();

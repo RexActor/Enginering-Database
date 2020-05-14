@@ -146,7 +146,6 @@ namespace Engineering_Database
 			}
 		}
 
-		//need to change function to show in chart All month Data if specific month is not selected
 		private void loadChart(string month = null, string filter = null)
 		{
 			ColumnSeriesData.IsSelectionEnabled = false;
@@ -211,7 +210,6 @@ namespace Engineering_Database
 						}
 						else
 						{
-
 							if (indexOfItem != -1)
 							{
 								var oldItem = list[indexOfItem];
@@ -221,9 +219,7 @@ namespace Engineering_Database
 								newCustomItem.sum = oldSum + addingValue;
 								list[indexOfItem] = newCustomItem;
 							}
-
 						}
-
 					}
 					int z = 0;
 
@@ -255,7 +251,6 @@ namespace Engineering_Database
 			int increase = 0;
 			int newId = 0;
 
-
 			List<ExistingData> existingData = new List<ExistingData>();
 			var reader = db.GetMeterReadingData("MeterReadings");
 			while (reader.Read())
@@ -283,30 +278,22 @@ namespace Engineering_Database
 					{
 						newConsumption = Convert.ToInt32(existingData[i].meterReading - existingData[i - 1].meterReading);
 					}
-
-					//Console.WriteLine($" ID==>{existingData[i].ID}|| Insert Date ==>{existingData[i].insertDate} || Meter Reading ==> {existingData[i].meterReading} || Meter Calculation {existingData[i].consumption} ==> but should be {newConsumption}");
-
 					db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, newConsumption);
-
 				}
 				else
 				{
 					newId = 0;
 
-					//Console.WriteLine($" ID==>{existingData[i].ID}|| Insert Date ==>{existingData[i].insertDate} || Meter Reading ==> {existingData[i].meterReading} || Meter Calculation {existingData[i].consumption} ==> but should be 0");
 					db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, 0);
 				}
 
 				increase = Convert.ToInt32(((double)i / existingData.Count) * 100);
-				contentLabelText = $"Updating Database Id [{existingData[i].ID}] with date [{string.Format("{0:d}", existingData[i].insertDate)}] value is [{existingData[i].consumption}] ==> calculated  {existingData[i].meterReading} subtracted {existingData[newId].meterReading} ";
+				contentLabelText = $"Updating Database Id [{existingData[i].ID}] with date [{string.Format("{0:d}", existingData[i].insertDate)}] consupmtion is [{existingData[i].consumption}] ==> calculated new consumption  {newConsumption} ";
 				Dispatcher.Invoke(new System.Action(() => { worker.ReportProgress(increase); }));
 				Thread.Sleep(100);
 
-				//loadingWind.increaseLoading(1);
 			}
 		}
-
-
 
 		public struct ExistingData
 		{
@@ -338,7 +325,6 @@ namespace Engineering_Database
 			public int sum { get; set; }
 		}
 
-
 		private void FilterSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			int result;
@@ -355,26 +341,20 @@ namespace Engineering_Database
 			ChangeDataCheckBox.IsChecked = false;
 			if (FilterSlider.Value == 0)
 			{
-
-
 				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
 				getReadings("ReadingMonth", "Year");
-
 			}
 			else
 			{
-
 				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingMonth");
 				getReadings("ReadingYear", "Month");
 			}
-
 		}
 
 		private void ColumnSeriesData_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
 			if (ChangeDataCheckBox.IsChecked == true)
 			{
-
 				ColumnSeries cs = (ColumnSeries)sender;
 				KeyValuePair<string, int> kv = (KeyValuePair<string, int>)cs.SelectedItem;
 
@@ -383,7 +363,6 @@ namespace Engineering_Database
 				//MessageBox.Show(kv.Key);
 				editMeterReading.Show();
 				ChangeDataCheckBox.IsChecked = false;
-
 			}
 			else
 			{
@@ -393,8 +372,6 @@ namespace Engineering_Database
 
 		private void ChangeDataCheckBox_Click(object sender, RoutedEventArgs e)
 		{
-
-
 			if (canEditData == false)
 			{
 				ColumnSeriesData.IsSelectionEnabled = false;
@@ -405,7 +382,6 @@ namespace Engineering_Database
 				tp.IsOpen = true;
 				tp.StaysOpen = false;
 				tp.IsEnabled = true;
-
 			}
 			else
 			{
@@ -421,41 +397,30 @@ namespace Engineering_Database
 			}
 		}
 
-
 		private void ReCalculateButton_Click(object sender, RoutedEventArgs e)
 		{
-			
 			TestChart.Visibility = Visibility.Hidden;
 			MeterReadingListView.Visibility = Visibility.Hidden;
-			//loadingWind.Owner = this;
-			//loadingWind.Show();
 			testProgressBar.Visibility = Visibility.Visible;
 			testLabelContent.Visibility = Visibility.Visible;
-
 			worker.ProgressChanged += progressChanged;
 			worker.DoWork += runScript;
 			worker.WorkerReportsProgress = true;
 			worker.RunWorkerCompleted += JobFinished;
-
 			worker.RunWorkerAsync();
 		}
 
-
 		public void progressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			
 			testProgressBar.Value = e.ProgressPercentage;
 			testLabelContent.Content = contentLabelText;
-
 		}
 		public void JobFinished(object sender, RunWorkerCompletedEventArgs e)
 		{
-			//this.ReCalculateButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 			testProgressBar.Visibility = Visibility.Hidden;
 			testLabelContent.Visibility = Visibility.Hidden;
 			TestChart.Visibility = Visibility.Visible;
 			MeterReadingListView.Visibility = Visibility.Visible;
-
 		}
 	}
 
