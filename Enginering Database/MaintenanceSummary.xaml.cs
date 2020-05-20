@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Engineering_Database
 {
@@ -25,6 +26,8 @@ namespace Engineering_Database
 		{
 			InitializeComponent();
 			SlideControlCurrentValue = SliderControl.Value;
+			selectedYearContent.Content = "No selection";
+			selectedMonthContent.Content = "No selection";
 			UpdateListBox("Year");
 		}
 
@@ -121,7 +124,6 @@ namespace Engineering_Database
 				selectedYear = 0;
 				selectedMonth = string.Empty;
 
-
 				//MessageBox.Show("Switching to Years");
 				UpdateListBox("Year");
 			}
@@ -145,6 +147,8 @@ namespace Engineering_Database
 
 		private void DataListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+
+
 			//DataListBox.UnselectAll();
 
 			if (DataListBox.SelectedIndex >= 0)
@@ -153,13 +157,33 @@ namespace Engineering_Database
 				if (SliderControl.Value == 0)
 				{
 					selectedYear = Convert.ToInt32(DataListBox.SelectedItem);
+					if (selectedYear != 0)
+					{
+						selectedYearContent.Content = selectedYear.ToString();
+
+						selectedYearContent.Foreground = Brushes.Green;
+					}
+					else
+					{
+						selectedYearContent.Foreground = Brushes.Red;
+						selectedYearContent.Content = "No selection";
+					}
 				}
 
 				else if (SliderControl.Value == 1)
 				{
 
 					selectedMonth = DataListBox.SelectedItem.ToString();
-					//MessageBox.Show(selectedMonth);
+					if (selectedMonth != string.Empty)
+					{
+						selectedMonthContent.Foreground = Brushes.Green;
+						selectedMonthContent.Content = DataListBox.SelectedItem.ToString();
+					}
+					else
+					{
+						selectedMonthContent.Foreground = Brushes.Red;
+						selectedMonthContent.Content = "No selection";
+					}
 				}
 				else if (SliderControl.Value == 2)
 				{
@@ -197,20 +221,31 @@ namespace Engineering_Database
 		}
 		public void GetFile(int id)
 		{
+			EngineerCommentContent.Document.Blocks.Clear();
+			UploadedDateContent.Content = "";
+			ServiceDateContent.Content = "";
+
 
 			db.ConnectDB();
 			byte[] buffer = null;
-			string tempFile = Path.GetTempFileName();
+			string tempFile = System.IO.Path.GetTempFileName();
 
 			var reader = db.GetPDFFileFromDatabase("LineMaintenance", "ID", id);
 			while (reader.Read())
 			{
 				buffer = (byte[])reader["UploadedFile"];
+				UploadedDateContent.Content = reader["UploadDate"];
+				ServiceDateContent.Content = reader["DateOfMaintenance"];
+				LinkedAssetNumber.Content = reader["LinkedAsset"].ToString();
+				EngineerCommentContent.Document.Blocks.Add(new System.Windows.Documents.Paragraph(new System.Windows.Documents.Run(reader["EngineerComment"].ToString())));
+
 			}
 			using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
 			{
 				fsStream.Write(buffer, 0, buffer.Length);
 			}
+
+
 			PdfBrowser.Navigate(tempFile);
 		}
 	}

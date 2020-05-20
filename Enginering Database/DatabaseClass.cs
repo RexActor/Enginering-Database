@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Vml;
-using System;
+﻿using System;
 using System.Data;
 using System.Data.OleDb;
 
@@ -192,6 +191,15 @@ namespace Engineering_Database
 		public OleDbDataReader DBQueryForAssetsWithFilter(string table, string fieldfilter, string fieldfiltervalue)
 		{
 			string queryString = $"SELECT * FROM {table} where {fieldfilter}='{fieldfiltervalue}' ORDER BY JobNumber ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader DBQueryForAssetsWithFilterOrderByID(string table, string fieldfilter, string fieldfiltervalue)
+		{
+			string queryString = "SELECT * FROM " + table + "  where " + fieldfilter + " ALike  '" + fieldfiltervalue + "%'";
+			//string queryString = "SELECT * FROM " + table + "  where " + fieldfilter + " Like  '* 5 *'";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -619,9 +627,9 @@ namespace Engineering_Database
 			return data;
 		}
 
-		public void uploadFile(string table, byte[] file,string lineOfMaintenance,DateTime dateOfMaintenance,DateTime uploadDate,string EngineerComment)
+		public void uploadFile(string table, byte[] file, string lineOfMaintenance, DateTime dateOfMaintenance, DateTime uploadDate, string EngineerComment,string linkedAsset)
 		{
-			string queryString = "INSERT INTO " + table + " (UploadedFile,LineOfMaintenance,DateOfMaintenance,UploadDate,EngineerComment) " + " Values(@UploadedFile,@LineOfMaintenance,@DateOfMaintenance,@UploadDate,@EngineerComment)";
+			string queryString = "INSERT INTO " + table + " (UploadedFile,LineOfMaintenance,DateOfMaintenance,UploadDate,EngineerComment,LinkedAsset) " + " Values(@UploadedFile,@LineOfMaintenance,@DateOfMaintenance,@UploadDate,@EngineerComment,@linkedAsset)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			//cmd.Parameters.AddWithValue("@UploadDate", date);
@@ -632,7 +640,7 @@ namespace Engineering_Database
 			cmd.Parameters.Add("DateOfMaintenance", OleDbType.Date).Value = dateOfMaintenance;
 			cmd.Parameters.Add("UploadDate", OleDbType.Date).Value = uploadDate;
 			cmd.Parameters.Add("EngineerComment", OleDbType.VarWChar).Value = EngineerComment;
-
+			cmd.Parameters.Add("LinkedAsset", OleDbType.VarWChar).Value = linkedAsset;
 			cmd.ExecuteNonQuery();
 			//cmd.Dispose();
 
@@ -646,7 +654,15 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetAllPDFIds(string table,int lookingYear,string lookingMonth,string lineOfMaintenance)
+		public OleDbDataReader GetPDFFileFromDatabase(string table, string field, string value)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='{value}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetAllPDFIds(string table, int lookingYear, string lookingMonth, string lineOfMaintenance)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE YearOfMaintenance ={lookingYear} AND MonthOfMaintenance = '{lookingMonth}' AND LineOfMaintenance='{lineOfMaintenance}' ORDER BY DateOfMaintenance ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -662,7 +678,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
-		public OleDbDataReader GetAllPDFIds(string table,int year)
+		public OleDbDataReader GetAllPDFIds(string table, int year)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE YearOfMaintenance={year} ORDER BY DateOfMaintenance ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);

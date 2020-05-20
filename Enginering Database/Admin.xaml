@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
     <Grid>
-        <Label Content="You are in Adming View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
+        <Label Content="You are in Admin View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
         <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,531,9"/>
         <Button x:Name ="UpdateDatabaseButton" Content="Update Database" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="223" Height="55" VerticalAlignment="Top" Margin="20,59,0,0" />
         <Image x:Name="UpdateDatabaseImage" Margin="20,59,724,312" Source="update.png" Stretch="Fill"/>

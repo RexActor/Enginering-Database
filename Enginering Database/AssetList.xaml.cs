@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using System;
 using System.Data.OleDb;
 using System.Windows;
 using System.Windows.Input;
@@ -82,6 +84,7 @@ namespace Engineering_Database
 			//when will need to edit asset details, texbot will be enabled, as by default texboxes are disabled
 
 			assetDetail.assetDetailIDForDatabase = item.ID;
+			assetDetail.foundAsset = item.AssetNumber;
 			assetDetail.AssetDetailId.Content = item.ID.ToString();
 			assetDetail.AssetDetailMakeTextBox.Text = item.Make.ToString();
 			assetDetail.AssetDetailModelTextBox.Text = item.Model.ToString();
@@ -125,8 +128,41 @@ namespace Engineering_Database
 
 			}
 			jobDB.CloseDB();
+
+			ServiceClass service = new ServiceClass();
+			//ServiceData service = new ServiceData();
+			DatabaseClass serviceDatabase = new DatabaseClass();
+			serviceDatabase.ConnectDB();
+
+
+			var readerForService = serviceDatabase.GetPDFFileFromDatabase("LineMaintenance", "LinkedAsset", item.AssetNumber.ToString());
+			while (readerForService.Read())
+			{
+				//serviceData.Add(new ServiceData(Convert.ToInt32(reader["ID"]), Convert.ToDateTime(reader["DateOfMaintenance"])));
+				service.ID = Convert.ToInt32(readerForService["ID"]);
+				service.ServiceDate =String.Format("{0:d}", readerForService["DateOfMaintenance"]);
+				assetDetail.AssetServiceList.Items.Add(service);
+			}
+
+			serviceDatabase.CloseDB();
+
 			assetDetail.Show();
 		}
+
+		public struct ServiceData
+		{
+			//public ServiceData(int _id, DateTime _serviceDate)
+			//{
+			//	ID = _id;
+			//	ServiceDate = _serviceDate;
+			//}
+
+			public int ID { get; set; }
+			public string ServiceDate { get; set; }
+
+		}
+
+
 
 		private void AddAssetButton_Click(object sender, RoutedEventArgs e)
 		{

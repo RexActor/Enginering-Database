@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>ACC4E9C0499D8D2AA85ECF6CC96AE1FB729D053D</ManifestCertificateThumbprint>
@@ -314,6 +314,10 @@
     <Compile Include="ReportWindow.Designer.cs">
       <DependentUpon>ReportWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceClass.cs" />
+    <Compile Include="ServiceReport.xaml.cs">
+      <DependentUpon>ServiceReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingsForIssueCode.xaml.cs">
       <DependentUpon>SettingsForIssueCode.xaml</DependentUpon>
     </Compile>
@@ -414,6 +418,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReportAppIssue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ServiceReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

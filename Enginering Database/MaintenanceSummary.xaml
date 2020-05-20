@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Maintenance Summary" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Maintenance Summary" Height="700" Width="900" ResizeMode="NoResize">
     <Grid>
-        <Frame Margin="10,37,424,10" BorderBrush="Black" BorderThickness="1">
+        <Frame Margin="10,37,524,10" BorderBrush="Black" BorderThickness="1">
 
 
         </Frame>
@@ -19,13 +19,31 @@
         </Viewbox>
         <Label Name="InformationLabel" Background="#7CBB6C" Content="You are previewing File for {date} {line}" HorizontalContentAlignment="Center" FontSize="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="32" Margin="377,1,0,0" VerticalAlignment="Top" Width="407"/>
         <Label x:Name="AdminLabel" Background="#7CBB6C"  Content="Administration Field" HorizontalContentAlignment="Center" FontSize="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="32" Margin="10,1,0,0" VerticalAlignment="Top" Width="360"/>
-        <ListBox Name ="DataListBox" HorizontalAlignment="Left" Height="322" Margin="20,79,0,0" VerticalAlignment="Top" Width="89" SelectionChanged="DataListBox_SelectionChanged" />
-        <Slider Name ="SliderControl" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="0" Height="26" Margin="57,53,0,0" VerticalAlignment="Top" Width="69" Value="1" Minimum="0" Maximum="2" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="SliderControl_ValueChanged"/>
-        <Label Content="Year" HorizontalAlignment="Left" Margin="20,48,0,0" VerticalAlignment="Top" MouseDoubleClick="Label_MouseDoubleClick_2"/>
-        <Label Content="Month" HorizontalAlignment="Left" Margin="69,32,0,0" VerticalAlignment="Top" Height="32" MouseDoubleClick="Label_MouseDoubleClick"/>
+        <ListBox Name ="DataListBox" HorizontalAlignment="Left" Height="322" Margin="18,116,0,0" VerticalAlignment="Top" Width="89" SelectionChanged="DataListBox_SelectionChanged" />
+        <Slider Name ="SliderControl" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="0" Height="26" Margin="55,90,0,0" VerticalAlignment="Top" Width="69" Value="1" Minimum="0" Maximum="2" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="SliderControl_ValueChanged"/>
+        <Label Content="Year" HorizontalAlignment="Left" Margin="18,85,0,0" VerticalAlignment="Top" MouseDoubleClick="Label_MouseDoubleClick_2"/>
+        <Label Content="Month" HorizontalAlignment="Left" Margin="67,69,0,0" VerticalAlignment="Top" Height="32" MouseDoubleClick="Label_MouseDoubleClick"/>
         <Label Name="errorLabel" Content="Please select value in listbox first" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Height="26" Margin="109,64,0,0" VerticalAlignment="Top" Width="157" FontSize="10"/>
         <Button Name ="addNewReportButton" Content="Add new report" Background="#BDE4BD" HorizontalAlignment="Left" Height="20" Margin="14,8,0,0" VerticalAlignment="Top" Width="90" Click="addNewReportButton_Click"/>
-        <Label Content="Data" HorizontalAlignment="Left" Margin="126,48,0,0" VerticalAlignment="Top" Height="26" MouseDoubleClick="Label_MouseDoubleClick_1"/>
+        <Label Content="Data" HorizontalAlignment="Left" Margin="124,85,0,0" VerticalAlignment="Top" Height="26" MouseDoubleClick="Label_MouseDoubleClick_1"/>
+        <RichTextBox Name ="EngineerCommentContent" HorizontalAlignment="Left" Height="127" Margin="113,265,0,0" VerticalAlignment="Top" Width="249" IsEnabled="False">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Label Content="Engineer Comment:" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="112,232,0,0" VerticalAlignment="Top" Width="250"/>
+        <Label Content="Uploaded:" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="112,116,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Service Date" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="112,149,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label x:Name="UploadedDateContent" Content="" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="227,116,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label x:Name="ServiceDateContent" Content="" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="227,149,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Selected Year:" BorderBrush="Black" BorderThickness="1" Background="#B4C3DE" HorizontalAlignment="Left" Height="26" Margin="18,43,0,0" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Selected Month:" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" Background="#B4C3DE" HorizontalAlignment="Left" Height="26" Margin="188,43,0,0" VerticalAlignment="Top" Width="98"/>
+        <Label x:Name="selectedMonthContent" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Red" Content="No selection" HorizontalAlignment="Left" Height="26" Margin="286,43,0,0" VerticalAlignment="Top" Width="84"/>
+        <Label x:Name="selectedYearContent" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Red" Content="No selection" HorizontalAlignment="Left" Height="26" Margin="104,43,0,0" VerticalAlignment="Top" Width="84"/>
+        <Label Content="Linked Asset" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="113,182,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label x:Name="LinkedAssetNumber" Content="" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="227,182,0,0" VerticalAlignment="Top" Width="135"/>
         <!-- end of PDF viewer Field -->
     </Grid>
 </Window>

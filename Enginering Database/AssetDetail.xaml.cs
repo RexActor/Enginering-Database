@@ -1,5 +1,6 @@
 ﻿using Enginering_Database;
 
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -14,11 +15,13 @@ namespace Engineering_Database
 	{
 		public int assetDetailIDForDatabase { get; set; }
 		DatabaseClass db = new DatabaseClass();
+		public string foundAsset { get; set; }
 		bool editMode = false;
 		public AssetDetail()
 		{
 			InitializeComponent();
 			AssetDetailEditModeLabel.Content = "{edit mode}";
+			//UpdateAssetService();
 		}
 
 		private void AssetUpdateButton_Click(object sender, RoutedEventArgs e)
@@ -29,7 +32,7 @@ namespace Engineering_Database
 				AssetDetailEditModeLabel.Visibility = Visibility.Visible;
 				AssetDetailMakeTextBox.IsReadOnly = false;
 				AssetDetailModelTextBox.IsReadOnly = false;
-				AssetDetailAssetNumberTextBox.IsReadOnly = false;
+				AssetDetailAssetNumberTextBox.IsReadOnly = true;
 				AssetDetailSerialNumberTextBox.IsReadOnly = false;
 				AssetDetailDateManufacturedTextBox.IsReadOnly = false;
 				AssetDetailIssueLevelTextBox.IsReadOnly = false;
@@ -39,7 +42,7 @@ namespace Engineering_Database
 				AssetDetailMakeTextBox.Background = Brushes.PeachPuff;
 				AssetDetailDescriptionTextBox.Background = Brushes.PeachPuff;
 				AssetDetailModelTextBox.Background = Brushes.PeachPuff;
-				AssetDetailAssetNumberTextBox.Background = Brushes.PeachPuff;
+				AssetDetailAssetNumberTextBox.Background = Brushes.White;
 				AssetDetailSerialNumberTextBox.Background = Brushes.PeachPuff;
 				AssetDetailDateManufacturedTextBox.Background = Brushes.PeachPuff;
 				AssetDetailIssueLevelTextBox.Background = Brushes.PeachPuff;
@@ -108,5 +111,40 @@ namespace Engineering_Database
 			update.AssignToDropDownBox.SelectedItem = item.AssignedTo;
 			update.Show();
 		}
+
+		private void AssetServiceList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+
+			ServiceClass serv = (ServiceClass)AssetServiceList.SelectedItem;
+
+			ServiceReport _serviceReport = new ServiceReport();
+
+			db.ConnectDB();
+			byte[] buffer = null;
+			string tempFile = System.IO.Path.GetTempFileName();
+
+			var reader = db.GetPDFFileFromDatabase("LineMaintenance", "ID", serv.ID);
+			while (reader.Read())
+			{
+				buffer = (byte[])reader["UploadedFile"];
+			}
+			using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+			{
+				fsStream.Write(buffer, 0, buffer.Length);
+			}
+
+			_serviceReport.ServicePDFView.Navigate(tempFile);
+
+			db.CloseDB();
+			_serviceReport.ShowDialog();
+		}
+
+
+
+
+
+
 	}
+
+
 }

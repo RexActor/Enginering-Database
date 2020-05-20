@@ -1,7 +1,4 @@
-﻿
-using DocumentFormat.OpenXml.Vml;
-using Microsoft.Office.Interop.Excel;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
@@ -16,11 +13,13 @@ namespace Engineering_Database
 	public partial class AddMaintenanceReport : System.Windows.Window
 	{
 		DatabaseClass db = new DatabaseClass();
-	
+		DatabaseClass db2 = new DatabaseClass();
+		bool assetIsSelected = false;
+
 		public AddMaintenanceReport()
 		{
 
-			
+
 			InitializeComponent();
 			//PDFBrowser.Navigate(new Uri("about:blank"));
 			//InformationLabel.Content = "There are no preview file available";
@@ -28,6 +27,7 @@ namespace Engineering_Database
 			uploadDateDatePicker.IsEnabled = false;
 			dateErrorLabel.Visibility = Visibility.Hidden;
 			uploadConfirmationLabel.Visibility = Visibility.Hidden;
+			
 			fileLocation.IsEnabled = false;
 		}
 
@@ -53,20 +53,35 @@ namespace Engineering_Database
 				PDFBrowser.Navigate(openFileDialog.FileName);
 			}
 
-			
+
 
 		}
 
 		private void UploadFileToDatabase_Click(object sender, RoutedEventArgs e)
 		{
-			databaseFilePut(fileLocation.Text);
-			PDFBrowser.Navigate(new Uri("about:blank"));
-			LineOfMaintenance.Text = "";
-			fileLocation.Text = "";
-			//engineerCommentRichTextBox.Document.Blocks.Add(new Paragraph(new Run("")));
-			engineerCommentRichTextBox.Document.Blocks.Clear();
-			uploadConfirmationLabel.Visibility = Visibility.Visible;
-			
+			if (assetIsSelected)
+			{
+				databaseFilePut(fileLocation.Text);
+				PDFBrowser.Navigate(new Uri("about:blank"));
+				LineOfMaintenance.Text = "";
+				fileLocation.Text = "";
+				assetListListView.Items.Clear();
+				assetNumberTextBox.Text = "";
+
+				AssetIDSelectedLabel.Content = " No Selection";
+				AssetIDSelectedLabel.Foreground = Brushes.Red;
+
+				AssetAssetNumberSelectedLabel.Content = " No Selection";
+				AssetAssetNumberSelectedLabel.Foreground = Brushes.Red;
+
+				//engineerCommentRichTextBox.Document.Blocks.Add(new Paragraph(new Run("")));
+				engineerCommentRichTextBox.Document.Blocks.Clear();
+				uploadConfirmationLabel.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				assetSelectionError.Visibility = Visibility.Visible;
+			}
 		}
 
 		private void databaseFilePut(string filePath)
@@ -79,7 +94,7 @@ namespace Engineering_Database
 				using (var reader = new BinaryReader(stream))
 				{
 					file = reader.ReadBytes((int)stream.Length);
-					db.uploadFile("LineMaintenance", file, LineOfMaintenance.Text, Convert.ToDateTime(DateOfMaintenanceDatePicker.SelectedDate), Convert.ToDateTime(uploadDateDatePicker.SelectedDate), richText);
+					db.uploadFile("LineMaintenance", file, LineOfMaintenance.Text, Convert.ToDateTime(DateOfMaintenanceDatePicker.SelectedDate), Convert.ToDateTime(uploadDateDatePicker.SelectedDate), richText, AssetAssetNumberSelectedLabel.Content.ToString());
 				}
 			}
 		}
@@ -87,7 +102,7 @@ namespace Engineering_Database
 		private void DateOfMaintenanceDatePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
 			uploadConfirmationLabel.Visibility = Visibility.Hidden;
-			if (DateOfMaintenanceDatePicker.SelectedDate > DateTime.Now.Date)
+			if (DateOfMaintenanceDatePicker.SelectedDate.Value.Date > DateTime.Now.Date)
 			{
 				DateOfMaintenanceDatePicker.SelectedDate = DateTime.Now.Date;
 				DateOfMaintenanceDatePicker.Background = Brushes.Red;
@@ -97,6 +112,52 @@ namespace Engineering_Database
 			{
 				DateOfMaintenanceDatePicker.Background = Brushes.Transparent;
 				dateErrorLabel.Visibility = Visibility.Hidden;
+			}
+		}
+
+		private void assetNumberTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			assetIsSelected = false;
+			assetListListView.Items.Clear();
+			AssetIDSelectedLabel.Content = " No Selection";
+			AssetIDSelectedLabel.Foreground = Brushes.Red;
+
+			AssetAssetNumberSelectedLabel.Content = " No Selection";
+			AssetAssetNumberSelectedLabel.Foreground = Brushes.Red;
+
+			db.ConnectDB("Assets");
+
+			var reader = db.DBQueryForAssetsWithFilterOrderByID("AssetList", "AssetNumber", assetNumberTextBox.Text);
+
+			while (reader.Read())
+			{
+				Assets retreivedAsset = new Assets();
+
+				retreivedAsset.ID = Convert.ToInt32(reader["ID"]);
+				retreivedAsset.Description = reader["Description"].ToString();
+				retreivedAsset.AssetNumber = reader["AssetNumber"].ToString();
+
+				assetListListView.Items.Add(retreivedAsset);
+
+			}
+			db.CloseDB();
+
+		}
+
+		private void assetListListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			assetIsSelected = true;
+			assetSelectionError.Visibility = Visibility.Hidden;
+
+			Assets selectedAsset = (Assets)assetListListView.SelectedItem;
+			if (assetIsSelected)
+			{
+
+				AssetIDSelectedLabel.Content = selectedAsset.ID.ToString();
+				AssetIDSelectedLabel.Foreground = Brushes.Green;
+
+				AssetAssetNumberSelectedLabel.Content = selectedAsset.AssetNumber.ToString();
+				AssetAssetNumberSelectedLabel.Foreground = Brushes.Green;
 			}
 		}
 	}
