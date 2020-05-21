@@ -765,6 +765,22 @@ namespace Engineering_Database
 			//cmd.Dispose();
 
 		}
+		public void uploadInventoryProductWithoutPic(string table, string productName, string measureType, string category)
+		{
+			string queryString = "INSERT INTO " + table + " (ProductName,MeasureType,ProductCategory) " + " Values(@ProductName,@MeasureType,@ProductCategory)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+
+			
+			cmd.Parameters.Add("@ProductName", OleDbType.VarWChar).Value = productName;
+			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType;
+			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = category;
+
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+		}
 
 
 		public void AddProduct(string table, string product, int qty,string measureType, string productCategory)

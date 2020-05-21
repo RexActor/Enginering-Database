@@ -15,6 +15,7 @@ namespace Engineering_Database
 	{
 		DatabaseClass db = new DatabaseClass();
 		int foundId = 0;
+		bool havePic = false;
 		public InventoryView()
 		{
 			InitializeComponent();
@@ -37,28 +38,42 @@ namespace Engineering_Database
 
 
 				db.ConnectDB();
+
+
 				byte[] buffer = null;
 				string tempFile = Path.GetTempFileName();
 				var getProdductInfo = db.GetPDFFileFromDatabase("InventoryViewProducts", "ProductName", ((Inventory)InventoryViewListBox.SelectedItem).Product);
 
 				while (getProdductInfo.Read())
 				{
+
+					if (getProdductInfo["ProductImage"] ==DBNull.Value)
+					{
+						havePic = false;
+					}
+					else
+					{
+						havePic = true;
+						buffer = (byte[])getProdductInfo["ProductImage"];
+					}
 					MeasureTypeLabelContent.Content = getProdductInfo["MeasureType"].ToString();
 
 
-					buffer = (byte[])getProdductInfo["ProductImage"];
+				
 
 
 
 				}
 
-				using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+				if (havePic)
 				{
-					fsStream.Write(buffer, 0, buffer.Length);
+					using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+					{
+						fsStream.Write(buffer, 0, buffer.Length);
+					}
+
+					ProductImage.Source = new BitmapImage(new Uri(tempFile));
 				}
-
-				ProductImage.Source = new BitmapImage(new Uri(tempFile));
-
 
 				var getInventoryViewForProduct = db.GetInventoryProduct2Fields("InventoryView", "Product", ((Inventory)InventoryViewListBox.SelectedItem).Product, "ProductCategory", InventoryCategoryComboBox.SelectedItem.ToString());
 

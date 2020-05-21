@@ -27,7 +27,7 @@ namespace Engineering_Database
 		private void AddProductButton_Click(object sender, RoutedEventArgs e)
 		{
 
-			if (fileChosen == true && productNameAssigned == true && measureTypeChosen == true && categoryChosed==true)
+			if (productNameAssigned == true && measureTypeChosen == true && categoryChosed == true)
 			{
 
 				//uploading data into database
@@ -37,20 +37,26 @@ namespace Engineering_Database
 
 				db.ConnectDB();
 
-
-				byte[] file;
-
-				using (var stream = new FileStream(ImageLocation.Text, FileMode.Open, FileAccess.Read))
+				if (fileChosen == true)
 				{
-					using (var reader = new BinaryReader(stream))
+					byte[] file;
+
+					using (var stream = new FileStream(ImageLocation.Text, FileMode.Open, FileAccess.Read))
 					{
+						using (var reader = new BinaryReader(stream))
+						{
 
-						file = reader.ReadBytes((int)stream.Length);
-						db.uploadInventoryProduct("InventoryViewProducts", file, ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(),Category.SelectedItem.ToString());
+							file = reader.ReadBytes((int)stream.Length);
+							db.uploadInventoryProduct("InventoryViewProducts", file, ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(), Category.SelectedItem.ToString());
 
+
+						}
 
 					}
-
+				}
+				else
+				{
+					db.uploadInventoryProductWithoutPic("InventoryViewProducts", ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(), Category.SelectedItem.ToString());
 				}
 
 				infoErrorMessage.Visibility = Visibility.Visible;
