@@ -36,7 +36,7 @@
         <Label Content="Date Of Service" HorizontalAlignment="Left" Height="25" Margin="22,77,0,0" VerticalAlignment="Top" Width="94"/>
         <TextBox x:Name ="LineOfMaintenance" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="85,123,0,0" TextWrapping="Wrap" Text="" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194"/>
         <Label Content="Line" HorizontalAlignment="Left" Height="25" Margin="22,122,0,0" VerticalAlignment="Top" Width="42"/>
-        <RichTextBox Name="engineerCommentRichTextBox" HorizontalAlignment="Left" Height="154" Margin="21,375,0,0" VerticalAlignment="Top" Width="470">
+        <RichTextBox Name="engineerCommentRichTextBox" HorizontalAlignment="Left" Height="137" Margin="21,392,0,0" VerticalAlignment="Top" Width="470">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
@@ -48,7 +48,7 @@
         <Label Name="uploadConfirmationLabel" Foreground="Green" FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="File uploaded" HorizontalAlignment="Left" Margin="49,566,0,0" VerticalAlignment="Top" Width="205"/>
         <TextBox Name="assetNumberTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="112,178,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="91" TextChanged="assetNumberTextBox_TextChanged"/>
         <Label Content="Asset Number:" HorizontalAlignment="Left" Height="25" Margin="19,178,0,0" VerticalAlignment="Top" Width="93"/>
-        <ListView Name="assetListListView" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="150" Margin="21,215,0,0" VerticalAlignment="Top" Width="470" MouseDoubleClick="assetListListView_MouseDoubleClick">
+        <ListView Name="assetListListView" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="150" Margin="21,208,0,0" VerticalAlignment="Top" Width="470" MouseDoubleClick="assetListListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}"/>
@@ -63,6 +63,7 @@
         <Label Name="AssetIDSelectedLabel" FontWeight="Bold" Content="No Selection" Foreground="Red" HorizontalAlignment="Left" Height="25" Margin="394,48,0,0" VerticalAlignment="Top" Width="97"/>
         <Label Name="AssetAssetNumberSelectedLabel" FontWeight="Bold" Content="No Selection" Foreground="Red" HorizontalAlignment="Left" Height="25" Margin="394,85,0,0" VerticalAlignment="Top" Width="97"/>
         <Label Name="assetSelectionError" Content="Please select asset from below list" HorizontalContentAlignment="Center" Foreground="Red" FontWeight="Bold" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="228,187,0,0" VerticalAlignment="Top" Width="263"/>
+        <Label Content="Engineer comment" HorizontalAlignment="Left" Margin="22,364,0,0" VerticalAlignment="Top" Width="114"/>
 
     </Grid>
 </Window>

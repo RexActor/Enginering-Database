@@ -1,0 +1,17 @@
+﻿<Window x:Class="Engineering_Database.AddInventoryCategory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Add Inventory Category" Height="128.878" Width="358.592" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Category" HorizontalContentAlignment="Center" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="129"/>
+        <TextBox Name="CategoryTextBox" HorizontalAlignment="Left" Height="25" Margin="153,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="166" TextChanged="CategoryTextBox_TextChanged"/>
+        <Button Name="AddCategoryButton" Content="AddCategory" HorizontalAlignment="Left" Margin="109,60,0,0" VerticalAlignment="Top" Width="120" Click="AddCategoryButton_Click" Height="30" />
+        <Label Name="errorLabel" Foreground="Red" FontWeight="Bold"  Visibility="Hidden" Content="Please type categry name" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="153,35,0,0" VerticalAlignment="Top" Width="166"/>
+        <Label Name="saveLabel" Visibility="Hidden" Content="Saved" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Left" Height="30" Margin="241,60,0,0" VerticalAlignment="Top" Width="102"/>
+
+    </Grid>
+</Window>

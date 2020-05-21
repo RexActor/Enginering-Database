@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Admin" Height="450" Width="800">
+        Title="Admin" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
         <Label Content="You are in Admin View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
         <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,531,9"/>
@@ -19,5 +19,7 @@
         <Image Margin="20,227,724,144" Source="Meter-02.png" Stretch="Fill"/>
         <Button x:Name="AssetListButton" Content="Asset List" HorizontalAlignment="Left" Height="50" Margin="20,280,0,0" VerticalAlignment="Top" Width="225" Click="AssetListButton_Click"/>
         <Image x:Name="AssetListImage" Margin="20,280,724,91" Source="assetlist.png" Stretch="Fill"/>
+        <Button x:Name="InventoryViewButton" Content="Inventory View" HorizontalAlignment="Left" Height="50" Margin="20,335,0,0" VerticalAlignment="Top" Width="225" Click="InventoryViewButton_Click"/>
+        <Image Margin="22,337,724,36" Source="Export-02-WF.png" Stretch="Fill"/>
     </Grid>
 </Window>

@@ -248,5 +248,11 @@ namespace Engineering_Database
 
 			PdfBrowser.Navigate(tempFile);
 		}
+
+		private void templateButton_Click(object sender, RoutedEventArgs e)
+		{
+			ServiceTemplates _serviceTemplates = new ServiceTemplates();
+			_serviceTemplates.ShowDialog();
+		}
 	}
 }

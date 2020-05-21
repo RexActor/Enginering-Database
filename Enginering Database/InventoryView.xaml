@@ -1,0 +1,49 @@
+﻿<Window x:Class="Engineering_Database.InventoryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Inventory View" Height="535" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Frame Margin="10,10,147,10" BorderBrush="Black" BorderThickness="1"/>
+        <ListView Name="InventoryViewListBox" HorizontalAlignment="Left" Height="353" Margin="23,89,0,0" VerticalAlignment="Top" Width="243" SelectionChanged="InventoryViewListBox_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Product" Width="200" DisplayMemberBinding="{Binding Product}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Inventory" HorizontalContentAlignment="Center" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="23,59,0,0" VerticalAlignment="Top" Width="243"/>
+        <Button Name="addProductButton" Content="Add Product" HorizontalAlignment="Left" Height="36" Margin="652,12,0,0" VerticalAlignment="Top" Width="132" Click="addProductButton_Click" />
+        <Button x:Name="UpdateInventory" Content="Update Inventory" HorizontalAlignment="Left" Height="36" Margin="271,364,0,0" VerticalAlignment="Top" Width="132" Click="UpdateInventory_Click" />
+        <TextBox Name="qtyTakenTextBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="365,134,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47" TextChanged="qtyTakenTextBox_TextChanged" />
+        <TextBox Name="qtyLeftTextBox" IsEnabled="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="365,164,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47"/>
+        <Label Content="Qty Taken" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,134,0,0" VerticalAlignment="Top" Width="89"/>
+        <Label Content="Qty in Stock" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,104,0,0" VerticalAlignment="Top" Width="89"/>
+        <Label Content="Qty left" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,164,0,0" VerticalAlignment="Top" Width="89"/>
+        <TextBox x:Name="qtyOnStockTextBox" IsEnabled="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="365,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47" TextChanged="qtyOnStockTextBox_TextChanged"/>
+        <Label Content="Comment" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,194,0,0" VerticalAlignment="Top" Width="89"/>
+        <RichTextBox Name="InventoryViewComment" HorizontalAlignment="Left" Height="76" Margin="365,194,0,0" VerticalAlignment="Top" Width="251">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Label Content="Measure Type" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,74,0,0" VerticalAlignment="Top" Width="89"/>
+        <Border BorderThickness="1" BorderBrush="Black" Height="150" Margin="505,17,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="135">
+            <Image Name="ProductImage" Source="C:\Users\Rexactor\Pictures\Engineering Database Icons\Admin.png" Stretch="Fill" Margin="-1,-1,-1,-2"/>
+
+        </Border>
+        <Label Name="MeasureTypeLabelContent" Content="" HorizontalContentAlignment="Center" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="365,74,0,0" VerticalAlignment="Top" Width="96"/>
+        <CheckBox x:Name="addQuantityCheckBox" FontSize="12" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Add Quantity in stock" HorizontalAlignment="Left" Margin="276,32,0,0" VerticalAlignment="Top" Height="42" Width="229" Click="addQuantityCheckBox_Click"  />
+        <Button Name="AddQtyButton" Content="Add" HorizontalAlignment="Left" Height="25" Margin="417,105,0,0" VerticalAlignment="Top" Width="57" Click="AddQtyButton_Click"/>
+        <ComboBox Name="InventoryCategoryComboBox" HorizontalAlignment="Left" Margin="117,24,0,0" VerticalAlignment="Top" Width="129" Height="25" SelectionChanged="InventoryCategoryComboBox_SelectionChanged" />
+        <Label Content="Category" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="23,24,0,0" VerticalAlignment="Top" Width="89"/>
+        <Label Name="UpdateError" Foreground="Red" FontWeight="Bold" Visibility="Hidden" Content="Please Select Product" HorizontalAlignment="Left" Height="36" Margin="408,364,0,0" VerticalAlignment="Top" Width="232"/>
+
+    </Grid>
+</Window>

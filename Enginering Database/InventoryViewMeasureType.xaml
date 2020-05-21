@@ -1,0 +1,17 @@
+﻿<Window x:Class="Engineering_Database.InventoryViewMeasureType"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Inventory View Measure Type" Height="160.024" Width="387.589" ResizeMode="NoResize" >
+    <Grid>
+        <Label Content="Measure Type" HorizontalContentAlignment="Right" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontWeight="Bold" Background="#7CBB6C" Margin="10,29,0,0" VerticalAlignment="Top" Width="133"/>
+        <TextBox x:Name="MeasureTypeTextBox" HorizontalAlignment="Left" Height="26" Margin="157,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="202" TextChanged="MeasureTypeTextBox_TextChanged" />
+        <Button Name="addMeasureButton" Content="Add Measure" HorizontalAlignment="Left" Height="36" Margin="10,71,0,0" VerticalAlignment="Top" Width="146" Click="Button_Click" />
+        <Label Name="measureTypeError" Foreground="Red" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"  Content="Please type measure type" HorizontalAlignment="Left" Margin="157,7,0,0" VerticalAlignment="Top" Width="202"/>
+        <Label Name="measureTypeSaved" Visibility="Hidden" Content="Saved into database" Foreground="Green" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="36" Margin="173,71,0,0" VerticalAlignment="Top" Width="186"/>
+
+    </Grid>
+</Window>

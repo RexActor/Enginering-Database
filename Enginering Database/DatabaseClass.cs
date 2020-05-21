@@ -627,7 +627,7 @@ namespace Engineering_Database
 			return data;
 		}
 
-		public void uploadFile(string table, byte[] file, string lineOfMaintenance, DateTime dateOfMaintenance, DateTime uploadDate, string EngineerComment,string linkedAsset)
+		public void uploadFile(string table, byte[] file, string lineOfMaintenance, DateTime dateOfMaintenance, DateTime uploadDate, string EngineerComment, string linkedAsset)
 		{
 			string queryString = "INSERT INTO " + table + " (UploadedFile,LineOfMaintenance,DateOfMaintenance,UploadDate,EngineerComment,LinkedAsset) " + " Values(@UploadedFile,@LineOfMaintenance,@DateOfMaintenance,@UploadDate,@EngineerComment,@linkedAsset)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -645,6 +645,24 @@ namespace Engineering_Database
 			//cmd.Dispose();
 
 		}
+
+
+		public void uploadTemplateFile(string table, byte[] file, string templateName)
+		{
+			string queryString = "INSERT INTO " + table + " (TemplateFile,TemplateName) " + " Values(@TemplateFile,@TemplateName)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@UploadDate", date);
+			//cmd.Parameters.AddWithValue("@UploadedFile", file);
+
+			cmd.Parameters.Add("@TemplateFile", OleDbType.Binary).Value = (object)file;
+			cmd.Parameters.Add("@TemplateName", OleDbType.VarWChar).Value = templateName;
+
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+		}
+
 
 		public OleDbDataReader GetPDFFileFromDatabase(string table, string field, int id)
 		{
@@ -672,7 +690,7 @@ namespace Engineering_Database
 		}
 		public OleDbDataReader GetAllPDFIds(string table)
 		{
-			string queryString = $"SELECT * FROM {table} ORDER BY DateOfMaintenance ASC";
+			string queryString = $"SELECT * FROM {table}";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -694,6 +712,114 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
+
+		public void DeleteTemplate(string table, string templateName)
+		{
+			string queryString = $"DELETE FROM  {table} Where TemplateName='{templateName}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+
+
+		#region Inventory View Database functions
+
+
+		public void AddMeasure(string table, string measureType)
+		{
+			string queryString = "INSERT INTO " + table + " (MeasureType) " + " Values(@MeasureType)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType;
+
+			cmd.ExecuteNonQuery();
+
+
+		}
+		public void AddCategory(string table,string value)
+		{
+			string queryString = "INSERT INTO " + table + " (Category) " + " Values(@Category)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			cmd.Parameters.Add("@Category", OleDbType.VarWChar).Value = value;
+
+			cmd.ExecuteNonQuery();
+
+
+		}
+
+
+		public void uploadInventoryProduct(string table, byte[] file, string productName, string measureType,string category)
+		{
+			string queryString = "INSERT INTO " + table + " (ProductImage,ProductName,MeasureType,ProductCategory) " + " Values(@ProductImage,@ProductName,@MeasureType,@ProductCategory)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			
+
+			cmd.Parameters.Add("@ProductImage", OleDbType.Binary).Value = (object)file;
+			cmd.Parameters.Add("@ProductName", OleDbType.VarWChar).Value = productName;
+			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType;
+			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = category;
+
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+		}
+
+
+		public void AddProduct(string table, string product, int qty,string measureType, string productCategory)
+		{
+			string queryString = "INSERT INTO " + table + " (Product,Qty,MeasureType,ProductCategory) " + " Values(@Product,@Qty,MeasureType,ProductCategory)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+
+
+			cmd.Parameters.Add("@Product", OleDbType.VarWChar).Value = product;
+			cmd.Parameters.Add("@Qty", OleDbType.Integer).Value = qty;
+			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType ;
+			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = productCategory;
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+		}
+
+		public OleDbDataReader GetInventoryProduct(string table, string field1,string field1Value)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field1}='{field1Value}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+		public OleDbDataReader GetInventoryProduct2Fields(string table, string field1, string field1Value, string field2, string field2Value)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field1}='{field1Value}' And {field2}='{field2Value}' ";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+
+		public void UpdateInventoryView(string table, string fieldToUpdate, int ID, int value)
+		{
+			string queryString = $"UPDATE {table} SET " + fieldToUpdate + " = @value WHERE ID = @ID";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@ID", ID);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		public void UpdateInventoryView(string table, string fieldToUpdate, int ID, string value)
+		{
+			string queryString = $"UPDATE {table} SET " + fieldToUpdate + " = @value WHERE ID = @ID";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@ID", ID);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+		#endregion
+
 
 
 	}

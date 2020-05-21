@@ -5,21 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Maintenance Summary" Height="700" Width="900" ResizeMode="NoResize">
+        Title="Maintenance Summary" Height="700" Width="1000" ResizeMode="NoResize">
     <Grid>
-        <Frame Margin="10,37,524,10" BorderBrush="Black" BorderThickness="1">
+        <Frame Margin="10,37,0,10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Width="362">
 
 
         </Frame>
         <!--PDF viewer field -->
         <Viewbox Margin="377,37,10,10">
 
-            <WebBrowser Name="PdfBrowser"/>
+            <WebBrowser Name="PdfBrowser" Width="190" Height="200"/>
 
         </Viewbox>
-        <Label Name="InformationLabel" Background="#7CBB6C" Content="You are previewing File for {date} {line}" HorizontalContentAlignment="Center" FontSize="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="32" Margin="377,1,0,0" VerticalAlignment="Top" Width="407"/>
+        <Label Name="InformationLabel" Background="#7CBB6C" Content="You are previewing File for {date} {line}" HorizontalContentAlignment="Center" FontSize="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="32" Margin="377,1,0,0" VerticalAlignment="Top" Width="607"/>
         <Label x:Name="AdminLabel" Background="#7CBB6C"  Content="Administration Field" HorizontalContentAlignment="Center" FontSize="15" FontWeight="Bold" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="32" Margin="10,1,0,0" VerticalAlignment="Top" Width="360"/>
-        <ListBox Name ="DataListBox" HorizontalAlignment="Left" Height="322" Margin="18,116,0,0" VerticalAlignment="Top" Width="89" SelectionChanged="DataListBox_SelectionChanged" />
+        <ListBox Name ="DataListBox" HorizontalAlignment="Left" Height="276" Margin="18,116,0,0" VerticalAlignment="Top" Width="89" SelectionChanged="DataListBox_SelectionChanged" />
         <Slider Name ="SliderControl" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="0" Height="26" Margin="55,90,0,0" VerticalAlignment="Top" Width="69" Value="1" Minimum="0" Maximum="2" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="SliderControl_ValueChanged"/>
         <Label Content="Year" HorizontalAlignment="Left" Margin="18,85,0,0" VerticalAlignment="Top" MouseDoubleClick="Label_MouseDoubleClick_2"/>
         <Label Content="Month" HorizontalAlignment="Left" Margin="67,69,0,0" VerticalAlignment="Top" Height="32" MouseDoubleClick="Label_MouseDoubleClick"/>
@@ -44,6 +44,7 @@
         <Label x:Name="selectedYearContent" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Red" Content="No selection" HorizontalAlignment="Left" Height="26" Margin="104,43,0,0" VerticalAlignment="Top" Width="84"/>
         <Label Content="Linked Asset" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="113,182,0,0" VerticalAlignment="Top" Width="110"/>
         <Label x:Name="LinkedAssetNumber" Content="" FontSize="11" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="227,182,0,0" VerticalAlignment="Top" Width="135"/>
+        <Button x:Name ="templateButton" Content="Templates" Background="#BDE4BD" HorizontalAlignment="Left" Height="20" Margin="272,8,0,0" VerticalAlignment="Top" Width="90" Click="templateButton_Click"/>
         <!-- end of PDF viewer Field -->
     </Grid>
 </Window>

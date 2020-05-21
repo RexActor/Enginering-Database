@@ -48,8 +48,8 @@
                     <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="19,310,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave" Grid.Column="2"/>
                     <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="150" Margin="169,388,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"/>
                     <Border BorderThickness="1" BorderBrush="Black" Width="470" Margin="169,242,0,139" HorizontalAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2">
-                        <ScrollViewer Margin="0,0,0,42">
-                            <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="96" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="469" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        <ScrollViewer Margin="0,0,0,-1">
+                            <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="469" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
 
                         </ScrollViewer>
                     </Border>

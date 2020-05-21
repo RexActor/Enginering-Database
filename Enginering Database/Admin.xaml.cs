@@ -57,5 +57,11 @@ namespace Engineering_Database
 			AssetList assetList = new AssetList();
 			assetList.Show();
 		}
+
+		private void InventoryViewButton_Click(object sender, RoutedEventArgs e)
+		{
+			InventoryView inventory = new InventoryView();
+			inventory.ShowDialog();
+		}
 	}
 }

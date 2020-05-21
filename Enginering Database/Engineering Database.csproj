@@ -240,8 +240,17 @@
     <Compile Include="addData.xaml.cs">
       <DependentUpon>addData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddInventoryCategory.xaml.cs">
+      <DependentUpon>AddInventoryCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddInventoryViewProduct.xaml.cs">
+      <DependentUpon>AddInventoryViewProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddMaintenanceReport.xaml.cs">
       <DependentUpon>AddMaintenanceReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddServiceTemplate.xaml.cs">
+      <DependentUpon>AddServiceTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
@@ -273,6 +282,13 @@
     </Compile>
     <Compile Include="InteractionWindow.xaml.cs">
       <DependentUpon>InteractionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory.cs" />
+    <Compile Include="InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryViewMeasureType.xaml.cs">
+      <DependentUpon>InventoryViewMeasureType.xaml</DependentUpon>
     </Compile>
     <Compile Include="IssueClass.cs" />
     <Compile Include="issuedata.cs" />
@@ -318,6 +334,9 @@
     <Compile Include="ServiceReport.xaml.cs">
       <DependentUpon>ServiceReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ServiceTemplates.xaml.cs">
+      <DependentUpon>ServiceTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingsForIssueCode.xaml.cs">
       <DependentUpon>SettingsForIssueCode.xaml</DependentUpon>
     </Compile>
@@ -345,7 +364,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddInventoryCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddInventoryViewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddMaintenanceReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddServiceTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,6 +397,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InteractionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryViewMeasureType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -422,6 +461,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ServiceReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ServiceTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -574,6 +617,7 @@
     <Resource Include="PasswordProtected.png" />
     <Resource Include="Load Report.png" />
     <Resource Include="Meter-02.png" />
+    <Resource Include="Export-02-WF.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
