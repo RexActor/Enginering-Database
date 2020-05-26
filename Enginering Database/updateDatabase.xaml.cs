@@ -613,10 +613,16 @@ namespace Enginering_Database
 					db.DBQueryInsertData("DueDate", convJobNumber, Frame3UpdateDueDateDatePicker.Text.ToString());
 				}
 
-				if (AssignToDropDownBox.SelectedIndex > 0)
+
+
+				if (AssignToDropDownBox.SelectedItem != null)
 				{
 					db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
 				}
+
+
+
+
 				if (ContractorComboBoxData.SelectedIndex > 0)
 				{
 					db.DBQueryInsertData("Contractor", convJobNumber, ContractorComboBoxData.SelectedItem.ToString());

@@ -284,6 +284,9 @@
       <DependentUpon>InteractionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Inventory.cs" />
+    <Compile Include="InventoryOverView.xaml.cs">
+      <DependentUpon>InventoryOverView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
@@ -347,6 +350,9 @@
     <Compile Include="updateDatabase.xaml.cs">
       <DependentUpon>updateDatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdatePicture.xaml.cs">
+      <DependentUpon>UpdatePicture.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserErrorWindow.xaml.cs">
       <DependentUpon>UserErrorWindow.xaml</DependentUpon>
     </Compile>
@@ -397,6 +403,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InteractionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryOverView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -477,6 +487,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="updateDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdatePicture.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -612,6 +626,7 @@
     <Resource Include="assetlist.png" />
     <Resource Include="AssetList.ico" />
     <Resource Include="Admin.png" />
+    <Resource Include="Camera -01.png" />
     <Content Include="engineeringDatabase.accdb" />
     <Resource Include="ReportIssue.png" />
     <Resource Include="PasswordProtected.png" />

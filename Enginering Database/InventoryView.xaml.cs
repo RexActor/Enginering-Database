@@ -25,7 +25,7 @@ namespace Engineering_Database
 
 		private void InventoryViewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
+			UploadPicBorder.Visibility = Visibility.Hidden;
 			qtyOnStockTextBox.Text = "";
 			InventoryViewComment.Document.Blocks.Clear();
 			checkboxChange();
@@ -47,7 +47,7 @@ namespace Engineering_Database
 				while (getProdductInfo.Read())
 				{
 
-					if (getProdductInfo["ProductImage"] ==DBNull.Value)
+					if (getProdductInfo["ProductImage"] == DBNull.Value)
 					{
 						havePic = false;
 					}
@@ -59,7 +59,7 @@ namespace Engineering_Database
 					MeasureTypeLabelContent.Content = getProdductInfo["MeasureType"].ToString();
 
 
-				
+
 
 
 
@@ -416,5 +416,52 @@ namespace Engineering_Database
 			}
 		}
 
+		private void InventoryOverView_Click(object sender, RoutedEventArgs e)
+		{
+			InventoryOverView inventOverView = new InventoryOverView();
+			inventOverView.ShowDialog();
+		}
+
+		private void ProductImage_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+
+			if (InventoryViewListBox.SelectedItem != null)
+			{
+				if (UploadPicBorder.Visibility == Visibility.Hidden)
+				{
+					UploadPicBorder.Visibility = Visibility.Visible;
+				}
+				else
+				{
+					UploadPicBorder.Visibility = Visibility.Hidden;
+				}
+			}
+		}
+
+		private void UploadPicBorder_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			if (InventoryViewListBox.SelectedItem != null)
+			{
+				UploadPicBorder.Visibility = Visibility.Visible;
+			}
+		}
+
+		private void ImageButtonClick_Click(object sender, RoutedEventArgs e)
+		{
+			if (InventoryViewListBox.SelectedItem != null)
+			{
+			
+				UpdatePicture updatePic = new UpdatePicture();
+				updatePic.ProductIDLabel.Content = ((Inventory)InventoryViewListBox.SelectedItem).ID.ToString();
+				updatePic.ProductCategory.Content = InventoryCategoryComboBox.SelectedItem.ToString();
+				updatePic.ProductMeasureType.Content = MeasureTypeLabelContent.Content.ToString();
+				updatePic.ProductNameLabel.Content= ((Inventory)InventoryViewListBox.SelectedItem).Product;
+				updatePic.newImage.Source = ProductImage.Source;
+				
+				updatePic.ShowDialog();
+				
+
+			}
+		}
 	}
 }

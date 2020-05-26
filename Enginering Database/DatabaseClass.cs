@@ -807,6 +807,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return reader;
 		}
+
 		public OleDbDataReader GetInventoryProduct2Fields(string table, string field1, string field1Value, string field2, string field2Value)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE {field1}='{field1Value}' And {field2}='{field2Value}' ";
@@ -825,6 +826,24 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
+
+		public void UpdateProductPicture(string table, string fieldToUpdate, byte[] file, int ID)
+		{
+
+			string queryString = $"UPDATE {table} SET " + fieldToUpdate + " = @value WHERE ID = @ID";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.Add("@ProductImage", OleDbType.Binary).Value = (object)file;
+			cmd.Parameters.AddWithValue("@ID", ID);
+			cmd.ExecuteNonQuery();
+						
+		
+
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+
+		}
+
 		public void UpdateInventoryView(string table, string fieldToUpdate, int ID, string value)
 		{
 			string queryString = $"UPDATE {table} SET " + fieldToUpdate + " = @value WHERE ID = @ID";

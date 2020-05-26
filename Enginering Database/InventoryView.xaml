@@ -35,7 +35,7 @@
         </RichTextBox>
         <Label Content="Measure Type" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,74,0,0" VerticalAlignment="Top" Width="89"/>
         <Border BorderThickness="1" BorderBrush="Black" Height="150" Margin="505,17,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="135">
-            <Image Name="ProductImage" Source="C:\Users\Rexactor\Pictures\Engineering Database Icons\Admin.png" Stretch="Fill" Margin="-1,-1,-1,-2"/>
+            <Image Name="ProductImage" Source="C:\Users\Rexactor\Pictures\Engineering Database Icons\Admin.png" Stretch="Fill" Margin="-1,-1,-1,-2" MouseEnter="ProductImage_MouseEnter"/>
 
         </Border>
         <Label Name="MeasureTypeLabelContent" Content="" HorizontalContentAlignment="Center" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="365,74,0,0" VerticalAlignment="Top" Width="96"/>
@@ -44,6 +44,12 @@
         <ComboBox Name="InventoryCategoryComboBox" HorizontalAlignment="Left" Margin="117,24,0,0" VerticalAlignment="Top" Width="129" Height="25" SelectionChanged="InventoryCategoryComboBox_SelectionChanged" />
         <Label Content="Category" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="23,24,0,0" VerticalAlignment="Top" Width="89"/>
         <Label Name="UpdateError" Foreground="Red" FontWeight="Bold" Visibility="Hidden" Content="Please Select Product" HorizontalAlignment="Left" Height="36" Margin="408,364,0,0" VerticalAlignment="Top" Width="232"/>
-
+        <Button x:Name="InventoryOverView" Content="Overview" HorizontalAlignment="Left" Height="36" Margin="652,54,0,0" VerticalAlignment="Top" Width="132" Click="InventoryOverView_Click" />
+        
+        <Border Name="UploadPicBorder" Background="#DEDADA" Margin="600,19,157,456" Opacity="100" Visibility="Hidden" MouseEnter="UploadPicBorder_MouseEnter">
+            <Button Name="ImageButtonClick" Click="ImageButtonClick_Click">
+                <Image Name="uploadPic"  Source="Camera -01.png" Stretch="Fill" />
+        </Button>
+        </Border>
     </Grid>
 </Window>
