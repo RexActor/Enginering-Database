@@ -302,5 +302,97 @@ namespace Engineering_Database
 		}
 
 
+		public void RequestProduct(string Date, string Username, string product, string qty, string measureType)
+		{
+			userSett.openSettings();
+
+
+			if (checkOutlook() == true)
+			{
+
+
+				string emailAddress = userSett.productRequests;
+
+				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
+
+				Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+
+
+
+
+				sender = GetSenderEmailAddress(mailItem);
+
+
+
+
+				try
+				{
+					mailItem.To = emailAddress;
+					mailItem.CC = sender;
+					mailItem.Subject = product + " request from: " + Username;
+
+
+					htmlString = " <h2>Product Requests</h2>" +
+						" <br>" +
+						" <b><u>Requester </u>:</b>&nbsp;" + Username +
+						" <br>" +
+						" <b><u>Product Requested </u>:</b> &nbsp;" + product +
+						" <br>" +
+						"<b><u>Measure Type </u>:</b>&nbsp;" + measureType +
+						"<br>" +
+						"<b><u>Qty Requested </u>:</b> &nbsp;" + qty +
+						"</body>" +
+						"</html>"
+						;
+
+					mailItem.HTMLBody = htmlString;
+					if (userSett.EmailPreview == "Yes")
+					{
+						mailItem.Display(true);
+					}
+					else
+					{
+						mailItem.Send();
+					}
+
+
+				}
+
+
+
+
+				catch
+				{
+					userErr.errorMessage = "There was something wrong when trying to send email. [Object] {Email Class.cs} [Line] {167}";
+					userErr.Title = "Outlook error";
+					userErr.CallWindow();
+					userErr.ShowDialog();
+
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+			}
+			else
+			{
+				userErr.errorMessage = "Outlook is not open.Please open outlook aplication and try again";
+				userErr.Title = "Outlook error";
+				userErr.CallWindow();
+				userErr.ShowDialog();
+			}
+
+
+
+		}
+
 	}
 }

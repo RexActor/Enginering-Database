@@ -35,7 +35,7 @@
         </RichTextBox>
         <Label Content="Measure Type" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="271,74,0,0" VerticalAlignment="Top" Width="89"/>
         <Border BorderThickness="1" BorderBrush="Black" Height="150" Margin="505,17,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="135">
-            <Image Name="ProductImage" Source="C:\Users\Rexactor\Pictures\Engineering Database Icons\Admin.png" Stretch="Fill" Margin="-1,-1,-1,-2" MouseEnter="ProductImage_MouseEnter"/>
+            <Image Name="ProductImage"  Source="E:\Visual Studio Projects\Projects\Enginering Database\Enginering Database\bin\x86\Debug\defaultImage.png" Stretch="Uniform" Margin="-1,-1,-1,-2" MouseEnter="ProductImage_MouseEnter"/>
 
         </Border>
         <Label Name="MeasureTypeLabelContent" Content="" HorizontalContentAlignment="Center" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="365,74,0,0" VerticalAlignment="Top" Width="96"/>
@@ -45,11 +45,14 @@
         <Label Content="Category" HorizontalContentAlignment="Right" Background="#7CBB6C" VerticalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="23,24,0,0" VerticalAlignment="Top" Width="89"/>
         <Label Name="UpdateError" Foreground="Red" FontWeight="Bold" Visibility="Hidden" Content="Please Select Product" HorizontalAlignment="Left" Height="36" Margin="408,364,0,0" VerticalAlignment="Top" Width="232"/>
         <Button x:Name="InventoryOverView" Content="Overview" HorizontalAlignment="Left" Height="36" Margin="652,54,0,0" VerticalAlignment="Top" Width="132" Click="InventoryOverView_Click" />
-        
+
         <Border Name="UploadPicBorder" Background="#DEDADA" Margin="600,19,157,456" Opacity="100" Visibility="Hidden" MouseEnter="UploadPicBorder_MouseEnter">
             <Button Name="ImageButtonClick" Click="ImageButtonClick_Click">
                 <Image Name="uploadPic"  Source="Camera -01.png" Stretch="Fill" />
-        </Button>
+            </Button>
         </Border>
+        <Button x:Name="RequestProductButton" Content="Request Product" HorizontalAlignment="Left" Height="36" Margin="508,444,0,0" VerticalAlignment="Top" Width="132" Click="RequestProductButton_Click" />
+        <TextBox Name="requestQtyTextBox" HorizontalContentAlignment="Center" BorderThickness="3" BorderBrush="Green" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="36" Margin="417,444,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="78" TextChanged="requestQtyTextBox_TextChanged"/>
+        <Label Name="informationLabel" Visibility="Hidden" Content="Please enter number" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="92,447,0,0" VerticalAlignment="Top" Width="320"/>
     </Grid>
 </Window>

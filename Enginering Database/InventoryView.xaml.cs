@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -73,6 +74,17 @@ namespace Engineering_Database
 					}
 
 					ProductImage.Source = new BitmapImage(new Uri(tempFile));
+				}
+				else
+				{
+					//MessageBox.Show("Don't have pic");
+
+					string path = AppDomain.CurrentDomain.BaseDirectory;
+
+
+					Console.WriteLine(Path.Combine(path, "defaultImage.png"));
+
+					ProductImage.Source = new BitmapImage(new Uri(Path.Combine(path, "defaultImage.png")));
 				}
 
 				var getInventoryViewForProduct = db.GetInventoryProduct2Fields("InventoryView", "Product", ((Inventory)InventoryViewListBox.SelectedItem).Product, "ProductCategory", InventoryCategoryComboBox.SelectedItem.ToString());
@@ -450,18 +462,85 @@ namespace Engineering_Database
 		{
 			if (InventoryViewListBox.SelectedItem != null)
 			{
-			
+
 				UpdatePicture updatePic = new UpdatePicture();
 				updatePic.ProductIDLabel.Content = ((Inventory)InventoryViewListBox.SelectedItem).ID.ToString();
 				updatePic.ProductCategory.Content = InventoryCategoryComboBox.SelectedItem.ToString();
 				updatePic.ProductMeasureType.Content = MeasureTypeLabelContent.Content.ToString();
-				updatePic.ProductNameLabel.Content= ((Inventory)InventoryViewListBox.SelectedItem).Product;
+				updatePic.ProductNameLabel.Content = ((Inventory)InventoryViewListBox.SelectedItem).Product;
 				updatePic.newImage.Source = ProductImage.Source;
-				
+
 				updatePic.ShowDialog();
-				
+
 
 			}
+		}
+
+		private void RequestProductButton_Click(object sender, RoutedEventArgs e)
+		{
+
+			if (InventoryViewListBox.SelectedItem != null)
+			{
+
+				if (int.TryParse(requestQtyTextBox.Text, out int c))
+				{
+
+					try
+					{
+						EmailClass email = new EmailClass();
+						string dateNow = String.Format("{0:d}",DateTime.Now.Date);
+						 string userName = WindowsIdentity.GetCurrent().Name;
+						email.RequestProduct(dateNow, userName, ((Inventory)InventoryViewListBox.SelectedItem).Product.ToString(),requestQtyTextBox.Text,MeasureTypeLabelContent.Content.ToString());
+
+						informationLabel.Content = "Request has been sent";
+						informationLabel.Foreground = Brushes.Green;
+						informationLabel.FontWeight = FontWeights.Bold;
+						informationLabel.Visibility = Visibility.Visible;
+
+
+
+					}
+					catch
+					{
+						informationLabel.Content = "Request hasn't been sent";
+						informationLabel.Foreground = Brushes.Red;
+						informationLabel.FontWeight = FontWeights.Bold;
+						informationLabel.Visibility = Visibility.Visible;
+					}
+				}
+
+				else
+				{
+					informationLabel.Content = "Can't send request because it's not number";
+					informationLabel.Foreground = Brushes.Red;
+					informationLabel.FontWeight = FontWeights.Bold;
+					informationLabel.Visibility = Visibility.Visible;
+				}
+			}
+			else
+			{
+				informationLabel.Content = "Please select product";
+				informationLabel.Foreground = Brushes.Red;
+				informationLabel.FontWeight = FontWeights.Bold;
+				informationLabel.Visibility = Visibility.Visible;
+			}
+
+		}
+
+		private void requestQtyTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (!int.TryParse(requestQtyTextBox.Text, out int c))
+			{
+				informationLabel.Content = "Please enter number";
+				informationLabel.Foreground = Brushes.Red;
+				informationLabel.FontWeight = FontWeights.Bold;
+				informationLabel.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				informationLabel.Visibility = Visibility.Hidden;
+			}
+
 		}
 	}
 }

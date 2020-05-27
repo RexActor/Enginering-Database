@@ -23,6 +23,9 @@ namespace Engineering_Database
 		public string assignToUser;
 		public string Maintenance;
 		public string DueDateGap;
+		public string productRequests;
+
+
 
 		public static Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		public static KeyValueConfigurationCollection configCollection = configManager.AppSettings.Settings;
@@ -75,6 +78,7 @@ namespace Engineering_Database
 				DueDateGap = db.DBQueryForGlobalSettings("DueDateGap");
 				jobCount = db.DBQueryForGlobalSettings("JobCount");
 				EmailPreview = db.DBQueryForGlobalSettings("EmailPreview");
+				productRequests = db.DBQueryForGlobalSettings("RequestEmail");
 
 
 
@@ -87,6 +91,8 @@ namespace Engineering_Database
 				passwordTextBox.Text = password;
 				PreviewSettingComboBox.Text = preview;
 				EmailAddress2TextBox.Text = ReportEmail;
+				ProductRequestEmail.Text = productRequests;
+
 
 
 				if (Maintenance == "Yes")
@@ -157,6 +163,7 @@ namespace Engineering_Database
 			db.DBQueryUpdateGlobalSettings("Password", passwordTextBox.Text);
 			db.DBQueryUpdateGlobalSettings("EmailAddress2", EmailAddress2TextBox.Text);
 			db.DBQueryUpdateGlobalSettings("JobCount", JobCountSettingData.Text);
+			db.DBQueryUpdateGlobalSettings("RequestEmail", ProductRequestEmail.Text);
 
 			if (MaintenanceCheckBox.IsChecked == true)
 			{
@@ -308,6 +315,7 @@ namespace Engineering_Database
 			JobCountSettingData.Text = "0";
 			passwordTextBox.Text = "default";
 			PreviewSettingComboBox.Text = "Yes";
+			ProductRequestEmail.Text = "default";
 
 
 

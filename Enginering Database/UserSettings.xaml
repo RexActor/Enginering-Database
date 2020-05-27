@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Global Settings" Height="620.514" Width="434.256" ResizeMode="NoResize">
+        Title="Global Settings" Height="667.514" Width="434.256" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="409*"/>
@@ -15,43 +15,45 @@
         <TextBox x:Name="SubAdmin1TextBox" HorizontalAlignment="Left" Height="25" Margin="144,79,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="SubAdmin2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,105,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="25" Margin="144,131,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="DueDataTextBox" HorizontalAlignment="Left" Height="25" Margin="144,186,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="144,212,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="25" Margin="144,238,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="DueDataTextBox" HorizontalAlignment="Left" Height="25" Margin="144,218,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="144,245,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="25" Margin="144,271,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <TextBox  Name ="EmailAddress2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,158,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
         <Label Content="Admin" HorizontalAlignment="Left" Height="25" Margin="10,53,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,79,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,105,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Email Address" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="DueDataGap" HorizontalAlignment="Left" Height="25" Margin="10,186,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="10,211,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Password" HorizontalAlignment="Left" Height="25" Margin="10,238,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="10,264,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Email Address {Opt}" HorizontalAlignment="Left" Height="25" Margin="10,158,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Due Date Gap {days}" HorizontalAlignment="Left" Height="25" Margin="10,219,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="10,244,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Password" HorizontalAlignment="Left" Height="25" Margin="10,271,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="10,297,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="App Support Email" HorizontalAlignment="Left" Height="25" Margin="10,158,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <Label Content="Maintenance" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Button x:Name="SaveUserSettingsButton" Content="Save Settings" HorizontalAlignment="Left" Height="31" Margin="41,551,0,0" VerticalAlignment="Top" Width="121" Click="SaveUserSettingsButton_Click"/>
-        <Button x:Name="ResetUserSettingsButton_Copy" Content="Reset Settings" HorizontalAlignment="Left" Height="31" Margin="167,551,0,0" VerticalAlignment="Top" Width="121" Click="ResetUserSettingsButton_Copy_Click"/>
-        <ComboBox x:Name="PreviewSettingComboBox" HorizontalAlignment="Left" Height="22" Margin="144,265,0,0" VerticalAlignment="Top" Width="166" IsReadOnly="True" HorizontalContentAlignment="Center">
+        <Button x:Name="SaveUserSettingsButton" Content="Save Settings" HorizontalAlignment="Left" Height="31" Margin="41,584,0,0" VerticalAlignment="Top" Width="121" Click="SaveUserSettingsButton_Click"/>
+        <Button x:Name="ResetUserSettingsButton_Copy" Content="Reset Settings" HorizontalAlignment="Left" Height="31" Margin="167,584,0,0" VerticalAlignment="Top" Width="121" Click="ResetUserSettingsButton_Copy_Click"/>
+        <ComboBox x:Name="PreviewSettingComboBox" HorizontalAlignment="Left" Height="22" Margin="144,298,0,0" VerticalAlignment="Top" Width="166" IsReadOnly="True" HorizontalContentAlignment="Center">
 
             <ComboBoxItem Name="Yes" IsSelected="True">Yes</ComboBoxItem>
             <ComboBoxItem Name="No">No</ComboBoxItem>
         </ComboBox>
-        <Label x:Name="ContractorAddLabel" Content="Contractors" HorizontalAlignment="Left" Height="25" Margin="10,292,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="ContractorAddTextBox" HorizontalAlignment="Left" Height="25" Margin="144,292,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Button x:Name="AddContractorButton" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,292,0,0" VerticalAlignment="Top" Width="79" Click="AddContractorButton_Click"/>
-        <ListBox x:Name="ContractorListBoxSettings" HorizontalAlignment="Left" Height="70" Margin="144,322,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="AddContractorButton_Copy" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,339,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveContractorButton_Click"/>
-        <Label x:Name="ContractorAddLabel_Copy" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="10,338,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label x:Name="AssignToLabel" Content="Assign To user add" HorizontalAlignment="Left" Height="25" Margin="10,406,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="AssignToTextBox" HorizontalAlignment="Left" Height="25" Margin="144,406,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Label x:Name="AssignToUserListLabel" Content="Assigned To User list" HorizontalAlignment="Left" Height="25" Margin="10,436,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <ListBox x:Name="AssignToUserListSettingsListBox" HorizontalAlignment="Left" Height="70" Margin="144,436,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,407,0,0" VerticalAlignment="Top" Width="79" Click="AddAssignedTo_Click"/>
-        <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,459,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveAssignedToButton_Click"/>
-        <Button Content="Issue Codes" HorizontalAlignment="Left" Height="31" Margin="305,551,0,0" VerticalAlignment="Top" Width="96" Click="OpenIssueCodeChanges"/>
+        <Label x:Name="ContractorAddLabel" Content="Contractors" HorizontalAlignment="Left" Height="25" Margin="10,325,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="ContractorAddTextBox" HorizontalAlignment="Left" Height="25" Margin="144,325,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Button x:Name="AddContractorButton" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,325,0,0" VerticalAlignment="Top" Width="79" Click="AddContractorButton_Click"/>
+        <ListBox x:Name="ContractorListBoxSettings" HorizontalAlignment="Left" Height="70" Margin="144,355,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="AddContractorButton_Copy" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,372,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveContractorButton_Click"/>
+        <Label x:Name="ContractorAddLabel_Copy" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="10,371,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label x:Name="AssignToLabel" Content="Assign To user add" HorizontalAlignment="Left" Height="25" Margin="10,439,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AssignToTextBox" HorizontalAlignment="Left" Height="25" Margin="144,439,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label x:Name="AssignToUserListLabel" Content="Assigned To User list" HorizontalAlignment="Left" Height="25" Margin="10,469,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <ListBox x:Name="AssignToUserListSettingsListBox" HorizontalAlignment="Left" Height="70" Margin="144,469,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="25" Margin="315,440,0,0" VerticalAlignment="Top" Width="79" Click="AddAssignedTo_Click"/>
+        <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="315,492,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveAssignedToButton_Click"/>
+        <Button Content="Issue Codes" HorizontalAlignment="Left" Height="31" Margin="305,584,0,0" VerticalAlignment="Top" Width="96" Click="OpenIssueCodeChanges"/>
         <CheckBox Name ="MaintenanceCheckBox" Content="" HorizontalAlignment="Left" Margin="139,16,0,0" VerticalAlignment="Top"/>
         <Label Content="Email Preview" HorizontalAlignment="Left" Height="25" Margin="167,10,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
         <CheckBox x:Name ="EmailPreview_CheckBox" Content="" HorizontalAlignment="Left" Margin="305,16,0,0" VerticalAlignment="Top"/>
+        <TextBox  x:Name ="ProductRequestEmail" HorizontalAlignment="Left" Height="25" Margin="144,188,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label Content="Product Request Email" HorizontalAlignment="Left" Height="25" Margin="10,188,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
 
 
     </Grid>
