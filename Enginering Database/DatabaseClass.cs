@@ -544,7 +544,7 @@ namespace Engineering_Database
 		}
 		public OleDbDataReader GetMeterReadingDataSelectedYear(string table, string field, int value)
 		{
-			string queryString = $"SELECT * FROM {table} WHERE {field}='" + value + "'";
+			string queryString = $"SELECT * FROM {table} WHERE {field}={value}";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -621,6 +621,15 @@ namespace Engineering_Database
 		public int DBMeterReadingCountLines(string month, int year)
 		{
 			string queryString = $"SELECT COUNT(*) FROM MeterReadings Where ReadingMonth='{month}' AND ReadingYear ={year}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			var data = (int)cmd.ExecuteScalar();
+			cmd.Dispose();
+			return data;
+		}
+
+		public int CountLinesInDatabaseTable(string table)
+		{
+			string queryString = $"SELECT COUNT(*) FROM {table}";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			var data = (int)cmd.ExecuteScalar();
 			cmd.Dispose();

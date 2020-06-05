@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace Engineering_Database
 {
@@ -302,7 +303,7 @@ namespace Engineering_Database
 		}
 
 
-		public void RequestProduct(string Date, string Username, string product, string qty, string measureType)
+		public void RequestProduct(string Date, string Username, string product, string qty, string measureType, ImageSource fname)
 		{
 			userSett.openSettings();
 
@@ -341,7 +342,14 @@ namespace Engineering_Database
 						"<b><u>Measure Type </u>:</b>&nbsp;" + measureType +
 						"<br>" +
 						"<b><u>Qty Requested </u>:</b> &nbsp;" + qty +
+						"<br>" +
+						"<br>" +
+						"<b><u>Product Image</b></u>" +
+						"<br>" +
+						"<br>" +
+						@"<img width=""200px"" height =""7000px"" style=""position:relative; top: 70px; left: 320px;"" src='" + fname + "'>" +
 						"</body>" +
+
 						"</html>"
 						;
 

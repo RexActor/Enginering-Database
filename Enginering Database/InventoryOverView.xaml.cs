@@ -34,8 +34,8 @@ namespace Engineering_Database
 
 			Console.WriteLine(db.DBStatus());
 
-			var reader = db.GetAllPDFIds("InventoryView");
-
+			var reader = db.GetAllPDFIds("InventoryViewProducts");
+			
 
 			while (reader.Read())
 			{
@@ -44,11 +44,20 @@ namespace Engineering_Database
 
 
 				inv.ID = Convert.ToInt32(reader["ID"]);
-				inv.Product = reader["Product"].ToString();
-				inv.Qty = Convert.ToInt32(reader["Qty"]);
+				inv.Product = reader["ProductName"].ToString();
 				inv.MeasureType = reader["MeasureType"].ToString();
 				inv.ProductCategory = reader["ProductCategory"].ToString();
-				inv.Comment = reader["Comment"].ToString();
+
+
+				var getProduct = db.GetInventoryProduct("InventoryView", "Product", inv.Product);
+
+				while (getProduct.Read())
+				{
+
+					inv.Qty = Convert.ToInt32(getProduct["Qty"]);
+
+				}
+
 
 				if (inv.Qty >0)
 				{

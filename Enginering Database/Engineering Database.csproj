@@ -344,6 +344,10 @@
       <DependentUpon>SettingsForIssueCode.xaml</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="StatutoryClass.cs" />
+    <Compile Include="StatutoryCompliance.xaml.cs">
+      <DependentUpon>StatutoryCompliance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TerraMaintenancePage.xaml.cs">
       <DependentUpon>TerraMaintenancePage.xaml</DependentUpon>
     </Compile>
@@ -479,6 +483,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingsForIssueCode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatutoryCompliance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -627,6 +635,7 @@
     <Resource Include="AssetList.ico" />
     <Resource Include="Admin.png" />
     <Resource Include="Camera -01.png" />
+    <Resource Include="Date Time_01.png" />
     <Content Include="engineeringDatabase.accdb" />
     <Resource Include="ReportIssue.png" />
     <Resource Include="PasswordProtected.png" />

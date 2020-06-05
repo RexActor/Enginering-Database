@@ -490,7 +490,7 @@ namespace Engineering_Database
 						EmailClass email = new EmailClass();
 						string dateNow = String.Format("{0:d}",DateTime.Now.Date);
 						 string userName = WindowsIdentity.GetCurrent().Name;
-						email.RequestProduct(dateNow, userName, ((Inventory)InventoryViewListBox.SelectedItem).Product.ToString(),requestQtyTextBox.Text,MeasureTypeLabelContent.Content.ToString());
+						email.RequestProduct(dateNow, userName, ((Inventory)InventoryViewListBox.SelectedItem).Product.ToString(),requestQtyTextBox.Text,MeasureTypeLabelContent.Content.ToString(),ProductImage.Source);
 
 						informationLabel.Content = "Request has been sent";
 						informationLabel.Foreground = Brushes.Green;

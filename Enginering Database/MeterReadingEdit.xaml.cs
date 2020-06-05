@@ -38,9 +38,25 @@ namespace Engineering_Database
 			meterReading = reading;
 			title.Content = $"Edit Meter reading Data for date [{InsertedDate2}]";
 
-			MeterReadingTextBox.Text = meterReading.ToString();
-			dateInsertedData.Content = InsertedDate2.ToString();
 			GetReadingID(meterReading, InsertedDate2);
+			
+			
+			
+			var getCorrectReading = db.GetMeterReadingDataSelectedYear("MeterReadings", "ID", meterID);
+			while (getCorrectReading.Read())
+			{
+				MeterReadingTextBox.Text = getCorrectReading["MeterReading"].ToString();
+
+			}
+
+
+			
+
+
+
+
+			dateInsertedData.Content = InsertedDate2.ToString();
+			
 			recordIDdata.Content = meterID.ToString();
 		}
 

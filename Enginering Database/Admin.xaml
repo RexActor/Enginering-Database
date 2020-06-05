@@ -5,21 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Admin" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Admin" Height="525.691" Width="1390.5" ResizeMode="NoResize">
     <Grid>
         <Label Content="You are in Admin View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
-        <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,531,9"/>
+        <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,0,9" HorizontalAlignment="Left" Width="253"/>
         <Button x:Name ="UpdateDatabaseButton" Content="Update Database" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="223" Height="55" VerticalAlignment="Top" Margin="20,59,0,0" />
-        <Image x:Name="UpdateDatabaseImage" Margin="20,59,724,312" Source="update.png" Stretch="Fill"/>
+        <Image x:Name="UpdateDatabaseImage" Margin="20,59,0,0" Source="update.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
         <Button x:Name="ShowReportButton"  Content="Show Report" HorizontalAlignment="Left" Height="50" Margin="20,119,0,0" VerticalAlignment="Top" Width="223" Click="ShowReportButton_Click"/>
-        <Image x:Name="ShowReportImage" Margin="20,119,724,252" Source="Load Report.png" Stretch="Fill"/>
+        <Image x:Name="ShowReportImage" Margin="20,119,0,0" Source="Load Report.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
         <Button x:Name="LineMaintenanceButton" Content="Maintenance" HorizontalAlignment="Left" Height="48" Margin="20,174,0,0" VerticalAlignment="Top" Width="223" Click="LineMaintenanceButton_Click"/>
-        <Image x:Name="MaintenancePic" Margin="20,174,724,197" Source="Tools-WF.png" Stretch="Fill"/>
-        <Button x:Name ="MeterReadingButton" Content="Meter Readings" HorizontalAlignment="Left" Height="48" Margin="20,227,0,0" VerticalAlignment="Top" Width="225" Click="MeterReadingButton_Click"/>
-        <Image Margin="20,227,724,144" Source="Meter-02.png" Stretch="Fill"/>
-        <Button x:Name="AssetListButton" Content="Asset List" HorizontalAlignment="Left" Height="50" Margin="20,280,0,0" VerticalAlignment="Top" Width="225" Click="AssetListButton_Click"/>
-        <Image x:Name="AssetListImage" Margin="20,280,724,91" Source="assetlist.png" Stretch="Fill"/>
-        <Button x:Name="InventoryViewButton" Content="Inventory View" HorizontalAlignment="Left" Height="50" Margin="20,335,0,0" VerticalAlignment="Top" Width="225" Click="InventoryViewButton_Click"/>
-        <Image Margin="22,337,724,36" Source="Export-02-WF.png" Stretch="Fill"/>
+        <Image x:Name="MaintenancePic" Margin="20,174,0,0" Source="Tools-WF.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
+        <Button x:Name ="MeterReadingButton" Content="Meter Readings" HorizontalAlignment="Left" Height="48" Margin="20,227,0,0" VerticalAlignment="Top" Width="223" Click="MeterReadingButton_Click"/>
+        <Image Margin="20,227,0,0" Source="Meter-02.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
+        <Button x:Name="AssetListButton" Content="Asset List" HorizontalAlignment="Left" Height="50" Margin="20,280,0,0" VerticalAlignment="Top" Width="223" Click="AssetListButton_Click"/>
+        <Image x:Name="AssetListImage" Margin="20,280,0,0" Source="assetlist.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
+        <Button x:Name="InventoryViewButton" Content="Inventory View" HorizontalAlignment="Left" Height="50" Margin="20,335,0,0" VerticalAlignment="Top" Width="223" Click="InventoryViewButton_Click"/>
+        <Image Margin="22,337,0,0" Source="Export-02-WF.png" Stretch="Fill" Height="48" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48"/>
+        <Button Name="StatutoryComplianceButton" Content="Statutory Compliance" HorizontalAlignment="Left" Margin="20,390,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="StatutoryComplianceButton_Click"/>
+        <Image Margin="22,392,0,0" Source="Date Time_01.png" Stretch="Fill" HorizontalAlignment="Left" Width="48" Height="48" VerticalAlignment="Top"/>
+        <ListView x:Name="StatutoryListViewExpired" HorizontalAlignment="Left" Height="437" Margin="278,50,0,0" VerticalAlignment="Top" Width="605">
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn Header="Equipment" Width="250" DisplayMemberBinding="{Binding EquipmentDescription}"/>
+                    <GridViewColumn Header="Days Behind" Width="100" DisplayMemberBinding="{Binding DaysLeftTillInspection}"/>
+                    <GridViewColumn Header="Renew Date" Width="100" DisplayMemberBinding="{Binding RenewDate}"/>
+                    <GridViewColumn Header="Manufacturer" Width="150" DisplayMemberBinding="{Binding Manufacturer}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Name ="OutOfDateLabel" Content="Statutory Compliance Items Out of Date" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#C95342" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="278,10,0,0" VerticalAlignment="Top" Width="605"/>
+        <Label Name="ExpireLabel" Content="Statutory Compliance Items To Expire in {10} days" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#F7930D" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="888,10,0,0" VerticalAlignment="Top" Width="486"/>
+        <ListView x:Name="StatutoryListViewToExpire" HorizontalAlignment="Left" Height="437" Margin="888,51,0,0" VerticalAlignment="Top" Width="486">
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn Header="Equipment" Width="250" DisplayMemberBinding="{Binding EquipmentDescription}"/>
+                    <GridViewColumn Header="Renew Date" Width="100" DisplayMemberBinding="{Binding RenewDate}"/>
+                    <GridViewColumn Header="Manufacturer" Width="150" DisplayMemberBinding="{Binding Manufacturer}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ProgressBar Name="ProgressBar" HorizontalAlignment="Left" Height="46" Margin="601,284,0,0" VerticalAlignment="Top" Width="481"/>
+        <Label Name="StatusLabel" Content="Label" HorizontalContentAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="601,238,0,0" VerticalAlignment="Top" Width="481"/>
     </Grid>
 </Window>
