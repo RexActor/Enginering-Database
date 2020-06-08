@@ -1,8 +1,6 @@
 ﻿
 using Enginering_Database;
 
-using Microsoft.Office.Interop.Access.Dao;
-
 using System;
 using System.ComponentModel;
 using System.Threading;
@@ -18,6 +16,7 @@ namespace Engineering_Database
 		DatabaseClass db = new DatabaseClass();
 		BackgroundWorker worker = new BackgroundWorker();
 		UserSettings settings = new UserSettings();
+		
 		int increase;
 
 		public Admin()
@@ -33,6 +32,7 @@ namespace Engineering_Database
 			settings.openSettings();
 
 			ProgressBar.Visibility = Visibility.Visible;
+	
 			StatusLabel.Visibility = Visibility.Visible;
 			StatutoryListViewExpired.Visibility = Visibility.Hidden;
 			StatutoryListViewToExpire.Visibility = Visibility.Hidden;
@@ -50,6 +50,8 @@ namespace Engineering_Database
 		{
 			ProgressBar.Value = e.ProgressPercentage;
 			StatusLabel.Content = $"Recalculating expiry dates for Statutory items.   Progress: {increase} %";
+
+			
 		}
 
 
@@ -59,7 +61,7 @@ namespace Engineering_Database
 
 			int countofItems = 0;
 			int currentLine = 0;
-
+		
 
 			var reader = db.GetAllPDFIds("StatutoryCompliance");
 			countofItems = db.CountLinesInDatabaseTable("StatutoryCompliance");
@@ -69,7 +71,9 @@ namespace Engineering_Database
 				StatutoryClass statutory = new StatutoryClass();
 
 				statutory.ID = Convert.ToInt32(reader["ID"]);
+				statutory.EquipmentDescription = reader["EquipmentDescription"].ToString();
 				statutory.RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]);
+				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
 				DateTime dt = DateTime.Now.Date;
 
 				TimeSpan dayDifference = statutory.RenewDateForCalculation - dt;
@@ -77,6 +81,12 @@ namespace Engineering_Database
 				db.UpdateInventoryView("StatutoryCompliance", "DaysTillInspection", statutory.ID, dayDifference.Days);
 
 				currentLine++;
+
+
+
+			
+
+
 
 				increase = Convert.ToInt32(((double)currentLine / countofItems) * 100);
 
@@ -94,6 +104,7 @@ namespace Engineering_Database
 
 			db.ConnectDB();
 
+			int interval = 0;
 			var reader = db.GetAllPDFIds("StatutoryCompliance");
 
 			while (reader.Read())
@@ -105,6 +116,7 @@ namespace Engineering_Database
 				statutory.DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
 				statutory.RenewDate = String.Format("{0:d}", reader["RenewDate"]);
 				statutory.Manufacturer = reader["Manufacturer/Company"].ToString();
+				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
 
 				if (Convert.ToInt32(reader["DaysTillInspection"]) < 0)
 				{
@@ -113,7 +125,35 @@ namespace Engineering_Database
 				}
 				else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays))
 				{
+
+					if (statutory.meetingSetStatus == false)
+					{
+
+						DateTime meetingDate = new DateTime();
+
+
+						DateTime renewDateTime = Convert.ToDateTime(statutory.RenewDate);
+
+						int daysForward = 0 - Convert.ToInt32(settings.DueDateGap);
+
+						meetingDate = renewDateTime.AddDays(daysForward);
+
+						if (meetingDate < DateTime.Now.Date)
+						{
+							meetingDate = DateTime.Now.Date.AddDays(1);
+						}
+
+
+						setUpMeeting(statutory.ID, statutory.EquipmentDescription, $" {statutory.EquipmentDescription} item due to run out of Compliance. Renew Date is {statutory.RenewDate} and there are {statutory.DaysLeftTillInspection} days left (on day when meeting was set up)", meetingDate.Date, interval);
+
+
+						interval++;
+					}
+					
+
+
 					StatutoryListViewToExpire.Items.Add(statutory);
+
 				}
 
 			}
@@ -121,6 +161,7 @@ namespace Engineering_Database
 			db.CloseDB();
 
 			StatusLabel.Visibility = Visibility.Hidden;
+			
 			ProgressBar.Visibility = Visibility.Hidden;
 			OutOfDateLabel.Visibility = Visibility.Visible;
 			ExpireLabel.Visibility = Visibility.Visible;
@@ -173,12 +214,29 @@ namespace Engineering_Database
 		{
 			StatutoryCompliance statutory = new StatutoryCompliance();
 			statutory.ShowDialog();
+			//setUpMeeting(28, "Test Meeting", "Updating Database with meeting request", 2);
 		}
 
-		private void MeetingTestButton_Click(object sender, RoutedEventArgs e)
+
+		/// <summary>
+		/// Meeting set up script. Will run once Admin window is opened and new Statutory compliance days was recalculated
+		/// Will mark in database for items which ones have meeting set up
+		/// Checks if meeting is already set. if so then ignoring
+		/// 
+		/// </summary>
+
+		private void setUpMeeting(int id, string meetingSubject, string meetingBody, DateTime meetingDate, int intervalBetweenMeetings)
 		{
+
 			EmailClass email = new EmailClass();
-			email.SetUpMeetingRequest("Test Meeting","Test Meeting body",5);
+			email.SetUpMeetingRequest(meetingSubject, meetingBody, meetingDate, intervalBetweenMeetings);
+
+
+
+			db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", id, true);
+
+
 		}
+
 	}
 }

@@ -864,7 +864,15 @@ namespace Engineering_Database
 		}
 		#endregion
 
-
+		public void UpdateStatutoryCompliance(string table,string field, int id, bool value)
+		{
+			string queryString = $"UPDATE {table} SET " + field + " = @value WHERE ID = @ID";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.AddWithValue("@value", value);
+			cmd.Parameters.AddWithValue("@ID", id);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
 
 	}
 }

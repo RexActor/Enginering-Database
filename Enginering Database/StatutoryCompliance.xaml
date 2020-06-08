@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Statutory Compliance" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Statutory Compliance" Height="771.809" Width="1390" ResizeMode="NoResize">
     <Grid>
-        
+        <ListView x:Name="StatutoryComplianceList" HorizontalAlignment="Left" Height="653" Margin="10,80,0,0" VerticalAlignment="Top" Width="1364" MouseDoubleClick="StatutoryComplianceList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding ID}"/>
+
+                    <GridViewColumn Header="Item Description" Width="300" DisplayMemberBinding="{Binding EquipmentDescription}"/>
+                    <GridViewColumn Header="Serial Number" Width="150" DisplayMemberBinding="{Binding SerialNumber}"/>
+                    <GridViewColumn Header="Manufacturer/Company" Width="200" DisplayMemberBinding="{Binding Manufacturer}"/>
+                    <GridViewColumn Header="Company/Insurer" Width="130" DisplayMemberBinding="{Binding CompanyIssuer}"/>
+
+
+                    <GridViewColumn Header="Inspection Date" Width="130" DisplayMemberBinding="{Binding DateReportIssued}"/>
+                    <GridViewColumn Header="Renew Date" Width="150" DisplayMemberBinding="{Binding RenewDate}"/>
+                    <GridViewColumn Header="Valid (days)" Width="100" DisplayMemberBinding="{Binding DaysLeftTillInspection}"/>
+                    <GridViewColumn Header="Monthly/Weekly" Width="150" DisplayMemberBinding="{Binding MonthlyWeekly}"/>
+
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Statutory Compliance" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" Background="#7CBB6C" FontWeight="Bold"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="1364"/>
+        <CheckBox x:Name="ExpiredCheckBox" Content="Show Only Expired" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Click="ExpiredCheckBox_Click"/>
+
     </Grid>
 </Window>

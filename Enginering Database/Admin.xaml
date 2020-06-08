@@ -47,7 +47,6 @@
             </ListView.View>
         </ListView>
         <ProgressBar Name="ProgressBar" HorizontalAlignment="Left" Height="46" Margin="601,284,0,0" VerticalAlignment="Top" Width="481"/>
-        <Label Name="StatusLabel" Content="Label" HorizontalContentAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="601,238,0,0" VerticalAlignment="Top" Width="481"/>
-        <Button  Name="MeetingTestButton" Content="Meeting Test" HorizontalAlignment="Left" Height="37" Margin="169,445,0,0" VerticalAlignment="Top" Width="74" Click="MeetingTestButton_Click"/>
+        <Label Name="StatusLabel" Content="Label" HorizontalContentAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="601,248,0,0" VerticalAlignment="Top" Width="481"/>
     </Grid>
 </Window>

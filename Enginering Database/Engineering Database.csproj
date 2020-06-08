@@ -348,6 +348,9 @@
     <Compile Include="StatutoryCompliance.xaml.cs">
       <DependentUpon>StatutoryCompliance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StatutoryItem.xaml.cs">
+      <DependentUpon>StatutoryItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TerraMaintenancePage.xaml.cs">
       <DependentUpon>TerraMaintenancePage.xaml</DependentUpon>
     </Compile>
@@ -487,6 +490,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StatutoryCompliance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatutoryItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

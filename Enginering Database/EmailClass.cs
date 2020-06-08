@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Windows;
 using System.Windows.Media;
 
 namespace Engineering_Database
@@ -407,7 +406,7 @@ namespace Engineering_Database
 
 
 		#region meeting setup
-		public void SetUpMeetingRequest(string subject, string emailbody,int meetingDaysForward)
+		public void SetUpMeetingRequest(string subject, string emailbody, DateTime meetingDate, int timeInterval)
 		{
 
 			userSett.openSettings();
@@ -425,24 +424,83 @@ namespace Engineering_Database
 
 				Microsoft.Office.Interop.Outlook.AppointmentItem meetingItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olAppointmentItem);
 
+				Microsoft.Office.Interop.Outlook.Recipients recipients = null;
+				Microsoft.Office.Interop.Outlook.Recipient recipient = null;
 
 
 				//sender = GetSenderEmailAddress(mailItem);
 
+
+				//DateTime newDate = DateTime.Now;
+
+				//each meeting have gap  1 hour between each other
+				TimeSpan meetingStartTime = new TimeSpan(8 + timeInterval, 0, 0);
+
+
+				//newDate = newDate.AddDays(meetingDaysForward);
+
+				//checks if new date is saturday or Sunday. If so then days are being changed
+
+				if (meetingDate.Date.DayOfWeek == DayOfWeek.Saturday)
+				{
+					meetingDate = meetingDate.AddDays(2);
+				}
+				else if (meetingDate.Date.DayOfWeek == DayOfWeek.Sunday)
+				{
+					meetingDate = meetingDate.AddDays(1);
+				}
+
+				//checks if meeting is being set up for after work hours.if so then meeting is being pushed forward by one day and set up in morning
+				if (meetingStartTime.Hours >= 17)
+				{
+					meetingDate = meetingDate.AddDays(1);
+					meetingStartTime = new TimeSpan(8, 0, 0);
+				}
+
+
+				//once all is done. Meeting date is being populated with new date and time.
+				meetingDate = meetingDate.Date + meetingStartTime;
 
 				if (meetingItem != null)
 				{
 
 					try
 					{
-						MessageBox.Show("Setting Up meeting");
+						//MessageBox.Show("Setting Up meeting");
 						meetingItem.MeetingStatus = Microsoft.Office.Interop.Outlook.OlMeetingStatus.olMeeting;
 						meetingItem.Location = "Whittlesey";
 						meetingItem.Subject = subject;
+						meetingItem.StartInStartTimeZone = DateTime.Now.AddHours(timeInterval);
 						meetingItem.Body = emailbody;
-						meetingItem.Start = DateTime.Now.AddDays(meetingDaysForward);
+						meetingItem.Start = meetingDate;
 						meetingItem.Duration = 10;
 						meetingItem.BusyStatus = OlBusyStatus.olFree;
+
+
+						//TODO:switch back on when deploying update
+						#region switched off - switch back on
+						//meeting request to be sent for specific persons - during development switched off
+
+						/*
+						recipients = meetingItem.Recipients;
+						recipient = recipients.Add(emailAddress);
+						recipient.Type = (int)Microsoft.Office.Interop.Outlook.OlMeetingRecipientType.olRequired;
+						if (recipient.Resolve())
+						{
+							meetingItem.Send();
+
+						}
+						else
+						{
+							userErr.errorMessage = $"Couldn`t resolve email address {emailAddress}";
+							userErr.Title = "Outlook error";
+							userErr.CallWindow();
+							userErr.ShowDialog();
+						}
+						*/
+						#endregion
+
+
 						meetingItem.Save();
 
 					}

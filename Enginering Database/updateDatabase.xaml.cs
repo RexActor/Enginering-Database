@@ -46,7 +46,7 @@ namespace Enginering_Database
 			db.ConnectDB();
 			InitializeComponent();
 
-			//TODO:check what was this for?!
+		
 			empList.AllowRemove = true;
 
 			///disable preview window at start
@@ -73,7 +73,7 @@ namespace Enginering_Database
 			//update assigntocombo box with latest data 
 			UpdateAssignToComboBox();
 
-			//TODO:requires fix for this function. Show exception error on work PC
+			
 			createJobList(filter);
 			GetOldEntries();
 		}

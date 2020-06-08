@@ -76,7 +76,7 @@ namespace Enginering_Database
 
 		#region comboboxes set up
 
-		//TODO: need to refactore this part. 
+		
 		//need to add option to able to add/remove/edit issue options through settings
 
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,7 +107,7 @@ namespace Enginering_Database
 				issueTypeComboBox.IsEnabled = true;
 			}
 
-			//TODO: throwing error when selecting
+			
 			//areacombobox - static --> still dependant on settings window
 			if (areaComboBox.SelectedIndex > 0)
 			{
@@ -232,17 +232,12 @@ namespace Enginering_Database
 		public void SetUpComboBox()
 		{
 			//refactoring ComboBox Setup
-
-
-			//TODO: set up database connection for getting issue codes etc.
+							
 
 			//set up comboboxes based on previous data selected
 			//there are 2 objects which ones don't have dynamic values. Still needs to be able to change on settings window
 
 			//set up default comboboxes with default values
-
-
-
 
 
 			db.ConnectDB();

@@ -20,7 +20,10 @@ namespace Engineering_Database
 
 		public string RenewDate { get; set; }
 
+		//false = meeting not set up
+		//true = meeting was set up
 
+		public bool meetingSetStatus { get; set; }
 		public DateTime RenewDateForCalculation { get; set; }
 	}
 }
