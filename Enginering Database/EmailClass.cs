@@ -1,6 +1,8 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 
+using System;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Engineering_Database
@@ -402,5 +404,79 @@ namespace Engineering_Database
 
 		}
 
+
+
+		#region meeting setup
+		public void SetUpMeetingRequest(string subject, string emailbody,int meetingDaysForward)
+		{
+
+			userSett.openSettings();
+
+
+			if (checkOutlook() == true)
+			{
+
+
+				string emailAddress = userSett.productRequests;
+
+				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
+
+				//Microsoft.Office.Interop.Outlook.MailItem mailItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
+
+				Microsoft.Office.Interop.Outlook.AppointmentItem meetingItem = app.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olAppointmentItem);
+
+
+
+				//sender = GetSenderEmailAddress(mailItem);
+
+
+				if (meetingItem != null)
+				{
+
+					try
+					{
+						MessageBox.Show("Setting Up meeting");
+						meetingItem.MeetingStatus = Microsoft.Office.Interop.Outlook.OlMeetingStatus.olMeeting;
+						meetingItem.Location = "Whittlesey";
+						meetingItem.Subject = subject;
+						meetingItem.Body = emailbody;
+						meetingItem.Start = DateTime.Now.AddDays(meetingDaysForward);
+						meetingItem.Duration = 10;
+						meetingItem.BusyStatus = OlBusyStatus.olFree;
+						meetingItem.Save();
+
+					}
+
+					catch
+					{
+						userErr.errorMessage = "There was something wrong when trying to send email. [Object] {Email Class.cs} [Line] {167}";
+						userErr.Title = "Outlook error";
+						userErr.CallWindow();
+						userErr.ShowDialog();
+
+					}
+
+
+				}
+				else
+				{
+					userErr.errorMessage = "Meeting Item was with {null} value";
+					userErr.Title = "Outlook meeting Item error";
+					userErr.CallWindow();
+					userErr.ShowDialog();
+				}
+
+
+			}
+			else
+			{
+				userErr.errorMessage = "Outlook is not open.Please open outlook aplication and try again";
+				userErr.Title = "Outlook error";
+				userErr.CallWindow();
+				userErr.ShowDialog();
+			}
+		}
+		#endregion
 	}
+
 }

@@ -1,6 +1,8 @@
 ﻿
 using Enginering_Database;
 
+using Microsoft.Office.Interop.Access.Dao;
+
 using System;
 using System.ComponentModel;
 using System.Threading;
@@ -15,6 +17,7 @@ namespace Engineering_Database
 	{
 		DatabaseClass db = new DatabaseClass();
 		BackgroundWorker worker = new BackgroundWorker();
+		UserSettings settings = new UserSettings();
 		int increase;
 
 		public Admin()
@@ -27,6 +30,7 @@ namespace Engineering_Database
 
 		private void startRecalculate()
 		{
+			settings.openSettings();
 
 			ProgressBar.Visibility = Visibility.Visible;
 			StatusLabel.Visibility = Visibility.Visible;
@@ -107,7 +111,7 @@ namespace Engineering_Database
 					StatutoryListViewExpired.Items.Add(statutory);
 
 				}
-				else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < 10)
+				else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays))
 				{
 					StatutoryListViewToExpire.Items.Add(statutory);
 				}
@@ -169,6 +173,12 @@ namespace Engineering_Database
 		{
 			StatutoryCompliance statutory = new StatutoryCompliance();
 			statutory.ShowDialog();
+		}
+
+		private void MeetingTestButton_Click(object sender, RoutedEventArgs e)
+		{
+			EmailClass email = new EmailClass();
+			email.SetUpMeetingRequest("Test Meeting","Test Meeting body",5);
 		}
 	}
 }

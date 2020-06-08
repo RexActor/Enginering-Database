@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Windows;
 
 namespace Engineering_Database
@@ -24,6 +25,7 @@ namespace Engineering_Database
 		public string Maintenance;
 		public string DueDateGap;
 		public string productRequests;
+		public string StatutoryDays;
 
 
 
@@ -79,6 +81,7 @@ namespace Engineering_Database
 				jobCount = db.DBQueryForGlobalSettings("JobCount");
 				EmailPreview = db.DBQueryForGlobalSettings("EmailPreview");
 				productRequests = db.DBQueryForGlobalSettings("RequestEmail");
+				StatutoryDays = db.DBQueryForGlobalSettings("StatutoryDays");
 
 
 
@@ -92,6 +95,7 @@ namespace Engineering_Database
 				PreviewSettingComboBox.Text = preview;
 				EmailAddress2TextBox.Text = ReportEmail;
 				ProductRequestEmail.Text = productRequests;
+				StatutoryDaysTextBox.Text = StatutoryDays;
 
 
 
@@ -164,6 +168,7 @@ namespace Engineering_Database
 			db.DBQueryUpdateGlobalSettings("EmailAddress2", EmailAddress2TextBox.Text);
 			db.DBQueryUpdateGlobalSettings("JobCount", JobCountSettingData.Text);
 			db.DBQueryUpdateGlobalSettings("RequestEmail", ProductRequestEmail.Text);
+			db.DBQueryUpdateGlobalSettings("StatutoryDays", StatutoryDaysTextBox.Text);
 
 			if (MaintenanceCheckBox.IsChecked == true)
 			{
@@ -316,6 +321,7 @@ namespace Engineering_Database
 			passwordTextBox.Text = "default";
 			PreviewSettingComboBox.Text = "Yes";
 			ProductRequestEmail.Text = "default";
+			StatutoryDaysTextBox.Text = "10";
 
 
 
