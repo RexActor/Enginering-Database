@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Windows;
 
 namespace Engineering_Database
@@ -26,6 +25,10 @@ namespace Engineering_Database
 		public string DueDateGap;
 		public string productRequests;
 		public string StatutoryDays;
+		public string MeetingDaysAhead;
+		public string UseWeekendsForMeeting;
+		public string DebugMode;
+		public string MeetingSetupEmail;
 
 
 
@@ -82,6 +85,10 @@ namespace Engineering_Database
 				EmailPreview = db.DBQueryForGlobalSettings("EmailPreview");
 				productRequests = db.DBQueryForGlobalSettings("RequestEmail");
 				StatutoryDays = db.DBQueryForGlobalSettings("StatutoryDays");
+				MeetingDaysAhead = db.DBQueryForGlobalSettings("MeetingDaysAhead");
+				UseWeekendsForMeeting = db.DBQueryForGlobalSettings("MeetingsForWeekends");
+				DebugMode = db.DBQueryForGlobalSettings("DebugMode");
+				MeetingSetupEmail= db.DBQueryForGlobalSettings("MeetingSetupEmail");
 
 
 
@@ -96,6 +103,27 @@ namespace Engineering_Database
 				EmailAddress2TextBox.Text = ReportEmail;
 				ProductRequestEmail.Text = productRequests;
 				StatutoryDaysTextBox.Text = StatutoryDays;
+				MeetingDaysAheadTextBox.Text = MeetingDaysAhead;
+				MeetingSetupEmailTextBox.Text = MeetingSetupEmail;
+
+				if (UseWeekendsForMeeting == "No")
+				{
+					UseWeekendsCheckBox.IsChecked = false;
+				}
+				else if (UseWeekendsForMeeting == "Yes")
+				{
+					UseWeekendsCheckBox.IsChecked = true;
+				}
+
+				if (DebugMode == "No")
+				{
+
+					DebugModeCheckBox.IsChecked = false;
+				}
+				else if (DebugMode == "Yes")
+				{
+					DebugModeCheckBox.IsChecked = true;
+				}
 
 
 
@@ -169,6 +197,8 @@ namespace Engineering_Database
 			db.DBQueryUpdateGlobalSettings("JobCount", JobCountSettingData.Text);
 			db.DBQueryUpdateGlobalSettings("RequestEmail", ProductRequestEmail.Text);
 			db.DBQueryUpdateGlobalSettings("StatutoryDays", StatutoryDaysTextBox.Text);
+			db.DBQueryUpdateGlobalSettings("MeetingDaysAhead", MeetingDaysAheadTextBox.Text);
+			db.DBQueryUpdateGlobalSettings("MeetingSetupEmail", MeetingSetupEmailTextBox.Text);
 
 			if (MaintenanceCheckBox.IsChecked == true)
 			{
@@ -180,6 +210,26 @@ namespace Engineering_Database
 			{
 				db.DBQueryUpdateGlobalSettings("Maintenance", "No");
 			}
+
+
+			if (UseWeekendsCheckBox.IsChecked == true)
+			{
+				db.DBQueryUpdateGlobalSettings("MeetingsForWeekends", "Yes");
+			}
+			else
+			{
+				db.DBQueryUpdateGlobalSettings("MeetingsForWeekends", "No");
+			}
+			if (DebugModeCheckBox.IsChecked == true)
+			{
+				db.DBQueryUpdateGlobalSettings("DebugMode", "Yes");
+			}
+			else
+			{
+				db.DBQueryUpdateGlobalSettings("DebugMode", "No");
+			}
+
+
 
 			if (EmailPreview_CheckBox.IsChecked == true)
 			{
@@ -322,6 +372,9 @@ namespace Engineering_Database
 			PreviewSettingComboBox.Text = "Yes";
 			ProductRequestEmail.Text = "default";
 			StatutoryDaysTextBox.Text = "10";
+			MeetingDaysAheadTextBox.Text = "0";
+			DebugModeCheckBox.IsChecked = false;
+			MeetingSetupEmailTextBox.Text = "default";
 
 
 

@@ -5,57 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Global Settings" Height="667.514" Width="434.256" ResizeMode="NoResize">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="409*"/>
-            <ColumnDefinition Width="17*"/>
-        </Grid.ColumnDefinitions>
-        <TextBox x:Name="AdminTextBox" HorizontalAlignment="Left" Height="25" Margin="144,53,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="SubAdmin1TextBox" HorizontalAlignment="Left" Height="25" Margin="144,79,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="SubAdmin2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,105,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="25" Margin="144,131,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="DueDataTextBox" HorizontalAlignment="Left" Height="25" Margin="144,218,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="144,245,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="25" Margin="143,305,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <TextBox  Name ="EmailAddress2TextBox" HorizontalAlignment="Left" Height="25" Margin="144,158,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Label Content="Admin" HorizontalAlignment="Left" Height="25" Margin="10,53,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,79,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="10,105,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Email Address" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Due Date Gap {days}" HorizontalAlignment="Left" Height="25" Margin="10,219,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="10,244,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Password" HorizontalAlignment="Left" Height="25" Margin="10,305,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="9,331,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="App Support Email" HorizontalAlignment="Left" Height="25" Margin="10,158,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Maintenance" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Button x:Name="SaveUserSettingsButton" Content="Save Settings" HorizontalAlignment="Left" Height="31" Margin="41,584,0,0" VerticalAlignment="Top" Width="121" Click="SaveUserSettingsButton_Click"/>
-        <Button x:Name="ResetUserSettingsButton_Copy" Content="Reset Settings" HorizontalAlignment="Left" Height="31" Margin="167,584,0,0" VerticalAlignment="Top" Width="121" Click="ResetUserSettingsButton_Copy_Click"/>
-        <ComboBox x:Name="PreviewSettingComboBox" HorizontalAlignment="Left" Height="22" Margin="143,332,0,0" VerticalAlignment="Top" Width="166" IsReadOnly="True" HorizontalContentAlignment="Center">
+        Title="Global Settings" Height="616.514" Width="1247.5" ResizeMode="NoResize">
+    <Grid Margin="2,0,-2,0">
+
+        <!--#region border set up for each category-->
+        <Border BorderBrush="Black" BorderThickness="1" Margin="698,343,0,0" Background="#D7F48A" Height="202" VerticalAlignment="Top" HorizontalAlignment="Left" Width="306"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="7,153,0,0" Background="#D7F48A" Height="130" VerticalAlignment="Top" HorizontalAlignment="Left" Width="310"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="7,460,0,0" Background="#D7F48A" Height="74" VerticalAlignment="Top" HorizontalAlignment="Left" Width="310"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="7,291,0,0" Background="#D7F48A" Height="166" VerticalAlignment="Top" HorizontalAlignment="Left" Width="310"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="698,11,0,0" Background="#D7F48A" HorizontalAlignment="Left" Width="306" Height="327" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="7,22,0,0" Background="#D7F48A" Height="127" VerticalAlignment="Top" HorizontalAlignment="Left" Width="162"/>
+        <!--#endregion-->
+
+
+
+        <TextBox x:Name="AdminTextBox" HorizontalAlignment="Left" Height="25" Margin="836,376,0,0" VerticalAlignment="Top" Width="162" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="SubAdmin1TextBox" HorizontalAlignment="Left" Height="25" Margin="836,406,0,0" VerticalAlignment="Top" Width="162" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="SubAdmin2TextBox" HorizontalAlignment="Left" Height="25" Margin="836,436,0,0" VerticalAlignment="Top" Width="162" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Height="25" Margin="143,186,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="DueDataTextBox" HorizontalAlignment="Left" Height="25" Margin="143,216,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="JobCountSettingData" HorizontalAlignment="Left" Height="25" Margin="834,44,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Height="24" Margin="836,496,0,0" VerticalAlignment="Top" Width="162" HorizontalContentAlignment="Center"/>
+        <TextBox  Name ="EmailAddress2TextBox" HorizontalAlignment="Left" Height="25" Margin="836,466,0,0" VerticalAlignment="Top" Width="162" HorizontalContentAlignment="Center"/>
+        <Label Content="Admin" HorizontalAlignment="Left" Height="25" Margin="702,376,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="702,406,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Sub Admin (optional)" HorizontalAlignment="Left" Height="25" Margin="702,436,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Email Address" HorizontalAlignment="Left" Height="25" Margin="9,186,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Due Date Gap {days}" HorizontalAlignment="Left" Height="25" Margin="9,217,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Job Count Display" HorizontalAlignment="Left" Height="25" Margin="700,43,0,0" VerticalAlignment="Top" Width="128" VerticalContentAlignment="Center"/>
+        <Label Content="Password For Admin" HorizontalAlignment="Left" Height="24" Margin="702,496,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Preview?" HorizontalAlignment="Left" Height="25" Margin="702,81,0,0" VerticalAlignment="Top" Width="126" VerticalContentAlignment="Center"/>
+        <Label Content="App Support Email" HorizontalAlignment="Left" Height="25" Margin="702,466,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Maintenance" HorizontalAlignment="Left" Height="25" Margin="6,89,0,0" VerticalAlignment="Top" Width="122" VerticalContentAlignment="Center"/>
+        <Button x:Name="SaveUserSettingsButton" Content="Save Settings" HorizontalAlignment="Left" Height="32" Margin="391,538,0,0" VerticalAlignment="Top" Width="121" Click="SaveUserSettingsButton_Click"/>
+        <Button x:Name="ResetUserSettingsButton_Copy" Content="Reset Settings" HorizontalAlignment="Left" Height="32" Margin="517,538,0,0" VerticalAlignment="Top" Width="121" Click="ResetUserSettingsButton_Copy_Click"/>
+        <ComboBox x:Name="PreviewSettingComboBox" HorizontalAlignment="Left" Height="22" Margin="834,83,0,0" VerticalAlignment="Top" Width="166" IsReadOnly="True" HorizontalContentAlignment="Center">
 
             <ComboBoxItem Name="Yes" IsSelected="True">Yes</ComboBoxItem>
             <ComboBoxItem Name="No">No</ComboBoxItem>
         </ComboBox>
-        <Label x:Name="ContractorAddLabel" Content="Contractors" HorizontalAlignment="Left" Height="25" Margin="9,359,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="ContractorAddTextBox" HorizontalAlignment="Left" Height="25" Margin="143,359,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Button x:Name="AddContractorButton" Content="Add" HorizontalAlignment="Left" Height="25" Margin="314,359,0,0" VerticalAlignment="Top" Width="79" Click="AddContractorButton_Click"/>
-        <ListBox x:Name="ContractorListBoxSettings" HorizontalAlignment="Left" Height="70" Margin="143,389,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="AddContractorButton_Copy" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="314,406,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveContractorButton_Click"/>
-        <Label x:Name="ContractorAddLabel_Copy" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="9,405,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label x:Name="AssignToLabel" Content="Assign To user add" HorizontalAlignment="Left" Height="25" Margin="9,473,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="AssignToTextBox" HorizontalAlignment="Left" Height="25" Margin="143,473,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Label x:Name="AssignToUserListLabel" Content="Assigned To User list" HorizontalAlignment="Left" Height="25" Margin="9,503,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <ListBox x:Name="AssignToUserListSettingsListBox" HorizontalAlignment="Left" Height="70" Margin="143,503,0,0" VerticalAlignment="Top" Width="166"/>
-        <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="25" Margin="314,474,0,0" VerticalAlignment="Top" Width="79" Click="AddAssignedTo_Click"/>
-        <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="25" Margin="314,526,0,0" VerticalAlignment="Top" Width="79" FontSize="10" Click="RemoveAssignedToButton_Click"/>
-        <Button Content="Issue Codes" HorizontalAlignment="Left" Height="31" Margin="305,584,0,0" VerticalAlignment="Top" Width="96" Click="OpenIssueCodeChanges"/>
-        <CheckBox Name ="MaintenanceCheckBox" Content="" HorizontalAlignment="Left" Margin="139,16,0,0" VerticalAlignment="Top"/>
-        <Label Content="Email Preview" HorizontalAlignment="Left" Height="25" Margin="167,10,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <CheckBox x:Name ="EmailPreview_CheckBox" Content="" HorizontalAlignment="Left" Margin="305,16,0,0" VerticalAlignment="Top"/>
-        <TextBox  x:Name ="ProductRequestEmail" HorizontalAlignment="Left" Height="25" Margin="144,188,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
-        <Label Content="Product Request Email" HorizontalAlignment="Left" Height="25" Margin="10,188,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <Label Content="Statutory Days " HorizontalAlignment="Left" Height="25" Margin="9,275,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="StatutoryDaysTextBox" HorizontalAlignment="Left" Height="25" Margin="144,275,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label x:Name="ContractorAddLabel" Content="Add &quot;Contractors&quot;" HorizontalAlignment="Left" Height="25" Margin="698,220,0,0" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="ContractorAddTextBox" HorizontalAlignment="Left" Height="25" Margin="832,220,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Button x:Name="AddContractorButton" Content="Add" HorizontalAlignment="Left" Height="19" Margin="1008,220,0,0" VerticalAlignment="Top" Width="85" Click="AddContractorButton_Click"/>
+        <ListBox x:Name="ContractorListBoxSettings" HorizontalAlignment="Left" Height="70" Margin="832,250,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="AddContractorButton_Copy" Content="Remove Selected" HorizontalAlignment="Left" Height="16" Margin="1008,267,0,0" VerticalAlignment="Top" Width="85" FontSize="10" Click="RemoveContractorButton_Click"/>
+        <Label x:Name="ContractorAddLabel_Copy" Content="Contractor List" HorizontalAlignment="Left" Height="25" Margin="698,266,0,0" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center"/>
+        <Label x:Name="AssignToLabel" Content="Add &quot;Assign To user&quot;" HorizontalAlignment="Left" Height="25" Margin="698,112,0,0" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="AssignToTextBox" HorizontalAlignment="Left" Height="25" Margin="832,112,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label x:Name="AssignToUserListLabel" Content="Assigned To User list" HorizontalAlignment="Left" Height="25" Margin="698,142,0,0" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center"/>
+        <ListBox x:Name="AssignToUserListSettingsListBox" HorizontalAlignment="Left" Height="70" Margin="832,142,0,0" VerticalAlignment="Top" Width="166"/>
+        <Button x:Name="AddAssignedTo" Content="Add" HorizontalAlignment="Left" Height="19" Margin="1008,113,0,0" VerticalAlignment="Top" Width="85" Click="AddAssignedTo_Click"/>
+        <Button x:Name="RemoveAssignedTo" Content="Remove Selected" HorizontalAlignment="Left" Height="16" Margin="1008,165,0,0" VerticalAlignment="Top" Width="85" FontSize="10" Click="RemoveAssignedToButton_Click"/>
+        <Button Content=" Add/Remove Issue Codes" HorizontalAlignment="Left" Height="31" Margin="161,246,0,0" VerticalAlignment="Top" Width="147" Click="OpenIssueCodeChanges"/>
+        <CheckBox Name ="MaintenanceCheckBox" Content="" HorizontalAlignment="Left" Margin="145,95,0,0" VerticalAlignment="Top" Height="15" Width="20"/>
+        <Label Content="Email Preview" HorizontalAlignment="Left" Height="25" Margin="6,59,0,0" VerticalAlignment="Top" Width="122" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name ="EmailPreview_CheckBox" Content="" HorizontalAlignment="Left" Margin="144,65,0,0" VerticalAlignment="Top" Height="15" Width="20"/>
+        <TextBox  x:Name ="ProductRequestEmail" HorizontalAlignment="Left" Height="25" Margin="145,493,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label Content="Product Request Email" HorizontalAlignment="Left" Height="25" Margin="11,493,0,0" VerticalAlignment="Top" Width="129" VerticalContentAlignment="Center"/>
+        <Label Content="Statutory Days" HorizontalAlignment="Left" Height="24" Margin="11,333,0,0" VerticalAlignment="Top" Width="128" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="StatutoryDaysTextBox" HorizontalAlignment="Left" Height="24" Margin="145,333,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label Content="Set Meeting Days" HorizontalAlignment="Left" Height="26" Margin="11,363,0,0" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="MeetingDaysAheadTextBox" HorizontalAlignment="Left" Height="24" Margin="145,363,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label Content="Admin Section" BorderBrush="Black" BorderThickness="1" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="698,343,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-1.5" Width="306" Height="28"/>
+        <Label Content="Issue Reporting Section" BorderBrush="Black" BorderThickness="1" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="7,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-1.5" Width="310" Height="28"/>
+        <Label Content="General Settings" BorderBrush="Black" BorderThickness="1" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="7,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-1.5" Width="162" Height="28"/>
+        <Label Content="Inventory View Settings" BorderBrush="Black" BorderThickness="1" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="7,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-1.5" Width="310" Height="28"/>
+        <Label Content="Job Admin Section" BorderBrush="Black" BorderThickness="1" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="698,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-1.5" Width="306" Height="28"/>
+        <Label Content="Statutory Compliance" BorderBrush="Black" BorderThickness="1" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Margin="7,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-1.5" Width="310" Height="28"/>
+        <Label Content="How much jobs to be displayed in admin list" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="1010,43,0,0" VerticalAlignment="Top" Width="250" Height="23"/>
+        <Label Content="Seperate email  if required:  email@domain.com;email2@domain.com" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="316,493,0,0" VerticalAlignment="Top" Width="357" Height="45"/>
+        <Label Content="Days before expiry date to be listed as - to be expired" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="323,335,0,0" VerticalAlignment="Top" Width="292" Height="23"/>
+        <Label Content="Meeting to be set days before expiry date" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="323,365,0,0" VerticalAlignment="Top" Width="292" Height="23"/>
+        <Label Content="Application Support email address" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="1008,468,0,0" VerticalAlignment="Top" Width="192" Height="23"/>
+        <Label Content="Password to be able to enter admin mode" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="1011,497,0,0" VerticalAlignment="Top" Width="192" Height="23"/>
+        <Label Content="Show email before sending" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="169,57,0,0" VerticalAlignment="Top" Width="140" Height="23"/>
+        <Label Content="Switch App in maintenance mode" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="170,89,0,0" VerticalAlignment="Top" Width="171" Height="23"/>
+        <Label Content="Default due date gap from reporting date" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="320,219,0,0" VerticalAlignment="Top" Width="192" Height="23"/>
+        <Label Content="Where reports being sent:  email@domain.com;email2@domain.com" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="321,186,0,0" VerticalAlignment="Top" Width="357" Height="33"/>
+        <Label Content="Display preview of reported issue" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="1010,83,0,0" VerticalAlignment="Top" Width="228" Height="23"/>
+        <Label Content="Weekends" HorizontalAlignment="Left" Height="26" Margin="9,389,0,0" VerticalAlignment="Top" Width="122" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name ="UseWeekendsCheckBox" Content="" HorizontalAlignment="Left" Margin="147,395,0,0" VerticalAlignment="Top" Height="15" Width="20"/>
+        <Label Content="If ticked, meetings will be set up on weekends as well" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="323,387,0,0" VerticalAlignment="Top" Width="292" Height="23"/>
+        <Label Content="Debug Mode" HorizontalAlignment="Left" Height="28" Margin="6,119,0,0" VerticalAlignment="Top" Width="122" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name ="DebugModeCheckBox" Content="" HorizontalAlignment="Left" Margin="145,125,0,0" VerticalAlignment="Top" Height="15" Width="20"/>
+        <Label Content="Debug Mode (* marked Features disabled)" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="170,119,0,0" VerticalAlignment="Top" Width="194" Height="23"/>
+        <Label Content="Meeting Set Up Email" HorizontalAlignment="Left" Height="28" Margin="9,415,0,0" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="MeetingSetupEmailTextBox" HorizontalAlignment="Left" Height="26" Margin="143,415,0,0" VerticalAlignment="Top" Width="166" HorizontalContentAlignment="Center"/>
+        <Label Content="To whom meetings to be sent email@domain.com;email2@domain.com" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="323,415,0,0" VerticalAlignment="Top" Width="334" Height="23"/>
+        <Label Content="*" Foreground="Red" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" Margin="127,413,0,0" VerticalAlignment="Top" Height="26" Width="14"/>
+        <Label Content="To add/remove issue code for reporting" FontStyle="Italic"  FontSize="10" Foreground="BlueViolet" HorizontalAlignment="Left" Margin="322,251,0,0" VerticalAlignment="Top" Width="192" Height="23"/>
+
 
 
     </Grid>

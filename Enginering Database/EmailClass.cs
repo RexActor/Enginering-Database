@@ -416,7 +416,7 @@ namespace Engineering_Database
 			{
 
 
-				string emailAddress = userSett.productRequests;
+				
 
 				Microsoft.Office.Interop.Outlook.Application app = new Microsoft.Office.Interop.Outlook.Application();
 
@@ -439,15 +439,17 @@ namespace Engineering_Database
 
 				//newDate = newDate.AddDays(meetingDaysForward);
 
-				//checks if new date is saturday or Sunday. If so then days are being changed
-
-				if (meetingDate.Date.DayOfWeek == DayOfWeek.Saturday)
+				//checks if new date is saturday or Sunday. If so then days are being changed Applies only when in settings not using weekends
+				if (userSett.UseWeekendsForMeeting == "No")
 				{
-					meetingDate = meetingDate.AddDays(2);
-				}
-				else if (meetingDate.Date.DayOfWeek == DayOfWeek.Sunday)
-				{
-					meetingDate = meetingDate.AddDays(1);
+					if (meetingDate.Date.DayOfWeek == DayOfWeek.Saturday)
+					{
+						meetingDate = meetingDate.AddDays(-1);
+					}
+					else if (meetingDate.Date.DayOfWeek == DayOfWeek.Sunday)
+					{
+						meetingDate = meetingDate.AddDays(-2);
+					}
 				}
 
 				//checks if meeting is being set up for after work hours.if so then meeting is being pushed forward by one day and set up in morning
@@ -478,27 +480,30 @@ namespace Engineering_Database
 
 
 						//TODO:switch back on when deploying update
-						#region switched off - switch back on
+
 						//meeting request to be sent for specific persons - during development switched off
 
-						/*
-						recipients = meetingItem.Recipients;
-						recipient = recipients.Add(emailAddress);
-						recipient.Type = (int)Microsoft.Office.Interop.Outlook.OlMeetingRecipientType.olRequired;
-						if (recipient.Resolve())
+						if (userSett.DebugMode == "No")
 						{
-							meetingItem.Send();
+							string emailAddress = userSett.MeetingSetupEmail;
+
+							recipients = meetingItem.Recipients;
+							recipient = recipients.Add(emailAddress);
+							recipient.Type = (int)Microsoft.Office.Interop.Outlook.OlMeetingRecipientType.olRequired;
+							if (recipient.Resolve())
+							{
+								meetingItem.Send();
+
+							}
+							else
+							{
+								userErr.errorMessage = $"Couldn`t resolve email address {emailAddress}";
+								userErr.Title = "Outlook error";
+								userErr.CallWindow();
+								userErr.ShowDialog();
+							}
 
 						}
-						else
-						{
-							userErr.errorMessage = $"Couldn`t resolve email address {emailAddress}";
-							userErr.Title = "Outlook error";
-							userErr.CallWindow();
-							userErr.ShowDialog();
-						}
-						*/
-						#endregion
 
 
 						meetingItem.Save();

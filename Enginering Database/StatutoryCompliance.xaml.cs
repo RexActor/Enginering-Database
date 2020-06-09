@@ -38,11 +38,11 @@ namespace Engineering_Database
 				StatutoryItem.EquipmentDescription = reader["EquipmentDescription"].ToString();
 				StatutoryItem.RenewDate = String.Format("{0:d}", reader["RenewDate"]);
 				StatutoryItem.DateReportIssued = String.Format("{0:d}", reader["DateReportIssued"]);
-				StatutoryItem.CompanyIssuer = reader["Company/Insurer"].ToString();
+				StatutoryItem.CompanyIssuer = reader["CompanyInsurer"].ToString();
 				StatutoryItem.DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
-				StatutoryItem.Manufacturer = reader["Manufacturer/Company"].ToString();
+				StatutoryItem.Manufacturer = reader["ManufacturerCompany"].ToString();
 				StatutoryItem.SerialNumber = reader["SerialNumber"].ToString();
-				StatutoryItem.MonthlyWeekly = reader["Monthly/Weekly"].ToString();
+				StatutoryItem.MonthlyWeekly = reader["MonthlyWeekly"].ToString();
 
 
 				if (filter == "expired")
@@ -95,6 +95,7 @@ namespace Engineering_Database
 			ItemWindow.InsurerTextBox.Text = selectedItem.CompanyIssuer;
 			ItemWindow.SerialNumberTextBox.Text = selectedItem.SerialNumber;
 			ItemWindow.MonthlyWeeklyTextBox.Text = selectedItem.MonthlyWeekly;
+			ItemWindow.hiddenID.Content = selectedItem.ID;
 			if (Convert.ToInt32(selectedItem.DaysLeftTillInspection) > 0)
 			{
 				ItemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
@@ -106,11 +107,52 @@ namespace Engineering_Database
 				ItemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(selectedItem.DaysLeftTillInspection))} days overdue";
 			}
 
-
+			ItemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.DateReportIssued);
+			ItemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.RenewDate);
 
 			ItemWindow.ShowDialog();
 
 
 		}
+
+		private void RefreshList_Click(object sender, RoutedEventArgs e)
+		{
+
+			UpdateStatutoryDays();
+
+
+			updateList("all");
+		}
+
+
+
+		private void UpdateStatutoryDays()
+		{
+			db.ConnectDB();
+
+			
+			var reader = db.GetAllPDFIds("StatutoryCompliance");
+		
+
+			while (reader.Read())
+			{
+				StatutoryClass statutory = new StatutoryClass();
+
+				statutory.ID = Convert.ToInt32(reader["ID"]);
+				statutory.EquipmentDescription = reader["EquipmentDescription"].ToString();
+				statutory.RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]);
+				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
+				DateTime dt = DateTime.Now.Date;
+
+				TimeSpan dayDifference = statutory.RenewDateForCalculation - dt;
+
+				db.UpdateInventoryView("StatutoryCompliance", "DaysTillInspection", statutory.ID, dayDifference.Days);
+				
+
+			}
+
+			db.CloseDB();
+		}
+
 	}
 }

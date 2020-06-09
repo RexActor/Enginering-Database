@@ -1,10 +1,13 @@
 ﻿
+using DocumentFormat.OpenXml.Office.CustomUI;
+
 using Enginering_Database;
 
 using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Engineering_Database
 {
@@ -30,7 +33,7 @@ namespace Engineering_Database
 		private void startRecalculate()
 		{
 			settings.openSettings();
-
+			ExpireLabel.Content = $"Statutory Compliance Items To Expire in {settings.StatutoryDays} days";
 			ProgressBar.Visibility = Visibility.Visible;
 	
 			StatusLabel.Visibility = Visibility.Visible;
@@ -61,7 +64,7 @@ namespace Engineering_Database
 
 			int countofItems = 0;
 			int currentLine = 0;
-		
+			
 
 			var reader = db.GetAllPDFIds("StatutoryCompliance");
 			countofItems = db.CountLinesInDatabaseTable("StatutoryCompliance");
@@ -115,7 +118,7 @@ namespace Engineering_Database
 				statutory.EquipmentDescription = reader["EquipmentDescription"].ToString();
 				statutory.DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
 				statutory.RenewDate = String.Format("{0:d}", reader["RenewDate"]);
-				statutory.Manufacturer = reader["Manufacturer/Company"].ToString();
+				statutory.Manufacturer = reader["ManufacturerCompany"].ToString();
 				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
 
 				if (Convert.ToInt32(reader["DaysTillInspection"]) < 0)
@@ -136,7 +139,7 @@ namespace Engineering_Database
 
 						int daysForward = 0 - Convert.ToInt32(settings.DueDateGap);
 
-						meetingDate = renewDateTime.AddDays(daysForward);
+						meetingDate = renewDateTime.AddDays(0-Convert.ToInt64(settings.MeetingDaysAhead));
 
 						if (meetingDate < DateTime.Now.Date)
 						{
@@ -238,5 +241,109 @@ namespace Engineering_Database
 
 		}
 
+		private void StatutoryListViewExpired_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			StatutoryItem itemWindow = new StatutoryItem();
+
+			db.ConnectDB();
+			string id = ((StatutoryClass)StatutoryListViewExpired.SelectedItem).ID.ToString();
+			string item = ((StatutoryClass)StatutoryListViewExpired.SelectedItem).EquipmentDescription;
+			var reader = db.GetStatutoryItem("StatutoryCompliance",((StatutoryClass)StatutoryListViewExpired.SelectedItem).ID);
+
+
+			while (reader.Read())
+			{
+				itemWindow.TitleLabel.Content=$"Details for {item} with --> ID [{id}]";
+				itemWindow.hiddenID.Content = reader["ID"].ToString();
+				itemWindow.ManufacturerTextBox.Text = reader["ManufacturerCompany"].ToString();
+
+				itemWindow.SerialNumberTextBox.Text = reader["SerialNumber"].ToString();
+				itemWindow.InsurerTextBox.Text = reader["CompanyInsurer"].ToString();
+				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
+
+				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
+				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
+
+
+				if (Convert.ToInt32(reader["DaysTillInspection"]) > 0)
+				{
+					itemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
+					itemWindow.NextInspectionLabel.Content = $"{Convert.ToInt32(reader["DaysTillInspection"])} days left";
+				}
+				else
+				{
+					itemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
+					itemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(Convert.ToInt32(reader["DaysTillInspection"])))} days overdue";
+				}
+
+
+
+
+
+			}
+
+			db.CloseDB();
+
+
+
+
+			itemWindow.ShowDialog();
+
+
+
+		}
+
+		private void StatutoryListViewToExpire_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+
+			StatutoryItem itemWindow = new StatutoryItem();
+
+			db.ConnectDB();
+			string id = ((StatutoryClass)StatutoryListViewToExpire.SelectedItem).ID.ToString();
+			string item = ((StatutoryClass)StatutoryListViewToExpire.SelectedItem).EquipmentDescription;
+			var reader = db.GetStatutoryItem("StatutoryCompliance", ((StatutoryClass)StatutoryListViewToExpire.SelectedItem).ID);
+
+
+			while (reader.Read())
+			{
+				itemWindow.TitleLabel.Content = $"Details for {item} with --> ID [{id}]";
+				itemWindow.hiddenID.Content = reader["ID"].ToString();
+				itemWindow.ManufacturerTextBox.Text = reader["ManufacturerCompany"].ToString();
+
+				itemWindow.SerialNumberTextBox.Text = reader["SerialNumber"].ToString();
+				itemWindow.InsurerTextBox.Text = reader["CompanyInsurer"].ToString();
+				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
+
+				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
+				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
+
+
+				if (Convert.ToInt32(reader["DaysTillInspection"]) > 0)
+				{
+					itemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
+					itemWindow.NextInspectionLabel.Content = $"{Convert.ToInt32(reader["DaysTillInspection"])} days left";
+				}
+				else
+				{
+					itemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
+					itemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(Convert.ToInt32(reader["DaysTillInspection"])))} days overdue";
+				}
+
+
+
+
+
+			}
+
+			db.CloseDB();
+
+
+
+
+			itemWindow.ShowDialog();
+
+
+
+		}
 	}
 }
