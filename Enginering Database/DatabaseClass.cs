@@ -122,6 +122,7 @@ namespace Engineering_Database
 			return cmd;
 		}
 
+
 		public OleDbCommand DBQueryforJobList(string filter)
 		{
 			string queryString;
@@ -924,6 +925,13 @@ namespace Engineering_Database
 
 		}
 
+
+		public OleDbCommand dbAdapter(string db)
+		{
+			string queryString = $"SELECT * FROM {db}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			return cmd;
+		}
 
 	}
 }

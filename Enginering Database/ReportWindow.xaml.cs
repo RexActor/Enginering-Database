@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +20,8 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class ReportWindow : Window
 	{
+
+		DatabaseClass db = new DatabaseClass();
 		public ReportWindow()
 		{
 			InitializeComponent();
@@ -25,9 +29,20 @@ namespace Engineering_Database
 
 		private void ReportsForJobs_Click(object sender, RoutedEventArgs e)
 		{
-			JobReports jobReports = new JobReports();
+			ReportWinForm WinFormReport = new ReportWinForm();
+			WinFormReport.ShowDialog();
 
-			jobReports.ShowDialog();
+		}
+
+		private void AssetReportButton_Click(object sender, RoutedEventArgs e)
+		{
+			
+
+			
+			
+			ReportWinForm WinFormReport = new ReportWinForm();
+
+			WinFormReport.ShowDialog();
 
 		}
 	}

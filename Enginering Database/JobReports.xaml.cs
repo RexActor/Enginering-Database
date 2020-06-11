@@ -21,6 +21,7 @@ namespace Engineering_Database
 		public JobReports()
 		{
 			InitializeComponent();
+			
 		}
 	}
 }
