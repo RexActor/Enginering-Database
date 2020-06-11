@@ -9,11 +9,11 @@
     <Grid>
         <Label Content="You are in Admin View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
         <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,0,9" HorizontalAlignment="Left" Width="253"/>
-        <Button x:Name ="UpdateDatabaseButton" Content="Update Database" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="223" Height="55" VerticalAlignment="Top" Margin="20,59,0,0" />
+        <Button x:Name ="UpdateDatabaseButton"  Content="Edit/Complete Jobs" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="223" Height="55" VerticalAlignment="Top" Margin="20,59,0,0" />
         <Image x:Name="UpdateDatabaseImage" Margin="20,59,0,0" Source="update.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
-        <Button x:Name="ShowReportButton"  Content="Show Report" HorizontalAlignment="Left" Height="50" Margin="20,119,0,0" VerticalAlignment="Top" Width="223" Click="ShowReportButton_Click"/>
+        <Button x:Name="ShowReportButton"  Content="Reports" HorizontalAlignment="Left" Height="50" Margin="20,119,0,0" VerticalAlignment="Top" Width="223" Click="ShowReportButton_Click"/>
         <Image x:Name="ShowReportImage" Margin="20,119,0,0" Source="Load Report.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
-        <Button x:Name="LineMaintenanceButton" Content="Maintenance" HorizontalAlignment="Left" Height="48" Margin="20,174,0,0" VerticalAlignment="Top" Width="223" Click="LineMaintenanceButton_Click"/>
+        <Button x:Name="LineMaintenanceButton" Content="Asset Maintenance" HorizontalAlignment="Left" Height="48" Margin="20,174,0,0" VerticalAlignment="Top" Width="223" Click="LineMaintenanceButton_Click"/>
         <Image x:Name="MaintenancePic" Margin="20,174,0,0" Source="Tools-WF.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
         <Button x:Name ="MeterReadingButton" Content="Meter Readings" HorizontalAlignment="Left" Height="48" Margin="20,227,0,0" VerticalAlignment="Top" Width="223" Click="MeterReadingButton_Click"/>
         <Image Margin="20,227,0,0" Source="Meter-02.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>

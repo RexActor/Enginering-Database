@@ -34,7 +34,7 @@
       
         <Image x:Name="ViewDatabaseImage" Margin="13,167,418,204" Source="User Reported Issues.png" Stretch="Fill"/>
         <Image Margin="432,3,1,385" Source="User Settings-02-WF.png" Stretch="Fill" MouseDown="SettingsShow"/>
-        <Button Name="AdministratorButton" Content="Administrator" HorizontalAlignment="Left" Height="55" Margin="10,228,0,0" VerticalAlignment="Top" Width="453" Click="AdministratorButton_Click"/>
+        <Button Name="AdministratorButton" Content="Administrator View" HorizontalAlignment="Left" Height="55" Margin="10,228,0,0" VerticalAlignment="Top" Width="453" Click="AdministratorButton_Click"/>
         <Image x:Name="PasswordProtectImage2" Margin="442,229,13,172" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
         <Image Name ="AdministratorImage" Margin="13,233,414,140" Source="Admin.png" Stretch="Fill"/>
 

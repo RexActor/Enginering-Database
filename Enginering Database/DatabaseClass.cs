@@ -902,5 +902,28 @@ namespace Engineering_Database
 			return reader;
 		}
 
+
+
+		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly,string companyInsurer)
+		{
+			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@UploadDate", date);
+			//cmd.Parameters.AddWithValue("@UploadedFile", file);
+
+			cmd.Parameters.Add("@ManufacturerCompany", OleDbType.VarWChar).Value = manufacturerCompany;
+			cmd.Parameters.Add("@EquipmentDescription", OleDbType.VarWChar).Value = itemDescription;
+			cmd.Parameters.Add("@CompanyInsurer", OleDbType.VarWChar).Value = companyInsurer;
+			cmd.Parameters.Add("@SerialNumber", OleDbType.VarWChar).Value = serialNumber;
+			cmd.Parameters.Add("@MonthlyWeekly", OleDbType.VarWChar).Value = weeklyMonthly;
+			cmd.Parameters.Add("@DateReportIssued", OleDbType.Date).Value = dateReportIssued;
+			cmd.Parameters.Add("@RenewDate", OleDbType.Date).Value = renewDate;
+			cmd.ExecuteNonQuery();
+			//cmd.Dispose();
+
+		}
+
+
 	}
 }

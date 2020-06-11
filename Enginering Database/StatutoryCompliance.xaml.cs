@@ -154,5 +154,11 @@ namespace Engineering_Database
 			db.CloseDB();
 		}
 
+		private void AddStatutoryItemButton_Click(object sender, RoutedEventArgs e)
+		{
+			StatutoryItemAdd addItem = new StatutoryItemAdd();
+
+			addItem.ShowDialog();
+		}
 	}
 }
