@@ -3,6 +3,8 @@ using DocumentFormat.OpenXml.Office.CustomUI;
 
 using Enginering_Database;
 
+using Microsoft.Reporting.WebForms;
+
 using System;
 using System.ComponentModel;
 using System.Threading;
@@ -183,8 +185,9 @@ namespace Engineering_Database
 
 		private void ShowReportButton_Click(object sender, RoutedEventArgs e)
 		{
-			ReportWindow repWin = new ReportWindow();
-			repWin.Show();
+			ReportWindow reportWindow = new ReportWindow();
+			reportWindow.ShowDialog();
+
 		}
 
 		private void LineMaintenanceButton_Click(object sender, RoutedEventArgs e)
