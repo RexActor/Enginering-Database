@@ -12,7 +12,7 @@ namespace Engineering_Database
 	public partial class StatutoryItemAdd : Window
 	{
 
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 		public StatutoryItemAdd()
 		{
 			InitializeComponent();

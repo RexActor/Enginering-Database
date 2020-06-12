@@ -15,11 +15,11 @@ namespace Engineering_Database
 		 * 
 		 */
 
-		readonly UserErrorWindow userErr = new UserErrorWindow();
+		//readonly UserErrorWindow userErr = new UserErrorWindow();
 
-		string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+		readonly string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
 
-		OleDbConnection con = new OleDbConnection();
+		readonly OleDbConnection con = new OleDbConnection();
 
 		#region connect DB close DB and DB status DB count lines functions
 
@@ -219,7 +219,7 @@ namespace Engineering_Database
 		public int DBQueryLastJobNumber(string table)
 		{
 			bool LastJobNumberIsNumber;
-			int number;
+			
 			int LastJobNumber;
 			string queryString = "SELECT TOP 1  *  FROM engineeringDatabaseTable ORDER BY JobNumber DESC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -240,7 +240,7 @@ namespace Engineering_Database
 			var data = reader[table].ToString();
 			//converts data into integer. If successfull returns value as int, else returns 0 (there will not be job number as 0, so can perform check. 
 			//if job number was returned as 0, then there wasn't number in database recorded. 
-			LastJobNumberIsNumber = Int32.TryParse(data, out number);
+			LastJobNumberIsNumber = Int32.TryParse(data, out int number);
 			if (LastJobNumberIsNumber)
 			{
 				LastJobNumber = number;
@@ -637,7 +637,7 @@ namespace Engineering_Database
 			return data;
 		}
 
-		public void uploadFile(string table, byte[] file, string lineOfMaintenance, DateTime dateOfMaintenance, DateTime uploadDate, string EngineerComment, string linkedAsset)
+		public void UploadFile(string table, byte[] file, string lineOfMaintenance, DateTime dateOfMaintenance, DateTime uploadDate, string EngineerComment, string linkedAsset)
 		{
 			string queryString = "INSERT INTO " + table + " (UploadedFile,LineOfMaintenance,DateOfMaintenance,UploadDate,EngineerComment,LinkedAsset) " + " Values(@UploadedFile,@LineOfMaintenance,@DateOfMaintenance,@UploadDate,@EngineerComment,@linkedAsset)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -657,7 +657,7 @@ namespace Engineering_Database
 		}
 
 
-		public void uploadTemplateFile(string table, byte[] file, string templateName)
+		public void UploadTemplateFile(string table, byte[] file, string templateName)
 		{
 			string queryString = "INSERT INTO " + table + " (TemplateFile,TemplateName) " + " Values(@TemplateFile,@TemplateName)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -759,7 +759,7 @@ namespace Engineering_Database
 		}
 
 
-		public void uploadInventoryProduct(string table, byte[] file, string productName, string measureType,string category)
+		public void UploadInventoryProduct(string table, byte[] file, string productName, string measureType,string category)
 		{
 			string queryString = "INSERT INTO " + table + " (ProductImage,ProductName,MeasureType,ProductCategory) " + " Values(@ProductImage,@ProductName,@MeasureType,@ProductCategory)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -775,7 +775,7 @@ namespace Engineering_Database
 			//cmd.Dispose();
 
 		}
-		public void uploadInventoryProductWithoutPic(string table, string productName, string measureType, string category)
+		public void UploadInventoryProductWithoutPic(string table, string productName, string measureType, string category)
 		{
 			string queryString = "INSERT INTO " + table + " (ProductName,MeasureType,ProductCategory) " + " Values(@ProductName,@MeasureType,@ProductCategory)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -926,7 +926,7 @@ namespace Engineering_Database
 		}
 
 
-		public OleDbCommand dbAdapter(string db)
+		public OleDbCommand DbAdapter(string db)
 		{
 			string queryString = $"SELECT * FROM {db}";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);

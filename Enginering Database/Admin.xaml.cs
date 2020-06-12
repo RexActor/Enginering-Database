@@ -3,7 +3,7 @@ using DocumentFormat.OpenXml.Office.CustomUI;
 
 using Enginering_Database;
 
-using Microsoft.Reporting.WebForms;
+
 
 using System;
 using System.ComponentModel;
@@ -18,9 +18,9 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class Admin : Window
 	{
-		DatabaseClass db = new DatabaseClass();
-		BackgroundWorker worker = new BackgroundWorker();
-		UserSettings settings = new UserSettings();
+		readonly DatabaseClass db = new DatabaseClass();
+		readonly BackgroundWorker worker = new BackgroundWorker();
+		readonly UserSettings settings = new UserSettings();
 		
 		int increase;
 
@@ -28,11 +28,11 @@ namespace Engineering_Database
 		{
 			InitializeComponent();
 
-			startRecalculate();
+			StartRecalculate();
 
 		}
 
-		private void startRecalculate()
+		private void StartRecalculate()
 		{
 			settings.openSettings();
 			ExpireLabel.Content = $"Statutory Compliance Items To Expire in {settings.StatutoryDays} days";
@@ -44,14 +44,14 @@ namespace Engineering_Database
 			OutOfDateLabel.Visibility = Visibility.Hidden;
 			ExpireLabel.Visibility = Visibility.Hidden;
 
-			worker.ProgressChanged += progressChanged;
+			worker.ProgressChanged += ProgressChanged;
 			worker.DoWork += UpdateStatutoryDays;
 			worker.WorkerReportsProgress = true;
 			worker.RunWorkerCompleted += GetStatutoryCompliance;
 			worker.RunWorkerAsync();
 
 		}
-		public void progressChanged(object sender, ProgressChangedEventArgs e)
+		public void ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			ProgressBar.Value = e.ProgressPercentage;
 			StatusLabel.Content = $"Recalculating expiry dates for Statutory items.   Progress: {increase} %";
@@ -73,12 +73,13 @@ namespace Engineering_Database
 
 			while (reader.Read())
 			{
-				StatutoryClass statutory = new StatutoryClass();
-
-				statutory.ID = Convert.ToInt32(reader["ID"]);
-				statutory.EquipmentDescription = reader["EquipmentDescription"].ToString();
-				statutory.RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]);
-				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
+				StatutoryClass statutory = new StatutoryClass
+				{
+					ID = Convert.ToInt32(reader["ID"]),
+					EquipmentDescription = reader["EquipmentDescription"].ToString(),
+					RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]),
+					meetingSetStatus = (bool)reader["MeetingSet"]
+				};
 				DateTime dt = DateTime.Now.Date;
 
 				TimeSpan dayDifference = statutory.RenewDateForCalculation - dt;
@@ -114,14 +115,15 @@ namespace Engineering_Database
 
 			while (reader.Read())
 			{
-				StatutoryClass statutory = new StatutoryClass();
-
-				statutory.ID = Convert.ToInt32(reader["ID"]);
-				statutory.EquipmentDescription = reader["EquipmentDescription"].ToString();
-				statutory.DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
-				statutory.RenewDate = String.Format("{0:d}", reader["RenewDate"]);
-				statutory.Manufacturer = reader["ManufacturerCompany"].ToString();
-				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
+				StatutoryClass statutory = new StatutoryClass
+				{
+					ID = Convert.ToInt32(reader["ID"]),
+					EquipmentDescription = reader["EquipmentDescription"].ToString(),
+					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
+					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
+					Manufacturer = reader["ManufacturerCompany"].ToString(),
+					meetingSetStatus = (bool)reader["MeetingSet"]
+				};
 
 				if (Convert.ToInt32(reader["DaysTillInspection"]) < 0)
 				{
@@ -134,12 +136,12 @@ namespace Engineering_Database
 					if (statutory.meetingSetStatus == false)
 					{
 
-						DateTime meetingDate = new DateTime();
+						DateTime meetingDate;
 
 
 						DateTime renewDateTime = Convert.ToDateTime(statutory.RenewDate);
 
-						int daysForward = 0 - Convert.ToInt32(settings.DueDateGap);
+						//int daysForward = 0 - Convert.ToInt32(settings.DueDateGap);
 
 						meetingDate = renewDateTime.AddDays(0-Convert.ToInt64(settings.MeetingDaysAhead));
 
@@ -149,7 +151,7 @@ namespace Engineering_Database
 						}
 
 
-						setUpMeeting(statutory.ID, statutory.EquipmentDescription, $" {statutory.EquipmentDescription} item due to run out of Compliance. Renew Date is {statutory.RenewDate} and there are {statutory.DaysLeftTillInspection} days left (on day when meeting was set up)", meetingDate.Date, interval);
+						SetUpMeeting(statutory.ID, statutory.EquipmentDescription, $" {statutory.EquipmentDescription} item due to run out of Compliance. Renew Date is {statutory.RenewDate} and there are {statutory.DaysLeftTillInspection} days left (on day when meeting was set up)", meetingDate.Date, interval);
 
 
 						interval++;
@@ -231,7 +233,7 @@ namespace Engineering_Database
 		/// 
 		/// </summary>
 
-		private void setUpMeeting(int id, string meetingSubject, string meetingBody, DateTime meetingDate, int intervalBetweenMeetings)
+		private void SetUpMeeting(int id, string meetingSubject, string meetingBody, DateTime meetingDate, int intervalBetweenMeetings)
 		{
 
 			EmailClass email = new EmailClass();

@@ -94,7 +94,7 @@ namespace Engineering_Database
 				using (var reader = new BinaryReader(stream))
 				{
 					file = reader.ReadBytes((int)stream.Length);
-					db.uploadFile("LineMaintenance", file, LineOfMaintenance.Text, Convert.ToDateTime(DateOfMaintenanceDatePicker.SelectedDate), Convert.ToDateTime(uploadDateDatePicker.SelectedDate), richText, AssetAssetNumberSelectedLabel.Content.ToString());
+					db.UploadFile("LineMaintenance", file, LineOfMaintenance.Text, Convert.ToDateTime(DateOfMaintenanceDatePicker.SelectedDate), Convert.ToDateTime(uploadDateDatePicker.SelectedDate), richText, AssetAssetNumberSelectedLabel.Content.ToString());
 				}
 			}
 		}

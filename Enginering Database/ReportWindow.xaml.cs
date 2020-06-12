@@ -21,7 +21,7 @@ namespace Engineering_Database
 	public partial class ReportWindow : Window
 	{
 
-		DatabaseClass db = new DatabaseClass();
+		//readonly DatabaseClass db = new DatabaseClass();
 		public ReportWindow()
 		{
 			InitializeComponent();
@@ -29,8 +29,9 @@ namespace Engineering_Database
 
 		private void ReportsForJobs_Click(object sender, RoutedEventArgs e)
 		{
-			ReportWinForm WinFormReport = new ReportWinForm();
-			WinFormReport.ShowDialog();
+			JobReportWinForm jobReports = new JobReportWinForm();
+			jobReports.ShowDialog();
+
 
 		}
 
@@ -44,6 +45,13 @@ namespace Engineering_Database
 
 			WinFormReport.ShowDialog();
 
+		}
+
+		private void ChartButton_Click(object sender, RoutedEventArgs e)
+		{
+			ChartReports chartReports = new ChartReports();
+
+			chartReports.ShowDialog();
 		}
 	}
 }

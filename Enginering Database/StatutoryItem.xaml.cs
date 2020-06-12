@@ -17,14 +17,14 @@ namespace Engineering_Database
 		private bool ReportDateWasChanged = false;
 		private bool RenewDateWasChanged = false;
 		private bool editMode = false;
-		private bool uploaded = false;
+		// readonly private bool uploaded = false;
 
 		private bool manufacturedChanged = false;
 		private bool companyInsurerChanged = false;
 		private bool serialNumberChanged = false;
 		private bool monthlyWeeklyChanged = false;
 
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 		public StatutoryItem()
 		{
 			InitializeComponent();

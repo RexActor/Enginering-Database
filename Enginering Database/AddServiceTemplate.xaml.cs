@@ -68,7 +68,7 @@ namespace Engineering_Database
 					using (var reader = new BinaryReader(stream))
 					{
 						file = reader.ReadBytes((int)stream.Length);
-						db.uploadTemplateFile("ServiceTemplate", file, nameOfTemplate.Text);
+						db.UploadTemplateFile("ServiceTemplate", file, nameOfTemplate.Text);
 					}
 				}
 

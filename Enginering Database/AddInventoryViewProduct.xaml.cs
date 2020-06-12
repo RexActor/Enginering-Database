@@ -47,7 +47,7 @@ namespace Engineering_Database
 						{
 
 							file = reader.ReadBytes((int)stream.Length);
-							db.uploadInventoryProduct("InventoryViewProducts", file, ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(), Category.SelectedItem.ToString());
+							db.UploadInventoryProduct("InventoryViewProducts", file, ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(), Category.SelectedItem.ToString());
 
 
 						}
@@ -56,7 +56,7 @@ namespace Engineering_Database
 				}
 				else
 				{
-					db.uploadInventoryProductWithoutPic("InventoryViewProducts", ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(), Category.SelectedItem.ToString());
+					db.UploadInventoryProductWithoutPic("InventoryViewProducts", ProdoductNameTextBox.Text, MeasureTypeComboBox.SelectedItem.ToString(), Category.SelectedItem.ToString());
 				}
 
 				infoErrorMessage.Visibility = Visibility.Visible;

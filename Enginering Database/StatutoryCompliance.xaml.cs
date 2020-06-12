@@ -13,16 +13,16 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class StatutoryCompliance : Window
 	{
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 
 		public StatutoryCompliance()
 		{
 			InitializeComponent();
-			updateList();
+			UpdateList();
 		}
 
 
-		public void updateList(string filter = null)
+		public void UpdateList(string filter = null)
 		{
 			db.ConnectDB();
 			StatutoryComplianceList.Items.Clear();
@@ -32,29 +32,27 @@ namespace Engineering_Database
 
 			while (reader.Read())
 			{
-				StatutoryClass StatutoryItem = new StatutoryClass();
-
-				StatutoryItem.ID = Convert.ToInt32(reader["ID"]);
-				StatutoryItem.EquipmentDescription = reader["EquipmentDescription"].ToString();
-				StatutoryItem.RenewDate = String.Format("{0:d}", reader["RenewDate"]);
-				StatutoryItem.DateReportIssued = String.Format("{0:d}", reader["DateReportIssued"]);
-				StatutoryItem.CompanyIssuer = reader["CompanyInsurer"].ToString();
-				StatutoryItem.DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
-				StatutoryItem.Manufacturer = reader["ManufacturerCompany"].ToString();
-				StatutoryItem.SerialNumber = reader["SerialNumber"].ToString();
-				StatutoryItem.MonthlyWeekly = reader["MonthlyWeekly"].ToString();
+				new StatutoryClass().ID = Convert.ToInt32(reader["ID"]);
+				new StatutoryClass().EquipmentDescription = reader["EquipmentDescription"].ToString();
+				new StatutoryClass().RenewDate = string.Format("{0:d}", reader["RenewDate"]);
+				new StatutoryClass().DateReportIssued = string.Format("{0:d}", reader["DateReportIssued"]);
+				new StatutoryClass().CompanyIssuer = reader["CompanyInsurer"].ToString();
+				new StatutoryClass().DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
+				new StatutoryClass().Manufacturer = reader["ManufacturerCompany"].ToString();
+				new StatutoryClass().SerialNumber = reader["SerialNumber"].ToString();
+				new StatutoryClass().MonthlyWeekly = reader["MonthlyWeekly"].ToString();
 
 
 				if (filter == "expired")
 				{
-					if (Convert.ToInt32(StatutoryItem.DaysLeftTillInspection) < 0)
+					if (Convert.ToInt32(new StatutoryClass().DaysLeftTillInspection) < 0)
 					{
-						StatutoryComplianceList.Items.Add(StatutoryItem);
+						this.StatutoryComplianceList.Items.Add(new StatutoryClass());
 					}
 				}
 				else
 				{
-					StatutoryComplianceList.Items.Add(StatutoryItem);
+					this.StatutoryComplianceList.Items.Add(new StatutoryClass());
 				}
 
 			}
@@ -70,12 +68,12 @@ namespace Engineering_Database
 
 			if (ExpiredCheckBox.IsChecked == true)
 			{
-				updateList("expired");
+				UpdateList("expired");
 
 			}
 			else
 			{
-				updateList("all");
+				UpdateList("all");
 			}
 
 		}
@@ -121,7 +119,7 @@ namespace Engineering_Database
 			UpdateStatutoryDays();
 
 
-			updateList("all");
+			UpdateList("all");
 		}
 
 
@@ -136,19 +134,20 @@ namespace Engineering_Database
 
 			while (reader.Read())
 			{
-				StatutoryClass statutory = new StatutoryClass();
-
-				statutory.ID = Convert.ToInt32(reader["ID"]);
-				statutory.EquipmentDescription = reader["EquipmentDescription"].ToString();
-				statutory.RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]);
-				statutory.meetingSetStatus = (bool)reader["MeetingSet"];
+				StatutoryClass statutory = new StatutoryClass
+				{
+					ID = Convert.ToInt32(reader["ID"]),
+					EquipmentDescription = reader["EquipmentDescription"].ToString(),
+					RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]),
+					meetingSetStatus = (bool)reader["MeetingSet"]
+				};
 				DateTime dt = DateTime.Now.Date;
 
 				TimeSpan dayDifference = statutory.RenewDateForCalculation - dt;
 
 				db.UpdateInventoryView("StatutoryCompliance", "DaysTillInspection", statutory.ID, dayDifference.Days);
-				
 
+				
 			}
 
 			db.CloseDB();
