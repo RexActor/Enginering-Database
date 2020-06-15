@@ -30,24 +30,14 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-			this.DataTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.JobReportsDataSet = new Engineering_Database.JobReportsDataSet();
 			this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
 			this.jobNumberTextBox = new System.Windows.Forms.TextBox();
 			this.RefreshButton = new System.Windows.Forms.Button();
+			this.DataTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.JobReportsDataSet = new Engineering_Database.JobReportsDataSet();
 			((System.ComponentModel.ISupportInitialize)(this.DataTable1BindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.JobReportsDataSet)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// DataTable1BindingSource
-			// 
-			this.DataTable1BindingSource.DataMember = "DataTable1";
-			this.DataTable1BindingSource.DataSource = this.JobReportsDataSet;
-			// 
-			// JobReportsDataSet
-			// 
-			this.JobReportsDataSet.DataSetName = "JobReportsDataSet";
-			this.JobReportsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
 			// reportViewer1
 			// 
@@ -58,7 +48,7 @@
 			this.reportViewer1.Location = new System.Drawing.Point(1, 45);
 			this.reportViewer1.Name = "reportViewer1";
 			this.reportViewer1.ServerReport.BearerToken = null;
-			this.reportViewer1.Size = new System.Drawing.Size(1028, 407);
+			this.reportViewer1.Size = new System.Drawing.Size(1296, 536);
 			this.reportViewer1.TabIndex = 0;
 			// 
 			// jobNumberTextBox
@@ -67,6 +57,7 @@
 			this.jobNumberTextBox.Name = "jobNumberTextBox";
 			this.jobNumberTextBox.Size = new System.Drawing.Size(100, 20);
 			this.jobNumberTextBox.TabIndex = 1;
+			this.jobNumberTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
 			// 
 			// RefreshButton
 			// 
@@ -78,16 +69,26 @@
 			this.RefreshButton.UseVisualStyleBackColor = true;
 			this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
 			// 
+			// DataTable1BindingSource
+			// 
+			this.DataTable1BindingSource.DataMember = "DataTable1";
+			this.DataTable1BindingSource.DataSource = this.JobReportsDataSet;
+			// 
+			// JobReportsDataSet
+			// 
+			this.JobReportsDataSet.DataSetName = "JobReportsDataSet";
+			this.JobReportsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+			// 
 			// JobReportWinForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1028, 450);
+			this.ClientSize = new System.Drawing.Size(1300, 579);
 			this.Controls.Add(this.RefreshButton);
 			this.Controls.Add(this.jobNumberTextBox);
 			this.Controls.Add(this.reportViewer1);
 			this.Name = "JobReportWinForm";
-			this.Text = "JobReportWinForm";
+			this.Text = "Job Report ";
 			this.Load += new System.EventHandler(this.JobReportWinForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.DataTable1BindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.JobReportsDataSet)).EndInit();

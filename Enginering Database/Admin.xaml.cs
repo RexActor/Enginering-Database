@@ -151,7 +151,7 @@ namespace Engineering_Database
 						}
 
 
-						SetUpMeeting(statutory.ID, statutory.EquipmentDescription, $" {statutory.EquipmentDescription} item due to run out of Compliance. Renew Date is {statutory.RenewDate} and there are {statutory.DaysLeftTillInspection} days left (on day when meeting was set up)", meetingDate.Date, interval);
+						SetUpMeeting(statutory.ID, statutory.EquipmentDescription, $"Comapny/Insurer :{statutory.CompanyIssuer} ##  Item: {statutory.EquipmentDescription}  ## due to run out of Compliance. Renew Date is {statutory.RenewDate} and there are {statutory.DaysLeftTillInspection} days left (on day when meeting was set up)", meetingDate.Date, interval);
 
 
 						interval++;

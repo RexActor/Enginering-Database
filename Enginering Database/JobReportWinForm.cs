@@ -19,10 +19,25 @@ namespace Engineering_Database
 		private void JobReportWinForm_Load(object sender, EventArgs e)
 		{
 
-			ReportRefresh();
+			//ReportRefresh();
 		}
 
-		
+		private void TextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+
+			if ( e.KeyData== Keys.Enter)
+			{
+				ReportParameter rp = new ReportParameter("JobNumberParameter", jobNumberTextBox.Text);
+
+				//MessageBox.Show("Enter in textbox");
+
+
+
+
+				ReportRefresh(rp);
+
+			}
+		}
 
 		private void RefreshButton_Click(object sender, EventArgs e)
 		{

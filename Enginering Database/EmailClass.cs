@@ -474,6 +474,7 @@ namespace Engineering_Database
 						meetingItem.Subject = subject;
 						meetingItem.StartInStartTimeZone = DateTime.Now.AddHours(timeInterval);
 						meetingItem.Body = emailbody;
+					
 						meetingItem.Start = meetingDate;
 						meetingItem.Duration = 10;
 						meetingItem.BusyStatus = OlBusyStatus.olFree;

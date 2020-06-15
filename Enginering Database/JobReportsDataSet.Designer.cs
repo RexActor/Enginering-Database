@@ -303,6 +303,14 @@ namespace Engineering_Database {
             
             private global::System.Data.DataColumn columnCompletedBy;
             
+            private global::System.Data.DataColumn columnDetailedDescription;
+            
+            private global::System.Data.DataColumn columnCommentsForActionTaken;
+            
+            private global::System.Data.DataColumn columnContractor;
+            
+            private global::System.Data.DataColumn columnReporterEmail;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DataTable1DataTable() {
@@ -434,6 +442,38 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DetailedDescriptionColumn {
+                get {
+                    return this.columnDetailedDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CommentsForActionTakenColumn {
+                get {
+                    return this.columnCommentsForActionTaken;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ContractorColumn {
+                get {
+                    return this.columnContractor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ReporterEmailColumn {
+                get {
+                    return this.columnReporterEmail;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -469,7 +509,23 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DataTable1Row AddDataTable1Row(string JobNumber, string ReportedUsername, string AssetNumber, string FaultyArea, string Priority, string Type, string Completed, string AssignedTo, string Area, string ReportedDate, string CompletedDate, string CompletedBy) {
+            public DataTable1Row AddDataTable1Row(
+                        string JobNumber, 
+                        string ReportedUsername, 
+                        string AssetNumber, 
+                        string FaultyArea, 
+                        string Priority, 
+                        string Type, 
+                        string Completed, 
+                        string AssignedTo, 
+                        string Area, 
+                        string ReportedDate, 
+                        string CompletedDate, 
+                        string CompletedBy, 
+                        string DetailedDescription, 
+                        string CommentsForActionTaken, 
+                        string Contractor, 
+                        string ReporterEmail) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         JobNumber,
@@ -483,7 +539,11 @@ namespace Engineering_Database {
                         Area,
                         ReportedDate,
                         CompletedDate,
-                        CompletedBy};
+                        CompletedBy,
+                        DetailedDescription,
+                        CommentsForActionTaken,
+                        Contractor,
+                        ReporterEmail};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
@@ -518,6 +578,10 @@ namespace Engineering_Database {
                 this.columnReportedDate = base.Columns["ReportedDate"];
                 this.columnCompletedDate = base.Columns["CompletedDate"];
                 this.columnCompletedBy = base.Columns["CompletedBy"];
+                this.columnDetailedDescription = base.Columns["DetailedDescription"];
+                this.columnCommentsForActionTaken = base.Columns["CommentsForActionTaken"];
+                this.columnContractor = base.Columns["Contractor"];
+                this.columnReporterEmail = base.Columns["ReporterEmail"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -547,6 +611,14 @@ namespace Engineering_Database {
                 base.Columns.Add(this.columnCompletedDate);
                 this.columnCompletedBy = new global::System.Data.DataColumn("CompletedBy", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCompletedBy);
+                this.columnDetailedDescription = new global::System.Data.DataColumn("DetailedDescription", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDetailedDescription);
+                this.columnCommentsForActionTaken = new global::System.Data.DataColumn("CommentsForActionTaken", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCommentsForActionTaken);
+                this.columnContractor = new global::System.Data.DataColumn("Contractor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContractor);
+                this.columnReporterEmail = new global::System.Data.DataColumn("ReporterEmail", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReporterEmail);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -881,6 +953,70 @@ namespace Engineering_Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DetailedDescription {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.DetailedDescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DetailedDescription\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.DetailedDescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CommentsForActionTaken {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.CommentsForActionTakenColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CommentsForActionTaken\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.CommentsForActionTakenColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Contractor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ContractorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Contractor\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ContractorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ReporterEmail {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ReporterEmailColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReporterEmail\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ReporterEmailColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsJobNumberNull() {
                 return this.IsNull(this.tableDataTable1.JobNumberColumn);
             }
@@ -1021,6 +1157,54 @@ namespace Engineering_Database {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCompletedByNull() {
                 this[this.tableDataTable1.CompletedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDetailedDescriptionNull() {
+                return this.IsNull(this.tableDataTable1.DetailedDescriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDetailedDescriptionNull() {
+                this[this.tableDataTable1.DetailedDescriptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCommentsForActionTakenNull() {
+                return this.IsNull(this.tableDataTable1.CommentsForActionTakenColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCommentsForActionTakenNull() {
+                this[this.tableDataTable1.CommentsForActionTakenColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsContractorNull() {
+                return this.IsNull(this.tableDataTable1.ContractorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetContractorNull() {
+                this[this.tableDataTable1.ContractorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsReporterEmailNull() {
+                return this.IsNull(this.tableDataTable1.ReporterEmailColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetReporterEmailNull() {
+                this[this.tableDataTable1.ReporterEmailColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -18,7 +18,7 @@ namespace Engineering_Database
 		public StatutoryCompliance()
 		{
 			InitializeComponent();
-			UpdateList();
+			UpdateList("all");
 		}
 
 
@@ -32,27 +32,29 @@ namespace Engineering_Database
 
 			while (reader.Read())
 			{
-				new StatutoryClass().ID = Convert.ToInt32(reader["ID"]);
-				new StatutoryClass().EquipmentDescription = reader["EquipmentDescription"].ToString();
-				new StatutoryClass().RenewDate = string.Format("{0:d}", reader["RenewDate"]);
-				new StatutoryClass().DateReportIssued = string.Format("{0:d}", reader["DateReportIssued"]);
-				new StatutoryClass().CompanyIssuer = reader["CompanyInsurer"].ToString();
-				new StatutoryClass().DaysLeftTillInspection = reader["DaysTillInspection"].ToString();
-				new StatutoryClass().Manufacturer = reader["ManufacturerCompany"].ToString();
-				new StatutoryClass().SerialNumber = reader["SerialNumber"].ToString();
-				new StatutoryClass().MonthlyWeekly = reader["MonthlyWeekly"].ToString();
-
+				StatutoryClass stat = new StatutoryClass()
+				{
+					ID = Convert.ToInt32(reader["ID"]),
+					EquipmentDescription = reader["EquipmentDescription"].ToString(),
+					RenewDate = string.Format("{0:d}", reader["RenewDate"]),
+					DateReportIssued = string.Format("{0:d}", reader["DateReportIssued"]),
+					CompanyIssuer = reader["CompanyInsurer"].ToString(),
+					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
+					Manufacturer = reader["ManufacturerCompany"].ToString(),
+					SerialNumber = reader["SerialNumber"].ToString(),
+					MonthlyWeekly = reader["MonthlyWeekly"].ToString(),
+				};
 
 				if (filter == "expired")
 				{
-					if (Convert.ToInt32(new StatutoryClass().DaysLeftTillInspection) < 0)
+					if (Convert.ToInt32(stat.DaysLeftTillInspection) < 0)
 					{
-						this.StatutoryComplianceList.Items.Add(new StatutoryClass());
+						this.StatutoryComplianceList.Items.Add(stat);
 					}
 				}
 				else
 				{
-					this.StatutoryComplianceList.Items.Add(new StatutoryClass());
+					this.StatutoryComplianceList.Items.Add(stat);
 				}
 
 			}

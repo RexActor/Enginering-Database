@@ -220,7 +220,7 @@ namespace Engineering_Database
 					ReportIssuedInfoLabel.Content = "Not Uploaded";
 					ReportIssuedInfoLabel.Visibility = Visibility.Visible;
 				}
-
+				db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", Convert.ToInt32(hiddenID.Content),false);
 
 
 				db.CloseDB();
