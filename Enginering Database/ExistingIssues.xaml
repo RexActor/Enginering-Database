@@ -1,0 +1,24 @@
+﻿<Window x:Class="Engineering_Database.ExistingIssues"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Existing Issues" Height="450" Width="1283" ResizeMode="NoResize">
+    <Grid>
+        <ListView x:Name="existingIssuesListView" HorizontalAlignment="Left" Height="373" Margin="10,36,0,0" VerticalAlignment="Top" Width="1255">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Job Number" Width="100" DisplayMemberBinding="{Binding JobNumber}"/>
+                    <GridViewColumn Header="Reported Date" Width="150" DisplayMemberBinding="{Binding ReportedDate}"/>
+                    <GridViewColumn Header="Reported By" Width="150" DisplayMemberBinding="{Binding ReportedUserName}"/>
+                    <GridViewColumn Header="Detailed Description" Width="700" DisplayMemberBinding="{Binding DetailedDescription}"/>
+                    <GridViewColumn Header="Action" Width="150" DisplayMemberBinding="{Binding Action}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label HorizontalContentAlignment="Center" Foreground="Red" FontWeight="Bold" Content="Already Existing Reports for this asset Number. Please check and if needed continue reporting" HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" Width="772"/>
+
+    </Grid>
+</Window>

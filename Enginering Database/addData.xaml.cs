@@ -1,6 +1,9 @@
-﻿using Engineering_Database;
+﻿using DocumentFormat.OpenXml.Bibliography;
+
+using Engineering_Database;
 
 using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,12 +19,20 @@ namespace Enginering_Database
 	{
 		readonly DatabaseClass db = new DatabaseClass();
 		readonly EmailClass email = new EmailClass();
+
+		ExistingIssues existingIssuesWindow;
+
+		List<IssueClass> alreadyReportedIssues = new List<IssueClass>();
+
 		//readonly UserSettings userrSet = new UserSettings();
 		bool richTextBoxTextChanged = false;
 		public addData()
 		{
-			InitializeComponent();
 
+
+			InitializeComponent();
+			AlreadyReportedLabel.Visibility = Visibility.Hidden;
+			AlreadyReportedButton.Visibility = Visibility.Hidden;
 			//hiding error message by default
 			ErrorMessageLabel.Visibility = Visibility.Hidden;
 
@@ -76,7 +87,7 @@ namespace Enginering_Database
 
 		#region comboboxes set up
 
-		
+
 		//need to add option to able to add/remove/edit issue options through settings
 
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,7 +118,7 @@ namespace Enginering_Database
 				issueTypeComboBox.IsEnabled = true;
 			}
 
-			
+
 			//areacombobox - static --> still dependant on settings window
 			if (areaComboBox.SelectedIndex > 0)
 			{
@@ -232,7 +243,7 @@ namespace Enginering_Database
 		public void SetUpComboBox()
 		{
 			//refactoring ComboBox Setup
-							
+
 
 			//set up comboboxes based on previous data selected
 			//there are 2 objects which ones don't have dynamic values. Still needs to be able to change on settings window
@@ -508,7 +519,94 @@ namespace Enginering_Database
 
 		}
 
+		private void AlreadyReportedButton_Click(object sender, RoutedEventArgs e)
+		{
+			
+			
+			existingIssuesWindow.ShowDialog();
 
+		}
+
+		public void CheckAlreadyReported(string value)
+		{
+			existingIssuesWindow = new ExistingIssues();
+			db.ConnectDB();
+			bool valuefound = false;
+
+
+			//alreadyReportedIssues.Clear();
+
+			var reader = db.DBQueryForExistingAssets("engineeringDatabaseTable");
+
+			while (reader.Read())
+			{
+				IssueClass issue = new IssueClass();
+
+				if (reader["AssetNumber"].ToString().ToLower() == value)
+				{
+					
+								
+
+					issue.JobNumber = Convert.ToInt32(reader["JobNumber"]);
+					issue.DetailedDescription = reader["DetailedDescription"].ToString();
+					issue.ReportedUserName = reader["ReportedUsername"].ToString();
+					issue.Action= reader["Action"].ToString();
+					issue.ReportedDate = String.Format("{0:d/MMM/yyyy}",reader["ReportedDate"]);
+
+					existingIssuesWindow.existingIssuesListView.Items.Add(issue);
+
+					valuefound = true;
+					
+				}
+				
+			}
+						
+
+			if (valuefound)
+			{
+				AlreadyReportedLabel.Content = "There are already reported Issues for this Asset Number";
+				AlreadyReportedLabel.Foreground = Brushes.Red;
+
+				AlreadyReportedLabel.Visibility = Visibility.Visible;
+				AlreadyReportedButton.Visibility = Visibility.Visible;
+			}
+			else
+			{
+
+				AlreadyReportedLabel.Content = "Nothing found for this asset";
+				AlreadyReportedLabel.Foreground = Brushes.Green;
+
+				AlreadyReportedLabel.Visibility = Visibility.Visible;
+				AlreadyReportedButton.Visibility = Visibility.Hidden;
+
+			}
+			db.CloseDB();
+
+		}
+
+
+
+
+
+		private void AssetNumberTextBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+			if (AssetNumberTextBox.Text.ToLower() == "n/a" || AssetNumberTextBox.Text.ToLower() == "na")
+			{
+				AlreadyReportedLabel.Visibility = Visibility.Hidden;
+				AlreadyReportedButton.Visibility = Visibility.Hidden;
+			}
+			else
+			{
+				CheckAlreadyReported(AssetNumberTextBox.Text.ToString().ToLower());
+
+			}
+		}
+
+		private void AssetNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			AlreadyReportedLabel.Visibility = Visibility.Hidden;
+			AlreadyReportedButton.Visibility = Visibility.Hidden;
+		}
 	}
 
 

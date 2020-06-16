@@ -31,6 +31,8 @@
         <CheckBox x:Name="ExpiredCheckBox" Content="Show Only Expired" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Click="ExpiredCheckBox_Click"/>
         <Button Name="RefreshList" Content="Refresh" HorizontalAlignment="Left" Margin="201,52,0,0" VerticalAlignment="Top" Width="75" Click="RefreshList_Click"/>
         <Button Name="AddStatutoryItemButton" Content="Add Statutory Item" HorizontalAlignment="Left" Height="23" Margin="1200,49,0,0" VerticalAlignment="Top" Width="174" Click="AddStatutoryItemButton_Click"/>
+        <ComboBox  Name="StatutoryComplianceGroupComboBox" HorizontalAlignment="Left" Margin="304,49,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatutoryComplianceGroupComboBox_SelectionChanged"/>
+        <Label Content="Group" HorizontalAlignment="Left" Margin="429,46,0,0" VerticalAlignment="Top" Width="65"/>
 
     </Grid>
 </Window>

@@ -291,6 +291,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>engineeringDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ExistingIssues.xaml.cs">
+      <DependentUpon>ExistingIssues.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InteractionWindow.xaml.cs">
       <DependentUpon>InteractionWindow.xaml</DependentUpon>
     </Compile>
@@ -434,6 +437,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DynamicMaintenanceTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExistingIssues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

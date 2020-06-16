@@ -1,6 +1,4 @@
 ﻿
-using DocumentFormat.OpenXml.Office.CustomUI;
-
 using Enginering_Database;
 
 
@@ -21,14 +19,15 @@ namespace Engineering_Database
 		readonly DatabaseClass db = new DatabaseClass();
 		readonly BackgroundWorker worker = new BackgroundWorker();
 		readonly UserSettings settings = new UserSettings();
-		
+
 		int increase;
 
 		public Admin()
 		{
 			InitializeComponent();
-
+			UpdateComboBoxes();
 			StartRecalculate();
+
 
 		}
 
@@ -37,10 +36,18 @@ namespace Engineering_Database
 			settings.openSettings();
 			ExpireLabel.Content = $"Statutory Compliance Items To Expire in {settings.StatutoryDays} days";
 			ProgressBar.Visibility = Visibility.Visible;
-	
+
 			StatusLabel.Visibility = Visibility.Visible;
 			StatutoryListViewExpired.Visibility = Visibility.Hidden;
 			StatutoryListViewToExpire.Visibility = Visibility.Hidden;
+
+			StatutoryListViewExpiredComboBox.Visibility = Visibility.Hidden;
+			StatutoryListViewToExpireComboBox.Visibility = Visibility.Hidden;
+
+			GroupLabel1.Visibility = Visibility.Hidden;
+			GroupLabel2.Visibility = Visibility.Hidden;
+
+
 			OutOfDateLabel.Visibility = Visibility.Hidden;
 			ExpireLabel.Visibility = Visibility.Hidden;
 
@@ -56,7 +63,7 @@ namespace Engineering_Database
 			ProgressBar.Value = e.ProgressPercentage;
 			StatusLabel.Content = $"Recalculating expiry dates for Statutory items.   Progress: {increase} %";
 
-			
+
 		}
 
 
@@ -66,7 +73,7 @@ namespace Engineering_Database
 
 			int countofItems = 0;
 			int currentLine = 0;
-			
+
 
 			var reader = db.GetAllPDFIds("StatutoryCompliance");
 			countofItems = db.CountLinesInDatabaseTable("StatutoryCompliance");
@@ -90,7 +97,7 @@ namespace Engineering_Database
 
 
 
-			
+
 
 
 
@@ -107,6 +114,8 @@ namespace Engineering_Database
 
 		private void GetStatutoryCompliance(object sender, RunWorkerCompletedEventArgs e)
 		{
+			StatutoryListViewExpired.Items.Clear();
+			StatutoryListViewToExpire.Items.Clear();
 
 			db.ConnectDB();
 
@@ -122,6 +131,7 @@ namespace Engineering_Database
 					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
 					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
+					CompanyIssuer=reader["CompanyInsurer"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 
@@ -143,7 +153,7 @@ namespace Engineering_Database
 
 						//int daysForward = 0 - Convert.ToInt32(settings.DueDateGap);
 
-						meetingDate = renewDateTime.AddDays(0-Convert.ToInt64(settings.MeetingDaysAhead));
+						meetingDate = renewDateTime.AddDays(0 - Convert.ToInt64(settings.MeetingDaysAhead));
 
 						if (meetingDate < DateTime.Now.Date)
 						{
@@ -156,7 +166,7 @@ namespace Engineering_Database
 
 						interval++;
 					}
-					
+
 
 
 					StatutoryListViewToExpire.Items.Add(statutory);
@@ -168,12 +178,17 @@ namespace Engineering_Database
 			db.CloseDB();
 
 			StatusLabel.Visibility = Visibility.Hidden;
-			
+
 			ProgressBar.Visibility = Visibility.Hidden;
 			OutOfDateLabel.Visibility = Visibility.Visible;
 			ExpireLabel.Visibility = Visibility.Visible;
 			StatutoryListViewExpired.Visibility = Visibility.Visible;
 			StatutoryListViewToExpire.Visibility = Visibility.Visible;
+			StatutoryListViewExpiredComboBox.Visibility = Visibility.Visible;
+			StatutoryListViewToExpireComboBox.Visibility = Visibility.Visible;
+
+			GroupLabel1.Visibility = Visibility.Visible;
+			GroupLabel2.Visibility = Visibility.Visible;
 
 		}
 
@@ -253,19 +268,19 @@ namespace Engineering_Database
 			db.ConnectDB();
 			string id = ((StatutoryClass)StatutoryListViewExpired.SelectedItem).ID.ToString();
 			string item = ((StatutoryClass)StatutoryListViewExpired.SelectedItem).EquipmentDescription;
-			var reader = db.GetStatutoryItem("StatutoryCompliance",((StatutoryClass)StatutoryListViewExpired.SelectedItem).ID);
+			var reader = db.GetStatutoryItem("StatutoryCompliance", ((StatutoryClass)StatutoryListViewExpired.SelectedItem).ID);
 
 
 			while (reader.Read())
 			{
-				itemWindow.TitleLabel.Content=$"Details for {item} with --> ID [{id}]";
+				itemWindow.TitleLabel.Content = $"Details for {item} with --> ID [{id}]";
 				itemWindow.hiddenID.Content = reader["ID"].ToString();
 				itemWindow.ManufacturerTextBox.Text = reader["ManufacturerCompany"].ToString();
 
 				itemWindow.SerialNumberTextBox.Text = reader["SerialNumber"].ToString();
 				itemWindow.InsurerTextBox.Text = reader["CompanyInsurer"].ToString();
 				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
-
+				itemWindow.GroupLabelContent.Content = reader["GroupName"].ToString();
 				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
 				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
 
@@ -298,6 +313,34 @@ namespace Engineering_Database
 
 		}
 
+
+		public void UpdateComboBoxes()
+		{
+
+			db.ConnectDB();
+
+			//StatutoryListViewExpiredComboBox
+			//StatutoryListViewToExpireComboBox
+
+
+			var reader = db.GetAllPDFIds("StatutoryComplianceGroups");
+			StatutoryListViewExpiredComboBox.Items.Add("Please Select");
+			StatutoryListViewToExpireComboBox.Items.Add("Please Select");
+
+			while (reader.Read())
+			{
+				StatutoryListViewExpiredComboBox.Items.Add(reader["GroupDescription"]);
+				StatutoryListViewToExpireComboBox.Items.Add(reader["GroupDescription"]);
+
+
+			}
+			StatutoryListViewExpiredComboBox.SelectedIndex = 0;
+			StatutoryListViewToExpireComboBox.SelectedIndex = 0;
+
+			db.CloseDB();
+		}
+
+
 		private void StatutoryListViewToExpire_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
 
@@ -318,7 +361,7 @@ namespace Engineering_Database
 				itemWindow.SerialNumberTextBox.Text = reader["SerialNumber"].ToString();
 				itemWindow.InsurerTextBox.Text = reader["CompanyInsurer"].ToString();
 				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
-
+				itemWindow.GroupLabelContent.Content = reader["GroupName"].ToString();
 				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
 				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
 
@@ -347,6 +390,91 @@ namespace Engineering_Database
 
 			itemWindow.ShowDialog();
 
+
+
+		}
+
+		private void StatutoryListViewToExpireComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+
+
+			UpdateGroups("ToExpire");
+
+
+
+		}
+
+		private void StatutoryListViewExpiredComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+
+
+			UpdateGroups("Expired");
+
+
+
+
+		}
+
+		public void UpdateGroups(string filter = null)
+		{
+
+			if (filter == "Expired")
+			{
+				StatutoryListViewExpired.Items.Clear();
+			}
+
+			if (filter == "ToExpire")
+			{
+				StatutoryListViewToExpire.Items.Clear();
+			}
+
+			db.ConnectDB();
+
+
+			var reader = db.GetAllPDFIds("StatutoryCompliance");
+
+			while (reader.Read())
+			{
+				StatutoryClass statutory = new StatutoryClass
+				{
+					ID = Convert.ToInt32(reader["ID"]),
+					EquipmentDescription = reader["EquipmentDescription"].ToString(),
+					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
+					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
+					Manufacturer = reader["ManufacturerCompany"].ToString(),
+					meetingSetStatus = (bool)reader["MeetingSet"]
+				};
+				switch (filter)
+				{
+					case "Expired":
+						if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex!=0)
+						{
+							StatutoryListViewExpired.Items.Add(statutory);
+
+						}
+						else if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && StatutoryListViewExpiredComboBox.SelectedIndex == 0)
+						{
+							StatutoryListViewExpired.Items.Add(statutory);
+						}
+
+						break;
+
+					case "ToExpire":
+						if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && reader["GroupName"].ToString() == StatutoryListViewToExpireComboBox.SelectedItem.ToString() && StatutoryListViewToExpireComboBox.SelectedIndex!=0)
+						{
+
+							StatutoryListViewToExpire.Items.Add(statutory);
+
+						}
+						else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && StatutoryListViewToExpireComboBox.SelectedIndex == 0)
+						{
+							StatutoryListViewToExpire.Items.Add(statutory);
+						}
+						break;
+
+
+				}
+			}
 
 
 		}

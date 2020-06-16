@@ -19,6 +19,7 @@ namespace Engineering_Database
 		{
 			InitializeComponent();
 			UpdateList("all");
+			UpdateComboBox();
 		}
 
 
@@ -43,11 +44,20 @@ namespace Engineering_Database
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
 					SerialNumber = reader["SerialNumber"].ToString(),
 					MonthlyWeekly = reader["MonthlyWeekly"].ToString(),
+					Group=reader["GroupName"].ToString(),
 				};
 
 				if (filter == "expired")
 				{
 					if (Convert.ToInt32(stat.DaysLeftTillInspection) < 0)
+					{
+						this.StatutoryComplianceList.Items.Add(stat);
+					}
+				}
+
+				else if(filter == "Group")
+				{
+					if (stat.Group == StatutoryComplianceGroupComboBox.SelectedItem.ToString())
 					{
 						this.StatutoryComplianceList.Items.Add(stat);
 					}
@@ -119,7 +129,7 @@ namespace Engineering_Database
 		{
 
 			UpdateStatutoryDays();
-
+			StatutoryComplianceGroupComboBox.SelectedIndex = 0;
 
 			UpdateList("all");
 		}
@@ -160,6 +170,40 @@ namespace Engineering_Database
 			StatutoryItemAdd addItem = new StatutoryItemAdd();
 
 			addItem.ShowDialog();
+		}
+
+		public void UpdateComboBox()
+		{
+
+			db.ConnectDB();
+				
+
+
+			var reader = db.GetAllPDFIds("StatutoryComplianceGroups");
+			StatutoryComplianceGroupComboBox.Items.Add("Please Select");
+		
+
+			while (reader.Read())
+			{
+				StatutoryComplianceGroupComboBox.Items.Add(reader["GroupDescription"]);
+				
+
+
+			}
+			StatutoryComplianceGroupComboBox.SelectedIndex = 0;
+			
+
+			db.CloseDB();
+		}
+
+
+		private void StatutoryComplianceGroupComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			if (StatutoryComplianceGroupComboBox.SelectedIndex > 0)
+			{
+				UpdateList("Group");
+			}
+
 		}
 	}
 }

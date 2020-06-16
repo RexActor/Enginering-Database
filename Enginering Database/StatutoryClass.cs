@@ -19,6 +19,7 @@ namespace Engineering_Database
 		public string DateReportIssued { get; set; }
 
 		public string RenewDate { get; set; }
+		public string Group { get; set; }
 
 		//false = meeting not set up
 		//true = meeting was set up

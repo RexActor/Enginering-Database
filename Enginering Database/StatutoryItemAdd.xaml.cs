@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
 
 namespace Engineering_Database
@@ -17,21 +15,47 @@ namespace Engineering_Database
 		{
 			InitializeComponent();
 			errorLabel.Visibility = Visibility.Hidden;
+			UpdateGroupComboBox();
 		}
 
 		private void DateReportIssuedDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
 
-			if (DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate !=null)
+			if (DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null)
 			{
 				TimeSpan days = RenewDateDatePicker.SelectedDate.Value.Date - DateReportIssuedDatePicker.SelectedDate.Value.Date;
 				nextInspectionLabelContent.Content = $"{days} days left till next inspection";
 			}
 		}
 
+		public void UpdateGroupComboBox()
+		{
+			db.ConnectDB();
+
+			//StatutoryListViewExpiredComboBox
+			//StatutoryListViewToExpireComboBox
+
+
+			var reader = db.GetAllPDFIds("StatutoryComplianceGroups");
+			GroupComboBox.Items.Add("Please Select");
+
+
+			while (reader.Read())
+			{
+				GroupComboBox.Items.Add(reader["GroupDescription"]);
+
+
+
+			}
+			GroupComboBox.SelectedIndex = 0;
+
+
+			db.CloseDB();
+		}
+
 		private void RenewDateDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (RenewDateDatePicker.SelectedDate != null && DateReportIssuedDatePicker.SelectedDate!=null)
+			if (RenewDateDatePicker.SelectedDate != null && DateReportIssuedDatePicker.SelectedDate != null)
 			{
 				TimeSpan days = RenewDateDatePicker.SelectedDate.Value.Date - DateReportIssuedDatePicker.SelectedDate.Value.Date;
 				nextInspectionLabelContent.Content = $"{days.TotalDays} days left till next inspection";
@@ -40,15 +64,17 @@ namespace Engineering_Database
 
 		private void AddItemButton_Click(object sender, RoutedEventArgs e)
 		{
+			string valueToAdd = GroupComboBox.SelectedItem.ToString();
 
-			if(ItemDescriptionTextBox.Text!=String.Empty || ManufacturerCompanyTextBox.Text!=String.Empty || CompanyInsurerTextBox.Text!=string.Empty || SerialNumberTextBox.Text!=String.Empty || WeeklyMonthlyTextBox.Text!=string.Empty || DateReportIssuedDatePicker.SelectedDate!=null || RenewDateDatePicker.SelectedDate != null)
+			if (ItemDescriptionTextBox.Text != String.Empty && ManufacturerCompanyTextBox.Text != String.Empty && CompanyInsurerTextBox.Text != string.Empty && SerialNumberTextBox.Text != String.Empty && WeeklyMonthlyTextBox.Text != string.Empty && DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null && GroupComboBox.SelectedIndex != 0)
 			{
 
 				//upload into database
 				db.ConnectDB();
 
-
-				db.AddStatutoryItem("StatutoryCompliance", ItemDescriptionTextBox.Text, ManufacturerCompanyTextBox.Text, DateReportIssuedDatePicker.SelectedDate.Value.Date, RenewDateDatePicker.SelectedDate.Value.Date, SerialNumberTextBox.Text, WeeklyMonthlyTextBox.Text, CompanyInsurerTextBox.Text);
+				
+				//MessageBox.Show(valueToAdd);
+				db.AddStatutoryItem("StatutoryCompliance", ItemDescriptionTextBox.Text, ManufacturerCompanyTextBox.Text, DateReportIssuedDatePicker.SelectedDate.Value.Date, RenewDateDatePicker.SelectedDate.Value.Date, SerialNumberTextBox.Text, WeeklyMonthlyTextBox.Text, CompanyInsurerTextBox.Text, valueToAdd);
 
 
 				db.CloseDB();

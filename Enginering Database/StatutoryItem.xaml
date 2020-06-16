@@ -11,25 +11,27 @@
         <Label Content="Company/Insurer"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,87,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Serial Number"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,118,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Monthly/Weekly"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,149,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Next Inspection"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,180,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Date Report Issued"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,211,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Renew Date"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,242,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Next Inspection"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,210,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Date Report Issued"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,241,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Renew Date"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,272,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Name ="TitleLabel" Background="#F7930D" HorizontalContentAlignment="Center" FontSize="15" FontWeight="Black" Content="Label" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="762"/>
         <TextBox Name="ManufacturerTextBox" HorizontalAlignment="Left" Height="26" Margin="179,56,0,0" TextWrapping="Wrap" Text="" IsEnabled="False" VerticalAlignment="Top" Width="208" TextChanged="ManufacturerTextBox_TextChanged"/>
         <TextBox x:Name="InsurerTextBox" HorizontalAlignment="Left" Height="26" Margin="179,87,0,0" TextWrapping="Wrap" Text="" IsEnabled="False" VerticalAlignment="Top" Width="208" TextChanged="InsurerTextBox_TextChanged"/>
         <TextBox x:Name="SerialNumberTextBox" HorizontalAlignment="Left" Height="26" Margin="179,118,0,0" TextWrapping="Wrap" Text="" IsEnabled="False" VerticalAlignment="Top" Width="208" TextChanged="SerialNumberTextBox_TextChanged"/>
         <TextBox x:Name="MonthlyWeeklyTextBox" HorizontalAlignment="Left" Height="26" Margin="179,149,0,0" TextWrapping="Wrap" Text="" IsEnabled="False" VerticalAlignment="Top" Width="208" TextChanged="MonthlyWeeklyTextBox_TextChanged"/>
-        <DatePicker Name="DateReportIssuedDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,213,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="DateReportIssuedDatePicker_SelectedDateChanged" />
-        <DatePicker x:Name="RenewDateDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,244,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="RenewDateDatePicker_SelectedDateChanged"/>
-        <Label  Name="NextInspectionLabel" Content=""  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="179,180,0,0" VerticalAlignment="Top" Width="208"/>
-        <Button Name="StatutoryItemUpdateButton" Content="Edit Mode" HorizontalAlignment="Left" Margin="22,273,0,0" VerticalAlignment="Top" Width="75" Click="StatutoryItemUpdateButton_Click"/>
-        <Label Name="RenewDateInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="405,244,0,0" VerticalAlignment="Top" Height="30" Width="327"/>
-        <Label x:Name="ReportIssuedInfoLabel" Content="ReportIssuedInfoLabel" HorizontalAlignment="Left" Margin="405,211,0,0" VerticalAlignment="Top" Height="26" Width="327"/>
+        <DatePicker Name="DateReportIssuedDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,243,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="DateReportIssuedDatePicker_SelectedDateChanged" />
+        <DatePicker x:Name="RenewDateDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,274,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="RenewDateDatePicker_SelectedDateChanged"/>
+        <Label  Name="NextInspectionLabel" Content=""  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="179,210,0,0" VerticalAlignment="Top" Width="208"/>
+        <Button Name="StatutoryItemUpdateButton" Content="Edit Mode" HorizontalAlignment="Left" Margin="22,308,0,0" VerticalAlignment="Top" Width="75" Click="StatutoryItemUpdateButton_Click"/>
+        <Label Name="RenewDateInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="405,274,0,0" VerticalAlignment="Top" Height="30" Width="327"/>
+        <Label x:Name="ReportIssuedInfoLabel" Content="ReportIssuedInfoLabel" HorizontalAlignment="Left" Margin="405,241,0,0" VerticalAlignment="Top" Height="26" Width="327"/>
         <Label Name="hiddenID" Content="Label" HorizontalAlignment="Left" Margin="486,56,0,0" VerticalAlignment="Top"/>
         <Label Name="ManufacturerCompanyUploadStatus" Content="Label" HorizontalAlignment="Left" FontSize="10" Margin="392,56,0,0" VerticalAlignment="Top" Width="85"/>
         <Label x:Name="CompanyInsurerUploadStatus" Content="Label" HorizontalAlignment="Left" FontSize="10" Margin="392,90,0,0" VerticalAlignment="Top" Width="85"/>
         <Label x:Name="SerialNumberUploadStatus" Content="Label" HorizontalAlignment="Left" FontSize="10" Margin="392,121,0,0" VerticalAlignment="Top" Width="85"/>
         <Label x:Name="MonthlyWeeklyUploadStatus" Content="Label" HorizontalAlignment="Left" FontSize="10" Margin="392,152,0,0" VerticalAlignment="Top" Width="85"/>
+        <Label Content="Group"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,180,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label  x:Name="GroupLabelContent" Content=""  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="179,180,0,0" VerticalAlignment="Top" Width="208"/>
 
     </Grid>
 </Window>

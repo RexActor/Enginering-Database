@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enginering_Database"
         mc:Ignorable="d"
-        Title="Insert Issue" Height="557.425" Width="578.687" ResizeMode="NoResize">
+        Title="Report Issue" Height="595.425" Width="578.687" ResizeMode="NoResize">
 
     <Grid Background="White" Margin="0,0,2,-1">
         <Grid.ColumnDefinitions>
@@ -41,19 +41,19 @@
         <Label Content="Job Number" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="293,116,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
         <Label x:Name="jobNumberDataLabel" Content="jobNumberData" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="397,116,0,0" VerticalAlignment="Top" Width="77" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4"/>
         <Image Margin="10,10,153,0" Source="logo.jpg" Stretch="Fill" Height="104" VerticalAlignment="Top"/>
-        <Button x:Name="InsertDataIntoDatabase" Content="Insert Data" HorizontalAlignment="Left" Height="24" Margin="10,487,0,0" VerticalAlignment="Top" Width="128" Click="InsertDataIntoDatabase_Click"/>
+        <Button x:Name="InsertDataIntoDatabase" Content="Report" HorizontalAlignment="Left" Height="24" Margin="10,533,0,0" VerticalAlignment="Top" Width="128" Click="InsertDataIntoDatabase_Click"/>
         <Label x:Name="AssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,331,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <TextBox x:Name="AssetNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="114,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158"/>
+        <TextBox x:Name="AssetNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="114,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158" LostFocus="AssetNumberTextBox_LostFocus" TextChanged="AssetNumberTextBox_TextChanged"/>
         <Label x:Name="PriorityLabel" Content="Priority" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,296,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
         <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Height="30" Margin="114,296,0,0" VerticalAlignment="Top" Width="158"  HorizontalContentAlignment="Center"/>
-        <RichTextBox x:Name="DetailedDescriptionRichTextBox" HorizontalAlignment="Left" Height="106" Margin="10,366,0,0" VerticalAlignment="Top" Width="545" Grid.ColumnSpan="4" BorderBrush="#FF0743F9" BorderThickness="2" GotFocus="ClearRichTextBox" TextChanged="CheckRichTextBoxchanges">
+        <RichTextBox x:Name="DetailedDescriptionRichTextBox" HorizontalAlignment="Left" Height="106" Margin="10,412,0,0" VerticalAlignment="Top" Width="545" Grid.ColumnSpan="4" BorderBrush="#FF0743F9" BorderThickness="2" GotFocus="ClearRichTextBox" TextChanged="CheckRichTextBoxchanges">
             <RichTextBox.Document>
-            <FlowDocument>
+                <FlowDocument>
                     <FlowDocument.Blocks>
                         <Paragraph>
-                           Please Enter Detailed Description
+                            Please Enter Detailed Description
                         </Paragraph>
-                   
+
                     </FlowDocument.Blocks>
                 </FlowDocument>
             </RichTextBox.Document>
@@ -70,6 +70,8 @@
                 <Label Grid.ColumnSpan="4" Content="This will be help menu. To understand how this form is working" HorizontalAlignment="Left" VerticalAlignment="Top" Height="493" Width="543"/>
             </Grid>
         </Expander>
+        <Button x:Name="AlreadyReportedButton" Content="Check Reported" HorizontalAlignment="Left" Margin="63,375,0,0" VerticalAlignment="Top" Width="99" Height="26" Click="AlreadyReportedButton_Click"/>
+        <Label Name="AlreadyReportedLabel" Foreground="Red" FontWeight="Bold" Content="There are already reported Issues for this Asset Number" HorizontalAlignment="Left" Margin="192,375,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="353"/>
 
 
     </Grid>

@@ -92,7 +92,7 @@ namespace Engineering_Database
 		#region db query functions --> retreive data from database 3 overloaded functions string (table)/string (table) int(jobNumber)/ simple without any parameters
 		public string DBQuery(string table)
 		{
-			string queryString = $"SELECT * FROM engineeringDatabaseTable";
+			string queryString = $"SELECT * FROM engineeringDatabaseTable ORDER BY JobNumber ASC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			reader.Read();
@@ -100,6 +100,7 @@ namespace Engineering_Database
 			cmd.Dispose();
 			return data;
 		}
+
 		public string DBQuery(string table, int jobnumber)
 		{
 			string queryString = $"SELECT * FROM engineeringDatabaseTable WHERE JobNumber in (@param1)";
@@ -161,7 +162,14 @@ namespace Engineering_Database
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			return cmd;
 		}
-
+		public OleDbDataReader DBQueryForExistingAssets(string table)
+		{
+			string queryString = $"SELECT * FROM {table} ORDER BY JobNumber ASC";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
 
 
 		public OleDbCommand DBQueryForAllLines()
@@ -905,9 +913,9 @@ namespace Engineering_Database
 
 
 
-		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly,string companyInsurer)
+		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly,string companyInsurer,string groupvalue)
 		{
-			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate)";
+			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate,GroupName) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate,@GroupName)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			//cmd.Parameters.AddWithValue("@UploadDate", date);
@@ -918,11 +926,14 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@CompanyInsurer", OleDbType.VarWChar).Value = companyInsurer;
 			cmd.Parameters.Add("@SerialNumber", OleDbType.VarWChar).Value = serialNumber;
 			cmd.Parameters.Add("@MonthlyWeekly", OleDbType.VarWChar).Value = weeklyMonthly;
+			
 			cmd.Parameters.Add("@DateReportIssued", OleDbType.Date).Value = dateReportIssued;
 			cmd.Parameters.Add("@RenewDate", OleDbType.Date).Value = renewDate;
+			cmd.Parameters.AddWithValue("@GroupName","Test");
+			
+			
+			//cmd.Dispose();l
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
-
 		}
 
 
