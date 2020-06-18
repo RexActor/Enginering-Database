@@ -131,7 +131,8 @@ namespace Engineering_Database
 					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
 					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
-					CompanyIssuer=reader["CompanyInsurer"].ToString(),
+					CompanyIssuer = reader["CompanyInsurer"].ToString(),
+					MonthlyWeeklyRange = reader["MonthlyWeeklyRange"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 
@@ -282,6 +283,7 @@ namespace Engineering_Database
 				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
 				itemWindow.GroupLabelContent.Content = reader["GroupName"].ToString();
 				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
+				itemWindow.MonthlyWeeklyRangeLabelContent.Content = reader["MonthlyWeeklyRange"].ToString();
 				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
 
 
@@ -363,6 +365,7 @@ namespace Engineering_Database
 				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
 				itemWindow.GroupLabelContent.Content = reader["GroupName"].ToString();
 				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
+				itemWindow.MonthlyWeeklyRangeLabelContent.Content = reader["MonthlyWeeklyRange"].ToString();
 				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
 
 
@@ -476,6 +479,13 @@ namespace Engineering_Database
 				}
 			}
 
+
+		}
+
+		private void HyegeneButton_Click(object sender, RoutedEventArgs e)
+		{
+			Hygene hygene = new Hygene();
+			hygene.ShowDialog();
 
 		}
 	}

@@ -1,0 +1,43 @@
+﻿<Window x:Class="Engineering_Database.Hygene"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Hygene" Height="450" Width="800">
+    <Grid >
+        <Viewbox Height="374" VerticalAlignment="Top" HorizontalAlignment="Left" Width="397" Margin="-17,-24,0,0">
+            <Calendar Name="HygeneCalendar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" SelectedDatesChanged="HygeneCalendar_SelectedDatesChanged" >
+                <Calendar.CalendarDayButtonStyle>
+                    <Style TargetType="CalendarDayButton">
+
+                        <Style.Triggers>
+                            <Trigger Property = "IsBlackedOut" Value = "True" >
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Setter Property = "Background" Value = "Orange" />
+
+
+                            </Trigger >
+
+                        </Style.Triggers >
+
+                        <EventSetter Event="Click" Handler="CalendarDayButton_Click"/>
+                    </Style>
+
+                </Calendar.CalendarDayButtonStyle>
+            </Calendar>
+        </Viewbox>
+        <Button Name="AddBlackOut" Content="Add report" HorizontalAlignment="Left" Margin="385,10,0,0" VerticalAlignment="Top" Width="75" Click="AddBlackOut_Click"/>
+        <Label  Name ="Label1" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,55,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label2" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,86,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label3" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,117,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label4" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,148,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label5" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,179,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label6" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,210,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label7" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,241,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label8" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,272,0,0" VerticalAlignment="Top" Width="365"/>
+        <Label Name ="Label9" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top" Width="365"/>
+
+    </Grid>
+</Window>

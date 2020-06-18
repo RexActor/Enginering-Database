@@ -913,9 +913,9 @@ namespace Engineering_Database
 
 
 
-		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly,string companyInsurer,string groupvalue)
+		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly,string companyInsurer,string groupvalue,string monthlyWeeklyRange)
 		{
-			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate,GroupName) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate,@GroupName)";
+			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate,GroupName,MonthlyWeeklyRange) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate,@GroupName,@MonthlyWeeklyRange)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			//cmd.Parameters.AddWithValue("@UploadDate", date);
@@ -929,12 +929,17 @@ namespace Engineering_Database
 			
 			cmd.Parameters.Add("@DateReportIssued", OleDbType.Date).Value = dateReportIssued;
 			cmd.Parameters.Add("@RenewDate", OleDbType.Date).Value = renewDate;
-			cmd.Parameters.AddWithValue("@GroupName","Test");
+			cmd.Parameters.Add("@GroupName", OleDbType.VarWChar).Value = groupvalue;
+			cmd.Parameters.Add("@MonthlyWeeklyRange", OleDbType.VarWChar).Value = monthlyWeeklyRange;
+			
+			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
 			
 			
 			//cmd.Dispose();l
 			cmd.ExecuteNonQuery();
 		}
+
+
 
 
 		public OleDbCommand DbAdapter(string db)
@@ -943,6 +948,30 @@ namespace Engineering_Database
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			return cmd;
 		}
+
+
+		public void InsertBlackOutDate(string table,DateTime date)
+		{
+			string queryString = "INSERT INTO " + table + " (BlackOutDate) " + " Values(@BlackOutDate)";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+
+			//cmd.Parameters.AddWithValue("@UploadDate", date);
+			//cmd.Parameters.AddWithValue("@UploadedFile", file);
+
+			
+
+			cmd.Parameters.Add("@BlackOutDate", OleDbType.Date).Value = date;
+			
+
+			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
+
+
+			//cmd.Dispose();l
+			cmd.ExecuteNonQuery();
+		}
+
+
+
 
 	}
 }

@@ -294,6 +294,9 @@
     <Compile Include="ExistingIssues.xaml.cs">
       <DependentUpon>ExistingIssues.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Hygene.xaml.cs">
+      <DependentUpon>Hygene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InteractionWindow.xaml.cs">
       <DependentUpon>InteractionWindow.xaml</DependentUpon>
     </Compile>
@@ -441,6 +444,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExistingIssues.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Hygene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

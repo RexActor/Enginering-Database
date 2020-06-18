@@ -15,6 +15,7 @@ namespace Engineering_Database
 		public string SerialNumber { get; set; }
 
 		public string MonthlyWeekly { get; set; }
+		public string MonthlyWeeklyRange { get; set; }
 		public string DaysLeftTillInspection { get; set; }
 		public string DateReportIssued { get; set; }
 

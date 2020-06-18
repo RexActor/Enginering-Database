@@ -23,17 +23,26 @@ namespace Engineering_Database
 		private bool companyInsurerChanged = false;
 		private bool serialNumberChanged = false;
 		private bool monthlyWeeklyChanged = false;
+		private DateTime currentReportDate;
 
 		readonly DatabaseClass db = new DatabaseClass();
 		public StatutoryItem()
 		{
 			InitializeComponent();
+
+
+
+
+
 			RenewDateInfoLabel.Visibility = Visibility.Hidden;
 			ReportIssuedInfoLabel.Visibility = Visibility.Hidden;
 			SerialNumberUploadStatus.Visibility = Visibility.Hidden;
 			ManufacturerCompanyUploadStatus.Visibility = Visibility.Hidden;
 			CompanyInsurerUploadStatus.Visibility = Visibility.Hidden;
 			MonthlyWeeklyUploadStatus.Visibility = Visibility.Hidden;
+			MonthlyWeeklyComboBoxUploadStatus.Visibility = Visibility.Hidden;
+
+			MonthlyWeeklyChangeComboBox.Visibility = Visibility.Hidden;
 
 			//not needed to be shown. required just for pulling data to update database
 			hiddenID.Visibility = Visibility.Hidden;
@@ -42,6 +51,7 @@ namespace Engineering_Database
 
 		private void StatutoryItemUpdateButton_Click(object sender, RoutedEventArgs e)
 		{
+			currentReportDate = DateReportIssuedDatePicker.SelectedDate.Value.Date;
 			if (!editMode)
 			{
 
@@ -63,6 +73,14 @@ namespace Engineering_Database
 				MonthlyWeeklyUploadStatus.Visibility = Visibility.Hidden;
 				ReportIssuedInfoLabel.Visibility = Visibility.Hidden;
 				RenewDateInfoLabel.Visibility = Visibility.Hidden;
+
+				MonthlyWeeklyChangeComboBox.Visibility = Visibility.Visible;
+				MonthlyWeeklyRangeLabelContent.Visibility = Visibility.Hidden;
+
+
+				UpdateMonthlyWeeklyComboBox();
+				MonthlyWeeklyChangeComboBox.SelectedItem = MonthlyWeeklyRangeLabelContent.Content;
+
 
 
 				//marking which text boxes are active for change
@@ -144,6 +162,25 @@ namespace Engineering_Database
 
 				}
 
+				if (MonthlyWeeklyChangeComboBox.SelectedIndex > 0 && MonthlyWeeklyChangeComboBox.SelectedItem.ToString() != MonthlyWeeklyRangeLabelContent.Content.ToString())
+				{
+					db.UpdateStatutoryCompliance("StatutoryCompliance", "MonthlyWeeklyRange", Convert.ToInt32(hiddenID.Content), MonthlyWeeklyChangeComboBox.SelectedItem.ToString());
+
+					MonthlyWeeklyComboBoxUploadStatus.Foreground = Brushes.Green;
+					MonthlyWeeklyComboBoxUploadStatus.FontWeight = FontWeights.Bold;
+					MonthlyWeeklyComboBoxUploadStatus.Content = "Uploaded";
+					MonthlyWeeklyComboBoxUploadStatus.Visibility = Visibility.Visible;
+
+				}
+				else
+				{
+					MonthlyWeeklyComboBoxUploadStatus.Foreground = Brushes.Red;
+					MonthlyWeeklyComboBoxUploadStatus.FontWeight = FontWeights.Bold;
+					MonthlyWeeklyComboBoxUploadStatus.Content = "Not Uploaded";
+					MonthlyWeeklyComboBoxUploadStatus.Visibility = Visibility.Visible;
+				}
+
+
 				if (monthlyWeeklyChanged)
 				{
 
@@ -180,6 +217,7 @@ namespace Engineering_Database
 						RenewDateInfoLabel.FontWeight = FontWeights.Bold;
 						RenewDateInfoLabel.Content = "Uploaded";
 						RenewDateInfoLabel.Visibility = Visibility.Visible;
+						db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", Convert.ToInt32(hiddenID.Content), false);
 
 					}
 					else
@@ -220,7 +258,7 @@ namespace Engineering_Database
 					ReportIssuedInfoLabel.Content = "Not Uploaded";
 					ReportIssuedInfoLabel.Visibility = Visibility.Visible;
 				}
-				db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", Convert.ToInt32(hiddenID.Content),false);
+
 
 
 				db.CloseDB();
@@ -233,6 +271,12 @@ namespace Engineering_Database
 				InsurerTextBox.IsEnabled = false;
 				SerialNumberTextBox.IsEnabled = false;
 				MonthlyWeeklyTextBox.IsEnabled = false;
+
+
+				MonthlyWeeklyChangeComboBox.Visibility = Visibility.Hidden;
+				MonthlyWeeklyRangeLabelContent.Content = MonthlyWeeklyChangeComboBox.SelectedItem.ToString();
+
+				MonthlyWeeklyRangeLabelContent.Visibility = Visibility.Visible;
 
 
 				//changing back background colour to default
@@ -249,6 +293,23 @@ namespace Engineering_Database
 
 			}
 
+
+		}
+
+		private void UpdateMonthlyWeeklyComboBox()
+		{
+			db.ConnectDB();
+			var reader = db.GetAllPDFIds("WeeklyMonthlyRange");
+			MonthlyWeeklyChangeComboBox.Items.Add("Please Select");
+			while (reader.Read())
+			{
+
+				MonthlyWeeklyChangeComboBox.Items.Add(reader["WeeklyMonthlyRange"].ToString());
+
+			}
+
+			MonthlyWeeklyChangeComboBox.SelectedIndex = 0;
+			db.CloseDB();
 
 		}
 
@@ -284,23 +345,69 @@ namespace Engineering_Database
 		{
 
 			ReportIssuedInfoLabel.Visibility = Visibility.Hidden;
+
+
+
 			if (editMode)
 			{
 
 				ReportDateWasChanged = true;
-				if (DateReportIssuedDatePicker.SelectedDate.Value.Date > DateTime.Now.Date)
+
+
+				if (DateReportIssuedDatePicker.SelectedDate.Value.Date == currentReportDate)
 				{
-					ReportIssuedInfoLabel.Foreground = Brushes.Red;
-					ReportIssuedInfoLabel.FontWeight = FontWeights.Bold;
-					ReportIssuedInfoLabel.Content = "Can`t issue report in future. Please change date";
+					//ReportIssuedInfoLabel.Foreground = Brushes.Red;
+					//ReportIssuedInfoLabel.FontWeight = FontWeights.Bold;
+					//ReportIssuedInfoLabel.Content = "Can`t issue report in future. Please change date";
 
 					correctReportDate = false;
 
-					ReportIssuedInfoLabel.Visibility = Visibility.Visible;
+					//ReportIssuedInfoLabel.Visibility = Visibility.Visible;
 
 				}
 				else
 				{
+
+					switch (MonthlyWeeklyChangeComboBox.SelectedItem.ToString())
+					{
+
+						case "Yearly":
+
+							//Do calculation by adding specific amount of Years
+							RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddYears(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
+
+
+							break;
+
+						case "Monthly":
+
+							//Do calculation by adding specific amount of Months
+
+							RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddMonths(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
+
+							break;
+
+						case "Weekly":
+							//Do calculation by adding specific amount of Weeks
+
+							RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(MonthlyWeeklyTextBox.Text) * 7);
+
+							break;
+
+						case "Daily":
+
+							//Do calculation by adding specific amount of Days
+							RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
+
+
+							break;
+
+						
+
+
+					}
+
+
 					correctReportDate = true;
 				}
 			}
@@ -336,6 +443,51 @@ namespace Engineering_Database
 			if (editMode)
 			{
 				monthlyWeeklyChanged = true;
+			}
+		}
+
+		private void MonthlyWeeklyChangeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (editMode)
+			{
+				switch (MonthlyWeeklyChangeComboBox.SelectedItem.ToString())
+				{
+
+					case "Yearly":
+
+						//Do calculation by adding specific amount of Years
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddYears(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
+
+
+						break;
+
+					case "Monthly":
+
+						//Do calculation by adding specific amount of Months
+
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddMonths(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
+
+						break;
+
+					case "Weekly":
+						//Do calculation by adding specific amount of Weeks
+
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(MonthlyWeeklyTextBox.Text) * 7);
+
+						break;
+
+					case "Daily":
+
+						//Do calculation by adding specific amount of Days
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
+
+
+						break;
+
+					
+
+
+				}
 			}
 		}
 	}

@@ -22,7 +22,7 @@
                     <GridViewColumn Header="Renew Date" Width="150" DisplayMemberBinding="{Binding RenewDate}"/>
                     <GridViewColumn Header="Valid (days)" Width="100" DisplayMemberBinding="{Binding DaysLeftTillInspection}"/>
                     <GridViewColumn Header="Monthly/Weekly" Width="150" DisplayMemberBinding="{Binding MonthlyWeekly}"/>
-
+                    <GridViewColumn Header="Monthly/Weekly Range" Width="150" DisplayMemberBinding="{Binding MonthlyWeeklyRange}"/>
 
                 </GridView>
             </ListView.View>

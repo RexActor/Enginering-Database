@@ -16,18 +16,92 @@ namespace Engineering_Database
 			InitializeComponent();
 			errorLabel.Visibility = Visibility.Hidden;
 			UpdateGroupComboBox();
+			UpdateWeeklyMonthlyComboBox();
 		}
 
 		private void DateReportIssuedDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
 
-			if (DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null)
+			//if (DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null)
+			//{
+			//	TimeSpan days = RenewDateDatePicker.SelectedDate.Value.Date - DateReportIssuedDatePicker.SelectedDate.Value.Date;
+			//	nextInspectionLabelContent.Content = $"{days} days left till next inspection";
+			//}
+
+			if (WeeklyMonthlyGroupComboBox.SelectedIndex != 0 && WeeklyMonthlyTextBox.Text!=String.Empty)
 			{
-				TimeSpan days = RenewDateDatePicker.SelectedDate.Value.Date - DateReportIssuedDatePicker.SelectedDate.Value.Date;
-				nextInspectionLabelContent.Content = $"{days} days left till next inspection";
+
+
+				switch (WeeklyMonthlyGroupComboBox.SelectedItem.ToString())
+				{
+
+					case "Yearly":
+
+						//Do calculation by adding specific amount of Years
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddYears(Convert.ToInt32(WeeklyMonthlyTextBox.Text));
+
+
+						break;
+
+					case "Monthly":
+
+						//Do calculation by adding specific amount of Months
+
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddMonths(Convert.ToInt32(WeeklyMonthlyTextBox.Text));
+
+						break;
+
+					case "Weekly":
+						//Do calculation by adding specific amount of Weeks
+
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(WeeklyMonthlyTextBox.Text) * 7);
+
+						break;
+
+					case "Daily":
+
+						//Do calculation by adding specific amount of Days
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(WeeklyMonthlyTextBox.Text));
+
+
+						break;
+
+
+
+
+				}
+
 			}
+
+
+
 		}
 
+
+		public void UpdateWeeklyMonthlyComboBox()
+		{
+			db.ConnectDB();
+
+			//StatutoryListViewExpiredComboBox
+			//StatutoryListViewToExpireComboBox
+
+
+			var reader = db.GetAllPDFIds("WeeklyMonthlyRange");
+			WeeklyMonthlyGroupComboBox.Items.Add("Please Select");
+
+
+			while (reader.Read())
+			{
+				WeeklyMonthlyGroupComboBox.Items.Add(reader["WeeklyMonthlyRange"]);
+
+
+
+			}
+			WeeklyMonthlyGroupComboBox.SelectedIndex = 0;
+
+
+			db.CloseDB();
+		}
 		public void UpdateGroupComboBox()
 		{
 			db.ConnectDB();
@@ -66,15 +140,15 @@ namespace Engineering_Database
 		{
 			string valueToAdd = GroupComboBox.SelectedItem.ToString();
 
-			if (ItemDescriptionTextBox.Text != String.Empty && ManufacturerCompanyTextBox.Text != String.Empty && CompanyInsurerTextBox.Text != string.Empty && SerialNumberTextBox.Text != String.Empty && WeeklyMonthlyTextBox.Text != string.Empty && DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null && GroupComboBox.SelectedIndex != 0)
+			if (ItemDescriptionTextBox.Text != String.Empty && ManufacturerCompanyTextBox.Text != String.Empty && CompanyInsurerTextBox.Text != string.Empty && SerialNumberTextBox.Text != String.Empty && WeeklyMonthlyTextBox.Text != string.Empty && DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null && GroupComboBox.SelectedIndex != 0 && WeeklyMonthlyGroupComboBox.SelectedIndex!=0)
 			{
 
 				//upload into database
 				db.ConnectDB();
 
-				
+
 				//MessageBox.Show(valueToAdd);
-				db.AddStatutoryItem("StatutoryCompliance", ItemDescriptionTextBox.Text, ManufacturerCompanyTextBox.Text, DateReportIssuedDatePicker.SelectedDate.Value.Date, RenewDateDatePicker.SelectedDate.Value.Date, SerialNumberTextBox.Text, WeeklyMonthlyTextBox.Text, CompanyInsurerTextBox.Text, valueToAdd);
+				db.AddStatutoryItem("StatutoryCompliance", ItemDescriptionTextBox.Text, ManufacturerCompanyTextBox.Text, DateReportIssuedDatePicker.SelectedDate.Value.Date, RenewDateDatePicker.SelectedDate.Value.Date, SerialNumberTextBox.Text, WeeklyMonthlyTextBox.Text, CompanyInsurerTextBox.Text, valueToAdd,WeeklyMonthlyGroupComboBox.SelectedItem.ToString());
 
 
 				db.CloseDB();
@@ -94,6 +168,53 @@ namespace Engineering_Database
 				errorLabel.FontWeight = FontWeights.Bold;
 				errorLabel.Content = "Please fill all required fields";
 				errorLabel.Visibility = Visibility.Visible;
+			}
+		}
+
+		private void WeeklyMonthlyGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (WeeklyMonthlyTextBox.Text != String.Empty && DateReportIssuedDatePicker.SelectedDate != null)
+			{
+
+				switch (WeeklyMonthlyGroupComboBox.SelectedItem.ToString())
+				{
+
+					case "Yearly":
+
+						//Do calculation by adding specific amount of Years
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddYears(Convert.ToInt32(WeeklyMonthlyTextBox.Text));
+
+
+						break;
+
+					case "Monthly":
+
+						//Do calculation by adding specific amount of Months
+
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddMonths(Convert.ToInt32(WeeklyMonthlyTextBox.Text));
+
+						break;
+
+					case "Weekly":
+						//Do calculation by adding specific amount of Weeks
+
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(WeeklyMonthlyTextBox.Text) * 7);
+
+						break;
+
+					case "Daily":
+
+						//Do calculation by adding specific amount of Days
+						RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(WeeklyMonthlyTextBox.Text));
+
+
+						break;
+
+
+
+
+				}
+
 			}
 		}
 	}

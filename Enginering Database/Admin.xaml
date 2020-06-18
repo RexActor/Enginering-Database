@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Admin" Height="525.691" Width="1390.5" ResizeMode="NoResize">
+        Title="Admin" Height="577.691" Width="1390.5" ResizeMode="NoResize">
     <Grid>
         <Label Content="You are in Admin View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
         <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,0,9" HorizontalAlignment="Left" Width="253"/>
@@ -23,7 +23,7 @@
         <Image Margin="22,337,0,0" Source="Export-02-WF.png" Stretch="Fill" Height="48" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48"/>
         <Button Name="StatutoryComplianceButton" Content="Statutory Compliance" HorizontalAlignment="Left" Margin="20,390,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="StatutoryComplianceButton_Click"/>
         <Image Margin="22,392,0,0" Source="Date Time_01.png" Stretch="Fill" HorizontalAlignment="Left" Width="48" Height="48" VerticalAlignment="Top"/>
-        <ListView x:Name="StatutoryListViewExpired" HorizontalAlignment="Left" Height="410" Margin="278,77,0,0" VerticalAlignment="Top" Width="605" MouseDoubleClick="StatutoryListViewExpired_MouseDoubleClick">
+        <ListView x:Name="StatutoryListViewExpired" HorizontalAlignment="Left" Height="462" Margin="278,77,0,0" VerticalAlignment="Top" Width="605" MouseDoubleClick="StatutoryListViewExpired_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="20" DisplayMemberBinding="{Binding ID}"/>
@@ -36,7 +36,7 @@
         </ListView>
         <Label Name ="OutOfDateLabel" Content="Statutory Compliance Items Out of Date" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#C95342" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="278,10,0,0" VerticalAlignment="Top" Width="605"/>
         <Label Name="ExpireLabel" Content="Statutory Compliance Items To Expire in {10} days" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#F7930D" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="888,10,0,0" VerticalAlignment="Top" Width="486"/>
-        <ListView x:Name="StatutoryListViewToExpire" HorizontalAlignment="Left" Height="411" Margin="888,77,0,0" VerticalAlignment="Top" Width="486" MouseDoubleClick="StatutoryListViewToExpire_MouseDoubleClick">
+        <ListView x:Name="StatutoryListViewToExpire" HorizontalAlignment="Left" Height="462" Margin="888,77,0,0" VerticalAlignment="Top" Width="486" MouseDoubleClick="StatutoryListViewToExpire_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="20" DisplayMemberBinding="{Binding ID}"/>
@@ -52,5 +52,6 @@
         <ComboBox x:Name="StatutoryListViewToExpireComboBox" HorizontalAlignment="Left" Margin="888,50,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StatutoryListViewToExpireComboBox_SelectionChanged"/>
         <Label Name="GroupLabel1" Content="Group" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="403,45,0,0" VerticalAlignment="Top" Width="79" Height="27"/>
         <Label Name="GroupLabel2" Content="Group" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="1018,45,0,0" VerticalAlignment="Top" Width="80" Height="27"/>
+        <Button x:Name="HyegeneButton" Content="Hygene" HorizontalAlignment="Left" Margin="20,445,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="HyegeneButton_Click"/>
     </Grid>
 </Window>

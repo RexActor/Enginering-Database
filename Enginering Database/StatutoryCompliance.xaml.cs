@@ -43,6 +43,7 @@ namespace Engineering_Database
 					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
 					SerialNumber = reader["SerialNumber"].ToString(),
+					MonthlyWeeklyRange=reader["MonthlyWeeklyRange"].ToString(),
 					MonthlyWeekly = reader["MonthlyWeekly"].ToString(),
 					Group=reader["GroupName"].ToString(),
 				};
@@ -106,6 +107,9 @@ namespace Engineering_Database
 			ItemWindow.SerialNumberTextBox.Text = selectedItem.SerialNumber;
 			ItemWindow.MonthlyWeeklyTextBox.Text = selectedItem.MonthlyWeekly;
 			ItemWindow.hiddenID.Content = selectedItem.ID;
+			ItemWindow.MonthlyWeeklyRangeLabelContent.Content = selectedItem.MonthlyWeeklyRange;
+			ItemWindow.GroupLabelContent.Content = selectedItem.Group;
+
 			if (Convert.ToInt32(selectedItem.DaysLeftTillInspection) > 0)
 			{
 				ItemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
