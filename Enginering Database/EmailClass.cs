@@ -223,7 +223,7 @@ namespace Engineering_Database
 		public void ReportAppISsueEmail(string Date, string Time, string Username, string report)
 		{
 
-
+			userSett.openSettings();
 
 
 			if (checkOutlook() == true)

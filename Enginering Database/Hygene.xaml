@@ -5,39 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Hygene" Height="450" Width="800">
+        Title="Hygiene" Height="450" Width="969.21">
     <Grid >
-        <Viewbox Height="374" VerticalAlignment="Top" HorizontalAlignment="Left" Width="397" Margin="-17,-24,0,0">
+        <Viewbox Height="374" VerticalAlignment="Top" HorizontalAlignment="Left" Width="397" Margin="-17,10,0,0">
             <Calendar Name="HygeneCalendar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" SelectedDatesChanged="HygeneCalendar_SelectedDatesChanged" >
-                <Calendar.CalendarDayButtonStyle>
-                    <Style TargetType="CalendarDayButton">
 
-                        <Style.Triggers>
-                            <Trigger Property = "IsBlackedOut" Value = "True" >
-                                <Setter Property="IsEnabled" Value="True"/>
-                                <Setter Property = "Background" Value = "Orange" />
-
-
-                            </Trigger >
-
-                        </Style.Triggers >
-
-                        <EventSetter Event="Click" Handler="CalendarDayButton_Click"/>
-                    </Style>
-
-                </Calendar.CalendarDayButtonStyle>
             </Calendar>
         </Viewbox>
-        <Button Name="AddBlackOut" Content="Add report" HorizontalAlignment="Left" Margin="385,10,0,0" VerticalAlignment="Top" Width="75" Click="AddBlackOut_Click"/>
-        <Label  Name ="Label1" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,55,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label2" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,86,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label3" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,117,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label4" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,148,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label5" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,179,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label6" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,210,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label7" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,241,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label8" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,272,0,0" VerticalAlignment="Top" Width="365"/>
-        <Label Name ="Label9" FontWeight="Bold" Content="" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top" Width="365"/>
+        <Button Name="AddBlackOut" Content="Add report" HorizontalAlignment="Left" Margin="671,369,0,0" VerticalAlignment="Top" Width="75" Click="AddBlackOut_Click" Height="37"/>
+       
+        <Label Name="UploadStatusLabel" Content="Saved In Database" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Left" Margin="520,366,0,0" VerticalAlignment="Top" Width="119" Height="40"/>
+
+        <StackPanel  Name="HygeneLabelStackPanel" Margin="385,27,0,63" HorizontalAlignment="Left" Width="341">
+          
+        </StackPanel>
+
+
+
+
+        <StackPanel Name="UsernameLabelStackPanel" Margin="767,27,10,63"></StackPanel>
+
+
+        <StackPanel Name="CheckBoxStackPanel" Margin="731,27,0,50" HorizontalAlignment="Left" Width="36">
+        </StackPanel>
+
 
     </Grid>
 </Window>

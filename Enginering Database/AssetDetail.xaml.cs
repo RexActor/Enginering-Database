@@ -78,14 +78,14 @@ namespace Engineering_Database
 				AssetUpdateButton.Content = "Edit Details";
 				db.ConnectDB("Assets");
 				db.UpdateAsset("AssetList", "Description", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
-				db.UpdateAsset("AssetList", "Make", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
-				db.UpdateAsset("AssetList", "Model", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
-				db.UpdateAsset("AssetList", "AssetNumber", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
-				db.UpdateAsset("AssetList", "SerialNumber", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
-				db.UpdateAsset("AssetList", "DateOfManufacture", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "Make", assetDetailIDForDatabase, AssetDetailMakeTextBox.Text);
+				db.UpdateAsset("AssetList", "Model", assetDetailIDForDatabase, AssetDetailModelTextBox.Text);
+				db.UpdateAsset("AssetList", "AssetNumber", assetDetailIDForDatabase, AssetDetailAssetNumberTextBox.Text);
+				db.UpdateAsset("AssetList", "SerialNumber", assetDetailIDForDatabase, AssetDetailSerialNumberTextBox.Text);
+				db.UpdateAsset("AssetList", "DateOfManufacture", assetDetailIDForDatabase, AssetDetailDateManufacturedTextBox.Text);
 				db.UpdateAsset("AssetList", "DateOfInstallation", assetDetailIDForDatabase, AssetDetailDatePicker.SelectedDate.Value.Date);
-				db.UpdateAsset("AssetList", "IssueLevel", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
-				db.UpdateAsset("AssetList", "InstalledOn", assetDetailIDForDatabase, AssetDetailDescriptionTextBox.Text);
+				db.UpdateAsset("AssetList", "IssueLevel", assetDetailIDForDatabase, AssetDetailIssueLevelTextBox.Text);
+				db.UpdateAsset("AssetList", "InstalledOn", assetDetailIDForDatabase, AssetDetailInstalledOnTextBox.Text);
 			}
 		}
 

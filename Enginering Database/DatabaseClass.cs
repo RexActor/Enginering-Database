@@ -227,7 +227,7 @@ namespace Engineering_Database
 		public int DBQueryLastJobNumber(string table)
 		{
 			bool LastJobNumberIsNumber;
-			
+
 			int LastJobNumber;
 			string queryString = "SELECT TOP 1  *  FROM engineeringDatabaseTable ORDER BY JobNumber DESC";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -754,7 +754,7 @@ namespace Engineering_Database
 
 
 		}
-		public void AddCategory(string table,string value)
+		public void AddCategory(string table, string value)
 		{
 			string queryString = "INSERT INTO " + table + " (Category) " + " Values(@Category)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -767,12 +767,12 @@ namespace Engineering_Database
 		}
 
 
-		public void UploadInventoryProduct(string table, byte[] file, string productName, string measureType,string category)
+		public void UploadInventoryProduct(string table, byte[] file, string productName, string measureType, string category)
 		{
 			string queryString = "INSERT INTO " + table + " (ProductImage,ProductName,MeasureType,ProductCategory) " + " Values(@ProductImage,@ProductName,@MeasureType,@ProductCategory)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
-			
+
 
 			cmd.Parameters.Add("@ProductImage", OleDbType.Binary).Value = (object)file;
 			cmd.Parameters.Add("@ProductName", OleDbType.VarWChar).Value = productName;
@@ -790,7 +790,7 @@ namespace Engineering_Database
 
 
 
-			
+
 			cmd.Parameters.Add("@ProductName", OleDbType.VarWChar).Value = productName;
 			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType;
 			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = category;
@@ -801,7 +801,7 @@ namespace Engineering_Database
 		}
 
 
-		public void AddProduct(string table, string product, int qty,string measureType, string productCategory)
+		public void AddProduct(string table, string product, int qty, string measureType, string productCategory)
 		{
 			string queryString = "INSERT INTO " + table + " (Product,Qty,MeasureType,ProductCategory) " + " Values(@Product,@Qty,MeasureType,ProductCategory)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -810,14 +810,14 @@ namespace Engineering_Database
 
 			cmd.Parameters.Add("@Product", OleDbType.VarWChar).Value = product;
 			cmd.Parameters.Add("@Qty", OleDbType.Integer).Value = qty;
-			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType ;
+			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType;
 			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = productCategory;
 			cmd.ExecuteNonQuery();
 			//cmd.Dispose();
 
 		}
 
-		public OleDbDataReader GetInventoryProduct(string table, string field1,string field1Value)
+		public OleDbDataReader GetInventoryProduct(string table, string field1, string field1Value)
 		{
 			string queryString = $"SELECT * FROM {table} WHERE {field1}='{field1Value}'";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -853,8 +853,8 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@ProductImage", OleDbType.Binary).Value = (object)file;
 			cmd.Parameters.AddWithValue("@ID", ID);
 			cmd.ExecuteNonQuery();
-						
-		
+
+
 
 			cmd.ExecuteNonQuery();
 			//cmd.Dispose();
@@ -873,7 +873,7 @@ namespace Engineering_Database
 		}
 		#endregion
 
-		public void UpdateStatutoryCompliance(string table,string field, int id, bool value)
+		public void UpdateStatutoryCompliance(string table, string field, int id, bool value)
 		{
 			string queryString = $"UPDATE {table} SET " + field + " = @value WHERE ID = @ID";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -913,7 +913,7 @@ namespace Engineering_Database
 
 
 
-		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly,string companyInsurer,string groupvalue,string monthlyWeeklyRange)
+		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly, string companyInsurer, string groupvalue, string monthlyWeeklyRange)
 		{
 			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate,GroupName,MonthlyWeeklyRange) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate,@GroupName,@MonthlyWeeklyRange)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -926,15 +926,15 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@CompanyInsurer", OleDbType.VarWChar).Value = companyInsurer;
 			cmd.Parameters.Add("@SerialNumber", OleDbType.VarWChar).Value = serialNumber;
 			cmd.Parameters.Add("@MonthlyWeekly", OleDbType.VarWChar).Value = weeklyMonthly;
-			
+
 			cmd.Parameters.Add("@DateReportIssued", OleDbType.Date).Value = dateReportIssued;
 			cmd.Parameters.Add("@RenewDate", OleDbType.Date).Value = renewDate;
 			cmd.Parameters.Add("@GroupName", OleDbType.VarWChar).Value = groupvalue;
 			cmd.Parameters.Add("@MonthlyWeeklyRange", OleDbType.VarWChar).Value = monthlyWeeklyRange;
-			
+
 			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
-			
-			
+
+
 			//cmd.Dispose();l
 			cmd.ExecuteNonQuery();
 		}
@@ -950,7 +950,7 @@ namespace Engineering_Database
 		}
 
 
-		public void InsertBlackOutDate(string table,DateTime date)
+		public void InsertBlackOutDate(string table, DateTime date)
 		{
 			string queryString = "INSERT INTO " + table + " (BlackOutDate) " + " Values(@BlackOutDate)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
@@ -958,10 +958,10 @@ namespace Engineering_Database
 			//cmd.Parameters.AddWithValue("@UploadDate", date);
 			//cmd.Parameters.AddWithValue("@UploadedFile", file);
 
-			
+
 
 			cmd.Parameters.Add("@BlackOutDate", OleDbType.Date).Value = date;
-			
+
 
 			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
 
@@ -970,6 +970,23 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 		}
 
+		public OleDbDataReader GetBlackOutDate(string table, string field, DateTime date)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}={date.ToOADate()}";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
+
+		public OleDbDataReader GetHygeneScheduler(string table,string field, string value)
+		{
+			string queryString = $"SELECT * FROM {table} WHERE {field}='{value}'";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			OleDbDataReader reader = cmd.ExecuteReader();
+			cmd.Dispose();
+			return reader;
+		}
 
 
 

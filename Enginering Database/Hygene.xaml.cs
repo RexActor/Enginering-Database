@@ -1,10 +1,14 @@
-﻿using DocumentFormat.OpenXml.Drawing.Charts;
+﻿
+
+using CrystalDecisions.ReportAppServer.DataDefModel;
+
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 using System;
-
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Engineering_Database
@@ -14,14 +18,18 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class Hygene : Window
 	{
-		private bool blackedOut = false;
+		readonly string userName = WindowsIdentity.GetCurrent().Name;
 		DatabaseClass db = new DatabaseClass();
+
+		public object Controls { get; private set; }
+
 		public Hygene()
 		{
-			
+
 			InitializeComponent();
 
-			updatedBlackOutDates();
+
+			UploadStatusLabel.Visibility = Visibility.Hidden;
 			//HygeneCalendar.BlackoutDates.Add(new CalendarDateRange(DateTime.Now.Date));
 
 
@@ -31,271 +39,205 @@ namespace Engineering_Database
 
 
 
-
-
-		private void CalendarDayButton_Click(object sender, RoutedEventArgs e)
-		{
-			CalendarDayButton button = sender as CalendarDayButton;
-
-			DateTime selectedDate = (DateTime)button.DataContext;
-
-			GetHygeneScheduler(selectedDate.Date.DayOfWeek.ToString());
-			if (HygeneCalendar.BlackoutDates.Contains(selectedDate.Date))
-			{
-				//HygeneCalendar.SelectedDate = selectedDate;
-				//GetHygeneScheduler(selectedDate.Date.DayOfWeek.ToString());
-				blackedOut = true;
-			}
-		
-
-		}
-
-
 		private void HygeneCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
 		{
+
+			UploadStatusLabel.Visibility = Visibility.Hidden;
 			DateTime selectedDate = HygeneCalendar.SelectedDate.Value.Date;
 
-			GetHygeneScheduler(selectedDate.Date.DayOfWeek.ToString());
+			CreateLabels(selectedDate.DayOfWeek.ToString());
 
-			if (!HygeneCalendar.BlackoutDates.Contains(selectedDate))
-			{
-				
-				blackedOut = false;
-			}
-			else
-			{
-				blackedOut = true;
-			}
 
 		}
 
-		public void updatedBlackOutDates()
+
+		public bool checkBlackOutDates(DateTime date)
 		{
 
-			Label1.Visibility = Visibility.Hidden;
-			Label2.Visibility = Visibility.Hidden;
-			Label3.Visibility = Visibility.Hidden;
-			Label4.Visibility = Visibility.Hidden;
-			Label5.Visibility = Visibility.Hidden;
-			Label6.Visibility = Visibility.Hidden;
-			Label7.Visibility = Visibility.Hidden;
-			Label8.Visibility = Visibility.Hidden;
-			Label9.Visibility = Visibility.Hidden;
-
-
-
-			HygeneCalendar.BlackoutDates.Clear();
 			db.ConnectDB();
 
-			var reader = db.GetAllPDFIds("BlackOutDates");
-
-			while (reader.Read())
+			var rgetBlackoutDates = db.GetBlackOutDate("BlackOutDates", "BlackOutDate", date);
+			bool result = false;
+			while (rgetBlackoutDates.Read())
 			{
 
-				HygeneCalendar.BlackoutDates.Add(new CalendarDateRange(Convert.ToDateTime(reader["BlackOutDate"])));
-				
+
+				if (Convert.ToDateTime(rgetBlackoutDates["BlackOutDate"]) == date)
+				{
+					result = true;
+				}
+				//HygeneCalendar.BlackoutDates.Add(new CalendarDateRange(Convert.ToDateTime(reader["BlackOutDate"])));
+				else
+				{
+					result = false;
+				}
 			}
 
 
 
 			db.CloseDB();
 
+			return result;
+
 		}
+
 
 
 		private void AddBlackOut_Click(object sender, RoutedEventArgs e)
 		{
-			db.ConnectDB();
-			db.InsertBlackOutDate("BlackOutDates", Convert.ToDateTime(HygeneCalendar.SelectedDate.Value.Date));
+			if (HygeneCalendar.SelectedDate.HasValue)
+			{
+				db.ConnectDB();
+				db.InsertBlackOutDate("BlackOutDates", Convert.ToDateTime(HygeneCalendar.SelectedDate.Value.Date));
 
-			db.CloseDB();
+				db.CloseDB();
+				UploadStatusLabel.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				UploadStatusLabel.Visibility = Visibility.Visible;
+				UploadStatusLabel.Foreground = Brushes.Red;
 
-
-
-			updatedBlackOutDates();
+				UploadStatusLabel.Content = "No date selected";
+			}
 
 		}
 
-		private void GetHygeneScheduler(string weekday)
+
+		private void CheckBox_Click(object sender, RoutedEventArgs e)
 		{
-			if (!blackedOut)
+
+
+			System.Windows.Controls.CheckBox receivingCheckbox = (System.Windows.Controls.CheckBox)sender;
+
+			//var control = Controls.OfType<Label>().FirstOrDefault(c => c.Name == $"User{receivingCheckBox.Name}");
+			//MessageBox.Show(receivingCheckbox.Name.ToString());
+
+			if (receivingCheckbox.IsChecked == true)
 			{
 
-				Label1.Background = Brushes.LightGreen;
-				Label2.Background = Brushes.LightGreen;
-				Label3.Background = Brushes.LightGreen;
-				Label4.Background = Brushes.LightGreen;
-				Label5.Background = Brushes.LightGreen;
-				Label6.Background = Brushes.LightGreen;
-				Label7.Background = Brushes.LightGreen;
-				Label8.Background = Brushes.LightGreen;
-				Label9.Background = Brushes.LightGreen;
+				UpdateLabel(receivingCheckbox.Name, userName);
 
 			}
 			else
 			{
-				Label1.Background = Brushes.PaleVioletRed;
-				Label2.Background = Brushes.PaleVioletRed;
-				Label3.Background = Brushes.PaleVioletRed;
-				Label4.Background = Brushes.PaleVioletRed;
-				Label5.Background = Brushes.PaleVioletRed;
-				Label6.Background = Brushes.PaleVioletRed;
-				Label7.Background = Brushes.PaleVioletRed;
-				Label8.Background = Brushes.PaleVioletRed;
-				Label9.Background = Brushes.PaleVioletRed;
-
+				UpdateLabel(receivingCheckbox.Name, "");
 			}
 
-			switch (weekday)
+		}
+
+		private void UpdateLabel(string labelName, string value)
+		{
+			foreach (System.Windows.Controls.Control c in UsernameLabelStackPanel.Children)
 			{
-				case "Monday":
+				if (((System.Windows.Controls.Label)c).Name == $"UserNameLabel{labelName}")
+				{
+					((System.Windows.Controls.Label)c).Content = $"{value}";
+				}
 
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-					Label3.Visibility = Visibility.Visible;
-					Label4.Visibility = Visibility.Visible;
-					Label5.Visibility = Visibility.Visible;
-					Label6.Visibility = Visibility.Visible;
-					Label7.Visibility = Visibility.Visible;
-					Label8.Visibility = Visibility.Visible;
-					Label9.Visibility = Visibility.Visible;
+			}
+		}
 
+		private void ChangeLabelColour(Brush value)
+		{
+			foreach (System.Windows.Controls.Control c in HygeneLabelStackPanel.Children)
+			{
 
-					Label1.Content = "Clean manholes near Glasshouse";
-					Label2.Content = "Rubbish outside & Smoking areas B1 & B2 (Litter Pick)";
-					Label3.Content = "To Clean Rollers & Elevators Production";
-					Label4.Content = "Suck water under Carousel";
-					Label5.Content = "Clean Bucket Room";
-					Label6.Content = "Wash Line Belts Line 2 & 3";
-					Label7.Content = "Wash Line Belts Line 4 & 5";
-					Label8.Content = "Wash barriers B1 & B2";
-					Label9.Content = "Clean Waste Conveyors Rollers & Conveyors";
-
-					break;
+				((System.Windows.Controls.Label)c).Background = value;
+			}
+		}
 
 
-				case "Tuesday":
+		private void CreateLabels(string value)
+		{
+			//UsernameLabelStackPanel.Children.Clear();
 
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-					Label3.Visibility = Visibility.Visible;
-					Label4.Visibility = Visibility.Visible;
+			HygeneLabelStackPanel.Children.Clear();
+			CheckBoxStackPanel.Children.Clear();
+			UsernameLabelStackPanel.Children.Clear();
 
-					Label1.Content = "Sanitise Production tables";
-					Label2.Content = "Scrubb floors and Clean Walls in Corridors";
-					Label3.Content = "Line Machines blades cleaning B1";
-					Label4.Content = "Suck water under Carousel";
-					Label5.Visibility = Visibility.Hidden;
-					Label6.Visibility = Visibility.Hidden;
-					Label7.Visibility = Visibility.Hidden;
-					Label8.Visibility = Visibility.Hidden;
-					Label9.Visibility = Visibility.Hidden;
+			db.ConnectDB();
+			int controlid = 1;
 
+			var reader = db.GetHygeneScheduler("HygieneScheduler", "Weekday", value);
 
-					break;
-
-				case "Wednesday":
-
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-					Label3.Visibility = Visibility.Visible;
-					Label4.Visibility = Visibility.Visible;
-					Label5.Visibility = Visibility.Visible;
-
-					Label1.Content = "Full carousel wash, under belts (power wash)";
-					Label2.Content = "Wash roller doors in all areas B1";
-					Label3.Content = "Scrubb floors and Clean Walkways B1";
-					Label4.Content = "Suck water under Carousel";
-					Label5.Content = "Wash Line belts Line 6 & 7";
-					Label6.Visibility = Visibility.Hidden;
-					Label7.Visibility = Visibility.Hidden;
-					Label8.Visibility = Visibility.Hidden;
-					Label9.Visibility = Visibility.Hidden;
-
-					break;
-
-				case "Thursday":
-
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-					Label3.Visibility = Visibility.Visible;
-					Label4.Visibility = Visibility.Visible;
-					Label5.Visibility = Visibility.Visible;
-					Label6.Visibility = Visibility.Visible;
-					Label7.Visibility = Visibility.Visible;
-
-					Label1.Content = "Clean Waste Conveyors Rollers & Conveyors";
-					Label2.Content = "Full Drain wash";
-					Label3.Content = "Extra cleaning jobs required";
-					Label4.Content = "Cleaning Loading Bay drains";
-					Label5.Content = "Wash Line belts Line 8";
-					Label6.Content = "Wash Line belts Line 1";
-					Label7.Content = "Clean manholes near Glasshouse";
-					Label8.Visibility = Visibility.Hidden;
-					Label9.Visibility = Visibility.Hidden;
-
-					break;
-
-				case "Friday":
-
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-					Label3.Visibility = Visibility.Visible;
-					Label4.Visibility = Visibility.Visible;
-					Label5.Visibility = Visibility.Visible;
-					Label6.Visibility = Visibility.Visible;
-
-					Label1.Content = "Full Boxing wash (power wash)";
-					Label2.Content = "Wash Mecaflora Building 2";
-					Label3.Content = "Wash Line Belt Line 2 & 3 Building 2";
-					Label4.Content = "Wash Line Belt Line 4 & 5 Building 2";
-					Label5.Content = "Clean Glasshouse VOR area and Engineering area";
-					Label6.Visibility = Visibility.Hidden;
-					Label7.Visibility = Visibility.Hidden;
-					Label8.Visibility = Visibility.Hidden;
-					Label9.Visibility = Visibility.Hidden;
-
-					break;
-				case "Saturday":
+			while (reader.Read())
+			{
 
 
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-					Label3.Visibility = Visibility.Visible;
-					Label4.Visibility = Visibility.Visible;
-
-					Label1.Content = "Wash Line Belt Line 6 & 7 Building 2";
-					Label2.Content = "Wash Line Belt Line 8 Building 2";
-					Label3.Content = "Clean Main cave 1";
-					Label4.Content = "Clean Main cave 2";
-					Label5.Visibility = Visibility.Hidden;
-					Label6.Visibility = Visibility.Hidden;
-					Label7.Visibility = Visibility.Hidden;
-					Label8.Visibility = Visibility.Hidden;
-					Label9.Visibility = Visibility.Hidden;
+				//create scheduler labels
+				System.Windows.Controls.Label schedulerLabel = new System.Windows.Controls.Label();
+				schedulerLabel.Name = $"SchedulerLabel{controlid}";
+				schedulerLabel.Content = reader["Task"].ToString();
+				schedulerLabel.Width = 300;
+				schedulerLabel.Height = 30;
+				schedulerLabel.Margin = new Thickness(2);
+				schedulerLabel.Padding = new Thickness(1);
+				schedulerLabel.BorderBrush = Brushes.Black;
+				schedulerLabel.BorderThickness = new Thickness(1, 1, 1, 1);
 
 
-					break;
-				case "Sunday":
+				
 
-					Label1.Visibility = Visibility.Visible;
-					Label2.Visibility = Visibility.Visible;
-
-					Label1.Content = "Line Machines blades cleaning B2";
-					Label2.Content = "Sanitise production tables";
-					Label3.Visibility = Visibility.Hidden;
-					Label4.Visibility = Visibility.Hidden;
-					Label5.Visibility = Visibility.Hidden;
-					Label6.Visibility = Visibility.Hidden;
-					Label7.Visibility = Visibility.Hidden;
-					Label8.Visibility = Visibility.Hidden;
-					Label9.Visibility = Visibility.Hidden;
+				HygeneLabelStackPanel.Children.Add(schedulerLabel);
 
 
-					break;
+				//create Checkboxes
+				System.Windows.Controls.CheckBox checkBox = new System.Windows.Controls.CheckBox();
+				checkBox.Name = $"CheckBox{controlid}";
+				//label.Content = i;
+				//checkBox.Width = 165;
+				checkBox.Height = 30;
+				checkBox.Click += CheckBox_Click;
+				checkBox.Margin = new Thickness(2);
+				checkBox.Padding = new Thickness(1);
+				//checkBox.BorderBrush = Brushes.Black;
+				//checkBox.BorderThickness = new Thickness(1, 1, 1, 1);
+				//Canvas.SetLeft(label, 14);
+				//Canvas.SetTop(TestCanvas, label.Height + 100);
+
+				CheckBoxStackPanel.Children.Add(checkBox);
+
+
+
+				//create Username Labels
+
+				System.Windows.Controls.Label label = new System.Windows.Controls.Label();
+				label.Name = $"UserNameLabelCheckBox{controlid}";
+				//label.Content = label.Name.ToString();
+				label.Width = 165;
+				label.Height = 30;
+				label.Margin = new Thickness(2);
+				label.Padding = new Thickness(1);
+				label.BorderBrush = Brushes.Black;
+				label.BorderThickness = new Thickness(1, 1, 1, 1);
+				//Canvas.SetLeft(label, 14);
+				//Canvas.SetTop(TestCanvas, label.Height + 100);
+
+				UsernameLabelStackPanel.Children.Add(label);
+
+
+
+
+				controlid++;
 
 			}
 
+			if (checkBlackOutDates(HygeneCalendar.SelectedDate.Value.Date))
+			{
+
+
+				ChangeLabelColour(Brushes.LightGreen);
+			}
+			else
+			{
+				ChangeLabelColour(Brushes.LightPink);
+				//schedulerLabel.Background = Brushes.LightPink;
+			}
+
+
+
+			db.CloseDB();
 		}
 
 	}
