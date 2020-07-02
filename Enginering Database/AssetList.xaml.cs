@@ -43,7 +43,7 @@ namespace Engineering_Database
 				assets.DateofManufacture = reader["DateOfManufacture"].ToString();
 				if (reader["DateOfInstallation"] != DBNull.Value)
 				{
-					assets.DateofInstallation = Convert.ToDateTime(reader["DateOfInstallation"]);
+					assets.DateofInstallation = String.Format("{0:d}",reader["DateOfInstallation"]);
 				}
 				assets.IssueLevel = reader["IssueLevel"].ToString();
 				assets.InstalledOn = reader["InstalledOn"].ToString();
@@ -97,15 +97,23 @@ namespace Engineering_Database
 			assetDetail.AssetDetailDecomissioned.Content = decomissioned;
 			assetDetail.AssetDetailOnSite.Content = onSite;
 
-			if (item.DateofInstallation.ToString() == "01-Jan-01 12:00:00 AM" || item.DateofInstallation.ToString() == "01-Jan-01 00:00:00 AM")
+
+			if (item.DateofInstallation != null)
 			{
+				if (item.DateofInstallation.ToString() == "01-Jan-01 12:00:00 AM" || item.DateofInstallation.ToString() == "01-Jan-01 00:00:00 AM" || item.DateofInstallation.ToString() == String.Empty)
+				{
 
 
+				}
+				else
+				{
+					assetDetail.AssetDetailDatePicker.SelectedDate = Convert.ToDateTime(item.DateofInstallation);
+
+				}
 			}
 			else
 			{
-				assetDetail.AssetDetailDatePicker.SelectedDate = item.DateofInstallation;
-
+				assetDetail.AssetDetailDatePicker.SelectedDate = new DateTime(1900, 1, 1);
 			}
 
 			DatabaseClass jobDB = new DatabaseClass();
