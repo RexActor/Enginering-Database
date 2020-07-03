@@ -488,5 +488,11 @@ namespace Engineering_Database
 			hygene.ShowDialog();
 
 		}
+
+		private void WasteManagementButton_Click(object sender, RoutedEventArgs e)
+		{
+			WasteManagement wasteManagement = new WasteManagement();
+			wasteManagement.ShowDialog();
+		}
 	}
 }

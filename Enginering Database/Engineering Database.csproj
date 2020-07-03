@@ -374,6 +374,12 @@
     <Compile Include="SettingsForIssueCode.xaml.cs">
       <DependentUpon>SettingsForIssueCode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SetUpSchedulerWindow.xaml.cs">
+      <DependentUpon>SetUpSchedulerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SetUpUserControl.xaml.cs">
+      <DependentUpon>SetUpUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="StatutoryClass.cs" />
     <Compile Include="StatutoryCompliance.xaml.cs">
@@ -402,6 +408,9 @@
     </Compile>
     <Compile Include="viewDatabase.xaml.cs">
       <DependentUpon>viewDatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WasteManagement.xaml.cs">
+      <DependentUpon>WasteManagement.xaml</DependentUpon>
     </Compile>
     <Page Include="AddAsset.xaml">
       <SubType>Designer</SubType>
@@ -535,6 +544,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SetUpSchedulerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SetUpUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StatutoryCompliance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -568,6 +585,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="viewDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WasteManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

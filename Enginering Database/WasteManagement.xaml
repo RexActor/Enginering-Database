@@ -1,0 +1,20 @@
+﻿<Window x:Class="Engineering_Database.WasteManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Waste Management" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <ComboBox Name="WasteStreamComboBox" HorizontalAlignment="Left" Margin="126,14,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Label Content="Waste Stream" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="111"/>
+        <Viewbox Margin="12,52,462,61">
+            <Calendar x:Name="Calendar" SelectedDatesChanged="Calendar_SelectedDatesChanged"/>
+
+        </Viewbox>
+        <Button Name="SetUpSchedulerButton" Content="Set Up Scheduler" HorizontalAlignment="Left" Margin="679,11,0,0" VerticalAlignment="Top" Width="105" RenderTransformOrigin="-0.121,-0.599" Height="33" Click="SetUpSchedulerButton_Click" />
+        <CheckBox Name="RescheduleCheckBox" Content="Reschedule" HorizontalAlignment="Left" Margin="337,62,0,0" VerticalAlignment="Top" Height="20" Width="89"/>
+
+    </Grid>
+</Window>
