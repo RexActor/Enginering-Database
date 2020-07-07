@@ -278,6 +278,7 @@
     <Compile Include="ChartReports.Designer.cs">
       <DependentUpon>ChartReports.cs</DependentUpon>
     </Compile>
+    <Compile Include="CollectionSchedulerClass.cs" />
     <Compile Include="ConsoleEmulation.xaml.cs">
       <DependentUpon>ConsoleEmulation.xaml</DependentUpon>
     </Compile>

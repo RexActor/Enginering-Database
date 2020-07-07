@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Engineering_Database
 {
@@ -18,9 +9,96 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class SetUpSchedulerWindow : Window
 	{
+
+		DatabaseClass db = new DatabaseClass();
 		public SetUpSchedulerWindow()
 		{
 			InitializeComponent();
+			setUpWasteStreams();
+		}
+		void setUpWasteStreams()
+		{
+
+			db.ConnectDB();
+
+			WasteStreamComboBox.Items.Add("Please select");
+			var reader = db.GetAllPDFIds("WasteStreams");
+
+
+			while (reader.Read())
+			{
+				WasteStreamComboBox.Items.Add(reader["WasteStreamDescription"]);
+			}
+			WasteStreamComboBox.SelectedIndex = 0;
+
+			db.CloseDB();
+		}
+
+		private void SetUpButton_Click(object sender, RoutedEventArgs e)
+		{
+			DateTime selectedDate;
+
+			if (DayOfTheWeekComboBox.SelectedIndex != 0 && WasteStreamComboBox.SelectedIndex != 0 && CollectionFrequencyTextBox.Text != string.Empty && WeeklyMonthlyComboBox.SelectedIndex != 0)
+			{
+				if (int.TryParse(CollectionsTextBox.Text, out int p))
+				{
+					List<CollectionSchedulerClass> collectionList = new List<CollectionSchedulerClass>();
+
+
+					for (int i = 0; i < p; i++)
+					{
+						CollectionSchedulerClass Collectionclass = new CollectionSchedulerClass();
+
+						Collectionclass.WasteStream = WasteStreamComboBox.SelectedItem.ToString();
+						Collectionclass.DayOfWeekCollection = DayOfTheWeekComboBox.SelectedItem.ToString();
+						Collectionclass.CollectionFrequency = $"{CollectionFrequencyTextBox.Text} {i}";
+						Collectionclass.WeeklyMonthly = WeeklyMonthlyComboBox.SelectedItem.ToString();
+						if (OnRequestCheckBox.IsChecked == true)
+						{
+							Collectionclass.OnRequest = "Yes";
+						}
+						else
+						{
+							Collectionclass.OnRequest = "No";
+						}
+						if (i > 0)
+						{
+
+							selectedDate = collectionList[i - 1].CollectionDate;
+							selectedDate = selectedDate.AddDays(7);
+
+
+						}
+						else
+						{
+							selectedDate = FirstCollectionDateDatePicker.SelectedDate.Value.Date;
+						}
+						//get closest required date
+
+						Collectionclass.CollectionDate = selectedDate;
+
+						collectionList.Add(Collectionclass);
+
+					}
+
+					foreach (var item in collectionList)
+					{
+						Console.WriteLine(String.Format("{0:d}", item.CollectionDate) + $" --> {item.CollectionFrequency.ToString()}");
+					}
+
+				}
+				else
+				{
+					System.Windows.MessageBox.Show("Not Number");
+				}
+			}
+			else
+			{
+				System.Windows.MessageBox.Show("Please fill all required fields");
+			}
+
 		}
 	}
+
+
 }

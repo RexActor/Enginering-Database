@@ -12,6 +12,27 @@
         <Label Content="On Request?:" FontWeight="Bold" HorizontalContentAlignment="Right" Background="#7CBB6C" HorizontalAlignment="Left" Margin="22,78,0,0" VerticalAlignment="Top" Width="154"/>
         <Label Content="Collection Frequency:" FontWeight="Bold" HorizontalContentAlignment="Right" Background="#7CBB6C" HorizontalAlignment="Left" Margin="22,109,0,0" VerticalAlignment="Top" Width="154"/>
         <Label Content="Weekly / Monthly:" FontWeight="Bold" HorizontalContentAlignment="Right" Background="#7CBB6C" HorizontalAlignment="Left" Margin="22,140,0,0" VerticalAlignment="Top" Width="154"/>
+        <ComboBox Name="WasteStreamComboBox" HorizontalAlignment="Left" Margin="189,16,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox x:Name="CollectionFrequencyTextBox" HorizontalAlignment="Left" Height="26" Margin="185,109,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <CheckBox x:Name="OnRequestCheckBox" Content="" HorizontalAlignment="Left" Margin="189,84,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="DayOfTheWeekComboBox" SelectedIndex="0" HorizontalAlignment="Left" Margin="188,47,0,0" VerticalAlignment="Top" Width="120" Height="26">
+            <ComboBoxItem Content="Please Select"/>
+            <ComboBoxItem Content="Mon"/>
+            <ComboBoxItem Content="Tue"/>
+            <ComboBoxItem Content="Wed"/>
+            <ComboBoxItem Content="Thu"/>
+            <ComboBoxItem Content="Fri"/>
+            <ComboBoxItem Content="Sat"/>
+            <ComboBoxItem Content="Sun"/>
+        </ComboBox>
+        <Button Name="SetUpButton" Content="Set Up" HorizontalAlignment="Left" Margin="339,19,0,0" VerticalAlignment="Top" Width="75" Click="SetUpButton_Click" />
+        <TextBox Name="CollectionsTextBox" HorizontalAlignment="Left" Height="23" Margin="424,18,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="WeeklyMonthlyComboBox" SelectedIndex="0" HorizontalAlignment="Left" Margin="185,140,0,0" VerticalAlignment="Top" Width="120" Height="26">
+            <ComboBoxItem Content="Please Select"/>
+            <ComboBoxItem Content="Weekly"/>
+        </ComboBox>
+        <Label Content="First Collection Date:" FontWeight="Bold" HorizontalContentAlignment="Right" Background="#7CBB6C" HorizontalAlignment="Left" Margin="20,172,0,0" VerticalAlignment="Top" Width="154"/>
+        <DatePicker Name="FirstCollectionDateDatePicker" HorizontalAlignment="Left" Margin="185,174,0,0" VerticalAlignment="Top" Width="119"/>
 
     </Grid>
 </Window>

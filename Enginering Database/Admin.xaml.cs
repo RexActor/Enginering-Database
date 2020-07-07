@@ -85,6 +85,7 @@ namespace Engineering_Database
 					ID = Convert.ToInt32(reader["ID"]),
 					EquipmentDescription = reader["EquipmentDescription"].ToString(),
 					RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]),
+					Booked=reader["Booked"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 				DateTime dt = DateTime.Now.Date;
@@ -132,6 +133,7 @@ namespace Engineering_Database
 					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
 					CompanyIssuer = reader["CompanyInsurer"].ToString(),
+					Booked = reader["Booked"].ToString(),
 					MonthlyWeeklyRange = reader["MonthlyWeeklyRange"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
@@ -297,7 +299,14 @@ namespace Engineering_Database
 					itemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
 					itemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(Convert.ToInt32(reader["DaysTillInspection"])))} days overdue";
 				}
-
+				if (reader["Booked"].ToString() == "Yes")
+				{
+					itemWindow.BookedCheckBox.IsChecked = true;
+				}
+				else
+				{
+					itemWindow.BookedCheckBox.IsChecked = false;
+				}
 
 
 
@@ -368,6 +377,14 @@ namespace Engineering_Database
 				itemWindow.MonthlyWeeklyRangeLabelContent.Content = reader["MonthlyWeeklyRange"].ToString();
 				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
 
+				if (reader["Booked"].ToString() == "Yes")
+				{
+					itemWindow.BookedCheckBox.IsChecked = true;
+				}
+				else
+				{
+					itemWindow.BookedCheckBox.IsChecked = false;
+				}
 
 				if (Convert.ToInt32(reader["DaysTillInspection"]) > 0)
 				{
@@ -445,12 +462,13 @@ namespace Engineering_Database
 					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
 					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
+					Booked = reader["Booked"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 				switch (filter)
 				{
 					case "Expired":
-						if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex!=0)
+						if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex != 0)
 						{
 							StatutoryListViewExpired.Items.Add(statutory);
 
@@ -463,7 +481,7 @@ namespace Engineering_Database
 						break;
 
 					case "ToExpire":
-						if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && reader["GroupName"].ToString() == StatutoryListViewToExpireComboBox.SelectedItem.ToString() && StatutoryListViewToExpireComboBox.SelectedIndex!=0)
+						if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && reader["GroupName"].ToString() == StatutoryListViewToExpireComboBox.SelectedItem.ToString() && StatutoryListViewToExpireComboBox.SelectedIndex != 0)
 						{
 
 							StatutoryListViewToExpire.Items.Add(statutory);

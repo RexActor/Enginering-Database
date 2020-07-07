@@ -20,6 +20,7 @@
 
                     <GridViewColumn Header="Inspection Date" Width="130" DisplayMemberBinding="{Binding DateReportIssued}"/>
                     <GridViewColumn Header="Renew Date" Width="150" DisplayMemberBinding="{Binding RenewDate}"/>
+                    <GridViewColumn Header="Booked" Width="70" DisplayMemberBinding="{Binding Booked}"/>
                     <GridViewColumn Header="Valid (days)" Width="100" DisplayMemberBinding="{Binding DaysLeftTillInspection}"/>
                     <GridViewColumn Header="Monthly/Weekly" Width="150" DisplayMemberBinding="{Binding MonthlyWeekly}"/>
                     <GridViewColumn Header="Monthly/Weekly Range" Width="150" DisplayMemberBinding="{Binding MonthlyWeeklyRange}"/>

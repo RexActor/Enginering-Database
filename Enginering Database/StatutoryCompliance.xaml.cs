@@ -43,6 +43,7 @@ namespace Engineering_Database
 					DaysLeftTillInspection = reader["DaysTillInspection"].ToString(),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
 					SerialNumber = reader["SerialNumber"].ToString(),
+					Booked=reader["Booked"].ToString(),
 					MonthlyWeeklyRange=reader["MonthlyWeeklyRange"].ToString(),
 					MonthlyWeekly = reader["MonthlyWeekly"].ToString(),
 					Group=reader["GroupName"].ToString(),
@@ -120,6 +121,16 @@ namespace Engineering_Database
 				ItemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
 				ItemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(selectedItem.DaysLeftTillInspection))} days overdue";
 			}
+
+			if (selectedItem.Booked.ToString() == "Yes")
+			{
+				ItemWindow.BookedCheckBox.IsChecked = true;
+			}
+			else
+			{
+				ItemWindow.BookedCheckBox.IsChecked = false;
+			}
+
 
 			ItemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.DateReportIssued);
 			ItemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.RenewDate);

@@ -1,4 +1,6 @@
 ﻿
+using DocumentFormat.OpenXml.Bibliography;
+
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +18,7 @@ namespace Engineering_Database
 		private bool correctRenewDate = false;
 		private bool ReportDateWasChanged = false;
 		private bool RenewDateWasChanged = false;
+		private bool bookedStatusChanged = false;
 		private bool editMode = false;
 		// readonly private bool uploaded = false;
 
@@ -41,7 +44,7 @@ namespace Engineering_Database
 			CompanyInsurerUploadStatus.Visibility = Visibility.Hidden;
 			MonthlyWeeklyUploadStatus.Visibility = Visibility.Hidden;
 			MonthlyWeeklyComboBoxUploadStatus.Visibility = Visibility.Hidden;
-
+			BookedInfoLabel.Visibility = Visibility.Hidden;
 			MonthlyWeeklyChangeComboBox.Visibility = Visibility.Hidden;
 
 			//not needed to be shown. required just for pulling data to update database
@@ -66,6 +69,7 @@ namespace Engineering_Database
 				InsurerTextBox.IsEnabled = true;
 				SerialNumberTextBox.IsEnabled = true;
 				MonthlyWeeklyTextBox.IsEnabled = true;
+				BookedCheckBox.IsEnabled = true;
 
 				ManufacturerCompanyUploadStatus.Visibility = Visibility.Hidden;
 				CompanyInsurerUploadStatus.Visibility = Visibility.Hidden;
@@ -202,10 +206,6 @@ namespace Engineering_Database
 					MonthlyWeeklyUploadStatus.Visibility = Visibility.Visible;
 				}
 
-
-
-
-
 				if (RenewDateWasChanged)
 				{
 					if (correctRenewDate)
@@ -261,6 +261,34 @@ namespace Engineering_Database
 
 
 
+
+				if (bookedStatusChanged)
+				{
+					if (BookedCheckBox.IsChecked==true)
+					{
+						db.UpdateStatutoryCompliance("StatutoryCompliance", "Booked", Convert.ToInt32(hiddenID.Content), "Yes");
+												
+					}
+					else
+					{
+						db.UpdateStatutoryCompliance("StatutoryCompliance", "Booked", Convert.ToInt32(hiddenID.Content), "No");
+					}
+					BookedInfoLabel.Foreground = Brushes.Green;
+					BookedInfoLabel.Content = "Uploaded";
+					BookedInfoLabel.Visibility = Visibility.Visible;
+				}
+				else
+				{
+					BookedInfoLabel.Foreground = Brushes.Red;
+					BookedInfoLabel.Content = "Not Uploaded";
+					BookedInfoLabel.Visibility = Visibility.Visible;
+				}
+
+
+
+
+
+
 				db.CloseDB();
 
 				//deactivating textBoxes
@@ -271,6 +299,7 @@ namespace Engineering_Database
 				InsurerTextBox.IsEnabled = false;
 				SerialNumberTextBox.IsEnabled = false;
 				MonthlyWeeklyTextBox.IsEnabled = false;
+				BookedCheckBox.IsEnabled = false;
 
 
 				MonthlyWeeklyChangeComboBox.Visibility = Visibility.Hidden;
@@ -346,8 +375,6 @@ namespace Engineering_Database
 
 			ReportIssuedInfoLabel.Visibility = Visibility.Hidden;
 
-
-
 			if (editMode)
 			{
 
@@ -356,13 +383,8 @@ namespace Engineering_Database
 
 				if (DateReportIssuedDatePicker.SelectedDate.Value.Date == currentReportDate)
 				{
-					//ReportIssuedInfoLabel.Foreground = Brushes.Red;
-					//ReportIssuedInfoLabel.FontWeight = FontWeights.Bold;
-					//ReportIssuedInfoLabel.Content = "Can`t issue report in future. Please change date";
 
 					correctReportDate = false;
-
-					//ReportIssuedInfoLabel.Visibility = Visibility.Visible;
 
 				}
 				else
@@ -399,14 +421,8 @@ namespace Engineering_Database
 							//Do calculation by adding specific amount of Days
 							RenewDateDatePicker.SelectedDate = DateReportIssuedDatePicker.SelectedDate.Value.Date.AddDays(Convert.ToInt32(MonthlyWeeklyTextBox.Text));
 
-
 							break;
-
-						
-
-
 					}
-
 
 					correctReportDate = true;
 				}
@@ -484,11 +500,16 @@ namespace Engineering_Database
 
 						break;
 
-					
+
 
 
 				}
 			}
+		}
+
+		private void BookedCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			bookedStatusChanged = true;
 		}
 	}
 }

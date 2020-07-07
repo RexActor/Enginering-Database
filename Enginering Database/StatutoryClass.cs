@@ -21,6 +21,7 @@ namespace Engineering_Database
 
 		public string RenewDate { get; set; }
 		public string Group { get; set; }
+		public string Booked { get; set; }
 
 		//false = meeting not set up
 		//true = meeting was set up

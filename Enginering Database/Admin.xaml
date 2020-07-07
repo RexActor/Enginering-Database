@@ -29,6 +29,7 @@
                     <GridViewColumn Header="ID" Width="20" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Equipment" Width="250" DisplayMemberBinding="{Binding EquipmentDescription}"/>
                     <GridViewColumn Header="Days Behind" Width="100" DisplayMemberBinding="{Binding DaysLeftTillInspection}"/>
+                    <GridViewColumn Header="Booked" Width="70" DisplayMemberBinding="{Binding Booked}"/>
                     <GridViewColumn Header="Renew Date" Width="100" DisplayMemberBinding="{Binding RenewDate}"/>
                     <GridViewColumn Header="Manufacturer" Width="150" DisplayMemberBinding="{Binding Manufacturer}"/>
                 </GridView>
@@ -41,6 +42,7 @@
                 <GridView>
                     <GridViewColumn Header="ID" Width="20" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Equipment" Width="250" DisplayMemberBinding="{Binding EquipmentDescription}"/>
+                    <GridViewColumn Header="Booked" Width="70" DisplayMemberBinding="{Binding Booked}"/>
                     <GridViewColumn Header="Renew Date" Width="100" DisplayMemberBinding="{Binding RenewDate}"/>
                     <GridViewColumn Header="Manufacturer" Width="150" DisplayMemberBinding="{Binding Manufacturer}"/>
                 </GridView>

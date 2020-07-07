@@ -79,8 +79,14 @@ namespace Engineering_Database
 
 		public void RunCommand()
 		{
-
 			string optional = string.Empty;
+
+			//seting up location for application
+
+			string sourceDirectory = Directory.GetCurrentDirectory();
+			string destinationDirectory = $"{ sourceDirectory}\\Backup";
+
+
 			if (consoleInput.Contains("db-open") || consoleInput.Contains("db-backup") || consoleInput.Contains("app-maintenance") || consoleInput.Contains("db-location"))
 			{
 				if (consoleInput.Contains(" "))
@@ -88,8 +94,6 @@ namespace Engineering_Database
 					string phrase = consoleInput;
 					string[] words = phrase.Split(' ');
 					consoleInput = words[0];
-
-
 					optional = words[1];
 				}
 				else
@@ -98,8 +102,13 @@ namespace Engineering_Database
 				}
 			}
 
+
+
+
+
 			switch (consoleInput)
 			{
+				#region command - -help
 				case "-help":
 					consoleOutput.Add("Available comamnds are:" +
 						"\n * db-status -- checking status of database " +
@@ -113,29 +122,31 @@ namespace Engineering_Database
 						"\n * clear - clears console window");
 
 					break;
-
+				#endregion
+				#region command - db-status
 				case "db-status":
 
 					consoleOutput.Add("Command not implemented yet");
 
 					break;
-
+				#endregion
+				#region command - db-connect
 				case "db-connect":
 					consoleOutput.Add("Command not implemented yet");
 					break;
-
+				#endregion
+				#region command - db-close
 				case "db-close":
 					consoleOutput.Add("Command not implemented yet");
 					break;
-
+				#endregion
+				#region command - db-location
 				case "db-location":
 					consoleOutput.Add($"Trying to locate database file --> {optional}");
 					break;
-
+				#endregion
+				#region command - db-backup
 				case "db-backup":
-
-					string sourceDirectory = Directory.GetCurrentDirectory();
-					string destinationDirectory = $"{ sourceDirectory}\\Backup";
 
 					if (!Directory.Exists(destinationDirectory))
 					{
@@ -151,8 +162,6 @@ namespace Engineering_Database
 						{
 							consoleOutput.Add("\nSomething went wrong when creating directory... Please check Permissions..");
 						}
-
-
 					}
 
 					string fileName = string.Empty;
@@ -162,11 +171,9 @@ namespace Engineering_Database
 					{
 						foreach (string f in files)
 						{
-							//consoleOutput.Add($"\n {f}");
 							fileName = f.Substring(sourceDirectory.Length + 1);
 							if (fileName == optional)
 							{
-
 								try
 								{
 									File.Copy(System.IO.Path.Combine(sourceDirectory, fileName), Path.Combine(destinationDirectory, fileName), true);
@@ -187,7 +194,6 @@ namespace Engineering_Database
 						{
 							consoleOutput.Add($"\nCouldn't locate file {optional}. Please check.");
 						}
-						//	consoleOutput.Add($"Trying to create backup for database file --> {optional}. Current directory {sourceDirectory}// Target DIrectory {destinationDirectory}");
 
 					}
 					else
@@ -196,24 +202,24 @@ namespace Engineering_Database
 						consoleOutput.Add("\nExisting Databases in folder:");
 						foreach (string f in files)
 						{
-							//consoleOutput.Add($"\n {f}");
+
 							fileName = f.Substring(sourceDirectory.Length + 1);
 
 							consoleOutput.Add($"{fileName}");
 
-
 						}
 						consoleOutput.Add($"\nTo Create Backup please use command  - db-backup {fileName}");
 
-						//consoleOutput.Add($"You didn't provide filename. Ex: db-backup databasename");
 					}
 
 					break;
-
+				#endregion
+				#region command -db-open
 				case "db-open":
 					consoleOutput.Add($"Trying to open database --> {optional}");
 					break;
-
+				#endregion
+				#region command - app-maintenance
 				case "app-maintenance":
 					if (optional == string.Empty)
 					{
@@ -233,27 +239,26 @@ namespace Engineering_Database
 					}
 
 					break;
-
+				#endregion
+				#region command - app-admin
 				case "app-admin":
 					consoleOutput.Add("Command not implemented yet");
 					break;
+				#endregion
+				#region command - clear
 				case "clear":
 					consoleOutput.Clear();
 					break;
+				#endregion
 
+
+				#region default switch function
 				default:
 					consoleOutput.Add("Command not recognized. Check available commands : -help");
 
 					break;
+					#endregion
 			}
-
-
-			//if (consoleInput == "Status")
-			//{
-			//	ConsoleOutput.Add(db.DBStatus());
-			//}
-			//ConsoleOutput.Add(ConsoleInput);
-
 
 			ConsoleInput = String.Empty;
 		}

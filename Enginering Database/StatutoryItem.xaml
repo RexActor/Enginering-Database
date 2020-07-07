@@ -22,7 +22,7 @@
         <DatePicker Name="DateReportIssuedDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,274,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="DateReportIssuedDatePicker_SelectedDateChanged" />
         <DatePicker x:Name="RenewDateDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,305,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="RenewDateDatePicker_SelectedDateChanged"/>
         <Label  Name="NextInspectionLabel" Content=""  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="179,241,0,0" VerticalAlignment="Top" Width="208"/>
-        <Button Name="StatutoryItemUpdateButton" Content="Edit Mode" HorizontalAlignment="Left" Margin="22,339,0,0" VerticalAlignment="Top" Width="75" Click="StatutoryItemUpdateButton_Click"/>
+        <Button Name="StatutoryItemUpdateButton" Content="Edit Mode" HorizontalAlignment="Left" Margin="20,366,0,0" VerticalAlignment="Top" Width="75" Click="StatutoryItemUpdateButton_Click"/>
         <Label Name="RenewDateInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="405,305,0,0" VerticalAlignment="Top" Height="30" Width="327"/>
         <Label x:Name="ReportIssuedInfoLabel" Content="ReportIssuedInfoLabel" HorizontalAlignment="Left" Margin="405,272,0,0" VerticalAlignment="Top" Height="26" Width="327"/>
         <Label Name="hiddenID" Content="Label" HorizontalAlignment="Left" Margin="486,56,0,0" VerticalAlignment="Top"/>
@@ -36,6 +36,9 @@
         <Label  x:Name="MonthlyWeeklyRangeLabelContent" Content=""  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="179,180,0,0" VerticalAlignment="Top" Width="208"/>
         <ComboBox x:Name="MonthlyWeeklyChangeComboBox" HorizontalAlignment="Left" Margin="179,180,0,0" VerticalAlignment="Top" Width="208" Height="26" SelectionChanged="MonthlyWeeklyChangeComboBox_SelectionChanged"/>
         <Label x:Name="MonthlyWeeklyComboBoxUploadStatus" Content="Label" HorizontalAlignment="Left" FontSize="10" Margin="392,182,0,0" VerticalAlignment="Top" Width="85"/>
+        <Label Content="Booked"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,335,0,0" VerticalAlignment="Top" Width="152"/>
+        <CheckBox Name="BookedCheckBox" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="182,338,0,0" VerticalAlignment="Top" Checked="BookedCheckBox_Checked" />
+        <Label x:Name="BookedInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="208,330,0,0" VerticalAlignment="Top" Height="30" Width="327"/>
 
     </Grid>
 </Window>
