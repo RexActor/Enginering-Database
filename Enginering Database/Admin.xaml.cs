@@ -494,5 +494,11 @@ namespace Engineering_Database
 			WasteManagement wasteManagement = new WasteManagement();
 			wasteManagement.ShowDialog();
 		}
+
+		private void AdminConsoleButton_Click(object sender, RoutedEventArgs e)
+		{
+			ConsoleEmulation console = new ConsoleEmulation();
+			console.Show();
+		}
 	}
 }

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Admin" Height="613.691" Width="1390.5" ResizeMode="NoResize">
+        Title="Admin" Height="668.691" Width="1390.5" ResizeMode="NoResize">
     <Grid>
         <Label Content="You are in Admin View" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7CBB6C" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="251"/>
-        <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,0,9" HorizontalAlignment="Left" Width="253"/>
+        <Frame BorderBrush="Black" BorderThickness="1" Margin="10,50,0,11" HorizontalAlignment="Left" Width="253"/>
         <Button x:Name ="UpdateDatabaseButton"  Content="Edit/Complete Jobs" Click="UpdateDatabaseButton_Click" HorizontalAlignment="Left" Width="223" Height="55" VerticalAlignment="Top" Margin="20,59,0,0" />
         <Image x:Name="UpdateDatabaseImage" Margin="20,59,0,0" Source="update.png" Stretch="Fill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
         <Button x:Name="ShowReportButton"  Content="Reports" HorizontalAlignment="Left" Height="50" Margin="20,119,0,0" VerticalAlignment="Top" Width="223" Click="ShowReportButton_Click"/>
@@ -23,7 +23,7 @@
         <Image Margin="22,337,0,0" Source="Export-02-WF.png" Stretch="Fill" Height="48" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48"/>
         <Button Name="StatutoryComplianceButton" Content="Statutory Compliance" HorizontalAlignment="Left" Margin="20,390,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="StatutoryComplianceButton_Click"/>
         <Image Margin="22,392,0,0" Source="Date Time_01.png" Stretch="Fill" HorizontalAlignment="Left" Width="48" Height="48" VerticalAlignment="Top"/>
-        <ListView x:Name="StatutoryListViewExpired" HorizontalAlignment="Left" Height="498" Margin="278,77,0,0" VerticalAlignment="Top" Width="605" MouseDoubleClick="StatutoryListViewExpired_MouseDoubleClick">
+        <ListView x:Name="StatutoryListViewExpired" HorizontalAlignment="Left" Height="552" Margin="278,77,0,0" VerticalAlignment="Top" Width="605" MouseDoubleClick="StatutoryListViewExpired_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="20" DisplayMemberBinding="{Binding ID}"/>
@@ -36,7 +36,7 @@
         </ListView>
         <Label Name ="OutOfDateLabel" Content="Statutory Compliance Items Out of Date" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#C95342" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="278,10,0,0" VerticalAlignment="Top" Width="605"/>
         <Label Name="ExpireLabel" Content="Statutory Compliance Items To Expire in {10} days" FontSize="15" FontWeight="Bold" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#F7930D" BorderThickness="1" HorizontalAlignment="Left" Height="35" Margin="888,10,0,0" VerticalAlignment="Top" Width="486"/>
-        <ListView x:Name="StatutoryListViewToExpire" HorizontalAlignment="Left" Height="498" Margin="888,77,0,0" VerticalAlignment="Top" Width="486" MouseDoubleClick="StatutoryListViewToExpire_MouseDoubleClick">
+        <ListView x:Name="StatutoryListViewToExpire" HorizontalAlignment="Left" Height="552" Margin="888,77,0,0" VerticalAlignment="Top" Width="486" MouseDoubleClick="StatutoryListViewToExpire_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" Width="20" DisplayMemberBinding="{Binding ID}"/>
@@ -54,5 +54,9 @@
         <Label Name="GroupLabel2" Content="Group" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="1018,45,0,0" VerticalAlignment="Top" Width="80" Height="27"/>
         <Button x:Name="HyegeneButton" Content="Hygiene" HorizontalAlignment="Left" Margin="20,445,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="HyegeneButton_Click"/>
         <Button x:Name="WasteManagementButton" Content="Waste Management" HorizontalAlignment="Left" Margin="20,500,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="WasteManagementButton_Click"/>
+        <Button x:Name="AdminConsoleButton" Content="Admin Console" HorizontalAlignment="Left" Margin="20,554,0,0" VerticalAlignment="Top" Width="223" Height="50" Click="AdminConsoleButton_Click"/>
+        <Image Margin="22,550,1314,42" Source="Window new-WF.png" Stretch="Fill"/>
+        <Image Margin="22,500,1314,92" Source="Trash can - 03.png" Stretch="Fill"/>
+        <Image Margin="22,445,1314,147" Source="Clean-WF.png" Stretch="Fill"/>
     </Grid>
 </Window>

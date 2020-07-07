@@ -13,7 +13,7 @@
             <Calendar x:Name="Calendar" SelectedDatesChanged="Calendar_SelectedDatesChanged"/>
 
         </Viewbox>
-        <Button Name="SetUpSchedulerButton" Content="Set Up Scheduler" HorizontalAlignment="Left" Margin="679,11,0,0" VerticalAlignment="Top" Width="105" RenderTransformOrigin="-0.121,-0.599" Height="33" Click="SetUpSchedulerButton_Click" />
+        <Button Name="SetUpSchedulerButton" Content="Set Up Scheduler" HorizontalAlignment="Left" Margin="679,18,0,0" VerticalAlignment="Top" Width="105" RenderTransformOrigin="-0.121,-0.599" Height="33" Click="SetUpSchedulerButton_Click" />
         <CheckBox Name="RescheduleCheckBox" Content="Reschedule" HorizontalAlignment="Left" Margin="337,62,0,0" VerticalAlignment="Top" Height="20" Width="89"/>
 
     </Grid>
