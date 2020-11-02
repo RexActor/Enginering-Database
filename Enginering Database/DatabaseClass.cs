@@ -913,9 +913,9 @@ namespace Engineering_Database
 
 
 
-		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly, string companyInsurer, string groupvalue, string monthlyWeeklyRange)
+		public void AddStatutoryItem(string table, string itemDescription, string manufacturerCompany, DateTime dateReportIssued, DateTime renewDate, string serialNumber, string weeklyMonthly, string DaysTillInspection, string companyInsurer, string groupvalue, string monthlyWeeklyRange,string booked)
 		{
-			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DateReportIssued,RenewDate,GroupName,MonthlyWeeklyRange) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DateReportIssued,@RenewDate,@GroupName,@MonthlyWeeklyRange)";
+			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DaysTillInspection,DateReportIssued,RenewDate,GroupName,MonthlyWeeklyRange,Booked) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DaysTillInspection,@DateReportIssued,@RenewDate,@GroupName,@MonthlyWeeklyRange,@Booked)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
 			//cmd.Parameters.AddWithValue("@UploadDate", date);
@@ -926,11 +926,15 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@CompanyInsurer", OleDbType.VarWChar).Value = companyInsurer;
 			cmd.Parameters.Add("@SerialNumber", OleDbType.VarWChar).Value = serialNumber;
 			cmd.Parameters.Add("@MonthlyWeekly", OleDbType.VarWChar).Value = weeklyMonthly;
-
+			cmd.Parameters.Add("@DaysTillInspection", OleDbType.VarChar).Value = DaysTillInspection;
 			cmd.Parameters.Add("@DateReportIssued", OleDbType.Date).Value = dateReportIssued;
 			cmd.Parameters.Add("@RenewDate", OleDbType.Date).Value = renewDate;
 			cmd.Parameters.Add("@GroupName", OleDbType.VarWChar).Value = groupvalue;
 			cmd.Parameters.Add("@MonthlyWeeklyRange", OleDbType.VarWChar).Value = monthlyWeeklyRange;
+			cmd.Parameters.Add("@Booked", OleDbType.VarChar).Value = booked;
+			//cmd.Parameters.Add("@Booked", OleDbType.VarChar).Value = Booked;
+			
+
 
 			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
 

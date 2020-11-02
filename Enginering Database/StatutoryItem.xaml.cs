@@ -1,6 +1,4 @@
 ﻿
-using DocumentFormat.OpenXml.Bibliography;
-
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -240,6 +238,12 @@ namespace Engineering_Database
 					if (correctReportDate)
 					{
 						db.UpdateStatutoryCompliance("StatutoryCompliance", "DateReportIssued", Convert.ToInt32(hiddenID.Content), Convert.ToDateTime(DateReportIssuedDatePicker.SelectedDate.Value.Date));
+						if (BookedCheckBox.IsChecked == true)
+						{
+							db.UpdateStatutoryCompliance("StatutoryCompliance", "Booked", Convert.ToInt32(hiddenID.Content), "No");
+							BookedCheckBox.IsChecked = false;
+							bookedStatusChanged = true;
+						}
 
 						ReportIssuedInfoLabel.Foreground = Brushes.Green;
 						ReportIssuedInfoLabel.Content = "Uploaded";
@@ -264,10 +268,10 @@ namespace Engineering_Database
 
 				if (bookedStatusChanged)
 				{
-					if (BookedCheckBox.IsChecked==true)
+					if (BookedCheckBox.IsChecked == true)
 					{
 						db.UpdateStatutoryCompliance("StatutoryCompliance", "Booked", Convert.ToInt32(hiddenID.Content), "Yes");
-												
+
 					}
 					else
 					{
@@ -350,23 +354,14 @@ namespace Engineering_Database
 			{
 				RenewDateWasChanged = true;
 
-				if (RenewDateDatePicker.SelectedDate.Value.Date < DateTime.Now.Date)
-				{
-					RenewDateInfoLabel.Foreground = Brushes.Red;
-					RenewDateInfoLabel.FontWeight = FontWeights.Bold;
-					RenewDateInfoLabel.Content = "Can`t select renew date backdated";
-					RenewDateInfoLabel.Visibility = Visibility.Visible;
-					correctRenewDate = false;
-				}
-				else
-				{
+				
 					TimeSpan daysTillNewRenew = RenewDateDatePicker.SelectedDate.Value.Date - DateTime.Now.Date;
 					RenewDateInfoLabel.Foreground = Brushes.Green;
 					RenewDateInfoLabel.FontWeight = FontWeights.Bold;
 					RenewDateInfoLabel.Content = $"{daysTillNewRenew.Days} day/s left till next inspection";
 					RenewDateInfoLabel.Visibility = Visibility.Visible;
 					correctRenewDate = true;
-				}
+				
 			}
 		}
 

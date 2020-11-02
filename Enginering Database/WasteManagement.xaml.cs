@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Engineering_Database
@@ -10,18 +8,19 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class WasteManagement : Window
 	{
-		DatabaseClass db = new DatabaseClass();
+		readonly DatabaseClass db = new DatabaseClass();
 		public string test;
+		public bool SetUpSchedule=false;
 
-		private bool setUpSchedule = false;
 		public WasteManagement()
 		{
 			InitializeComponent();
-			setUpWasteStream();
 			
+			SetUpWasteStream();
+
 		}
 
-		private void setUpWasteStream()
+		private void SetUpWasteStream()
 		{
 
 			db.ConnectDB();
@@ -42,22 +41,19 @@ namespace Engineering_Database
 
 		private void SetUpSchedulerButton_Click(object sender, RoutedEventArgs e)
 		{
-			setUpSchedule = true;
+			SetUpSchedule = true;
 			SetUpSchedulerWindow setUp = new SetUpSchedulerWindow();
 			setUp.ShowDialog();
-			
-			
-		}
-		
 
-		public void updateTestLabel(string text)
-		{
-			
+
 		}
+
+
+
 
 		private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
 		{
-			
+
 		}
 	}
 }
