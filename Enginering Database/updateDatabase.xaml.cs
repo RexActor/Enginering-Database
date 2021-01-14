@@ -72,8 +72,11 @@ namespace Enginering_Database
 
 			//update assigntocombo box with latest data 
 			UpdateAssignToComboBox();
+			//	UpdateDamageReasonComboBox();
 
-			
+			DamageReasonsComboBox.Items.Add("Wear and Tear");
+			DamageReasonsComboBox.Items.Add("Operator Error");
+
 			createJobList(filter);
 			GetOldEntries();
 		}
@@ -97,7 +100,26 @@ namespace Enginering_Database
 					ContractorComboBoxData.Items.Add(word);
 				}
 			}
+		
 		}
+
+		private void UpdateDamageReasonComboBox()
+		
+		{
+			MessageBox.Show("Trigger");
+			db.ConnectDB();
+			var reader = db.DBQueryForAssets("DamageReason23s");
+
+			while (reader.Read())
+			{
+				DamageReasonsComboBox.Items.Add(reader["DamageReason"].ToString());
+				DamageReasonsComboBox.Items.Add("T");
+			}
+			DamageReasonsComboBox.Items.Add("B");
+			DamageReasonsComboBox.SelectedIndex = 0;
+			db.CloseDB();
+		}
+
 
 		private void UpdateAssignToComboBox()
 		{
@@ -269,6 +291,7 @@ namespace Enginering_Database
 			}
 
 			Frame2StackPanel.Children.Clear();
+		
 			TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
 			UpdateFrame2(btn.Content.ToString());
 			Frame2StackPanel.Children.Add(frame2TextBlock);
@@ -602,7 +625,7 @@ namespace Enginering_Database
 					db.DBQueryInsertData(convJobNumber, "CompletedDate", null);
 					db.DBQueryInsertData(convJobNumber, "CompletedBy", null);
 				}
-
+				db.DBQueryInsertData(convJobNumber, "DamageReason", DamageReasonsComboBox.SelectedItem.ToString());
 				if (Frame2AdminDescriptionTextBox.Text != null)
 				{
 					db.DBQueryInsertData("CommentsForActionTaken", convJobNumber, Frame2AdminDescriptionTextBox.Text.ToString());

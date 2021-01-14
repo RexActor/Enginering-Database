@@ -134,6 +134,8 @@
                     <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="13,43,0,0" Checked="ConfirmEmailCheckBox_Change" Unchecked="ConfirmEmailCheckBox_Change" MouseEnter="ConfirmEmailCheckBoxMouseOver" MouseLeave="ConfirmEmailCheckBoxMouseLeave" Height="21" VerticalAlignment="Top" Width="20" Grid.Row="1" Grid.Column="2"/>
                     <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center" Grid.Row="1" Grid.ColumnSpan="3"/>
                     <Label x:Name="CurrentDateLabel" Content="Current Date" HorizontalAlignment="Left" Margin="7,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="98" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+                    <Label x:Name="DamageReasonLabel" Content="Damage Reason:" HorizontalAlignment="Left" Margin="10,474,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+                    <ComboBox x:Name="DamageReasonsComboBox" IsEditable="True" IsReadOnly="True" Text="Not Specified" HorizontalAlignment="Left" Margin="13,478,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
                 </Grid>
             </TabItem>
 
