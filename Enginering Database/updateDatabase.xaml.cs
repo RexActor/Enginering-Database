@@ -72,10 +72,12 @@ namespace Enginering_Database
 
 			//update assigntocombo box with latest data 
 			UpdateAssignToComboBox();
-			//	UpdateDamageReasonComboBox();
 
-			DamageReasonsComboBox.Items.Add("Wear and Tear");
-			DamageReasonsComboBox.Items.Add("Operator Error");
+
+			
+			UpdateDamageReasonComboBox();
+
+		
 
 			createJobList(filter);
 			GetOldEntries();
@@ -106,16 +108,20 @@ namespace Enginering_Database
 		private void UpdateDamageReasonComboBox()
 		
 		{
-			MessageBox.Show("Trigger");
-			db.ConnectDB();
-			var reader = db.DBQueryForAssets("DamageReason23s");
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+			}
+			//MessageBox.Show("Trigger");
+			
+			var reader = db.DBQueryForAssets("DamageReasons");
 
 			while (reader.Read())
 			{
 				DamageReasonsComboBox.Items.Add(reader["DamageReason"].ToString());
-				DamageReasonsComboBox.Items.Add("T");
+				//DamageReasonsComboBox.Items.Add("T");
 			}
-			DamageReasonsComboBox.Items.Add("B");
+			//DamageReasonsComboBox.Items.Add("B");
 			DamageReasonsComboBox.SelectedIndex = 0;
 			db.CloseDB();
 		}
@@ -150,6 +156,12 @@ namespace Enginering_Database
 
 		private void createJobList(string filter)
 		{
+
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+			}
+
 			issueClass.updateIssueDataList();
 			TestStackPanel.Children.Clear();
 			searchCombo.Items.Clear();
@@ -367,6 +379,10 @@ namespace Enginering_Database
 				}
 				else
 				{
+					if (db.DBStatus() == "DB not Connected")
+					{
+						db.ConnectDB();
+					}
 					Frame3UpdateDueDateLabel.Visibility = Visibility.Hidden;
 					Frame3UpdateDueDateDatePicker.Visibility = Visibility.Hidden;
 					Frame3DueDateTextBox.Foreground = Brushes.Black;
@@ -446,14 +462,19 @@ namespace Enginering_Database
 
 		private void GetOldEntries()
 		{
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+			}
 			var getEntries = db.DBQueryForOldEntries("engineeringDatabaseTable", "false");
 
 			while (getEntries.Read())
 			{
+				
 				DateTime date = Convert.ToDateTime(getEntries["DueDate"]);
 				DateTime now = DateTime.Now;
 				TimeSpan diff = now - date;
-				if (diff.Days > 0)
+				if (diff.Days > 0 && Convert.ToInt32(getEntries["JobNumber"]) != 0)
 				{
 					IssueClass issueOldEntries = new IssueClass();
 					OutstandingIssuesLabel.Visibility = Visibility.Hidden;
@@ -499,6 +520,10 @@ namespace Enginering_Database
 
 		public void UpdateFrame2(string jobNumber)
 		{
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+			}
 			int c;
 
 			if (Int32.TryParse(jobNumber, out c))
@@ -521,6 +546,17 @@ namespace Enginering_Database
 			Frame2PriorityData.Content = db.DBQuery("Priority", convJobNumber);
 			Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
 			Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
+
+
+			if (db.DBQuery("DamageReason", convJobNumber) == "")
+			{
+				DamageReasonsComboBox.SelectedItem="Not Specified";
+			}
+			else
+			{
+				DamageReasonsComboBox.SelectedItem = db.DBQuery("DamageReason", convJobNumber);
+			}
+
 			if (db.DBQuery("AssignedTo", convJobNumber) == "NotAssigned")
 			{
 				Frame3AssignedToData.Content = "Job is not assigned";
@@ -578,6 +614,10 @@ namespace Enginering_Database
 
 		public void CollectSelectedData(int convJobNumber)
 		{
+			if (db.DBStatus() == "DB not Connected")
+			{
+				db.ConnectDB();
+			}
 
 			issueClass.Priority = db.DBQuery("Priority", convJobNumber);
 			issueClass.JobNumber = convJobNumber;
@@ -601,6 +641,10 @@ namespace Enginering_Database
 		{
 			if (canSubmit == true)
 			{
+				if (db.DBStatus() == "DB not Connected")
+				{
+					db.ConnectDB();
+				}
 				if (Frame3CompleteCheckBox.IsChecked == true)
 				{
 					db.DBQueryInsertData("Completed", convJobNumber, true);

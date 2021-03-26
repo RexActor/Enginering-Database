@@ -1,7 +1,4 @@
-﻿
-using Enginering_Database;
-
-
+﻿using Enginering_Database;
 
 using System;
 using System.ComponentModel;
@@ -16,19 +13,17 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class Admin : Window
 	{
-		readonly DatabaseClass db = new DatabaseClass();
-		readonly BackgroundWorker worker = new BackgroundWorker();
-		readonly UserSettings settings = new UserSettings();
+		private readonly DatabaseClass db = new DatabaseClass();
+		private readonly BackgroundWorker worker = new BackgroundWorker();
+		private readonly UserSettings settings = new UserSettings();
 
-		int increase;
+		private int increase;
 
 		public Admin()
 		{
 			InitializeComponent();
 			UpdateComboBoxes();
 			StartRecalculate();
-
-
 		}
 
 		private void StartRecalculate()
@@ -47,7 +42,6 @@ namespace Engineering_Database
 			GroupLabel1.Visibility = Visibility.Hidden;
 			GroupLabel2.Visibility = Visibility.Hidden;
 
-
 			OutOfDateLabel.Visibility = Visibility.Hidden;
 			ExpireLabel.Visibility = Visibility.Hidden;
 
@@ -56,16 +50,13 @@ namespace Engineering_Database
 			worker.WorkerReportsProgress = true;
 			worker.RunWorkerCompleted += GetStatutoryCompliance;
 			worker.RunWorkerAsync();
-
 		}
+
 		public void ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			ProgressBar.Value = e.ProgressPercentage;
 			StatusLabel.Content = $"Recalculating expiry dates for Statutory items.   Progress: {increase} %";
-
-
 		}
-
 
 		private void UpdateStatutoryDays(object sender, DoWorkEventArgs e)
 		{
@@ -73,7 +64,6 @@ namespace Engineering_Database
 
 			int countofItems = 0;
 			int currentLine = 0;
-
 
 			var reader = db.GetAllPDFIds("StatutoryCompliance");
 			countofItems = db.CountLinesInDatabaseTable("StatutoryCompliance");
@@ -85,7 +75,7 @@ namespace Engineering_Database
 					ID = Convert.ToInt32(reader["ID"]),
 					EquipmentDescription = reader["EquipmentDescription"].ToString(),
 					RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]),
-					Booked=reader["Booked"].ToString(),
+					Booked = reader["Booked"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 				DateTime dt = DateTime.Now.Date;
@@ -96,18 +86,11 @@ namespace Engineering_Database
 
 				currentLine++;
 
-
-
-
-
-
-
 				increase = Convert.ToInt32(((double)currentLine / countofItems) * 100);
 
 				Dispatcher.Invoke(new System.Action(() =>
 				{ worker.ReportProgress(increase); }));
 				Thread.Sleep(100);
-
 			}
 
 			db.CloseDB();
@@ -141,16 +124,12 @@ namespace Engineering_Database
 				if (Convert.ToInt32(reader["DaysTillInspection"]) < 0)
 				{
 					StatutoryListViewExpired.Items.Add(statutory);
-
 				}
-				else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays))
+				else if (Convert.ToInt32(reader["DaysTillInspection"]) >= 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays))
 				{
-
 					if (statutory.meetingSetStatus == false)
 					{
-
 						DateTime meetingDate;
-
 
 						DateTime renewDateTime = Convert.ToDateTime(statutory.RenewDate);
 
@@ -163,19 +142,13 @@ namespace Engineering_Database
 							meetingDate = DateTime.Now.Date.AddDays(1);
 						}
 
-
 						SetUpMeeting(statutory.ID, statutory.EquipmentDescription, $"Comapny/Insurer :{statutory.CompanyIssuer} ##  Item: {statutory.EquipmentDescription}  ## due to run out of Compliance. Renew Date is {statutory.RenewDate} and there are {statutory.DaysLeftTillInspection} days left (on day when meeting was set up)", meetingDate.Date, interval);
-
 
 						interval++;
 					}
 
-
-
 					StatutoryListViewToExpire.Items.Add(statutory);
-
 				}
-
 			}
 
 			db.CloseDB();
@@ -192,7 +165,6 @@ namespace Engineering_Database
 
 			GroupLabel1.Visibility = Visibility.Visible;
 			GroupLabel2.Visibility = Visibility.Visible;
-
 		}
 
 		private void UpdateDatabaseButton_Click(object sender, RoutedEventArgs e)
@@ -200,14 +172,12 @@ namespace Engineering_Database
 			updateDatabase updateDB = new updateDatabase();
 
 			updateDB.ShowDialog();
-
 		}
 
 		private void ShowReportButton_Click(object sender, RoutedEventArgs e)
 		{
 			ReportWindow reportWindow = new ReportWindow();
 			reportWindow.ShowDialog();
-
 		}
 
 		private void LineMaintenanceButton_Click(object sender, RoutedEventArgs e)
@@ -219,7 +189,6 @@ namespace Engineering_Database
 
 		private void MeterReadingButton_Click(object sender, RoutedEventArgs e)
 		{
-
 			MeterReadings meterReadings = new MeterReadings();
 			meterReadings.Show();
 		}
@@ -243,25 +212,19 @@ namespace Engineering_Database
 			//setUpMeeting(28, "Test Meeting", "Updating Database with meeting request", 2);
 		}
 
-
 		/// <summary>
 		/// Meeting set up script. Will run once Admin window is opened and new Statutory compliance days was recalculated
 		/// Will mark in database for items which ones have meeting set up
 		/// Checks if meeting is already set. if so then ignoring
-		/// 
+		///
 		/// </summary>
 
 		private void SetUpMeeting(int id, string meetingSubject, string meetingBody, DateTime meetingDate, int intervalBetweenMeetings)
 		{
-
 			EmailClass email = new EmailClass();
 			email.SetUpMeetingRequest(meetingSubject, meetingBody, meetingDate, intervalBetweenMeetings);
 
-
-
 			db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", id, true);
-
-
 		}
 
 		private void StatutoryListViewExpired_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -273,7 +236,6 @@ namespace Engineering_Database
 			string item = ((StatutoryClass)StatutoryListViewExpired.SelectedItem).EquipmentDescription;
 			var reader = db.GetStatutoryItem("StatutoryCompliance", ((StatutoryClass)StatutoryListViewExpired.SelectedItem).ID);
 
-
 			while (reader.Read())
 			{
 				itemWindow.TitleLabel.Content = $"Details for {item} with --> ID [{id}]";
@@ -287,7 +249,6 @@ namespace Engineering_Database
 				itemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(reader["DateReportIssued"]);
 				itemWindow.MonthlyWeeklyRangeLabelContent.Content = reader["MonthlyWeeklyRange"].ToString();
 				itemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(reader["RenewDate"]);
-
 
 				if (Convert.ToInt32(reader["DaysTillInspection"]) > 0)
 				{
@@ -307,32 +268,19 @@ namespace Engineering_Database
 				{
 					itemWindow.BookedCheckBox.IsChecked = false;
 				}
-
-
-
-
 			}
 
 			db.CloseDB();
 
-
-
-
 			itemWindow.ShowDialog();
-
-
-
 		}
-
 
 		public void UpdateComboBoxes()
 		{
-
 			db.ConnectDB();
 
 			//StatutoryListViewExpiredComboBox
 			//StatutoryListViewToExpireComboBox
-
 
 			var reader = db.GetAllPDFIds("StatutoryComplianceGroups");
 			StatutoryListViewExpiredComboBox.Items.Add("Please Select");
@@ -342,8 +290,6 @@ namespace Engineering_Database
 			{
 				StatutoryListViewExpiredComboBox.Items.Add(reader["GroupDescription"]);
 				StatutoryListViewToExpireComboBox.Items.Add(reader["GroupDescription"]);
-
-
 			}
 			StatutoryListViewExpiredComboBox.SelectedIndex = 0;
 			StatutoryListViewToExpireComboBox.SelectedIndex = 0;
@@ -351,17 +297,14 @@ namespace Engineering_Database
 			db.CloseDB();
 		}
 
-
 		private void StatutoryListViewToExpire_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-
 			StatutoryItem itemWindow = new StatutoryItem();
 
 			db.ConnectDB();
 			string id = ((StatutoryClass)StatutoryListViewToExpire.SelectedItem).ID.ToString();
 			string item = ((StatutoryClass)StatutoryListViewToExpire.SelectedItem).EquipmentDescription;
 			var reader = db.GetStatutoryItem("StatutoryCompliance", ((StatutoryClass)StatutoryListViewToExpire.SelectedItem).ID);
-
 
 			while (reader.Read())
 			{
@@ -396,48 +339,25 @@ namespace Engineering_Database
 					itemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
 					itemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(Convert.ToInt32(reader["DaysTillInspection"])))} days overdue";
 				}
-
-
-
-
-
 			}
 
 			db.CloseDB();
 
-
-
-
 			itemWindow.ShowDialog();
-
-
-
 		}
 
 		private void StatutoryListViewToExpireComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
-
-
 			UpdateGroups("ToExpire");
-
-
-
 		}
 
 		private void StatutoryListViewExpiredComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
-
-
 			UpdateGroups("Expired");
-
-
-
-
 		}
 
 		public void UpdateGroups(string filter = null)
 		{
-
 			if (filter == "Expired")
 			{
 				StatutoryListViewExpired.Items.Clear();
@@ -449,7 +369,6 @@ namespace Engineering_Database
 			}
 
 			db.ConnectDB();
-
 
 			var reader = db.GetAllPDFIds("StatutoryCompliance");
 
@@ -471,7 +390,6 @@ namespace Engineering_Database
 						if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex != 0)
 						{
 							StatutoryListViewExpired.Items.Add(statutory);
-
 						}
 						else if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && StatutoryListViewExpiredComboBox.SelectedIndex == 0)
 						{
@@ -483,28 +401,21 @@ namespace Engineering_Database
 					case "ToExpire":
 						if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && reader["GroupName"].ToString() == StatutoryListViewToExpireComboBox.SelectedItem.ToString() && StatutoryListViewToExpireComboBox.SelectedIndex != 0)
 						{
-
 							StatutoryListViewToExpire.Items.Add(statutory);
-
 						}
 						else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && StatutoryListViewToExpireComboBox.SelectedIndex == 0)
 						{
 							StatutoryListViewToExpire.Items.Add(statutory);
 						}
 						break;
-
-
 				}
 			}
-
-
 		}
 
 		private void HyegeneButton_Click(object sender, RoutedEventArgs e)
 		{
 			Hygene hygene = new Hygene();
 			hygene.ShowDialog();
-
 		}
 
 		private void WasteManagementButton_Click(object sender, RoutedEventArgs e)
@@ -518,8 +429,5 @@ namespace Engineering_Database
 			ConsoleEmulation console = new ConsoleEmulation();
 			console.Show();
 		}
-
-
-
 	}
 }

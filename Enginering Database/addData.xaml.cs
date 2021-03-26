@@ -17,19 +17,18 @@ namespace Enginering_Database
 	/// </summary>
 	public partial class addData : Window
 	{
-		readonly DatabaseClass db = new DatabaseClass();
-		readonly EmailClass email = new EmailClass();
+		private readonly DatabaseClass db = new DatabaseClass();
+		private readonly EmailClass email = new EmailClass();
 
-		ExistingIssues existingIssuesWindow;
+		private ExistingIssues existingIssuesWindow;
 
-		List<IssueClass> alreadyReportedIssues = new List<IssueClass>();
+		private List<IssueClass> alreadyReportedIssues = new List<IssueClass>();
 
 		//readonly UserSettings userrSet = new UserSettings();
-		bool richTextBoxTextChanged = false;
+		private bool richTextBoxTextChanged = false;
+
 		public addData()
 		{
-
-
 			InitializeComponent();
 			AlreadyReportedLabel.Visibility = Visibility.Hidden;
 			AlreadyReportedButton.Visibility = Visibility.Hidden;
@@ -44,9 +43,9 @@ namespace Enginering_Database
 
 			SetUpComboBox();
 
-
 			#region not required anymore - refactored part
-			//area combo box values 
+
+			//area combo box values
 			//areaComboBox.Text = "Please Choose";
 			//areaComboBox.Items.Insert(0, "Please Choose");
 			//areaComboBox.Items.Add("Production");
@@ -71,38 +70,33 @@ namespace Enginering_Database
 			//issueTypeComboBox.Text = "Please Choose";
 			//issueTypeComboBox.Items.Insert(0, "Please Choose");
 			//issueTypeComboBox.SelectedIndex = 0;
-			#endregion
+
+			#endregion not required anymore - refactored part
 
 			GetJobNumber();
 		}
+
 		public void UpdateTimeAndDate()
 		{
 			DateTime time = DateTime.Now;
-
 
 			timeLabelAddData.Content = time.ToString("HH:mm");
 			dateLabelAddData.Content = time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 		}
 
-
 		#region comboboxes set up
-
 
 		//need to add option to able to add/remove/edit issue options through settings
 
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
-
 			db.ConnectDB();
 			issueTypeComboBox.Items.Clear();
-
 
 			//checks if area combox box have selected value other than default
 			//if there is not selected value --> issuetype combo box is being disabled and default value is being selected for this combo box
 			if (areaComboBox.SelectedIndex == 0)
 			{
-
 				issueTypeComboBox.IsEnabled = false;
 				issueComboBox.Items.Add("Waiting for data");
 				issueTypeComboBox.Items.Add("Waiting for data");
@@ -110,14 +104,11 @@ namespace Enginering_Database
 				issueComboBox.SelectedIndex = 0;
 				faultyAreaComboBox.SelectedIndex = 0;
 				issueTypeComboBox.SelectedIndex = 0;
-
 			}
 			else
 			{
-
 				issueTypeComboBox.IsEnabled = true;
 			}
-
 
 			//areacombobox - static --> still dependant on settings window
 			if (areaComboBox.SelectedIndex > 0)
@@ -138,22 +129,16 @@ namespace Enginering_Database
 				issueComboBox.Items.Add("Waiting for data");
 				issueComboBox.SelectedIndex = 0;
 				issueComboBox.IsEnabled = false;
-
-
 			}
-
 		}
 
 		private void IssueTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
-
 			db.ConnectDB();
 			faultyAreaComboBox.Items.Clear();
 
 			if (areaComboBox.SelectedIndex == 0)
 			{
-
 				faultyAreaComboBox.IsEnabled = false;
 				faultyAreaComboBox.Items.Add("Waiting for data");
 				issueComboBox.Items.Add("Waiting for data");
@@ -182,36 +167,22 @@ namespace Enginering_Database
 				issueComboBox.SelectedIndex = 0;
 				issueComboBox.IsEnabled = false;
 			}
-
-
-
-
-
-
-
 		}
-
-
 
 		private void BuildingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
 		}
-
 
 		private void FaultyAreaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
 			db.ConnectDB();
 			issueComboBox.Items.Clear();
 
 			if (faultyAreaComboBox.SelectedIndex == 0)
 			{
-
 				issueComboBox.IsEnabled = false;
 				issueComboBox.Items.Add("Waiting for data");
 				issueComboBox.SelectedIndex = 0;
-
 			}
 			else
 			{
@@ -232,27 +203,22 @@ namespace Enginering_Database
 				issueComboBox.IsEnabled = true;
 			}
 			db.CloseDB();
-
-
 		}
-		#endregion
 
-
+		#endregion comboboxes set up
 
 		#region dynamic ComboBoxSetup - initialization at launch of application
+
 		public void SetUpComboBox()
 		{
 			//refactoring ComboBox Setup
-
 
 			//set up comboboxes based on previous data selected
 			//there are 2 objects which ones don't have dynamic values. Still needs to be able to change on settings window
 
 			//set up default comboboxes with default values
 
-
 			db.ConnectDB();
-
 
 			//areacombobox - static --> still dependant on settings window
 			var getAreaComboBox = db.SetUpComboBox("AreaComboBox");
@@ -283,10 +249,7 @@ namespace Enginering_Database
 			buildingComboBox.SelectedIndex = 0;
 			//buildingComboBox.IsEnabled = true;
 
-
 			db.CloseDB();
-
-
 
 			//issueTypeComboBox - dynamic
 			issueTypeComboBox.Items.Add("Waiting for data");
@@ -298,46 +261,33 @@ namespace Enginering_Database
 			faultyAreaComboBox.SelectedIndex = 0;
 			faultyAreaComboBox.IsEnabled = false;
 
-
 			//issueComboBox - dynamic
 			issueComboBox.Items.Add("Waiting for data");
 			issueComboBox.SelectedIndex = 0;
 			issueComboBox.IsEnabled = false;
 
-
 			//end of part for refactoring
 		}
-		#endregion
+
+		#endregion dynamic ComboBoxSetup - initialization at launch of application
 
 		public void GetJobNumber()
 		{
-
 			if (db.DBStatus() == "DB not Connected")
 			{
 				db.ConnectDB();
 			}
 
-
 			int lastJob = db.DBQueryLastJobNumber("JobNumber") + 1;
 			jobNumberDataLabel.Content = lastJob.ToString();
-
-
-
-
 		}
 
 		private void InsertDataIntoDatabase_Click(object sender, RoutedEventArgs e)
 		{
-
-
-
-
-
 			if (db.DBStatus() == "DB not Connected")
 			{
 				db.ConnectDB();
 			}
-
 
 			UserSettings userrSet = new UserSettings();
 			userrSet.openSettings();
@@ -346,13 +296,9 @@ namespace Enginering_Database
 
 			DateTime dueDate = DateTime.Now.AddDays(float.Parse(userrSet.DueDateGap));
 
-
 			string dtNow = dueDate.ToString("dd/MM/yyyy");
 
-
-
 			TextRange textRange = new TextRange(DetailedDescriptionRichTextBox.Document.ContentStart, DetailedDescriptionRichTextBox.Document.ContentEnd);
-
 
 			//setting up new issue object for uploading to database
 
@@ -373,14 +319,10 @@ namespace Enginering_Database
 
 			issue.ReportedDate = time.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
-
-
-
 			issue.ReportedTime = time.ToString("HH:mm");
 			issue.Type = issueTypeComboBox.Text;
 			issue.Priority = PriorityComboBox.Text;
 			issue.ReportedUserName = usernameLabelValue.Content.ToString();
-
 
 			if (CheckFilledData())
 			{
@@ -390,47 +332,43 @@ namespace Enginering_Database
 				{
 					issue.ReporterEmail = "";
 				}
+				//checks one more time for correct job number to be updated into database.
+				//this is to avoid issue of double job numbers due the delay on email application (outlook) opening
+
+				//getLastJobNumber = db.DBQueryLastJobNumber("JobNumber");
+
+				issue.JobNumber = Convert.ToInt32(db.DBQueryLastJobNumber("JobNumber")) + 1;
 
 				db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail);
 
-
-
-
 				this.Close();
-
 			}
 			else
 			{
 				ErrorMessageLabel.Visibility = Visibility.Visible;
-
-
 			}
-
-
-
-
-
 		}
+
 		private void ClearRichTextBox(object sender, RoutedEventArgs e)
 		{
 			((RichTextBox)sender).Document = new FlowDocument();
 		}
+
 		private void CheckRichTextBoxchanges(object sender, TextChangedEventArgs e)
 		{
 			richTextBoxTextChanged = true;
 		}
+
 		public bool CheckFilledData()
 		{
 			#region set up label colours if 0 index selected
+
 			if (areaComboBox.SelectedIndex == 0)
 			{
-
 				AreaLabel.Background = Brushes.Red;
-
 			}
 			else
 			{
-
 				//AreaLabel.Background = new SolidColorBrush(Color.FromArgb(100, 0, 195, 0));
 				AreaLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
 			}
@@ -438,7 +376,6 @@ namespace Enginering_Database
 			if (issueTypeComboBox.SelectedIndex == 0)
 			{
 				issueTypeLabel.Background = Brushes.Red;
-
 			}
 			else
 			{
@@ -481,15 +418,14 @@ namespace Enginering_Database
 			{
 				AssetNumberLabel.Background = Brushes.Red;
 			}
-
 			else
 			{
 				AssetNumberLabel.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFFFF"));
 			}
-			#endregion
+
+			#endregion set up label colours if 0 index selected
 
 			if (faultyAreaComboBox.SelectedIndex == 0 || issueComboBox.SelectedIndex == 0 || buildingComboBox.SelectedIndex == 0 || issueTypeComboBox.SelectedIndex == 0 || areaComboBox.SelectedIndex == 0 || PriorityComboBox.SelectedIndex == 0)
-
 
 			{
 				return false;
@@ -507,24 +443,13 @@ namespace Enginering_Database
 				else
 				{
 					return true;
-
 				}
-
-
-
-
 			}
-
-
-
 		}
 
 		private void AlreadyReportedButton_Click(object sender, RoutedEventArgs e)
 		{
-			
-			
 			existingIssuesWindow.ShowDialog();
-
 		}
 
 		public void CheckAlreadyReported(string value)
@@ -532,7 +457,6 @@ namespace Enginering_Database
 			existingIssuesWindow = new ExistingIssues();
 			db.ConnectDB();
 			bool valuefound = false;
-
 
 			//alreadyReportedIssues.Clear();
 
@@ -544,23 +468,17 @@ namespace Enginering_Database
 
 				if (reader["AssetNumber"].ToString().ToLower() == value)
 				{
-					
-								
-
 					issue.JobNumber = Convert.ToInt32(reader["JobNumber"]);
 					issue.DetailedDescription = reader["DetailedDescription"].ToString();
 					issue.ReportedUserName = reader["ReportedUsername"].ToString();
-					issue.Action= reader["Action"].ToString();
-					issue.ReportedDate = String.Format("{0:d/MMM/yyyy}",reader["ReportedDate"]);
+					issue.Action = reader["Action"].ToString();
+					issue.ReportedDate = String.Format("{0:d/MMM/yyyy}", reader["ReportedDate"]);
 
 					existingIssuesWindow.existingIssuesListView.Items.Add(issue);
 
 					valuefound = true;
-					
 				}
-				
 			}
-						
 
 			if (valuefound)
 			{
@@ -572,21 +490,14 @@ namespace Enginering_Database
 			}
 			else
 			{
-
 				AlreadyReportedLabel.Content = "Nothing found for this asset";
 				AlreadyReportedLabel.Foreground = Brushes.Green;
 
 				AlreadyReportedLabel.Visibility = Visibility.Visible;
 				AlreadyReportedButton.Visibility = Visibility.Hidden;
-
 			}
 			db.CloseDB();
-
 		}
-
-
-
-
 
 		private void AssetNumberTextBox_LostFocus(object sender, RoutedEventArgs e)
 		{
@@ -598,7 +509,6 @@ namespace Enginering_Database
 			else
 			{
 				CheckAlreadyReported(AssetNumberTextBox.Text.ToString().ToLower());
-
 			}
 		}
 
@@ -608,9 +518,4 @@ namespace Enginering_Database
 			AlreadyReportedButton.Visibility = Visibility.Hidden;
 		}
 	}
-
-
-
-
-
 }
