@@ -121,11 +121,11 @@ namespace Engineering_Database
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 
-				if (Convert.ToInt32(reader["DaysTillInspection"]) < 0)
+				if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 || Convert.ToInt32(reader["InspectionCount"]) < 1)
 				{
 					StatutoryListViewExpired.Items.Add(statutory);
 				}
-				else if (Convert.ToInt32(reader["DaysTillInspection"]) >= 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays))
+				else if (Convert.ToInt32(reader["DaysTillInspection"]) >= 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) || Convert.ToInt32(reader["InspectionCount"]) < 1)
 				{
 					if (statutory.meetingSetStatus == false)
 					{
@@ -240,6 +240,7 @@ namespace Engineering_Database
 			{
 				itemWindow.TitleLabel.Content = $"Details for {item} with --> ID [{id}]";
 				itemWindow.hiddenID.Content = reader["ID"].ToString();
+				itemWindow.hiddenInspectionCount.Content = reader["InspectionCount"].ToString();
 				itemWindow.ManufacturerTextBox.Text = reader["ManufacturerCompany"].ToString();
 
 				itemWindow.SerialNumberTextBox.Text = reader["SerialNumber"].ToString();
@@ -311,7 +312,7 @@ namespace Engineering_Database
 				itemWindow.TitleLabel.Content = $"Details for {item} with --> ID [{id}]";
 				itemWindow.hiddenID.Content = reader["ID"].ToString();
 				itemWindow.ManufacturerTextBox.Text = reader["ManufacturerCompany"].ToString();
-
+				itemWindow.hiddenInspectionCount.Content = reader["InspectionCount"].ToString();
 				itemWindow.SerialNumberTextBox.Text = reader["SerialNumber"].ToString();
 				itemWindow.InsurerTextBox.Text = reader["CompanyInsurer"].ToString();
 				itemWindow.MonthlyWeeklyTextBox.Text = reader["MonthlyWeekly"].ToString();
@@ -382,16 +383,17 @@ namespace Engineering_Database
 					RenewDate = String.Format("{0:d}", reader["RenewDate"]),
 					Manufacturer = reader["ManufacturerCompany"].ToString(),
 					Booked = reader["Booked"].ToString(),
+					InspectionCount = reader["InspectionCount"].ToString(),
 					meetingSetStatus = (bool)reader["MeetingSet"]
 				};
 				switch (filter)
 				{
 					case "Expired":
-						if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex != 0)
+						if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex != 0 || Convert.ToInt32(reader["InspectionCount"]) < 1)
 						{
 							StatutoryListViewExpired.Items.Add(statutory);
 						}
-						else if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && StatutoryListViewExpiredComboBox.SelectedIndex == 0)
+						else if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && StatutoryListViewExpiredComboBox.SelectedIndex == 0 || Convert.ToInt32(reader["InspectionCount"]) < 1)
 						{
 							StatutoryListViewExpired.Items.Add(statutory);
 						}

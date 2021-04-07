@@ -2,9 +2,8 @@
 
 namespace Engineering_Database
 {
-	class StatutoryClass
+	internal class StatutoryClass
 	{
-
 		public int ID { get; set; }
 		public string Manufacturer { get; set; }
 
@@ -22,6 +21,7 @@ namespace Engineering_Database
 		public string RenewDate { get; set; }
 		public string Group { get; set; }
 		public string Booked { get; set; }
+		public string InspectionCount { get; set; }
 
 		//false = meeting not set up
 		//true = meeting was set up
