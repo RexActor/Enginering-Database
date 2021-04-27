@@ -10,18 +10,22 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class MeterReadings : Window
 	{
-
-		bool canUpload = false;
-		bool dataExists = false;
+		private bool canUpload = false;
+		private bool dataExists = false;
 		public int id = 0;
+		public int consumptionValue = 0;
+		private DateTime lastDateInserted;
+		public int DaysDifference = 0;
+		private int result = 0;
+		private List<Data> Datalist = new List<Data>();
 		public double meterReadingForClosestDate = 0;
-		DatabaseClass db = new DatabaseClass();
+		private DatabaseClass db = new DatabaseClass();
+
 		public MeterReadings()
 		{
 			InitializeComponent();
 			updateFields();
 		}
-
 
 		private void updateFields()
 		{
@@ -29,46 +33,58 @@ namespace Engineering_Database
 			MeterReadingDatePicker.IsEnabled = false;
 		}
 
+		public void CreateDataList(DateTime startDate, int days, int totalValue)
+		{
+			Datalist.Clear();
+			int sum = 0;
+			int value = totalValue / days;
+			for (int i = 1; i <= days; i++)
+			{
+				if (i == days)
+				{
+					value = totalValue - sum;
+				}
+
+				Datalist.Add(new Data
+				{
+					InsertDate = startDate.AddDays(i),
+
+					meterReading = value
+				});
+
+				sum = sum + value;
+			}
+		}
+
 		private void SaveReadingButton_Click(object sender, RoutedEventArgs e)
 		{
 			CheckOldEntries();
 			double result = convertToDouble(MeterReadingTextBox.Text);
 
-
 			if (dataExists == false)
 			{
-
-
 				if (canUpload)
 				{
-
 					if (!string.IsNullOrEmpty(MeterReadingTextBox.Text))
 					{
 						TryParseErrorLabel.Visibility = Visibility.Hidden;
 						DatabaseClass db = new DatabaseClass();
 						db.ConnectDB();
 
-
-						db.InsertReadingIntoDatabase("MeterReadings", MeterReadingDatePicker.SelectedDate.Value.Date, result, Convert.ToDouble(Consumption.Content));
+						db.InsertReadingIntoDatabase("MeterReadings", MeterReadingDatePicker.SelectedDate.Value.Date, result, Convert.ToDouble(consumptionValue));
 						saveInfoLabel.Visibility = Visibility.Visible;
 						MeterReadingTextBox.Clear();
-
 					}
 					else
 					{
 						TryParseErrorLabel.Visibility = Visibility.Visible;
 					}
-
 				}
-
 				else
 				{
-
 					TryParseErrorLabel.Visibility = Visibility.Visible;
 				}
 			}
-
-
 		}
 
 		private Double convertToDouble(string value)
@@ -92,7 +108,6 @@ namespace Engineering_Database
 				else
 				{
 					canUpload = false;
-
 				}
 			}
 			return result;
@@ -119,9 +134,7 @@ namespace Engineering_Database
 					dataExists = true;
 					return;
 				}
-
 			}
-
 		}
 
 		private void EditableDate_Click(object sender, RoutedEventArgs e)
@@ -129,8 +142,6 @@ namespace Engineering_Database
 			if (EditableDate.IsChecked == true)
 			{
 				MeterReadingDatePicker.IsEnabled = true;
-
-
 			}
 			else
 			{
@@ -138,37 +149,38 @@ namespace Engineering_Database
 			}
 		}
 
-
 		private void MeterReadingTextBox_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-
-
 			saveInfoLabel.Visibility = Visibility.Hidden;
-
 		}
 
 		private void MeterReadingTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
+			db.ConnectDB();
 			if (!string.IsNullOrEmpty(MeterReadingTextBox.Text))
 			{
+				lastDateInserted = Convert.ToDateTime(db.GetMeterReadingLastReading("MeterReadings", "InsertDate"));
+
+				DaysDifference = MeterReadingDatePicker.SelectedDate.Value.Date.Subtract(lastDateInserted).Days;
 
 				if (EditableDate.IsChecked != true)
 				{
 					db.ConnectDB();
 					int lastReading = Convert.ToInt32(db.GetMeterReadingLastReading("MeterReadings", "MeterReading"));
 
-					int result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
-					Consumption.Content = result.ToString();
+					result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
 				}
 				else
 				{
 					db.ConnectDB();
 					int lastReading = Convert.ToInt32(meterReadingForClosestDate);
 
-					int result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
-					Consumption.Content = result.ToString();
+					result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
 				}
+				consumptionValue = result / DaysDifference;
+				Consumption.Content = $"{consumptionValue} per {DaysDifference} day/s";
 			}
+			db.CloseDB();
 		}
 
 		private void MeterReadingDatePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -177,7 +189,6 @@ namespace Engineering_Database
 			{
 				db.ConnectDB();
 				var list = new List<Data>();
-
 
 				DateTime selectedDate = MeterReadingDatePicker.SelectedDate.Value.Date;
 				DateTime dateFromDatabase;
@@ -201,18 +212,25 @@ namespace Engineering_Database
 							Convert.ToDouble(reader["MeterReading"])
 							));
 					}
-
 				}
 
 				var nearest = list.OrderByDescending(x => x.differenceDays).First();
 				meterReadingForClosestDate = nearest.meterReading;
 				id = nearest.id;
+				lastDateInserted = nearest.InsertDate;
+				consumptionValue = Convert.ToInt32(MeterReadingTextBox.Text) - Convert.ToInt32(nearest.meterReading);
+				DaysDifference = MeterReadingDatePicker.SelectedDate.Value.Date.Subtract(lastDateInserted).Days;
+
+				CreateDataList(lastDateInserted, DaysDifference, consumptionValue);
+
+				foreach (var item in Datalist)
+				{
+					Console.WriteLine($"{item.InsertDate} Date iNserted && Value is {item.meterReading}");
+				}
 
 				Console.WriteLine($"ID is ==>{id} for { meterReadingForClosestDate}");
-
 			}
 		}
-
 
 		public struct Data
 		{
@@ -223,6 +241,7 @@ namespace Engineering_Database
 				id = _id;
 				meterReading = _meterReading;
 			}
+
 			public double differenceDays { get; set; }
 			public DateTime InsertDate { get; set; }
 			public int id { get; set; }
