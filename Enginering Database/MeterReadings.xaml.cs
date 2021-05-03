@@ -16,6 +16,7 @@ namespace Engineering_Database
 		public int consumptionValue = 0;
 		private DateTime lastDateInserted;
 		public int DaysDifference = 0;
+
 		private int result = 0;
 		private List<Data> Datalist = new List<Data>();
 		public double meterReadingForClosestDate = 0;
@@ -25,6 +26,7 @@ namespace Engineering_Database
 		{
 			InitializeComponent();
 			updateFields();
+			GetLastReadings();
 		}
 
 		private void updateFields()
@@ -33,56 +35,97 @@ namespace Engineering_Database
 			MeterReadingDatePicker.IsEnabled = false;
 		}
 
-		public void CreateDataList(DateTime startDate, int days, int totalValue)
+		public void CreateDataList(DateTime startDate, int days, int NewMeterReading, double LastmeterReading)
 		{
+			Console.WriteLine();
+			Console.WriteLine("########## CREATING LIST [START] ###########");
+			Console.WriteLine($"Start Date => {startDate} || Days => {days} || New Meter Reading =>{NewMeterReading} || Last Meter Reading => {LastmeterReading}");
+
+			Console.WriteLine("########## CREATING LIST [END] ###########");
+			Console.WriteLine();
+
 			Datalist.Clear();
 			int sum = 0;
-			int value = totalValue / days;
+			int meterValue = Convert.ToInt32(LastmeterReading);
+			int value;
+			int readingDifference = (NewMeterReading - Convert.ToInt32(LastmeterReading));
+			string inputMode = string.Empty;
 			for (int i = 1; i <= days; i++)
 			{
 				if (i == days)
 				{
-					value = totalValue - sum;
+					value = readingDifference - sum;
+					meterValue = NewMeterReading;
+					inputMode = "User";
+				}
+				else
+				{
+					value = readingDifference / days;
+					meterValue = meterValue + value;
+					inputMode = "System";
 				}
 
 				Datalist.Add(new Data
 				{
 					InsertDate = startDate.AddDays(i),
-
-					meterReading = value
+					consumption = value,
+					meterReading = meterValue,
+					InputMode = inputMode
 				});
-
 				sum = sum + value;
+				Console.WriteLine($"SUM ==> {sum}");
 			}
 		}
 
 		private void SaveReadingButton_Click(object sender, RoutedEventArgs e)
 		{
-			CheckOldEntries();
-			double result = convertToDouble(MeterReadingTextBox.Text);
+			bool SaveToDatabase = true;
 
-			if (dataExists == false)
+			if (SaveToDatabase == false)
 			{
-				if (canUpload)
-				{
-					if (!string.IsNullOrEmpty(MeterReadingTextBox.Text))
-					{
-						TryParseErrorLabel.Visibility = Visibility.Hidden;
-						DatabaseClass db = new DatabaseClass();
-						db.ConnectDB();
+				//Console.WriteLine($"Creating List with {consumptionValue} <== Total consumption value!. And {DaysDifference} difference of days");
+				//CreateDataList(lastDateInserted, DaysDifference, consumptionValue, meterReadingForClosestDate);
 
-						db.InsertReadingIntoDatabase("MeterReadings", MeterReadingDatePicker.SelectedDate.Value.Date, result, Convert.ToDouble(consumptionValue));
-						saveInfoLabel.Visibility = Visibility.Visible;
-						MeterReadingTextBox.Clear();
+				foreach (var item in Datalist)
+				{
+					Console.WriteLine($"Date to be inserted ==> {item.InsertDate} && \\n Consumption Value is {item.consumption} \\n and new Meter Reading is {item.meterReading}");
+				}
+			}
+			else
+			{
+				CheckOldEntries();
+				double result = convertToDouble(MeterReadingTextBox.Text);
+
+				if (dataExists == false)
+				{
+					if (canUpload)
+					{
+						if (!string.IsNullOrEmpty(MeterReadingTextBox.Text))
+						{
+							TryParseErrorLabel.Visibility = Visibility.Hidden;
+							DatabaseClass db = new DatabaseClass();
+							db.ConnectDB();
+
+							foreach (var item in Datalist)
+							{
+								//Console.WriteLine($"Date to be inserted ==> {item.InsertDate} && \\n Consumption Value is {item.consumption} \\n and new Meter Reading is {item.meterReading}");
+
+								db.InsertReadingIntoDatabase("MeterReadings", item.InsertDate, item.meterReading, Convert.ToDouble(item.consumption), item.InputMode);
+							}
+
+							//db.InsertReadingIntoDatabase("MeterReadings", MeterReadingDatePicker.SelectedDate.Value.Date, result, Convert.ToDouble(consumptionValue));
+							saveInfoLabel.Visibility = Visibility.Visible;
+							MeterReadingTextBox.Clear();
+						}
+						else
+						{
+							TryParseErrorLabel.Visibility = Visibility.Visible;
+						}
 					}
 					else
 					{
 						TryParseErrorLabel.Visibility = Visibility.Visible;
 					}
-				}
-				else
-				{
-					TryParseErrorLabel.Visibility = Visibility.Visible;
 				}
 			}
 		}
@@ -156,96 +199,170 @@ namespace Engineering_Database
 
 		private void MeterReadingTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
-			db.ConnectDB();
-			if (!string.IsNullOrEmpty(MeterReadingTextBox.Text))
+			try
 			{
-				lastDateInserted = Convert.ToDateTime(db.GetMeterReadingLastReading("MeterReadings", "InsertDate"));
-
-				DaysDifference = MeterReadingDatePicker.SelectedDate.Value.Date.Subtract(lastDateInserted).Days;
-
-				if (EditableDate.IsChecked != true)
+				if (!string.IsNullOrEmpty(MeterReadingTextBox.Text))
 				{
-					db.ConnectDB();
-					int lastReading = Convert.ToInt32(db.GetMeterReadingLastReading("MeterReadings", "MeterReading"));
+					int lastReading;
 
-					result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
-				}
-				else
-				{
 					db.ConnectDB();
-					int lastReading = Convert.ToInt32(meterReadingForClosestDate);
+					lastDateInserted = Convert.ToDateTime(ClosestDateTextBox.Text);
 
-					result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
+					DaysDifference = MeterReadingDatePicker.SelectedDate.Value.Date.Subtract(lastDateInserted).Days;
+
+					if (EditableDate.IsChecked != true)
+					{
+						lastReading = Convert.ToInt32(db.GetMeterReadingLastReading("MeterReadings", "MeterReading"));
+
+						result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
+					}
+					else
+					{
+						lastReading = Convert.ToInt32(meterReadingForClosestDate);
+
+						result = Convert.ToInt32(MeterReadingTextBox.Text) - lastReading;
+					}
+					if (DaysDifference != 0)
+					{
+						consumptionValue = result / DaysDifference;
+					}
+					Consumption.Content = $"{consumptionValue} per {DaysDifference} day/s";
+
+					Console.WriteLine($"Creating List from Value Change with {consumptionValue} <== Total consumption value!. And {DaysDifference} difference of days");
+					CreateDataList(lastDateInserted, DaysDifference, Convert.ToInt32(MeterReadingTextBox.Text), lastReading);
 				}
-				consumptionValue = result / DaysDifference;
-				Consumption.Content = $"{consumptionValue} per {DaysDifference} day/s";
+				db.CloseDB();
 			}
-			db.CloseDB();
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 		}
 
 		private void MeterReadingDatePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
-			if (EditableDate.IsChecked == true)
+			try
 			{
-				db.ConnectDB();
-				var list = new List<Data>();
-
-				DateTime selectedDate = MeterReadingDatePicker.SelectedDate.Value.Date;
-				DateTime dateFromDatabase;
-				TimeSpan differenceIndays;
-				int compareValue;
-
-				var reader = db.GetMeterReadingData("MeterReadings");
-				while (reader.Read())
+				if (EditableDate.IsChecked == true)
 				{
-					dateFromDatabase = Convert.ToDateTime(reader["InsertDate"]);
+					db.ConnectDB();
+					var list = new List<Data>();
 
-					differenceIndays = dateFromDatabase.Subtract(selectedDate);
-					compareValue = Convert.ToInt32(differenceIndays.TotalDays);
-					DateTime newDate = dateFromDatabase.Add(differenceIndays);
-					if (compareValue < 0)
+					DateTime selectedDate = MeterReadingDatePicker.SelectedDate.Value.Date;
+					DateTime dateFromDatabase;
+					TimeSpan differenceIndays;
+					int compareValue;
+					int meterReading;
+
+					var reader = db.GetMeterReadingData("MeterReadings");
+					while (reader.Read())
 					{
-						list.Add(new Data(
-							compareValue,
-							dateFromDatabase,
-							Convert.ToInt32(reader["ID"]),
-							Convert.ToDouble(reader["MeterReading"])
-							));
+						dateFromDatabase = Convert.ToDateTime(reader["InsertDate"]);
+
+						differenceIndays = dateFromDatabase.Subtract(selectedDate);
+						compareValue = Convert.ToInt32(differenceIndays.TotalDays);
+						DateTime newDate = dateFromDatabase.Add(differenceIndays);
+						if (compareValue < 0)
+						{
+							list.Add(new Data(
+								compareValue,
+								dateFromDatabase,
+								Convert.ToInt32(reader["ID"]),
+								Convert.ToDouble(reader["MeterReading"]),
+								Convert.ToInt32(reader["MeterCalculation"]),
+								reader["InputMode"].ToString()
+								));
+						}
 					}
+
+					var nearest = list.OrderByDescending(x => x.differenceDays).First();
+					meterReadingForClosestDate = nearest.meterReading;
+					id = nearest.id;
+					lastDateInserted = nearest.InsertDate;
+
+					ClosestMeterReadingTextBox.Text = $"{nearest.meterReading}";
+					ClosestDateTextBox.Text = $"{nearest.InsertDate.ToShortDateString()}";
+
+					if (MeterReadingTextBox.Text == "")
+					{
+						consumptionValue = 0 - Convert.ToInt32(nearest.meterReading);
+						meterReading = 0;
+					}
+					else
+					{
+						consumptionValue = Convert.ToInt32(MeterReadingTextBox.Text) - Convert.ToInt32(nearest.meterReading);
+						meterReading = Convert.ToInt32(MeterReadingTextBox.Text);
+					}
+
+					DaysDifference = MeterReadingDatePicker.SelectedDate.Value.Date.Subtract(nearest.InsertDate).Days;
+					Console.WriteLine($"Creating List from DateChange with {consumptionValue} <== Total consumption value!. And {DaysDifference} difference of days");
+
+					CreateDataList(lastDateInserted, DaysDifference, meterReading, nearest.meterReading);
+					//Console.WriteLine($"ID is ==>{id} for { meterReadingForClosestDate}");
+					Consumption.Content = $"{consumptionValue} per {DaysDifference} day/s";
 				}
-
-				var nearest = list.OrderByDescending(x => x.differenceDays).First();
-				meterReadingForClosestDate = nearest.meterReading;
-				id = nearest.id;
-				lastDateInserted = nearest.InsertDate;
-				consumptionValue = Convert.ToInt32(MeterReadingTextBox.Text) - Convert.ToInt32(nearest.meterReading);
-				DaysDifference = MeterReadingDatePicker.SelectedDate.Value.Date.Subtract(lastDateInserted).Days;
-
-				CreateDataList(lastDateInserted, DaysDifference, consumptionValue);
-
-				foreach (var item in Datalist)
-				{
-					Console.WriteLine($"{item.InsertDate} Date iNserted && Value is {item.meterReading}");
-				}
-
-				Console.WriteLine($"ID is ==>{id} for { meterReadingForClosestDate}");
 			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"{ex.Message} || {ex.StackTrace}");
+			}
+		}
+
+		public void GetLastReadings()
+		{
+			db.ConnectDB();
+			var list = new List<Data>();
+
+			DateTime selectedDate = MeterReadingDatePicker.SelectedDate.Value.Date;
+			DateTime dateFromDatabase;
+			TimeSpan differenceIndays;
+			int compareValue;
+
+			var reader = db.GetMeterReadingData("MeterReadings");
+			while (reader.Read())
+			{
+				dateFromDatabase = Convert.ToDateTime(reader["InsertDate"]);
+
+				differenceIndays = dateFromDatabase.Subtract(selectedDate);
+				compareValue = Convert.ToInt32(differenceIndays.TotalDays);
+				DateTime newDate = dateFromDatabase.Add(differenceIndays);
+				if (compareValue < 0)
+				{
+					list.Add(new Data(
+						compareValue,
+						dateFromDatabase,
+						Convert.ToInt32(reader["ID"]),
+						Convert.ToDouble(reader["MeterReading"]),
+						Convert.ToInt32(reader["MeterCalculation"]),
+						reader["InputMode"].ToString()
+						));
+				}
+			}
+
+			var nearest = list.OrderByDescending(x => x.differenceDays).First();
+
+			ClosestMeterReadingTextBox.Text = $"{nearest.meterReading}";
+			ClosestDateTextBox.Text = $"{nearest.InsertDate.ToShortDateString()}";
 		}
 
 		public struct Data
 		{
-			public Data(double _differenceDays, DateTime _InsertDate, int _id, double _meterReading)
+			public Data(double _differenceDays, DateTime _InsertDate, int _id, double _meterReading, int _consumption, string _inputMode)
 			{
 				differenceDays = _differenceDays;
 				InsertDate = _InsertDate;
 				id = _id;
 				meterReading = _meterReading;
+				consumption = _consumption;
+				InputMode = _inputMode;
 			}
 
 			public double differenceDays { get; set; }
 			public DateTime InsertDate { get; set; }
 			public int id { get; set; }
 			public double meterReading { get; set; }
+			public int consumption { get; set; }
+			public string InputMode { get; set; }
 		}
 	}
 }

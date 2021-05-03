@@ -5,42 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enginering_Database"
         mc:Ignorable="d"
-        
-    
+    MouseRightButtonDown="Window_MouseRightButtonDown"
         Title="Engineering &amp; Facilities Software"  Height="450" Width="481.473" ResizeMode="NoResize">
 
-
-
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="51*" />
+            <ColumnDefinition Width="44*" />
+        </Grid.ColumnDefinitions>
 
+        <Button Name="ViewDatabaseButton" Content="      User Reported Issues" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453" HorizontalContentAlignment="Center" Margin="10,165,0,0" Grid.ColumnSpan="2" />
 
-        <Button Name="ViewDatabaseButton" Content="      User Reported Issues" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453" HorizontalContentAlignment="Center" Margin="10,165,0,0"/>
-
-        <Label Content="Local Tme:" FontSize="10" HorizontalContentAlignment="Right" Margin="5,363,0,0" Foreground="#FF251604" FontWeight="Bold" BorderBrush="#FF170202" OpacityMask="#FF130202" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
-        <Label Content="Database Connected?" Margin="5,332,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
-        <Label x:Name ="LocalTimeData" Content="data" FontSize="10" Margin="122,363,0,0" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="106" Height="26" VerticalAlignment="Top"/>
-        <Label x:Name="fileExistsLabelData" Content="data" FontSize="10" Margin="122,332,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top"/>
+        <Label Content="Local Tme:" FontSize="10" HorizontalContentAlignment="Right" Margin="5,363,0,0" Foreground="#FF251604" FontWeight="Bold" BorderBrush="#FF170202" OpacityMask="#FF130202" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" />
+        <Label Content="Database Connected?" Margin="5,332,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" />
+        <Label x:Name ="LocalTimeData" Content="data" FontSize="10" Margin="122,363,0,0" FontWeight="Bold" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="106" Height="26" VerticalAlignment="Top" />
+        <Label x:Name="fileExistsLabelData" Content="data" FontSize="10" Margin="122,332,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top" />
         <Grid Margin="10,103,10,261" Grid.ColumnSpan="2">
-            <Button Name ="InsertDataButton"  Content="Report Issue" Click="Button_Click" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453"/>
-
+            <Button Name ="InsertDataButton"  Content="Report Issue" Click="Button_Click" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453" />
         </Grid>
-        <Image Margin="10,10,227,321" Source="logo.jpg" Stretch="Fill"/>
-        <Label x:Name="VersionLabel" Content="Version:" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Width="42" FontSize="8"/>
-        <Label x:Name="VersionData" Content="VersionData" HorizontalAlignment="Left" Margin="39,390,0,0" VerticalAlignment="Top" Width="297" FontSize="8"/>
-        <Label Name ="MaintenanceLabel" Visibility="Hidden" Content="Maintenance" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,105,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
-        <Button Name="ReportAppIssue" Content="Report Application Issue" HorizontalAlignment="Left" Height="21" Margin="321,390,0,0" VerticalAlignment="Top" Width="133" Click="ReportAppIssue_Click"/>
-        <Label x:Name ="MaintenanceLabel2" Visibility="Hidden" Content="Application will close automatically in 10 seconds" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,160,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.498,0.298" Grid.ColumnSpan="2" Foreground="#FFF50909"/>
-        <Image x:Name="InsertDataImage" Margin="10,105,406,268" Source="ReportIssue.png" Stretch="Fill"/>
-      
-        <Image x:Name="ViewDatabaseImage" Margin="13,167,418,204" Source="User Reported Issues.png" Stretch="Fill"/>
-        <Image Margin="432,3,1,385" Source="User Settings-02-WF.png" Stretch="Fill" MouseDown="SettingsShow"/>
-        <Button Name="AdministratorButton" Content="Administrator View" HorizontalAlignment="Left" Height="55" Margin="10,228,0,0" VerticalAlignment="Top" Width="453" Click="AdministratorButton_Click"/>
-        <Image x:Name="PasswordProtectImage2" Margin="442,229,13,172" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20"/>
-        <Image Name ="AdministratorImage" Margin="13,233,414,140" Source="Admin.png" Stretch="Fill"/>
+        <Button x:Name="SecretButton" Margin="10,2,18,321" MouseDoubleClick="SecretButton_MouseDoubleClick" BorderThickness="0" IsEnabled="False">
+            <Image Source="logo.jpg" Stretch="Fill" />
+        </Button>
+        <Label x:Name="VersionLabel" Content="Version:" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Width="42" FontSize="8" />
+        <Label x:Name="VersionData" Content="VersionData" HorizontalAlignment="Left" Margin="39,390,0,0" VerticalAlignment="Top" Width="297" FontSize="8" Grid.ColumnSpan="2" />
+        <Label Name ="MaintenanceLabel" Visibility="Hidden" Content="Maintenance" FontSize="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,105,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Foreground="#FFF50909" />
+        <Button Name="ReportAppIssue" Content="Report Application Issue" HorizontalAlignment="Left" Height="21" Margin="66,390,0,0" VerticalAlignment="Top" Width="133" Click="ReportAppIssue_Click" Grid.Column="1" />
+        <Label x:Name ="MaintenanceLabel2" Visibility="Hidden" Content="Application will close automatically in 10 seconds" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="123" Margin="-26,160,-26,0" VerticalAlignment="Top" Width="527" RenderTransformOrigin="0.498,0.298" Grid.ColumnSpan="2" Foreground="#FFF50909" />
+        <Image x:Name="InsertDataImage" Margin="10,105,186,268" Source="ReportIssue.png" Stretch="Fill" />
 
-
-
-
-
+        <Image x:Name="ViewDatabaseImage" Margin="13,167,198,204" Source="User Reported Issues.png" Stretch="Fill" />
+        <Image Margin="177,3,1,385" Source="User Settings-02-WF.png" Stretch="Fill" MouseDown="SettingsShow" Grid.Column="1" />
+        <Button Name="AdministratorButton" Content="Administrator View" HorizontalAlignment="Left" Height="55" Margin="10,228,0,0" VerticalAlignment="Top" Width="453" Click="AdministratorButton_Click" Grid.ColumnSpan="2" />
+        <Image x:Name="PasswordProtectImage2" Margin="187,229,13,172" Source="PasswordProtected.png" Stretch="Fill" Width="20" Height="20" Grid.Column="1" />
+        <Image Name ="AdministratorImage" Margin="13,233,194,140" Source="Admin.png" Stretch="Fill" />
+        <Label Content="Your Login ID:" Margin="5,306,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" />
+        <Label x:Name="LoginIDLabel" Content="Not Assigned" FontSize="10" Margin="122,306,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top" />
+        <Label Content="Users Online:" Margin="217,309,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" Grid.ColumnSpan="2" />
+        <Label x:Name="UsersOnlineLabel" Content="Not Assigned" FontSize="10" Margin="79,309,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top" Grid.Column="1" />
+        <Label Content="Your Username:" Margin="217,332,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" Grid.ColumnSpan="2" />
+        <Label x:Name="UserNameLabel" Content="Not Assigned" FontSize="10" Margin="78,332,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top" Grid.Column="1" />
     </Grid>
 </Window>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="Engineering_Database.OnlineUsers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Engineering_Database"
+        mc:Ignorable="d"
+        Title="Online Users" Height="577" Width="1584">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1288*" />
+            <ColumnDefinition Width="183*" />
+        </Grid.ColumnDefinitions>
+        <Slider Name="SecondsSlider" HorizontalAlignment="Left" Margin="45,10,0,0" VerticalAlignment="Top" Width="280" Minimum="1" Maximum="60" Value="5" ValueChanged="SecondsSlider_ValueChanged" />
+        <TextBox  Name="FilterTextBox" HorizontalAlignment="Left" Height="23" Margin="460,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="FilterTextBox_TextChanged" />
+        <DataGrid Name="OnlineUserGrid"  IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="415" Margin="45,75,0,0" VerticalAlignment="Top" Width="1131" MouseDoubleClick="OnlineUserGrid_MouseDoubleClick">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="ID" Width="100" Binding="{Binding UserID}" />
+                <DataGridTextColumn Header="User Name" Width="250" Binding="{Binding UserName}" />
+                <DataGridTextColumn Header="Login" Width="250" Binding="{Binding Login}" />
+                <DataGridTextColumn Header="Logout" Width="250" Binding="{Binding Logout}" />
+                <DataGridTextColumn Header="Time Online" Width="250" Binding="{Binding TimeOnline}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Name="RefreshRate" Content="Label" HorizontalAlignment="Left" Margin="650,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="155" />
+        <DataGrid x:Name="SelectedUsersGrid" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" AutoGenerateColumns="False" Height="415" Margin="1227,75,56,0" VerticalAlignment="Top" MouseDoubleClick="SelectedUsersGrid_MouseDoubleClick" Grid.ColumnSpan="2">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="ID" Width="100" Binding="{Binding UserID}" />
+                <DataGridTextColumn Header="User Name" Width="250" Binding="{Binding UserName}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="MarkOfflineButton"  Content="Mark Offline" HorizontalAlignment="Left" Margin="1295,36,0,0" VerticalAlignment="Top" Width="75" Click="MarkOfflineButton_Click" />
+    </Grid>
+</Window>

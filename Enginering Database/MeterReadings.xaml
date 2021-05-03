@@ -5,19 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="MeterReadings" Height="207.414" Width="540.865" ResizeMode="NoResize">
+        Title="Meter Readings" Height="244.414" Width="634.865" ResizeMode="NoResize">
     <Grid>
         <Label Content="Insert Reading into database" HorizontalAlignment="Left" Height="45" Margin="10,1,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="515" FontWeight="Bold" FontSize="24" />
         <Label Content="Reading" HorizontalAlignment="Left" Height="28" Margin="10,101,0,0" VerticalAlignment="Top" Width="81" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" />
         <DatePicker Name="MeterReadingDatePicker" HorizontalAlignment="Left" Height="28" Margin="96,68,0,0" VerticalAlignment="Top" Width="159" SelectedDateChanged="MeterReadingDatePicker_SelectedDateChanged" />
         <Label Content="Current Date" HorizontalAlignment="Left" Height="28" Margin="10,68,0,0" VerticalAlignment="Top" Width="81" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" />
         <TextBox Name="MeterReadingTextBox" HorizontalAlignment="Left" Height="28" Margin="96,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" PreviewMouseDown="MeterReadingTextBox_MouseDown" TextChanged="MeterReadingTextBox_TextChanged" />
-        <Button Name="SaveReadingButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="10,142,0,0" VerticalAlignment="Top" Width="97" Click="SaveReadingButton_Click" />
-        <Button x:Name="ShowSummary" Content="Show Data" HorizontalAlignment="Left" Height="26" Margin="259,142,0,0" VerticalAlignment="Top" Width="97" Click="ShowSummary_Click" />
-        <Label Name ="TryParseErrorLabel" Content="Please enter correct value." HorizontalAlignment="Left" Height="28" Margin="353,101,0,0" VerticalAlignment="Top" Width="141" VerticalContentAlignment="Center" FontSize="10" Foreground="#FFF10D0D" FontWeight="Bold" Visibility="Hidden" />
-        <Label Name ="DataAlreadyUploadedErrors" Content="Data was already uploaded for today" HorizontalAlignment="Left" Height="28" Margin="260,68,0,0" VerticalAlignment="Top" Width="255" FontWeight="Bold" Foreground="#FFF50505" Visibility="Hidden" />
+        <Button Name="SaveReadingButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="18,177,0,0" VerticalAlignment="Top" Width="97" Click="SaveReadingButton_Click" />
+        <Button x:Name="ShowSummary" Content="Show Data" HorizontalAlignment="Left" Height="26" Margin="127,177,0,0" VerticalAlignment="Top" Width="97" Click="ShowSummary_Click" />
+        <Label Name ="TryParseErrorLabel" Content="Please enter correct value." HorizontalAlignment="Left" Height="28" Margin="181,101,0,0" VerticalAlignment="Top" Width="141" VerticalContentAlignment="Center" FontSize="10" Foreground="#FFF10D0D" FontWeight="Bold" Visibility="Hidden" />
+        <Label Name ="DataAlreadyUploadedErrors" Content="Data was already uploaded for today" HorizontalAlignment="Left" Height="28" Margin="359,187,0,0" VerticalAlignment="Top" Width="255" FontWeight="Bold" Foreground="#FFF50505" Visibility="Hidden" />
         <CheckBox Name ="EditableDate" Content="Choose different date" HorizontalAlignment="Left" Height="14" Margin="96,49,0,0" VerticalAlignment="Top" Width="150" Click="EditableDate_Click" />
-        <Label Name="saveInfoLabel" Content="Data Saved" HorizontalAlignment="Left" Height="34" Margin="112,134,0,0" VerticalAlignment="Top" Width="118" Visibility="Hidden" Foreground="#FF145D0D" FontWeight="Bold" FontSize="16" />
-        <Label Name="Consumption" Content="" HorizontalAlignment="Left" Height="28" Margin="181,101,0,0" VerticalAlignment="Top" Width="139" HorizontalContentAlignment="Right" />
+        <Label Name="saveInfoLabel" Content="Data Saved" HorizontalAlignment="Left" Height="34" Margin="224,173,0,0" VerticalAlignment="Top" Width="118" Visibility="Hidden" Foreground="#FF145D0D" FontWeight="Bold" FontSize="16" />
+        <Label Name="Consumption" Content=""  VerticalContentAlignment ="Center" BorderBrush="#64C323" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="12,137,0,0" VerticalAlignment="Top" Width="242" HorizontalContentAlignment="Center" RenderTransformOrigin="0.504,0.964" />
+        <Border BorderBrush="Black" BorderThickness="1" Margin="320,88,15,25" Background="#B6E4AA">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="127*" />
+                    <ColumnDefinition Width="165*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label  Grid.Row="0" Grid.Column="0" Margin="5,5,0,0" Content="Closest Date:" BorderBrush="#64C323" Background="#9BF0F8FF" BorderThickness="1" FontWeight="Bold" HorizontalAlignment="Left" HorizontalContentAlignment="Right"  VerticalAlignment="Top" Width="120" Height="31" />
+                <Label  Grid.Row="1" Grid.Column="0" Margin="5,5,0,0" Content="Meter Reading:" BorderBrush="#64C323" Background="#9BF0F8FF" BorderThickness="1" FontWeight="Bold"  HorizontalAlignment="Left" HorizontalContentAlignment="Right"  VerticalAlignment="Top" Width="120" Height="31" />
+                <TextBox  Grid.Row="0" Grid.Column="1" Margin="5,5,0,0"  x:Name="ClosestDateTextBox" IsEnabled="False" HorizontalAlignment="Left" HorizontalContentAlignment =" Center" VerticalContentAlignment="Center" Height="31"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152" PreviewMouseDown="MeterReadingTextBox_MouseDown" TextChanged="MeterReadingTextBox_TextChanged" />
+                <TextBox Grid.Row="1" Grid.Column="1"  Margin="5,5,0,0"  x:Name="ClosestMeterReadingTextBox" IsEnabled="False" HorizontalAlignment="Left" HorizontalContentAlignment =" Center" VerticalContentAlignment="Center" Height="31"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152" PreviewMouseDown="MeterReadingTextBox_MouseDown" TextChanged="MeterReadingTextBox_TextChanged" />
+            </Grid>
+        </Border>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="320,38,15,133" Background="#F1B7AF">
+            <TextBlock  TextWrapping="Wrap"  TextAlignment="Center" Text="Displaying Last (closest) date to selected date which exists in database and meter Reading for this date" Margin="2,2,2,2" />
+        </Border>
     </Grid>
 </Window>

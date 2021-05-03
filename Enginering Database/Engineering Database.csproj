@@ -343,6 +343,7 @@
     <Compile Include="LineMaintenancePage.xaml.cs">
       <DependentUpon>LineMaintenancePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginSystem.cs" />
     <Compile Include="MaintenanceSummary.xaml.cs">
       <DependentUpon>MaintenanceSummary.xaml</DependentUpon>
     </Compile>
@@ -355,6 +356,9 @@
     </Compile>
     <Compile Include="MeterReadingSummary.xaml.cs">
       <DependentUpon>MeterReadingSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineUsers.xaml.cs">
+      <DependentUpon>OnlineUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="passwordWindow.xaml.cs">
       <DependentUpon>passwordWindow.xaml</DependentUpon>
@@ -401,6 +405,7 @@
     <Compile Include="TerraMaintenancePage.xaml.cs">
       <DependentUpon>TerraMaintenancePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TraceTest.cs" />
     <Compile Include="updateDatabase.xaml.cs">
       <DependentUpon>updateDatabase.xaml</DependentUpon>
     </Compile>
@@ -528,6 +533,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MeterReadingSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OnlineUsers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

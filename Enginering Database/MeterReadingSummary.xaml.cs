@@ -1,19 +1,20 @@
 ﻿//File MeterReadingSummary.xaml.cs Created by Rexactor
-// @12:55 PM  28/4/2020 
-// Copyright (c) 2020  Rexactor 
-
+// @12:55 PM  28/4/2020
+// Copyright (c) 2020  Rexactor
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+
 using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Engineering_Database
 {
@@ -22,14 +23,15 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class MeterReadingSummary : Window
 	{
-		DatabaseClass db = new DatabaseClass();
-		ToolTip tp = new ToolTip();
-		int selectedYear = 0;
-		bool canEditData = false;
-		string contentLabelText = string.Empty;
-		List<string> CollectionForListView = new List<string>();
-		BackgroundWorker worker = new BackgroundWorker();
-		LoadingWindow loadingWind = new LoadingWindow();
+		private DatabaseClass db = new DatabaseClass();
+		private ToolTip tp = new ToolTip();
+		private int selectedYear = 0;
+		private bool canEditData = false;
+		private string contentLabelText = string.Empty;
+		private List<string> CollectionForListView = new List<string>();
+		private BackgroundWorker worker = new BackgroundWorker();
+		private LoadingWindow loadingWind = new LoadingWindow();
+
 		public MeterReadingSummary()
 		{
 			InitializeComponent();
@@ -38,7 +40,6 @@ namespace Engineering_Database
 			getReadings("ReadingMonth", "Year");
 			loadChart("Year");
 			MeterReadingListView.SelectedIndex = 0;
-
 		}
 
 		private bool checkData(string value)
@@ -89,6 +90,7 @@ namespace Engineering_Database
 							CollectionForListView.Add(meter.ReadingMonth);
 						}
 						break;
+
 					case "Year":
 						if (checkData(meter.ReadingYear) == false)
 						{
@@ -97,6 +99,7 @@ namespace Engineering_Database
 							CollectionForListView.Add(meter.ReadingYear);
 						}
 						break;
+
 					default:
 						if (checkData(meter.ReadingMonth) == false)
 						{
@@ -108,6 +111,7 @@ namespace Engineering_Database
 				}
 			}
 		}
+
 		/// <summary>
 		/// pulling specific field from desired database and returning value
 		/// </summary>
@@ -115,12 +119,9 @@ namespace Engineering_Database
 		/// <returns></returns>
 		public string getReadingsForDate(string field, DateTime date)
 		{
-			string data = string.Empty;
-
 			db.ConnectDB();
 
-			data = db.GetMeterReadingData("MeterReadings", "MeterReading", date);
-
+			string data = db.GetMeterReadingData("MeterReadings", "MeterReading", date);
 			return data;
 		}
 
@@ -203,7 +204,6 @@ namespace Engineering_Database
 						averageGet = averageGet + addingValue;
 						int indexOfItem = list.FindIndex(x => x.Month == myString);
 
-
 						if (!containsElement)
 						{
 							list.Add(new Data(myString, addingValue));
@@ -237,13 +237,13 @@ namespace Engineering_Database
 					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
 				}
 			}
-
 		}
 
-		#region temporary script 
+		#region temporary script
+
 		//script for recalculating consumption based on meter readings for already inserted data
 		//required due that data was inserted without populating data for consumption
-		//script needs to be runned once. 
+		//script needs to be runned once.
 		//This script is not meant for regular re-calculation. But once for filling missing data
 
 		private void runScript(object sender, DoWorkEventArgs e)
@@ -291,13 +291,11 @@ namespace Engineering_Database
 				contentLabelText = $"Updating Database Id [{existingData[i].ID}] with date [{string.Format("{0:d}", existingData[i].insertDate)}] consupmtion is [{existingData[i].consumption}] ==> calculated new consumption  {newConsumption} ";
 				Dispatcher.Invoke(new System.Action(() => { worker.ReportProgress(increase); }));
 				Thread.Sleep(100);
-
 			}
 		}
 
 		public struct ExistingData
 		{
-
 			public ExistingData(int _id, DateTime _insertDate, double _meterReading, int _consumption)
 			{
 				ID = _id;
@@ -310,10 +308,10 @@ namespace Engineering_Database
 			public DateTime insertDate { get; set; }
 			public double meterReading { get; set; }
 			public int consumption { get; set; }
-
 		}
 
-		#endregion
+		#endregion temporary script
+
 		public struct Data
 		{
 			public Data(string value, int number)
@@ -321,6 +319,7 @@ namespace Engineering_Database
 				Month = value;
 				sum = number;
 			}
+
 			public string Month { get; set; }
 			public int sum { get; set; }
 		}
@@ -415,6 +414,7 @@ namespace Engineering_Database
 			testProgressBar.Value = e.ProgressPercentage;
 			testLabelContent.Content = contentLabelText;
 		}
+
 		public void JobFinished(object sender, RunWorkerCompletedEventArgs e)
 		{
 			testProgressBar.Visibility = Visibility.Hidden;
@@ -423,6 +423,4 @@ namespace Engineering_Database
 			MeterReadingListView.Visibility = Visibility.Visible;
 		}
 	}
-
 }
-

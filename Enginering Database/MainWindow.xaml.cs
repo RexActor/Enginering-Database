@@ -1,7 +1,7 @@
 ﻿using Engineering_Database;
 
 using System;
-using System.Data.OleDb;
+using System.Diagnostics;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Media;
@@ -13,12 +13,16 @@ namespace Enginering_Database
 {
 	public partial class MainWindow : Window
 	{
+		private LoginSystem loginSys = new LoginSystem();
+		public int? loginSysID;
 		private readonly string userName = WindowsIdentity.GetCurrent().Name;
 		private readonly UserSettings userSett = new UserSettings();
 		private UserSettings userMaintenSett = new UserSettings();
 
 		public MainWindow()
 		{
+			Trace.TraceInformation("Test Message123");
+			Trace.Flush();
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
 			DatabaseClass dtC = new DatabaseClass();
@@ -62,135 +66,26 @@ namespace Enginering_Database
 			clock.Interval = new TimeSpan(0, 0, 1);
 			clock.Start();
 
-			RecordUserLogin();
+			//TODO:change
+			loginSysID = loginSys.CreateUserLogin(userName);
+			//MessageBox.Show($"Longin ID {loginSysID} assigned");
+			UserNameLabel.Content = userName;
+
+			if (loginSysID != null && LoginIDLabel.Content.ToString() == "Not Assigned")
+			{
+				LoginIDLabel.Content = loginSysID.ToString();
+			}
 
 			dtC.CloseDB();
 		}
 
 		private void OnApplicationExit(object sender, EventArgs e)
 		{
-			UpdateUserLogin(userName, "Offline");
+			//TODO:change
+			loginSys.UpdateUserLogin(Convert.ToInt32(loginSysID));
 		}
 
-		public void RecordUserLogin()
-		{
-			int status = UserLoginStatus(userName);
-
-			switch (status)
-			{
-				case 1:
-					MessageBox.Show("User is currently Online");
-					break;
-
-				case -1:
-					CreateUserLogin(userName);
-					break;
-
-				case 0:
-					UpdateUserLogin(userName, "Online");
-
-					break;
-
-				default:
-					MessageBox.Show("Something not right");
-					break;
-			}
-		}
-
-		public void CreateUserLogin(string login)
-		{
-			try
-			{
-				string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-				using (var con = new OleDbConnection(ConnectionString))
-				{
-					con.Open();
-
-					string sql = @"INSERT INTO UsersOnline (UserName,userStatus,LastLoginDate,LastLoginTime) Values
-						(@prm_UserName,@prm_UserStatus,@prm_LastLoginDate,@prm_LastLoginTime)";
-
-					using (OleDbCommand query = new OleDbCommand(sql, con))
-					{
-						query.Parameters.AddWithValue("@prm_UserName", login);
-						query.Parameters.AddWithValue("@prm_UserStatus", 1);
-						query.Parameters.AddWithValue("@prm_LastLoginDate", DateTime.Now.ToShortDateString());
-						query.Parameters.AddWithValue("@prm_LastLoginTime", DateTime.Now.ToShortTimeString());
-
-						query.ExecuteNonQuery();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
-		}
-
-		public void UpdateUserLogin(string login, string statusText)
-		{
-			try
-			{
-				string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-				using (var con = new OleDbConnection(ConnectionString))
-				{
-					con.Open();
-
-					string sql = $"UPDATE UsersOnline SET userStatus = @prm_UserStatus WHERE UserName = @prm_UserName";
-
-					using (OleDbCommand query = new OleDbCommand(sql, con))
-					{
-						query.Parameters.AddWithValue("@prm_UserName", login);
-						switch (statusText)
-						{
-							case "Offline":
-								query.Parameters.AddWithValue("@prm_UserStatus", 0);
-								break;
-
-							case "Online":
-								query.Parameters.AddWithValue("@prm_UserStatus", 1);
-								break;
-						}
-
-						query.Parameters.AddWithValue("@prm_LastLoginDate", DateTime.Now.ToShortDateString());
-						query.Parameters.AddWithValue("@prm_LastLoginTime", DateTime.Now.ToShortTimeString());
-
-						query.ExecuteNonQuery();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
-		}
-
-		public int UserLoginStatus(string login)
-		{
-			string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-			using (var con = new OleDbConnection(ConnectionString))
-			{
-				con.Open();
-
-				string sql = @"SELECT userStatus from UsersOnline WHERE UserName = @prm_username";
-
-				using (OleDbCommand query = new OleDbCommand(sql, con))
-				{
-					query.Parameters.AddWithValue("@prm_username", login);
-
-					using (var reader = query.ExecuteReader())
-					{
-						if (reader.Read())
-						{
-							return Convert.ToInt32(reader[0]);
-						}
-						else
-						{
-							return -1;
-						}
-					}
-				}
-			}
-		}
+		//TODO: remove ! not required
 
 		private static void MyHandler(object sender, UnhandledExceptionEventArgs args)
 		{
@@ -358,6 +253,8 @@ namespace Enginering_Database
 
 		private void UpdateClock(object sender, EventArgs e)
 		{
+			//UsersOnlineLabel.Content = loginSys.OnlineUserCount();
+
 			DateTime d;
 			d = DateTime.Now;
 			LocalTimeData.Content = d.ToString("HH:mm:ss");
@@ -376,6 +273,28 @@ namespace Enginering_Database
 			else
 			{
 				PasswordRequest("Admin");
+			}
+		}
+
+		private void Button_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+		}
+
+		private void SecretButton_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			OnlineUsers onlineUsers = new OnlineUsers();
+			onlineUsers.ShowDialog();
+		}
+
+		private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			if (SecretButton.IsEnabled == true)
+			{
+				SecretButton.IsEnabled = false;
+			}
+			else
+			{
+				SecretButton.IsEnabled = true;
 			}
 		}
 	}

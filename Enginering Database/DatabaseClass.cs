@@ -519,13 +519,14 @@ namespace Engineering_Database
 		/// <param name="table"></param>
 		/// <param name="insertDate"></param>
 		/// <param name="meterReading"></param>
-		public void InsertReadingIntoDatabase(string table, DateTime insertDate, double meterReading, double consumption)
+		public void InsertReadingIntoDatabase(string table, DateTime insertDate, double meterReading, double consumption, string inputMode)
 		{
-			string queryString = $"INSERT INTO {table} (InsertDate,MeterReading,MeterCalculation) Values(@InsertDate,@MeterReading,@MeterCalculation)";
+			string queryString = $"INSERT INTO {table} (InsertDate,MeterReading,MeterCalculation,InputMode) Values(@InsertDate,@MeterReading,@MeterCalculation,@InputMode)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@InsertDate", insertDate);
 			cmd.Parameters.AddWithValue("@MeterReading", meterReading);
 			cmd.Parameters.AddWithValue("@MeterCalculation", consumption);
+			cmd.Parameters.AddWithValue("@InputMode", inputMode);
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}
