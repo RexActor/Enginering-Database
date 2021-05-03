@@ -6,8 +6,6 @@ namespace Engineering_Database
 {
 	internal class LoginSystem
 	{
-		//private readonly string userName = WindowsIdentity.GetCurrent().Name;
-
 		public int CreateUserLogin(string login)
 		{
 			DateTime dateTimeInsert;
@@ -28,8 +26,6 @@ namespace Engineering_Database
 
 						query.Parameters.AddWithValue("@prm_UserName", login);
 						query.Parameters.AddWithValue("@prm_Login", dateTimeInsert.ToString());
-						//query.Parameters.AddWithValue("@prm_LastLoginTime", DateTime.Now.ToShortTimeString());
-						//query.Parameters.AddWithValue("@prm_LoginAction", action);
 
 						query.ExecuteNonQuery();
 					}
@@ -73,8 +69,6 @@ namespace Engineering_Database
 
 				using (OleDbCommand query = new OleDbCommand(sql, con))
 				{
-					//query.Parameters.AddWithValue("@prm_Logout", );
-
 					var data = (int)query.ExecuteScalar();
 
 					return data;
@@ -101,8 +95,6 @@ namespace Engineering_Database
 						query.Parameters.AddWithValue("@prm_Logout", dateTimeInsert.ToString());
 						query.Parameters.AddWithValue("@prm_ID", id);
 						query.ExecuteNonQuery();
-
-						//MessageBox.Show($"Update user Login ID {id} with Logout Data {dateTimeInsert}");
 					}
 				}
 			}

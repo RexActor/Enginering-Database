@@ -211,7 +211,7 @@ namespace Engineering_Database
 		public OleDbDataReader DBQueryForAssetsWithFilterOrderByID(string table, string fieldfilter, string fieldfiltervalue)
 		{
 			string queryString = "SELECT * FROM " + table + "  where " + fieldfilter + " ALike  '" + fieldfiltervalue + "%'";
-			//string queryString = "SELECT * FROM " + table + "  where " + fieldfilter + " Like  '* 5 *'";
+
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			OleDbDataReader reader = cmd.ExecuteReader();
 			cmd.Dispose();
@@ -354,14 +354,6 @@ namespace Engineering_Database
 		}
 
 		#endregion insert values into database
-
-		//public string GetCPU()
-		//{
-		//	string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
-
-		//	return cpu;
-
-		//}
 
 		#region getting information for combobox setups
 
@@ -677,9 +669,6 @@ namespace Engineering_Database
 			string queryString = "INSERT INTO " + table + " (UploadedFile,LineOfMaintenance,DateOfMaintenance,UploadDate,EngineerComment,LinkedAsset) " + " Values(@UploadedFile,@LineOfMaintenance,@DateOfMaintenance,@UploadDate,@EngineerComment,@linkedAsset)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
-			//cmd.Parameters.AddWithValue("@UploadDate", date);
-			//cmd.Parameters.AddWithValue("@UploadedFile", file);
-
 			cmd.Parameters.Add("@UploadedFile", OleDbType.Binary).Value = (object)file;
 			cmd.Parameters.Add("LineOfMaintenance", OleDbType.VarWChar).Value = lineOfMaintenance;
 			cmd.Parameters.Add("DateOfMaintenance", OleDbType.Date).Value = dateOfMaintenance;
@@ -687,7 +676,6 @@ namespace Engineering_Database
 			cmd.Parameters.Add("EngineerComment", OleDbType.VarWChar).Value = EngineerComment;
 			cmd.Parameters.Add("LinkedAsset", OleDbType.VarWChar).Value = linkedAsset;
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
 		}
 
 		public void UploadTemplateFile(string table, byte[] file, string templateName)
@@ -695,14 +683,10 @@ namespace Engineering_Database
 			string queryString = "INSERT INTO " + table + " (TemplateFile,TemplateName) " + " Values(@TemplateFile,@TemplateName)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
-			//cmd.Parameters.AddWithValue("@UploadDate", date);
-			//cmd.Parameters.AddWithValue("@UploadedFile", file);
-
 			cmd.Parameters.Add("@TemplateFile", OleDbType.Binary).Value = (object)file;
 			cmd.Parameters.Add("@TemplateName", OleDbType.VarWChar).Value = templateName;
 
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
 		}
 
 		public OleDbDataReader GetPDFFileFromDatabase(string table, string field, int id)
@@ -800,7 +784,6 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = category;
 
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
 		}
 
 		public void UploadInventoryProductWithoutPic(string table, string productName, string measureType, string category)
@@ -813,7 +796,6 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = category;
 
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
 		}
 
 		public void AddProduct(string table, string product, int qty, string measureType, string productCategory)
@@ -826,7 +808,6 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@MeasureType", OleDbType.VarWChar).Value = measureType;
 			cmd.Parameters.Add("@ProductCategory", OleDbType.VarWChar).Value = productCategory;
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
 		}
 
 		public OleDbDataReader GetInventoryProduct(string table, string field1, string field1Value)
@@ -866,7 +847,6 @@ namespace Engineering_Database
 			cmd.ExecuteNonQuery();
 
 			cmd.ExecuteNonQuery();
-			//cmd.Dispose();
 		}
 
 		public void UpdateInventoryView(string table, string fieldToUpdate, int ID, string value)
@@ -935,9 +915,6 @@ namespace Engineering_Database
 			string queryString = "INSERT INTO " + table + " (ManufacturerCompany,EquipmentDescription,CompanyInsurer,SerialNumber,MonthlyWeekly,DaysTillInspection,DateReportIssued,RenewDate,GroupName,MonthlyWeeklyRange,Booked) " + " Values(@ManufacturerCompany,@EquipmentDescription,@CompanyInsurer,@SerialNumber,@MonthlyWeekly,@DaysTillInspection,@DateReportIssued,@RenewDate,@GroupName,@MonthlyWeeklyRange,@Booked)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
-			//cmd.Parameters.AddWithValue("@UploadDate", date);
-			//cmd.Parameters.AddWithValue("@UploadedFile", file);
-
 			cmd.Parameters.Add("@ManufacturerCompany", OleDbType.VarWChar).Value = manufacturerCompany;
 			cmd.Parameters.Add("@EquipmentDescription", OleDbType.VarWChar).Value = itemDescription;
 			cmd.Parameters.Add("@CompanyInsurer", OleDbType.VarWChar).Value = companyInsurer;
@@ -949,11 +926,7 @@ namespace Engineering_Database
 			cmd.Parameters.Add("@GroupName", OleDbType.VarWChar).Value = groupvalue;
 			cmd.Parameters.Add("@MonthlyWeeklyRange", OleDbType.VarWChar).Value = monthlyWeeklyRange;
 			cmd.Parameters.Add("@Booked", OleDbType.VarChar).Value = booked;
-			//cmd.Parameters.Add("@Booked", OleDbType.VarChar).Value = Booked;
 
-			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
-
-			//cmd.Dispose();l
 			cmd.ExecuteNonQuery();
 		}
 
@@ -969,14 +942,8 @@ namespace Engineering_Database
 			string queryString = "INSERT INTO " + table + " (BlackOutDate) " + " Values(@BlackOutDate)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 
-			//cmd.Parameters.AddWithValue("@UploadDate", date);
-			//cmd.Parameters.AddWithValue("@UploadedFile", file);
-
 			cmd.Parameters.Add("@BlackOutDate", OleDbType.Date).Value = date;
 
-			//cmd.Parameters.AddWithValue("@GroupName",groupvalue);
-
-			//cmd.Dispose();l
 			cmd.ExecuteNonQuery();
 		}
 

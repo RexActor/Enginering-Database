@@ -3,10 +3,9 @@
 using System.Data;
 using System.Data.OleDb;
 
-
 namespace Engineering_Database
 {
-	class IssueClass
+	internal class IssueClass
 	{
 		public int JobNumber { get; set; }
 		public string ReportedDate { get; set; }
@@ -34,9 +33,9 @@ namespace Engineering_Database
 		public string ReportedEmail { get; set; }
 		public string ReporterEmail { get; set; }
 
+		private readonly DatabaseClass db = new DatabaseClass();
+		private List<IssueClass> issueDataList = new List<IssueClass>();
 
-		readonly DatabaseClass db = new DatabaseClass();
-		List<IssueClass> issueDataList = new List<IssueClass>();
 		public List<IssueClass> updateIssueDataList()
 		{
 			db.ConnectDB();
@@ -46,9 +45,6 @@ namespace Engineering_Database
 
 			upIsDtList.Fill(dt2);
 
-
-
-
 			foreach (DataRow dr in dt2.Rows)
 			{
 				IssueClass newIs = new IssueClass();
@@ -79,32 +75,21 @@ namespace Engineering_Database
 				newIs.Contractor = dr["Contractor"].ToString();
 				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
 
-
-
 				issueDataList.Add(newIs);
-
-
 			}
 
 			upIsDtList.Dispose();
 			return issueDataList;
-
-
 		}
-
 
 		public List<IssueClass> updateIssueDataListForSpecificJob(int searchJobNumber)
 		{
-
 			issueDataList.Clear();
 			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForViewDatabase(searchJobNumber));
 			DataTable dt2 = new DataTable();
 
 			upIsDtList.Fill(dt2);
 
-
-
-
 			foreach (DataRow dr in dt2.Rows)
 			{
 				IssueClass newIs = new IssueClass();
@@ -136,29 +121,12 @@ namespace Engineering_Database
 				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
 
 				issueDataList.Add(newIs);
-
-
 			}
-
-
-
-
-
 
 			issueDataList = issueDataList.FindAll(x => x.JobNumber == searchJobNumber);
 
-
-
 			upIsDtList.Dispose();
 			return issueDataList;
-
-
 		}
-
-
 	}
-
-
-
 }
-

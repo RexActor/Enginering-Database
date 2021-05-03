@@ -35,12 +35,10 @@ namespace Engineering_Database
 			clock.Interval = new TimeSpan(0, 5, 0);
 			clock.Start();
 			GetOnline();
-			//TestFunction();
 		}
 
 		private void GetOnline()
 		{
-			//userList = new List<Users>();
 			try
 			{
 				RefreshRate.Content = $"Refreshed {refreshRate} times";
@@ -49,7 +47,7 @@ namespace Engineering_Database
 				OnlineUserGrid.Items.Clear();
 				string _Logout;
 				string _TimeOnline;
-				//Console.WriteLine($"Update {i}");
+
 				i++;
 
 				string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
@@ -63,7 +61,6 @@ namespace Engineering_Database
 					{
 						using (var reader = query.ExecuteReader())
 						{
-							//Users user = new Users();
 							while (reader.Read())
 							{
 								int _UserID = Convert.ToInt32(reader["ID"]);
@@ -98,7 +95,6 @@ namespace Engineering_Database
 					Update();
 					refreshRate++;
 				}
-				//view = (CollectionView)CollectionViewSource.GetDefaultView(OnlineUsersListView.ItemsSource);
 			}
 			catch (Exception ex)
 			{
@@ -108,7 +104,6 @@ namespace Engineering_Database
 
 		private void KeepAnEye(object sender, EventArgs e)
 		{
-			//userList = new List<Users>();
 			try
 			{
 				RefreshRate.Content = $"Refreshed {refreshRate} times";
@@ -117,7 +112,7 @@ namespace Engineering_Database
 				OnlineUserGrid.Items.Clear();
 				string _Logout;
 				string _TimeOnline;
-				//Console.WriteLine($"Update {i}");
+
 				i++;
 
 				string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
@@ -131,7 +126,6 @@ namespace Engineering_Database
 					{
 						using (var reader = query.ExecuteReader())
 						{
-							//Users user = new Users();
 							while (reader.Read())
 							{
 								int _UserID = Convert.ToInt32(reader["ID"]);
@@ -166,7 +160,6 @@ namespace Engineering_Database
 					Update();
 					refreshRate++;
 				}
-				//view = (CollectionView)CollectionViewSource.GetDefaultView(OnlineUsersListView.ItemsSource);
 			}
 			catch (Exception ex)
 			{
@@ -178,7 +171,6 @@ namespace Engineering_Database
 		{
 			userList = userList.OrderByDescending(f => f.UserID).ToList();
 			OnlineUserGrid.ItemsSource = userList;
-			//OnlineUsersListView.ItemsSource = userList;
 
 			view = CollectionViewSource.GetDefaultView(OnlineUserGrid.ItemsSource) as CollectionView;
 			view.Filter = CustomFilter;
@@ -193,9 +185,7 @@ namespace Engineering_Database
 			}
 			else
 			{
-				//return (item.ToString().IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 				return (item.Logout.ToString().IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-				//return (obj.ToString().IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 			}
 		}
 
@@ -219,7 +209,7 @@ namespace Engineering_Database
 				selectedItem.Logout,
 				selectedItem.TimeOnline)
 				);
-			//MessageBox.Show($"{selectedItem.UserID}, {selectedItem.UserName} {selectedItem.Login} {selectedItem.Logout} {selectedItem.TimeOnline} ");
+
 			CollectionViewSource.GetDefaultView(SelectedUsersGrid.ItemsSource).Refresh();
 		}
 
@@ -234,7 +224,6 @@ namespace Engineering_Database
 		{
 			try
 			{
-				int i = 0;
 				if (selectedList.Count > 0)
 				{
 					foreach (var item in selectedList)
@@ -244,7 +233,6 @@ namespace Engineering_Database
 				}
 				selectedList.Clear();
 				CollectionViewSource.GetDefaultView(SelectedUsersGrid.ItemsSource).Refresh();
-				//CollectionViewSource.GetDefaultView(OnlineUserGrid.ItemsSource).Refresh();
 			}
 			catch (Exception ex)
 			{

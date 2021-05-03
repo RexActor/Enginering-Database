@@ -43,36 +43,6 @@ namespace Enginering_Database
 
 			SetUpComboBox();
 
-			#region not required anymore - refactored part
-
-			//area combo box values
-			//areaComboBox.Text = "Please Choose";
-			//areaComboBox.Items.Insert(0, "Please Choose");
-			//areaComboBox.Items.Add("Production");
-			//areaComboBox.Items.Add("Warehouse");
-			//areaComboBox.Items.Add("Facilities");
-			//areaComboBox.Items.Add("Projects");
-			//areaComboBox.SelectedIndex = 0;
-
-			//PriorityComboBox.Text = "Please Choose";
-			//PriorityComboBox.Items.Insert(0, "Please Choose");
-			//PriorityComboBox.Items.Add("Normal");
-			//PriorityComboBox.Items.Add("High");
-			//PriorityComboBox.Items.Add("Urgent");
-			//PriorityComboBox.SelectedIndex = 0;
-
-			//disabling all comboboxes which ones not needed on start to be enabled before choosing area code
-
-			//faultyAreaComboBox.IsEnabled = false;
-			//issueComboBox.IsEnabled = false;
-			//issueTypeComboBox.IsEnabled = false;
-
-			//issueTypeComboBox.Text = "Please Choose";
-			//issueTypeComboBox.Items.Insert(0, "Please Choose");
-			//issueTypeComboBox.SelectedIndex = 0;
-
-			#endregion not required anymore - refactored part
-
 			GetJobNumber();
 		}
 
@@ -334,8 +304,6 @@ namespace Enginering_Database
 				}
 				//checks one more time for correct job number to be updated into database.
 				//this is to avoid issue of double job numbers due the delay on email application (outlook) opening
-
-				//getLastJobNumber = db.DBQueryLastJobNumber("JobNumber");
 
 				issue.JobNumber = Convert.ToInt32(db.DBQueryLastJobNumber("JobNumber")) + 1;
 

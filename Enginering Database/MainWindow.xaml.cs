@@ -68,13 +68,14 @@ namespace Enginering_Database
 
 			//TODO:change
 			loginSysID = loginSys.CreateUserLogin(userName);
-			//MessageBox.Show($"Longin ID {loginSysID} assigned");
+
 			UserNameLabel.Content = userName;
 
 			if (loginSysID != null && LoginIDLabel.Content.ToString() == "Not Assigned")
 			{
 				LoginIDLabel.Content = loginSysID.ToString();
 			}
+			UsersOnlineLabel.Content = loginSys.OnlineUserCount();
 
 			dtC.CloseDB();
 		}
@@ -253,8 +254,6 @@ namespace Enginering_Database
 
 		private void UpdateClock(object sender, EventArgs e)
 		{
-			//UsersOnlineLabel.Content = loginSys.OnlineUserCount();
-
 			DateTime d;
 			d = DateTime.Now;
 			LocalTimeData.Content = d.ToString("HH:mm:ss");
@@ -265,8 +264,6 @@ namespace Enginering_Database
 			userSett.openSettings();
 			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
 			{
-				//LineMaintenance lineMaintenance = new LineMaintenance();
-				//lineMaintenance.Show();
 				Admin admin = new Admin();
 				admin.Show();
 			}

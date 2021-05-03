@@ -1,5 +1,4 @@
-﻿
-using DocumentFormat.OpenXml.Office.CustomUI;
+﻿using DocumentFormat.OpenXml.Office.CustomUI;
 
 using System;
 using System.Drawing;
@@ -14,8 +13,8 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class InventoryOverView : Window
 	{
+		private DatabaseClass db = new DatabaseClass();
 
-		DatabaseClass db = new DatabaseClass();
 		public InventoryOverView()
 		{
 			InitializeComponent();
@@ -24,9 +23,7 @@ namespace Engineering_Database
 
 		private void filterTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
 		}
-
 
 		public void LoadInvnetoryListView()
 		{
@@ -35,31 +32,24 @@ namespace Engineering_Database
 			Console.WriteLine(db.DBStatus());
 
 			var reader = db.GetAllPDFIds("InventoryViewProducts");
-			
 
 			while (reader.Read())
 			{
-
 				Inventory inv = new Inventory();
-
 
 				inv.ID = Convert.ToInt32(reader["ID"]);
 				inv.Product = reader["ProductName"].ToString();
 				inv.MeasureType = reader["MeasureType"].ToString();
 				inv.ProductCategory = reader["ProductCategory"].ToString();
 
-
 				var getProduct = db.GetInventoryProduct("InventoryView", "Product", inv.Product);
 
 				while (getProduct.Read())
 				{
-
 					inv.Qty = Convert.ToInt32(getProduct["Qty"]);
-
 				}
 
-
-				if (inv.Qty >0)
+				if (inv.Qty > 0)
 				{
 					ListviewInventory.Items.Add(inv);
 				}
@@ -67,20 +57,9 @@ namespace Engineering_Database
 				{
 					ListviewInventoryNotOnStock.Items.Add(inv);
 				}
-
 			}
 
-
-			
-
-
-
 			db.CloseDB();
-
-
 		}
-
-	
-
 	}
 }

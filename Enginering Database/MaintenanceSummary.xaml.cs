@@ -11,7 +11,7 @@ namespace Engineering_Database
 	/// <summary>
 	/// Interaction logic for MaintenanceSummary.xaml
 	/// </summary>
-	/// 
+	///
 
 	public partial class MaintenanceSummary : Window
 	{
@@ -20,8 +20,9 @@ namespace Engineering_Database
 		public DateTime selectedDate;
 		public int selectedIndex = -1;
 		public double SlideControlCurrentValue = 0;
-		List<string> MaintenanceCollectionForListView = new List<string>();
-		DatabaseClass db = new DatabaseClass();
+		private List<string> MaintenanceCollectionForListView = new List<string>();
+		private DatabaseClass db = new DatabaseClass();
+
 		public MaintenanceSummary()
 		{
 			InitializeComponent();
@@ -30,7 +31,6 @@ namespace Engineering_Database
 			selectedMonthContent.Content = "No selection";
 			UpdateListBox("Year");
 		}
-
 
 		public void UpdateListBox(string filter)
 		{
@@ -55,50 +55,41 @@ namespace Engineering_Database
 
 			while (reader.Read())
 			{
-				//MeterReadingClass meter = new MeterReadingClass();
-				//DateTime pulledDate = (DateTime)reader["InsertDate"];
-				//meter.InsertDate = pulledDate.ToString("d/MMM/yy");
-				//meter.meterReading = Convert.ToDouble(reader["MeterReading"]);
-				//meter.ReadingMonth = reader["ReadingMonth"].ToString();
-				//meter.ReadingYear = reader["ReadingYear"].ToString();
-
 				switch (filter)
 				{
 					case "Month":
 						if (checkData(reader["MonthOfMaintenance"].ToString()) == false)
 						{
-							//MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingMonth");
 							DataListBox.Items.Add(reader["MonthOfMaintenance"].ToString());
 							MaintenanceCollectionForListView.Add(reader["MonthOfMaintenance"].ToString());
 						}
 						break;
+
 					case "Year":
 						if (checkData(reader["YearOfMaintenance"].ToString()) == false)
 						{
-							//	MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingYear");
 							DataListBox.Items.Add(reader["YearOfMaintenance"].ToString());
 							MaintenanceCollectionForListView.Add(reader["YearOfMaintenance"].ToString());
 						}
 						break;
+
 					case "Data":
 						DataListBox.Items.Add(reader["LineOfMaintenance"].ToString());
 						MaintenanceCollectionForListView.Add(reader["LineOfMaintenance"].ToString());
-
 
 						break;
 
 					default:
 						if (checkData(reader["MonthOfMaintenance"].ToString()) == false)
 						{
-							//MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingMonth");
 							DataListBox.Items.Add(reader["MonthOfMaintenance"].ToString());
 							MaintenanceCollectionForListView.Add(reader["MonthOfMaintenance"].ToString());
 						}
 						break;
 				}
 			}
-
 		}
+
 		private bool checkData(string value)
 		{
 			if (MaintenanceCollectionForListView.Contains(value))
@@ -124,7 +115,6 @@ namespace Engineering_Database
 				selectedYear = 0;
 				selectedMonth = string.Empty;
 
-				//MessageBox.Show("Switching to Years");
 				UpdateListBox("Year");
 			}
 			else if (SliderControl.Value == 1)
@@ -135,8 +125,6 @@ namespace Engineering_Database
 			{
 				UpdateListBox("Data");
 			}
-
-
 		}
 
 		private void addNewReportButton_Click(object sender, RoutedEventArgs e)
@@ -147,10 +135,6 @@ namespace Engineering_Database
 
 		private void DataListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
-
-			//DataListBox.UnselectAll();
-
 			if (DataListBox.SelectedIndex >= 0)
 			{
 				selectedIndex = DataListBox.SelectedIndex;
@@ -169,10 +153,8 @@ namespace Engineering_Database
 						selectedYearContent.Content = "No selection";
 					}
 				}
-
 				else if (SliderControl.Value == 1)
 				{
-
 					selectedMonth = DataListBox.SelectedItem.ToString();
 					if (selectedMonth != string.Empty)
 					{
@@ -187,7 +169,6 @@ namespace Engineering_Database
 				}
 				else if (SliderControl.Value == 2)
 				{
-
 					int id = 0;
 
 					var reader = db.GetAllPDFIds("LineMaintenance", selectedYear, selectedMonth, DataListBox.SelectedItem.ToString());
@@ -219,12 +200,12 @@ namespace Engineering_Database
 		{
 			SliderControl.Value = 0;
 		}
+
 		public void GetFile(int id)
 		{
 			EngineerCommentContent.Document.Blocks.Clear();
 			UploadedDateContent.Content = "";
 			ServiceDateContent.Content = "";
-
 
 			db.ConnectDB();
 			byte[] buffer = null;
@@ -238,13 +219,11 @@ namespace Engineering_Database
 				ServiceDateContent.Content = reader["DateOfMaintenance"];
 				LinkedAssetNumber.Content = reader["LinkedAsset"].ToString();
 				EngineerCommentContent.Document.Blocks.Add(new System.Windows.Documents.Paragraph(new System.Windows.Documents.Run(reader["EngineerComment"].ToString())));
-
 			}
 			using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
 			{
 				fsStream.Write(buffer, 0, buffer.Length);
 			}
-
 
 			PdfBrowser.Navigate(tempFile);
 		}

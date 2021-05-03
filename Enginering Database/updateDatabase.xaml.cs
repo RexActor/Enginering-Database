@@ -15,38 +15,38 @@ namespace Enginering_Database
 	public partial class updateDatabase : Window
 	{
 		private string filter = "Outstanding";
-		readonly EmailClass email = new EmailClass();
-		int convJobNumber;
+		private readonly EmailClass email = new EmailClass();
+		private int convJobNumber;
 		public string contentForTextTestLabel;
-		Button textTestLabel;
-		int jobList;
-		readonly IssueClass issueClass = new IssueClass();
-		readonly UserSettings userSett = new UserSettings();
-		readonly DatabaseClass db = new DatabaseClass();
-		readonly UserErrorWindow userError = new UserErrorWindow();
-		readonly double ScreenHeight = SystemParameters.WorkArea.Height;
-		readonly double ScreenWidht = SystemParameters.WorkArea.Width;
+		private Button textTestLabel;
+		private int jobList;
+		private readonly IssueClass issueClass = new IssueClass();
+		private readonly UserSettings userSett = new UserSettings();
+		private readonly DatabaseClass db = new DatabaseClass();
+		private readonly UserErrorWindow userError = new UserErrorWindow();
+		private readonly double ScreenHeight = SystemParameters.WorkArea.Height;
+		private readonly double ScreenWidht = SystemParameters.WorkArea.Width;
 		readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
 
 		//if data is not selected = can't change due date
 		public bool canChangeDueDate = false;
+
 		public bool canSendEmail = false;
 		public bool canComplete = false;
 		public bool canSubmit = false;
 		public bool seperateWindow = false;
 		public string jobStatus = null;
 		public string isComplete = null;
+
 		//Tooltip object
-		readonly ToolTip myToolTip = new ToolTip();
+		private readonly ToolTip myToolTip = new ToolTip();
 
 		public updateDatabase()
 		{
-
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			db.ConnectDB();
 			InitializeComponent();
 
-		
 			empList.AllowRemove = true;
 
 			///disable preview window at start
@@ -70,14 +70,10 @@ namespace Enginering_Database
 			//update contractor ComboBox with latest data
 			UpdateContractorComboBox();
 
-			//update assigntocombo box with latest data 
+			//update assigntocombo box with latest data
 			UpdateAssignToComboBox();
 
-
-			
 			UpdateDamageReasonComboBox();
-
-		
 
 			createJobList(filter);
 			GetOldEntries();
@@ -102,30 +98,26 @@ namespace Enginering_Database
 					ContractorComboBoxData.Items.Add(word);
 				}
 			}
-		
 		}
 
 		private void UpdateDamageReasonComboBox()
-		
+
 		{
 			if (db.DBStatus() == "DB not Connected")
 			{
 				db.ConnectDB();
 			}
-			//MessageBox.Show("Trigger");
-			
+
 			var reader = db.DBQueryForAssets("DamageReasons");
 
 			while (reader.Read())
 			{
 				DamageReasonsComboBox.Items.Add(reader["DamageReason"].ToString());
-				//DamageReasonsComboBox.Items.Add("T");
 			}
-			//DamageReasonsComboBox.Items.Add("B");
+
 			DamageReasonsComboBox.SelectedIndex = 0;
 			db.CloseDB();
 		}
-
 
 		private void UpdateAssignToComboBox()
 		{
@@ -156,7 +148,6 @@ namespace Enginering_Database
 
 		private void createJobList(string filter)
 		{
-
 			if (db.DBStatus() == "DB not Connected")
 			{
 				db.ConnectDB();
@@ -179,10 +170,12 @@ namespace Enginering_Database
 			else
 			{
 				jobList = 0;
-				System.Windows.Controls.Label ErrorLabel = new System.Windows.Controls.Label();
-				ErrorLabel.Content = "Error in settings. Please check job count settings";
-				ErrorLabel.Padding = new Thickness(3);
-				ErrorLabel.Margin = new Thickness(1);
+				Label ErrorLabel = new Label
+				{
+					Content = "Error in settings. Please check job count settings",
+					Padding = new Thickness(3),
+					Margin = new Thickness(1)
+				};
 				TestStackPanel.Children.Add(ErrorLabel);
 			}
 
@@ -198,7 +191,6 @@ namespace Enginering_Database
 				{
 					if (i <= dt.Rows.Count && i < jobList)
 					{
-
 						textTestLabel = new System.Windows.Controls.Button();
 						textTestLabel.BorderThickness = new Thickness(0);
 						textTestLabel.Background = new SolidColorBrush(Color.FromArgb(195, 195, 195, 0));
@@ -303,7 +295,7 @@ namespace Enginering_Database
 			}
 
 			Frame2StackPanel.Children.Clear();
-		
+
 			TextBlock frame2TextBlock = new System.Windows.Controls.TextBlock();
 			UpdateFrame2(btn.Content.ToString());
 			Frame2StackPanel.Children.Add(frame2TextBlock);
@@ -348,7 +340,6 @@ namespace Enginering_Database
 
 		private void StartTimeTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
 		}
 
 		private void CompleteCheckboxOnCheck(object sender, RoutedEventArgs e)
@@ -422,6 +413,7 @@ namespace Enginering_Database
 				myToolTip.IsOpen = false;
 			}
 		}
+
 		private void CompleteCheckBoxMouseOver(object sender, RoutedEventArgs e)
 		{
 			if (canChangeDueDate == false)
@@ -470,7 +462,6 @@ namespace Enginering_Database
 
 			while (getEntries.Read())
 			{
-				
 				DateTime date = Convert.ToDateTime(getEntries["DueDate"]);
 				DateTime now = DateTime.Now;
 				TimeSpan diff = now - date;
@@ -547,10 +538,9 @@ namespace Enginering_Database
 			Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
 			Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 
-
 			if (db.DBQuery("DamageReason", convJobNumber) == "")
 			{
-				DamageReasonsComboBox.SelectedItem="Not Specified";
+				DamageReasonsComboBox.SelectedItem = "Not Specified";
 			}
 			else
 			{
@@ -680,15 +670,10 @@ namespace Enginering_Database
 					db.DBQueryInsertData("DueDate", convJobNumber, Frame3UpdateDueDateDatePicker.Text.ToString());
 				}
 
-
-
 				if (AssignToDropDownBox.SelectedItem != null)
 				{
 					db.DBQueryInsertData("AssignedTo", convJobNumber, AssignToDropDownBox.SelectedItem.ToString());
 				}
-
-
-
 
 				if (ContractorComboBoxData.SelectedIndex > 0)
 				{
@@ -791,7 +776,6 @@ namespace Enginering_Database
 					}
 				}
 			}
-
 		}
 
 		private void FilterLabelClicked(Object sender, EventArgs e)
@@ -806,9 +790,6 @@ namespace Enginering_Database
 
 		private void OldEntriesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-
 		}
 	}
-
-
 }

@@ -133,8 +133,6 @@ namespace Engineering_Database
 
 						DateTime renewDateTime = Convert.ToDateTime(statutory.RenewDate);
 
-						//int daysForward = 0 - Convert.ToInt32(settings.DueDateGap);
-
 						meetingDate = renewDateTime.AddDays(0 - Convert.ToInt64(settings.MeetingDaysAhead));
 
 						if (meetingDate < DateTime.Now.Date)
@@ -209,7 +207,6 @@ namespace Engineering_Database
 		{
 			StatutoryCompliance statutory = new StatutoryCompliance();
 			statutory.ShowDialog();
-			//setUpMeeting(28, "Test Meeting", "Updating Database with meeting request", 2);
 		}
 
 		/// <summary>

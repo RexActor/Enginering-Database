@@ -21,11 +21,6 @@ namespace Engineering_Database
 
 		private void DateReportIssuedDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
 		{
-			//if (DateReportIssuedDatePicker.SelectedDate != null && RenewDateDatePicker.SelectedDate != null)
-			//{
-			//	TimeSpan days = RenewDateDatePicker.SelectedDate.Value.Date - DateReportIssuedDatePicker.SelectedDate.Value.Date;
-			//	nextInspectionLabelContent.Content = $"{days} days left till next inspection";
-			//}
 			try
 			{
 				if (WeeklyMonthlyGroupComboBox.SelectedIndex != 0 && WeeklyMonthlyTextBox.Text != String.Empty)
@@ -134,16 +129,8 @@ namespace Engineering_Database
 				//upload into database
 				db.ConnectDB();
 
-				//TimeSpan daysTillInspection = RenewDateDatePicker.SelectedDate.Value.Date - DateReportIssuedDatePicker.SelectedDate.Value.Date;
-
-				//TimeSpan diff = RenewDateDatePicker.SelectedDate.Value.Date.Subtract(DateTime.Now.Date);
-
 				TimeSpan daysTillInspection = RenewDateDatePicker.SelectedDate.Value.Date - DateTime.Now.Date;
 
-				//string totalDays = (RenewDateDatePicker.SelectedDate.Value.Date - DateTime.Now.Date).TotalDays.ToString();
-
-				//int correctTimeSpan = Convert.ToInt32(daysTillInspection);
-				//MessageBox.Show(valueToAdd);
 				db.AddStatutoryItem("StatutoryCompliance", ItemDescriptionTextBox.Text, ManufacturerCompanyTextBox.Text, DateReportIssuedDatePicker.SelectedDate.Value.Date, RenewDateDatePicker.SelectedDate.Value.Date, SerialNumberTextBox.Text, WeeklyMonthlyTextBox.Text, daysTillInspection.TotalDays.ToString(), CompanyInsurerTextBox.Text, valueToAdd, WeeklyMonthlyGroupComboBox.SelectedItem.ToString(), "No");
 
 				db.CloseDB();
@@ -152,8 +139,6 @@ namespace Engineering_Database
 				errorLabel.FontWeight = FontWeights.Bold;
 				errorLabel.Content = "Item added into database";
 				errorLabel.Visibility = Visibility.Visible;
-
-				//this.Close();
 			}
 			else
 			{
