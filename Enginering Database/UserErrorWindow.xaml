@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="User Error Window" Height="142.228" Width="474.303">
+        Title="User Error Window" Height="206.228" Width="474.303"
+        Background="#F4B3A9"
+        ResizeMode="NoResize"
+        BorderBrush="#3282D6" BorderThickness="2">
     <Grid>
 
-        <Border BorderBrush="{x:Null}" Margin="10,10,0,42">
-        <TextBlock x:Name="ErrorTextBlock" TextWrapping="Wrap" Margin="0,0,10,0" TextAlignment="Center" VerticalAlignment="Center"   Foreground="#FFF70909" Height="59" >asdasdasd</TextBlock>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="6,10,4,53">
+            <TextBlock x:Name="ErrorTextBlock" FontWeight="Bold"  Background="#B9AFE1C1" TextWrapping="Wrap" TextAlignment="Center"   Foreground="#FF181717" >asdasdasd</TextBlock>
         </Border>
-        <Button x:Name="Submit" Content="OK" HorizontalAlignment="Right" Margin="0,74,189,0" VerticalAlignment="Top" Width="70" Click="CloseErrorMessage_click"/>
-
+        <Button x:Name="Submit" Content="OK" HorizontalAlignment="Right" Margin="0,133,191,0" VerticalAlignment="Top" Width="70" Click="CloseErrorMessage_click" />
     </Grid>
 </Window>

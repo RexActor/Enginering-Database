@@ -18,75 +18,113 @@ namespace Engineering_Database
 		private readonly string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
 
 		private readonly OleDbConnection con = new OleDbConnection();
+		private ErrorSystem err = new ErrorSystem();
 
 		#region connect DB close DB and DB status DB count lines functions
 
 		public void ConnectDB()
 		{
-			if (con.State == ConnectionState.Closed)
+			try
 			{
-				OleDbConnection.ReleaseObjectPool();
-				con.ConnectionString = ConnectionString;
-				con.Open();
+				if (con.State == ConnectionState.Closed)
+				{
+					OleDbConnection.ReleaseObjectPool();
+					con.ConnectionString = ConnectionString;
+					con.Open();
+				}
+				else
+				{
+					OleDbConnection.ReleaseObjectPool();
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				OleDbConnection.ReleaseObjectPool();
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		public void ConnectDB(string databaseName)
 		{
-			string ConnectionString = $"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = {databaseName}.accdb; Jet OLEDB:Database Password = test";
+			try
+			{
+				string ConnectionString = $"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = {databaseName}.accdb; Jet OLEDB:Database Password = test";
 
-			if (con.State == ConnectionState.Closed)
-			{
-				OleDbConnection.ReleaseObjectPool();
-				con.ConnectionString = ConnectionString;
-				con.Open();
+				if (con.State == ConnectionState.Closed)
+				{
+					OleDbConnection.ReleaseObjectPool();
+					con.ConnectionString = ConnectionString;
+					con.Open();
+				}
+				else
+				{
+					OleDbConnection.ReleaseObjectPool();
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				OleDbConnection.ReleaseObjectPool();
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		public void CloseDB()
 		{
-			con.Dispose();
-			con.Close();
+			try
+			{
+				con.Dispose();
+				con.Close();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		public string DBStatus()
 		{
-			if (con != null)
+			try
 			{
-				if (con.State == System.Data.ConnectionState.Open)
+				if (con != null)
 				{
-					return "DB connected";
-				}
-				else if (con.State == System.Data.ConnectionState.Closed)
-				{
-					return "DB not Connected";
+					if (con.State == System.Data.ConnectionState.Open)
+					{
+						return "DB connected";
+					}
+					else if (con.State == System.Data.ConnectionState.Closed)
+					{
+						return "DB not Connected";
+					}
+					else
+					{
+						return "Some kind of error";
+					}
 				}
 				else
 				{
-					return "Some kind of error";
+					return "DB not Connected";
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				return "DB not Connected";
+				err.RecordError(ex.Message, ex.StackTrace);
+				return null;
 			}
 		}
 
 		public int DBCountLines()
 		{
-			string queryString = "SELECT COUNT(*) FROM engineeringDatabaseTable";
-			OleDbCommand cmd = new OleDbCommand(queryString, con);
-			var data = (int)cmd.ExecuteScalar();
-			cmd.Dispose();
-			return data;
+			try
+			{
+				string queryString = "SELECT COUNT(*) FROM engineeringDatabaseTable";
+				OleDbCommand cmd = new OleDbCommand(queryString, con);
+				var data = (int)cmd.ExecuteScalar();
+				cmd.Dispose();
+				return data;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+				return -1;
+			}
 		}
 
 		#endregion connect DB close DB and DB status DB count lines functions

@@ -8,8 +8,11 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class DynamicMaintenanceTable : Window
 	{
-		const string lineMaint = "LineMaintenancePage.xaml";
-		const string terraMaint = "TerraMaintenancePage.xaml";
+		private ErrorSystem err = new ErrorSystem();
+		private const string lineMaint = "LineMaintenancePage.xaml";
+
+		private const string terraMaint = "TerraMaintenancePage.xaml";
+
 		public DynamicMaintenanceTable()
 		{
 			InitializeComponent();
@@ -20,14 +23,26 @@ namespace Engineering_Database
 
 		public void LoadPage(string value)
 		{
-
-			MaintenanceFrame.Source = new Uri(value, UriKind.RelativeOrAbsolute);
-
+			try
+			{
+				MaintenanceFrame.Source = new Uri(value, UriKind.RelativeOrAbsolute);
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void testCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
-			LoadPage(testCombo.SelectedItem.ToString());
+			try
+			{
+				LoadPage(testCombo.SelectedItem.ToString());
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

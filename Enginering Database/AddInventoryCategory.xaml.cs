@@ -18,8 +18,9 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class AddInventoryCategory : Window
 	{
+		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
 
-		DatabaseClass db = new DatabaseClass();
 		public AddInventoryCategory()
 		{
 			InitializeComponent();
@@ -27,34 +28,44 @@ namespace Engineering_Database
 
 		private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
 		{
-
-			if (CategoryTextBox.Text != string.Empty)
+			try
 			{
-				db.ConnectDB();
+				if (CategoryTextBox.Text != string.Empty)
+				{
+					db.ConnectDB();
 
+					db.AddCategory("InventoryCategory", CategoryTextBox.Text);
 
-				db.AddCategory("InventoryCategory", CategoryTextBox.Text);
+					CategoryTextBox.Text = "";
+					saveLabel.Visibility = Visibility.Visible;
 
-				CategoryTextBox.Text = "";
-				saveLabel.Visibility = Visibility.Visible;
-
-				db.CloseDB();
-				
+					db.CloseDB();
+				}
+				else
+				{
+					errorLabel.Visibility = Visibility.Visible;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				errorLabel.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
-
 		}
 
 		private void CategoryTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (CategoryTextBox.Text != String.Empty)
+			try
 			{
-				saveLabel.Visibility = Visibility.Hidden;
+				if (CategoryTextBox.Text != String.Empty)
+				{
+					saveLabel.Visibility = Visibility.Hidden;
+				}
+				errorLabel.Visibility = Visibility.Hidden;
 			}
-			errorLabel.Visibility = Visibility.Hidden;
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

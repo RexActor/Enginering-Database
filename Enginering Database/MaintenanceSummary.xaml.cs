@@ -22,6 +22,7 @@ namespace Engineering_Database
 		public double SlideControlCurrentValue = 0;
 		private List<string> MaintenanceCollectionForListView = new List<string>();
 		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
 
 		public MaintenanceSummary()
 		{
@@ -34,59 +35,66 @@ namespace Engineering_Database
 
 		public void UpdateListBox(string filter)
 		{
-			MaintenanceCollectionForListView.Clear();
-			DataListBox.Items.Clear();
+			try
+			{
+				MaintenanceCollectionForListView.Clear();
+				DataListBox.Items.Clear();
 
-			OleDbDataReader reader;
-			db.ConnectDB();
+				OleDbDataReader reader;
+				db.ConnectDB();
 
-			if (filter == "Month" && selectedYear != 0)
-			{
-				reader = db.GetAllPDFIds("LineMaintenance", selectedYear);
-			}
-			else if (filter == "Data")
-			{
-				reader = db.GetAllPDFIds("LineMaintenance", selectedMonth);
-			}
-			else
-			{
-				reader = db.GetAllPDFIds("LineMaintenance");
-			}
-
-			while (reader.Read())
-			{
-				switch (filter)
+				if (filter == "Month" && selectedYear != 0)
 				{
-					case "Month":
-						if (checkData(reader["MonthOfMaintenance"].ToString()) == false)
-						{
-							DataListBox.Items.Add(reader["MonthOfMaintenance"].ToString());
-							MaintenanceCollectionForListView.Add(reader["MonthOfMaintenance"].ToString());
-						}
-						break;
-
-					case "Year":
-						if (checkData(reader["YearOfMaintenance"].ToString()) == false)
-						{
-							DataListBox.Items.Add(reader["YearOfMaintenance"].ToString());
-							MaintenanceCollectionForListView.Add(reader["YearOfMaintenance"].ToString());
-						}
-						break;
-
-					case "Data":
-						DataListBox.Items.Add(reader["LineOfMaintenance"].ToString());
-						MaintenanceCollectionForListView.Add(reader["LineOfMaintenance"].ToString());
-
-						break;
-
-					default:
-						if (checkData(reader["MonthOfMaintenance"].ToString()) == false)
-						{
-							DataListBox.Items.Add(reader["MonthOfMaintenance"].ToString());
-							MaintenanceCollectionForListView.Add(reader["MonthOfMaintenance"].ToString());
-						}
-						break;
+					reader = db.GetAllPDFIds("LineMaintenance", selectedYear);
 				}
+				else if (filter == "Data")
+				{
+					reader = db.GetAllPDFIds("LineMaintenance", selectedMonth);
+				}
+				else
+				{
+					reader = db.GetAllPDFIds("LineMaintenance");
+				}
+
+				while (reader.Read())
+				{
+					switch (filter)
+					{
+						case "Month":
+							if (checkData(reader["MonthOfMaintenance"].ToString()) == false)
+							{
+								DataListBox.Items.Add(reader["MonthOfMaintenance"].ToString());
+								MaintenanceCollectionForListView.Add(reader["MonthOfMaintenance"].ToString());
+							}
+							break;
+
+						case "Year":
+							if (checkData(reader["YearOfMaintenance"].ToString()) == false)
+							{
+								DataListBox.Items.Add(reader["YearOfMaintenance"].ToString());
+								MaintenanceCollectionForListView.Add(reader["YearOfMaintenance"].ToString());
+							}
+							break;
+
+						case "Data":
+							DataListBox.Items.Add(reader["LineOfMaintenance"].ToString());
+							MaintenanceCollectionForListView.Add(reader["LineOfMaintenance"].ToString());
+
+							break;
+
+						default:
+							if (checkData(reader["MonthOfMaintenance"].ToString()) == false)
+							{
+								DataListBox.Items.Add(reader["MonthOfMaintenance"].ToString());
+								MaintenanceCollectionForListView.Add(reader["MonthOfMaintenance"].ToString());
+							}
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -104,85 +112,106 @@ namespace Engineering_Database
 
 		private void SliderControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			if (selectedIndex < 0)
+			try
 			{
-				SliderControl.Value = 0d;
-			}
+				if (selectedIndex < 0)
+				{
+					SliderControl.Value = 0d;
+				}
 
-			if (SliderControl.Value == 0)
+				if (SliderControl.Value == 0)
 
-			{
-				selectedYear = 0;
-				selectedMonth = string.Empty;
+				{
+					selectedYear = 0;
+					selectedMonth = string.Empty;
 
-				UpdateListBox("Year");
+					UpdateListBox("Year");
+				}
+				else if (SliderControl.Value == 1)
+				{
+					UpdateListBox("Month");
+				}
+				else
+				{
+					UpdateListBox("Data");
+				}
 			}
-			else if (SliderControl.Value == 1)
+			catch (Exception ex)
 			{
-				UpdateListBox("Month");
-			}
-			else
-			{
-				UpdateListBox("Data");
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void addNewReportButton_Click(object sender, RoutedEventArgs e)
 		{
-			AddMaintenanceReport addMaintenance = new AddMaintenanceReport();
-			addMaintenance.ShowDialog();
+			try
+			{
+				AddMaintenanceReport addMaintenance = new AddMaintenanceReport();
+				addMaintenance.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void DataListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (DataListBox.SelectedIndex >= 0)
+			try
 			{
-				selectedIndex = DataListBox.SelectedIndex;
-				if (SliderControl.Value == 0)
+				if (DataListBox.SelectedIndex >= 0)
 				{
-					selectedYear = Convert.ToInt32(DataListBox.SelectedItem);
-					if (selectedYear != 0)
+					selectedIndex = DataListBox.SelectedIndex;
+					if (SliderControl.Value == 0)
 					{
-						selectedYearContent.Content = selectedYear.ToString();
+						selectedYear = Convert.ToInt32(DataListBox.SelectedItem);
+						if (selectedYear != 0)
+						{
+							selectedYearContent.Content = selectedYear.ToString();
 
-						selectedYearContent.Foreground = Brushes.Green;
+							selectedYearContent.Foreground = Brushes.Green;
+						}
+						else
+						{
+							selectedYearContent.Foreground = Brushes.Red;
+							selectedYearContent.Content = "No selection";
+						}
 					}
-					else
+					else if (SliderControl.Value == 1)
 					{
-						selectedYearContent.Foreground = Brushes.Red;
-						selectedYearContent.Content = "No selection";
+						selectedMonth = DataListBox.SelectedItem.ToString();
+						if (selectedMonth != string.Empty)
+						{
+							selectedMonthContent.Foreground = Brushes.Green;
+							selectedMonthContent.Content = DataListBox.SelectedItem.ToString();
+						}
+						else
+						{
+							selectedMonthContent.Foreground = Brushes.Red;
+							selectedMonthContent.Content = "No selection";
+						}
+					}
+					else if (SliderControl.Value == 2)
+					{
+						int id = 0;
+
+						var reader = db.GetAllPDFIds("LineMaintenance", selectedYear, selectedMonth, DataListBox.SelectedItem.ToString());
+						while (reader.Read())
+						{
+							id = Convert.ToInt32(reader["ID"]);
+						}
+
+						GetFile(id);
 					}
 				}
-				else if (SliderControl.Value == 1)
+				else
 				{
-					selectedMonth = DataListBox.SelectedItem.ToString();
-					if (selectedMonth != string.Empty)
-					{
-						selectedMonthContent.Foreground = Brushes.Green;
-						selectedMonthContent.Content = DataListBox.SelectedItem.ToString();
-					}
-					else
-					{
-						selectedMonthContent.Foreground = Brushes.Red;
-						selectedMonthContent.Content = "No selection";
-					}
-				}
-				else if (SliderControl.Value == 2)
-				{
-					int id = 0;
-
-					var reader = db.GetAllPDFIds("LineMaintenance", selectedYear, selectedMonth, DataListBox.SelectedItem.ToString());
-					while (reader.Read())
-					{
-						id = Convert.ToInt32(reader["ID"]);
-					}
-
-					GetFile(id);
+					selectedIndex = -1;
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				selectedIndex = -1;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -203,35 +232,49 @@ namespace Engineering_Database
 
 		public void GetFile(int id)
 		{
-			EngineerCommentContent.Document.Blocks.Clear();
-			UploadedDateContent.Content = "";
-			ServiceDateContent.Content = "";
-
-			db.ConnectDB();
-			byte[] buffer = null;
-			string tempFile = System.IO.Path.GetTempFileName();
-
-			var reader = db.GetPDFFileFromDatabase("LineMaintenance", "ID", id);
-			while (reader.Read())
+			try
 			{
-				buffer = (byte[])reader["UploadedFile"];
-				UploadedDateContent.Content = reader["UploadDate"];
-				ServiceDateContent.Content = reader["DateOfMaintenance"];
-				LinkedAssetNumber.Content = reader["LinkedAsset"].ToString();
-				EngineerCommentContent.Document.Blocks.Add(new System.Windows.Documents.Paragraph(new System.Windows.Documents.Run(reader["EngineerComment"].ToString())));
-			}
-			using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-			{
-				fsStream.Write(buffer, 0, buffer.Length);
-			}
+				EngineerCommentContent.Document.Blocks.Clear();
+				UploadedDateContent.Content = "";
+				ServiceDateContent.Content = "";
 
-			PdfBrowser.Navigate(tempFile);
+				db.ConnectDB();
+				byte[] buffer = null;
+				string tempFile = System.IO.Path.GetTempFileName();
+
+				var reader = db.GetPDFFileFromDatabase("LineMaintenance", "ID", id);
+				while (reader.Read())
+				{
+					buffer = (byte[])reader["UploadedFile"];
+					UploadedDateContent.Content = reader["UploadDate"];
+					ServiceDateContent.Content = reader["DateOfMaintenance"];
+					LinkedAssetNumber.Content = reader["LinkedAsset"].ToString();
+					EngineerCommentContent.Document.Blocks.Add(new System.Windows.Documents.Paragraph(new System.Windows.Documents.Run(reader["EngineerComment"].ToString())));
+				}
+				using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+				{
+					fsStream.Write(buffer, 0, buffer.Length);
+				}
+
+				PdfBrowser.Navigate(tempFile);
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void templateButton_Click(object sender, RoutedEventArgs e)
 		{
-			ServiceTemplates _serviceTemplates = new ServiceTemplates();
-			_serviceTemplates.ShowDialog();
+			try
+			{
+				ServiceTemplates _serviceTemplates = new ServiceTemplates();
+				_serviceTemplates.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

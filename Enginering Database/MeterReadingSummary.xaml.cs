@@ -31,6 +31,7 @@ namespace Engineering_Database
 		private List<string> CollectionForListView = new List<string>();
 		private BackgroundWorker worker = new BackgroundWorker();
 		private LoadingWindow loadingWind = new LoadingWindow();
+		private ErrorSystem err = new ErrorSystem();
 
 		public MeterReadingSummary()
 		{
@@ -56,59 +57,66 @@ namespace Engineering_Database
 
 		public void getReadings(string field = null, string filter = null)
 		{
-			CollectionForListView.Clear();
-			MeterReadingListView.Items.Clear();
-			DatabaseClass db = new DatabaseClass();
-			OleDbDataReader reader;
-			db.ConnectDB();
-
-			if (filter == "Month")
+			try
 			{
-				reader = db.GetMeterReadingData("MeterReadings", selectedYear);
-			}
-			else
-			{
-				reader = db.GetMeterReadingData("MeterReadings");
-			}
+				CollectionForListView.Clear();
+				MeterReadingListView.Items.Clear();
+				DatabaseClass db = new DatabaseClass();
+				OleDbDataReader reader;
+				db.ConnectDB();
 
-			while (reader.Read())
-			{
-				MeterReadingClass meter = new MeterReadingClass();
-				DateTime pulledDate = (DateTime)reader["InsertDate"];
-				meter.InsertDate = pulledDate.ToString("d/MMM/yy");
-				meter.meterReading = Convert.ToDouble(reader["MeterReading"]);
-				meter.ReadingMonth = reader["ReadingMonth"].ToString();
-				meter.ReadingYear = reader["ReadingYear"].ToString();
-
-				switch (filter)
+				if (filter == "Month")
 				{
-					case "Month":
-						if (checkData(meter.ReadingMonth) == false)
-						{
-							MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingMonth");
-							MeterReadingListView.Items.Add(meter);
-							CollectionForListView.Add(meter.ReadingMonth);
-						}
-						break;
-
-					case "Year":
-						if (checkData(meter.ReadingYear) == false)
-						{
-							MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingYear");
-							MeterReadingListView.Items.Add(meter);
-							CollectionForListView.Add(meter.ReadingYear);
-						}
-						break;
-
-					default:
-						if (checkData(meter.ReadingMonth) == false)
-						{
-							MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingMonth");
-							MeterReadingListView.Items.Add(meter);
-							CollectionForListView.Add(meter.ReadingMonth);
-						}
-						break;
+					reader = db.GetMeterReadingData("MeterReadings", selectedYear);
 				}
+				else
+				{
+					reader = db.GetMeterReadingData("MeterReadings");
+				}
+
+				while (reader.Read())
+				{
+					MeterReadingClass meter = new MeterReadingClass();
+					DateTime pulledDate = (DateTime)reader["InsertDate"];
+					meter.InsertDate = pulledDate.ToString("d/MMM/yy");
+					meter.meterReading = Convert.ToDouble(reader["MeterReading"]);
+					meter.ReadingMonth = reader["ReadingMonth"].ToString();
+					meter.ReadingYear = reader["ReadingYear"].ToString();
+
+					switch (filter)
+					{
+						case "Month":
+							if (checkData(meter.ReadingMonth) == false)
+							{
+								MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingMonth");
+								MeterReadingListView.Items.Add(meter);
+								CollectionForListView.Add(meter.ReadingMonth);
+							}
+							break;
+
+						case "Year":
+							if (checkData(meter.ReadingYear) == false)
+							{
+								MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingYear");
+								MeterReadingListView.Items.Add(meter);
+								CollectionForListView.Add(meter.ReadingYear);
+							}
+							break;
+
+						default:
+							if (checkData(meter.ReadingMonth) == false)
+							{
+								MeterReadingColumn.DisplayMemberBinding = new Binding("ReadingMonth");
+								MeterReadingListView.Items.Add(meter);
+								CollectionForListView.Add(meter.ReadingMonth);
+							}
+							break;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -127,115 +135,129 @@ namespace Engineering_Database
 
 		private void MeterReadingListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (MeterReadingListView.SelectedIndex >= 0)
+			try
 			{
-				if (FilterSlider.Value == 1)
+				if (MeterReadingListView.SelectedIndex >= 0)
 				{
-					MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
-					loadChart(selectedItem.ReadingMonth, "Month");
-				}
-				else
-				{
-					if (selectedYear != 0)
+					if (FilterSlider.Value == 1)
 					{
-						MeterReadingListView.SelectedItem = selectedYear;
+						MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
+						loadChart(selectedItem.ReadingMonth, "Month");
 					}
-					MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
-					selectedYear = Convert.ToInt32(selectedItem.ReadingYear);
-					loadChart(selectedItem.ReadingYear, "Year");
+					else
+					{
+						if (selectedYear != 0)
+						{
+							MeterReadingListView.SelectedItem = selectedYear;
+						}
+						MeterReadingClass selectedItem = (MeterReadingClass)MeterReadingListView.SelectedItem;
+						selectedYear = Convert.ToInt32(selectedItem.ReadingYear);
+						loadChart(selectedItem.ReadingYear, "Year");
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void loadChart(string month = null, string filter = null)
 		{
-			ColumnSeriesData.IsSelectionEnabled = false;
-			db.ConnectDB();
-			int t = 0;
-			int i = 0;
-			int sum = 0;
-			int averageValue = 20;
-			OleDbDataReader reader;
-			OleDbDataReader getAverage;
-			KeyValuePair<string, int>[] data;
-			KeyValuePair<string, int>[] average;
-			((ColumnSeries)TestChart.Series[0]).ItemsSource = null;
-			if (selectedYear != 0)
+			try
 			{
-				if (filter == "Month")
+				ColumnSeriesData.IsSelectionEnabled = false;
+				db.ConnectDB();
+				int t = 0;
+				int i = 0;
+				int sum = 0;
+				int averageValue = 20;
+				OleDbDataReader reader;
+				OleDbDataReader getAverage;
+				KeyValuePair<string, int>[] data;
+				KeyValuePair<string, int>[] average;
+				((ColumnSeries)TestChart.Series[0]).ItemsSource = null;
+				if (selectedYear != 0)
 				{
-					canEditData = true;
-					t = db.DBMeterReadingCountLines(month, selectedYear);
-					reader = db.GetMeterReadingData("MeterReadings", month, selectedYear);
-					getAverage = db.GetMeterReadingData("MeterReadings", month, selectedYear);
-					data = new KeyValuePair<string, int>[t];
-					average = new KeyValuePair<string, int>[t];
-
-					while (getAverage.Read())
+					if (filter == "Month")
 					{
-						sum += Convert.ToInt32(getAverage["MeterCalculation"]);
-					}
+						canEditData = true;
+						t = db.DBMeterReadingCountLines(month, selectedYear);
+						reader = db.GetMeterReadingData("MeterReadings", month, selectedYear);
+						getAverage = db.GetMeterReadingData("MeterReadings", month, selectedYear);
+						data = new KeyValuePair<string, int>[t];
+						average = new KeyValuePair<string, int>[t];
 
-					while (reader.Read())
-					{
-						DateTime dt = (DateTime)reader["InsertDate"];
-						average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), averageValue);
-						data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), Convert.ToInt32(reader["MeterCalculation"]));
-						i++;
-					}
-					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
-					((LineSeries)TestChart.Series[1]).ItemsSource = average;
-				}
-				else if (filter == "Year")
-				{
-					canEditData = false;
-					var list = new List<Data>();
-
-					//reads through all and create list with Month values
-					reader = db.GetMeterReadingData("MeterReadings", selectedYear);
-					int total = 0;
-					int averageGet = 0;
-					while (reader.Read())
-					{
-						string myString = reader["ReadingMonth"].ToString();
-						int addingValue = Convert.ToInt32(reader["MeterCalculation"]);
-						bool containsElement = list.Any(x => x.Month == myString);
-						total = list.Where(x => x.Month == myString).Sum(y => y.sum);
-						averageGet = averageGet + addingValue;
-						int indexOfItem = list.FindIndex(x => x.Month == myString);
-
-						if (!containsElement)
+						while (getAverage.Read())
 						{
-							list.Add(new Data(myString, addingValue));
+							sum += Convert.ToInt32(getAverage["MeterCalculation"]);
 						}
-						else
+
+						while (reader.Read())
 						{
-							if (indexOfItem != -1)
+							DateTime dt = (DateTime)reader["InsertDate"];
+							average[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), averageValue);
+							data[i] = new KeyValuePair<string, int>(dt.ToString("dd/MMM/yy"), Convert.ToInt32(reader["MeterCalculation"]));
+							i++;
+						}
+						((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
+						((LineSeries)TestChart.Series[1]).ItemsSource = average;
+					}
+					else if (filter == "Year")
+					{
+						canEditData = false;
+						var list = new List<Data>();
+
+						//reads through all and create list with Month values
+						reader = db.GetMeterReadingData("MeterReadings", selectedYear);
+						int total = 0;
+						int averageGet = 0;
+						while (reader.Read())
+						{
+							string myString = reader["ReadingMonth"].ToString();
+							int addingValue = Convert.ToInt32(reader["MeterCalculation"]);
+							bool containsElement = list.Any(x => x.Month == myString);
+							total = list.Where(x => x.Month == myString).Sum(y => y.sum);
+							averageGet = averageGet + addingValue;
+							int indexOfItem = list.FindIndex(x => x.Month == myString);
+
+							if (!containsElement)
 							{
-								var oldItem = list[indexOfItem];
-								var newCustomItem = new Data();
-								newCustomItem.Month = myString;
-								int oldSum = oldItem.sum;
-								newCustomItem.sum = oldSum + addingValue;
-								list[indexOfItem] = newCustomItem;
+								list.Add(new Data(myString, addingValue));
+							}
+							else
+							{
+								if (indexOfItem != -1)
+								{
+									var oldItem = list[indexOfItem];
+									var newCustomItem = new Data();
+									newCustomItem.Month = myString;
+									int oldSum = oldItem.sum;
+									newCustomItem.sum = oldSum + addingValue;
+									list[indexOfItem] = newCustomItem;
+								}
 							}
 						}
-					}
-					int z = 0;
+						int z = 0;
 
-					data = new KeyValuePair<string, int>[list.Count];
-					average = new KeyValuePair<string, int>[list.Count];
-					int averageValuePerMonth = averageGet / list.Count;
+						data = new KeyValuePair<string, int>[list.Count];
+						average = new KeyValuePair<string, int>[list.Count];
+						int averageValuePerMonth = averageGet / list.Count;
 
-					foreach (var item in list)
-					{
-						data[z] = new KeyValuePair<string, int>(list[z].Month, list[z].sum);
-						average[z] = new KeyValuePair<string, int>(list[z].Month, averageValuePerMonth);
-						z++;
+						foreach (var item in list)
+						{
+							data[z] = new KeyValuePair<string, int>(list[z].Month, list[z].sum);
+							average[z] = new KeyValuePair<string, int>(list[z].Month, averageValuePerMonth);
+							z++;
+						}
+						((LineSeries)TestChart.Series[1]).ItemsSource = average;
+						((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
 					}
-					((LineSeries)TestChart.Series[1]).ItemsSource = average;
-					((ColumnSeries)TestChart.Series[0]).ItemsSource = data;
 				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -248,49 +270,56 @@ namespace Engineering_Database
 
 		private void runScript(object sender, DoWorkEventArgs e)
 		{
-			int increase = 0;
-			int newId = 0;
+			try
+			{
+				int increase = 0;
+				int newId = 0;
 
-			List<ExistingData> existingData = new List<ExistingData>();
-			var reader = db.GetMeterReadingData("MeterReadings");
-			while (reader.Read())
-			{
-				existingData.Add(
-					new ExistingData(
-					Convert.ToInt32(reader["ID"]),
-					Convert.ToDateTime(reader["InsertDate"]),
-					Convert.ToDouble(reader["MeterReading"]),
-					Convert.ToInt32(reader["MeterCalculation"])
-					));
-			}
-			existingData.OrderBy(x => x.insertDate);
-			int newConsumption = 0;
-			for (int i = 0; i < existingData.Count; i++)
-			{
-				if (i > 0)
+				List<ExistingData> existingData = new List<ExistingData>();
+				var reader = db.GetMeterReadingData("MeterReadings");
+				while (reader.Read())
 				{
-					newId = i - 1;
-					if (existingData[i].meterReading == 0)
+					existingData.Add(
+						new ExistingData(
+						Convert.ToInt32(reader["ID"]),
+						Convert.ToDateTime(reader["InsertDate"]),
+						Convert.ToDouble(reader["MeterReading"]),
+						Convert.ToInt32(reader["MeterCalculation"])
+						));
+				}
+				existingData.OrderBy(x => x.insertDate);
+				int newConsumption = 0;
+				for (int i = 0; i < existingData.Count; i++)
+				{
+					if (i > 0)
 					{
-						newConsumption = 0;
+						newId = i - 1;
+						if (existingData[i].meterReading == 0)
+						{
+							newConsumption = 0;
+						}
+						else
+						{
+							newConsumption = Convert.ToInt32(existingData[i].meterReading - existingData[i - 1].meterReading);
+						}
+						db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, newConsumption);
 					}
 					else
 					{
-						newConsumption = Convert.ToInt32(existingData[i].meterReading - existingData[i - 1].meterReading);
+						newId = 0;
+
+						db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, 0);
 					}
-					db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, newConsumption);
-				}
-				else
-				{
-					newId = 0;
 
-					db.MeterReadingsUpdate("MeterReadings", "MeterCalculation", existingData[i].ID, 0);
+					increase = Convert.ToInt32(((double)i / existingData.Count) * 100);
+					contentLabelText = $"Updating Database Id [{existingData[i].ID}] with date [{string.Format("{0:d}", existingData[i].insertDate)}] consupmtion is [{existingData[i].consumption}] ==> calculated new consumption  {newConsumption} ";
+					Dispatcher.Invoke(new System.Action(() => { worker.ReportProgress(increase); }));
+					Thread.Sleep(100);
 				}
-
-				increase = Convert.ToInt32(((double)i / existingData.Count) * 100);
-				contentLabelText = $"Updating Database Id [{existingData[i].ID}] with date [{string.Format("{0:d}", existingData[i].insertDate)}] consupmtion is [{existingData[i].consumption}] ==> calculated new consumption  {newConsumption} ";
-				Dispatcher.Invoke(new System.Action(() => { worker.ReportProgress(increase); }));
-				Thread.Sleep(100);
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -326,101 +355,143 @@ namespace Engineering_Database
 
 		private void FilterSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			int result;
-			if (MeterReadingListView.SelectedItem != null)
+			try
 			{
-				bool success = int.TryParse(MeterReadingListView.SelectedItem.ToString(), out result);
-				if (success)
+				int result;
+				if (MeterReadingListView.SelectedItem != null)
 				{
-					selectedYear = Convert.ToInt32(MeterReadingListView.SelectedItem.ToString());
+					bool success = int.TryParse(MeterReadingListView.SelectedItem.ToString(), out result);
+					if (success)
+					{
+						selectedYear = Convert.ToInt32(MeterReadingListView.SelectedItem.ToString());
+					}
+				}
+
+				canEditData = false;
+				ChangeDataCheckBox.IsChecked = false;
+				if (FilterSlider.Value == 0)
+				{
+					MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
+					getReadings("ReadingMonth", "Year");
+				}
+				else
+				{
+					MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingMonth");
+					getReadings("ReadingYear", "Month");
 				}
 			}
-
-			canEditData = false;
-			ChangeDataCheckBox.IsChecked = false;
-			if (FilterSlider.Value == 0)
+			catch (Exception ex)
 			{
-				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingYear");
-				getReadings("ReadingMonth", "Year");
-			}
-			else
-			{
-				MeterReadingColumn.DisplayMemberBinding = new Binding($"ReadingMonth");
-				getReadings("ReadingYear", "Month");
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void ColumnSeriesData_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			if (ChangeDataCheckBox.IsChecked == true)
+			try
 			{
-				ColumnSeries cs = (ColumnSeries)sender;
-				KeyValuePair<string, int> kv = (KeyValuePair<string, int>)cs.SelectedItem;
+				if (ChangeDataCheckBox.IsChecked == true)
+				{
+					ColumnSeries cs = (ColumnSeries)sender;
+					KeyValuePair<string, int> kv = (KeyValuePair<string, int>)cs.SelectedItem;
 
-				MeterReadingEdit editMeterReading = new MeterReadingEdit();
-				editMeterReading.setValues(kv.Key, kv.Value);
-				//MessageBox.Show(kv.Key);
-				editMeterReading.Show();
-				ChangeDataCheckBox.IsChecked = false;
+					MeterReadingEdit editMeterReading = new MeterReadingEdit();
+					editMeterReading.setValues(kv.Key, kv.Value);
+					//MessageBox.Show(kv.Key);
+					editMeterReading.Show();
+					ChangeDataCheckBox.IsChecked = false;
+				}
+				else
+				{
+					return;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				return;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void ChangeDataCheckBox_Click(object sender, RoutedEventArgs e)
 		{
-			if (canEditData == false)
+			try
 			{
-				ColumnSeriesData.IsSelectionEnabled = false;
-				tp.IsOpen = false;
-				ChangeDataCheckBox.IsChecked = false;
-				tp.ToolTip = "Testing";
-				tp.Content = "Please choose listing in Month's rather than Year";
-				tp.IsOpen = true;
-				tp.StaysOpen = false;
-				tp.IsEnabled = true;
-			}
-			else
-			{
-				tp.IsOpen = false;
-				if (ChangeDataCheckBox.IsChecked == true)
+				if (canEditData == false)
 				{
-					ColumnSeriesData.IsSelectionEnabled = true;
+					ColumnSeriesData.IsSelectionEnabled = false;
+					tp.IsOpen = false;
+					ChangeDataCheckBox.IsChecked = false;
+					tp.ToolTip = "Testing";
+					tp.Content = "Please choose listing in Month's rather than Year";
+					tp.IsOpen = true;
+					tp.StaysOpen = false;
+					tp.IsEnabled = true;
 				}
 				else
 				{
-					ColumnSeriesData.IsSelectionEnabled = false;
+					tp.IsOpen = false;
+					if (ChangeDataCheckBox.IsChecked == true)
+					{
+						ColumnSeriesData.IsSelectionEnabled = true;
+					}
+					else
+					{
+						ColumnSeriesData.IsSelectionEnabled = false;
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void ReCalculateButton_Click(object sender, RoutedEventArgs e)
 		{
-			TestChart.Visibility = Visibility.Hidden;
-			MeterReadingListView.Visibility = Visibility.Hidden;
-			testProgressBar.Visibility = Visibility.Visible;
-			testLabelContent.Visibility = Visibility.Visible;
-			worker.ProgressChanged += progressChanged;
-			worker.DoWork += runScript;
-			worker.WorkerReportsProgress = true;
-			worker.RunWorkerCompleted += JobFinished;
-			worker.RunWorkerAsync();
+			try
+			{
+				TestChart.Visibility = Visibility.Hidden;
+				MeterReadingListView.Visibility = Visibility.Hidden;
+				testProgressBar.Visibility = Visibility.Visible;
+				testLabelContent.Visibility = Visibility.Visible;
+				worker.ProgressChanged += progressChanged;
+				worker.DoWork += runScript;
+				worker.WorkerReportsProgress = true;
+				worker.RunWorkerCompleted += JobFinished;
+				worker.RunWorkerAsync();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		public void progressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			testProgressBar.Value = e.ProgressPercentage;
-			testLabelContent.Content = contentLabelText;
+			try
+			{
+				testProgressBar.Value = e.ProgressPercentage;
+				testLabelContent.Content = contentLabelText;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		public void JobFinished(object sender, RunWorkerCompletedEventArgs e)
 		{
-			testProgressBar.Visibility = Visibility.Hidden;
-			testLabelContent.Visibility = Visibility.Hidden;
-			TestChart.Visibility = Visibility.Visible;
-			MeterReadingListView.Visibility = Visibility.Visible;
+			try
+			{
+				testProgressBar.Visibility = Visibility.Hidden;
+				testLabelContent.Visibility = Visibility.Hidden;
+				TestChart.Visibility = Visibility.Visible;
+				MeterReadingListView.Visibility = Visibility.Visible;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System;
 
 namespace Engineering_Database
 {
@@ -8,40 +9,42 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class ServiceReport : Window
 	{
-
 		public int serviceID { get; set; }
-		DatabaseClass db = new DatabaseClass();
+		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
+
 		public ServiceReport()
 		{
 			InitializeComponent();
 			//UpdatePDFViewer();
 		}
 
-
-
 		private void UpdatePDFViewer()
 		{
-			db.ConnectDB();
-			byte[] buffer = null;
-			string tempFile = System.IO.Path.GetTempFileName();
-
-			var reader = db.GetPDFFileFromDatabase("LineMaintenance", "ID", serviceID);
-			while (reader.Read())
+			try
 			{
-				buffer = (byte[])reader["UploadedFile"];
+				db.ConnectDB();
+				byte[] buffer = null;
+				string tempFile = System.IO.Path.GetTempFileName();
 
+				var reader = db.GetPDFFileFromDatabase("LineMaintenance", "ID", serviceID);
+				while (reader.Read())
+				{
+					buffer = (byte[])reader["UploadedFile"];
+				}
+				using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+				{
+					fsStream.Write(buffer, 0, buffer.Length);
+				}
 
+				ServicePDFView.Navigate(tempFile);
+
+				db.CloseDB();
 			}
-			using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+			catch (Exception ex)
 			{
-				fsStream.Write(buffer, 0, buffer.Length);
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
-
-
-			ServicePDFView.Navigate(tempFile);
-
-			db.CloseDB();
 		}
-
 	}
 }

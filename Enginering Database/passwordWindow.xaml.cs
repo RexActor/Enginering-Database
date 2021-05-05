@@ -1,17 +1,18 @@
-﻿
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Engineering_Database
 {
-
 	public partial class passwordWindow : Window
 	{
-		readonly UserSettings userSett = new UserSettings();
-		readonly Admin admin = new Admin();
+		private readonly UserSettings userSett = new UserSettings();
+		private readonly Admin admin = new Admin();
+		private ErrorSystem err = new ErrorSystem();
 
 		public string targetWindow;
+
 		public passwordWindow()
 		{
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -22,40 +23,12 @@ namespace Engineering_Database
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			string pass = passwordWindowTextBox.Password.ToString();
-
-			if (pass == UserSettings.password)
-			{
-
-				if (targetWindow == "Admin")
-				{
-					this.Close();
-					admin.Show();
-				}
-				else if (targetWindow == "Settings")
-				{
-					this.Close();
-					userSett.Show();
-				}
-			}
-			else
-			{
-				passwordMessage.Foreground = Brushes.Red;
-
-				passwordMessage.Visibility = Visibility.Visible;
-				passwordWindowTextBox.Clear();
-			}
-		}
-
-		private void passwordWindowTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-		{
-			if (e.Key == Key.Return)
+			try
 			{
 				string pass = passwordWindowTextBox.Password.ToString();
 
 				if (pass == UserSettings.password)
 				{
-
 					if (targetWindow == "Admin")
 					{
 						this.Close();
@@ -70,11 +43,50 @@ namespace Engineering_Database
 				else
 				{
 					passwordMessage.Foreground = Brushes.Red;
+
 					passwordMessage.Visibility = Visibility.Visible;
 					passwordWindowTextBox.Clear();
 				}
 			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
+		}
 
+		private void passwordWindowTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			try
+			{
+				if (e.Key == Key.Return)
+				{
+					string pass = passwordWindowTextBox.Password.ToString();
+
+					if (pass == UserSettings.password)
+					{
+						if (targetWindow == "Admin")
+						{
+							this.Close();
+							admin.Show();
+						}
+						else if (targetWindow == "Settings")
+						{
+							this.Close();
+							userSett.Show();
+						}
+					}
+					else
+					{
+						passwordMessage.Foreground = Brushes.Red;
+						passwordMessage.Visibility = Visibility.Visible;
+						passwordWindowTextBox.Clear();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

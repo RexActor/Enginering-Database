@@ -9,25 +9,32 @@ namespace Engineering_Database
 	public partial class LineMaintenance : Window
 	{
 #pragma warning disable CS0414 // The field 'LineMaintenance.test' is assigned but its value is never used
-		string test = "test";
+		private string test = "test";
 #pragma warning restore CS0414 // The field 'LineMaintenance.test' is assigned but its value is never used
-		string currentMonth = string.Empty;
-		string currentYear = string.Empty;
-		string lineNumber = string.Empty;
+		private string currentMonth = string.Empty;
+		private string currentYear = string.Empty;
+		private ErrorSystem err = new ErrorSystem();
+		private string lineNumber = string.Empty;
+
 		public LineMaintenance()
 		{
-
 			InitializeComponent();
-
-			Random rnd = new Random();
-			int randomNumber = rnd.Next(0, 8);
-			//testTextBlock.Text = $"test {randomNumber}";
-			DateTime dt = DateTime.Now;
-			LineNumberTextBlock.Text = $"Line {randomNumber}";
-			currentMonth = dt.ToString("MMMM");
-			currentYear = dt.ToString("yyy");
-			MonthTextBlock.Text = currentMonth;
-			YearTextBlock.Text = currentYear;
+			try
+			{
+				Random rnd = new Random();
+				int randomNumber = rnd.Next(0, 8);
+				//testTextBlock.Text = $"test {randomNumber}";
+				DateTime dt = DateTime.Now;
+				LineNumberTextBlock.Text = $"Line {randomNumber}";
+				currentMonth = dt.ToString("MMMM");
+				currentYear = dt.ToString("yyy");
+				MonthTextBlock.Text = currentMonth;
+				YearTextBlock.Text = currentYear;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

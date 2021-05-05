@@ -20,6 +20,7 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class ReportWindow : Window
 	{
+		private ErrorSystem err = new ErrorSystem();
 
 		//readonly DatabaseClass db = new DatabaseClass();
 		public ReportWindow()
@@ -29,29 +30,43 @@ namespace Engineering_Database
 
 		private void ReportsForJobs_Click(object sender, RoutedEventArgs e)
 		{
-			JobReportWinForm jobReports = new JobReportWinForm();
-			jobReports.ShowDialog();
-
-
+			try
+			{
+				JobReportWinForm jobReports = new JobReportWinForm();
+				jobReports.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void AssetReportButton_Click(object sender, RoutedEventArgs e)
 		{
-			
+			try
+			{
+				ReportWinForm WinFormReport = new ReportWinForm();
 
-			
-			
-			ReportWinForm WinFormReport = new ReportWinForm();
-
-			WinFormReport.ShowDialog();
-
+				WinFormReport.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void ChartButton_Click(object sender, RoutedEventArgs e)
 		{
-			ChartReports chartReports = new ChartReports();
+			try
+			{
+				ChartReports chartReports = new ChartReports();
 
-			chartReports.ShowDialog();
+				chartReports.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

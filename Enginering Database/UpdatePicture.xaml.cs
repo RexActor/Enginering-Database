@@ -26,83 +26,81 @@ namespace Engineering_Database
 	public partial class UpdatePicture : Window
 	{
 		private bool newFileChosen = false;
-		DatabaseClass db = new DatabaseClass();
-		
+		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
+
 		public UpdatePicture()
 		{
-			
 			InitializeComponent();
 			ProductIDLabel.Content = "asd";
 		}
 
 		private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
 		{
-			//	informationLabel.Visibility = Visibility.Hidden;
-		
-			System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-
-			openFileDialog.Filter = "Image Files (*.jpg;*.png) |*.jpg;*.png";
-			openFileDialog.FilterIndex = 1;
-			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			DialogResult dr = openFileDialog.ShowDialog();
-
-			if (dr == System.Windows.Forms.DialogResult.OK)
+			try
 			{
-								newFileChosen = true;
-				chosenImageLocation.Text = openFileDialog.FileName;
-				newImage.Source = new BitmapImage(new Uri(chosenImageLocation.Text));
-						
+				//	informationLabel.Visibility = Visibility.Hidden;
 
+				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
 
+				openFileDialog.Filter = "Image Files (*.jpg;*.png) |*.jpg;*.png";
+				openFileDialog.FilterIndex = 1;
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				DialogResult dr = openFileDialog.ShowDialog();
+
+				if (dr == System.Windows.Forms.DialogResult.OK)
+				{
+					newFileChosen = true;
+					chosenImageLocation.Text = openFileDialog.FileName;
+					newImage.Source = new BitmapImage(new Uri(chosenImageLocation.Text));
+				}
+				else
+				{
+					newFileChosen = false;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				newFileChosen = false;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
-		
+
 		private void UpdateButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (newFileChosen)
+			try
 			{
-
-				db.ConnectDB();
-
-			
-
-				byte[] file;
-
-				using (var stream = new FileStream(chosenImageLocation.Text, FileMode.Open, FileAccess.Read))
+				if (newFileChosen)
 				{
-					using (var reader = new BinaryReader(stream))
+					db.ConnectDB();
+
+					byte[] file;
+
+					using (var stream = new FileStream(chosenImageLocation.Text, FileMode.Open, FileAccess.Read))
 					{
-
-						file = reader.ReadBytes((int)stream.Length);
-						db.UpdateProductPicture("InventoryViewProducts", "ProductImage", file, Convert.ToInt32(ProductIDLabel.Content));
-
-
+						using (var reader = new BinaryReader(stream))
+						{
+							file = reader.ReadBytes((int)stream.Length);
+							db.UpdateProductPicture("InventoryViewProducts", "ProductImage", file, Convert.ToInt32(ProductIDLabel.Content));
+						}
 					}
 
+					InfoLabel.Foreground = Brushes.Green;
+					InfoLabel.Content = "Picture Updated";
+					InfoLabel.Visibility = Visibility.Visible;
+
+					db.CloseDB();
 				}
-
-
-
-				InfoLabel.Foreground = Brushes.Green;
-				InfoLabel.Content = "Picture Updated";
-				InfoLabel.Visibility = Visibility.Visible;
-
-				db.CloseDB();
-
+				else
+				{
+					InfoLabel.Foreground = Brushes.Red;
+					InfoLabel.Content = "New Picture not chosen. Still the same image";
+					InfoLabel.Visibility = Visibility.Visible;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				InfoLabel.Foreground = Brushes.Red;
-				InfoLabel.Content = "New Picture not chosen. Still the same image";
-				InfoLabel.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
-
 		}
-
-
 	}
 }

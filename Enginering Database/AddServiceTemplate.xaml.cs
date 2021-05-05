@@ -14,7 +14,9 @@ namespace Engineering_Database
 	{
 		private bool fileChosen = false;
 		private bool templateNameProvided = false;
-		DatabaseClass db = new DatabaseClass();
+		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
+
 		public AddServiceTemplate()
 		{
 			InitializeComponent();
@@ -22,72 +24,91 @@ namespace Engineering_Database
 
 		private void chooseTemplateButton_Click(object sender, RoutedEventArgs e)
 		{
-			informationLabel.Visibility = Visibility.Hidden;
-
-			System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-
-			openFileDialog.Filter = "PDF Files (*.pdf) |*.pdf";
-			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			DialogResult dr = openFileDialog.ShowDialog();
-
-			if (dr == System.Windows.Forms.DialogResult.OK)
+			try
 			{
-				fileChosen = true;
-				templateLocation.Text = openFileDialog.FileName;
-				ServicePDFView.Navigate(openFileDialog.FileName);
+				informationLabel.Visibility = Visibility.Hidden;
+
+				System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+
+				openFileDialog.Filter = "PDF Files (*.pdf) |*.pdf";
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				DialogResult dr = openFileDialog.ShowDialog();
+
+				if (dr == System.Windows.Forms.DialogResult.OK)
+				{
+					fileChosen = true;
+					templateLocation.Text = openFileDialog.FileName;
+					ServicePDFView.Navigate(openFileDialog.FileName);
+				}
+				else
+				{
+					fileChosen = false;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				fileChosen = false;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void nameOfTemplate_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
-			informationLabel.Visibility = Visibility.Hidden;
-
-			if (nameOfTemplate.Text == string.Empty)
+			try
 			{
-				templateNameProvided = false;
+				informationLabel.Visibility = Visibility.Hidden;
+
+				if (nameOfTemplate.Text == string.Empty)
+				{
+					templateNameProvided = false;
+				}
+				else
+				{
+					templateNameProvided = true;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				templateNameProvided = true;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void saveTemplateButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (templateNameProvided && fileChosen)
+			try
 			{
-				db.ConnectDB();
-				byte[] file;
-				using (var stream = new FileStream(templateLocation.Text, FileMode.Open, FileAccess.Read))
+				if (templateNameProvided && fileChosen)
 				{
-					using (var reader = new BinaryReader(stream))
+					db.ConnectDB();
+					byte[] file;
+					using (var stream = new FileStream(templateLocation.Text, FileMode.Open, FileAccess.Read))
 					{
-						file = reader.ReadBytes((int)stream.Length);
-						db.UploadTemplateFile("ServiceTemplate", file, nameOfTemplate.Text);
+						using (var reader = new BinaryReader(stream))
+						{
+							file = reader.ReadBytes((int)stream.Length);
+							db.UploadTemplateFile("ServiceTemplate", file, nameOfTemplate.Text);
+						}
 					}
+
+					informationLabel.Foreground = Brushes.Green;
+					informationLabel.Content = "File uploaded.";
+					informationLabel.Visibility = Visibility.Visible;
+
+					ServicePDFView.Navigate(new Uri("about:blank"));
+					nameOfTemplate.Text = "";
+					templateLocation.Text = "";
+					fileChosen = false;
+					templateNameProvided = false;
 				}
-
-				informationLabel.Foreground = Brushes.Green;
-				informationLabel.Content = "File uploaded.";
-				informationLabel.Visibility = Visibility.Visible;
-
-				ServicePDFView.Navigate(new Uri("about:blank"));
-				nameOfTemplate.Text = "";
-				templateLocation.Text = "";
-				fileChosen = false;
-				templateNameProvided = false;
-
+				else
+				{
+					informationLabel.Foreground = Brushes.Red;
+					informationLabel.Content = "File wasn't uploaded.";
+					informationLabel.Visibility = Visibility.Visible;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				informationLabel.Foreground = Brushes.Red;
-				informationLabel.Content = "File wasn't uploaded.";
-				informationLabel.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 	}

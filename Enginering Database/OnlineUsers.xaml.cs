@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Threading;
 
@@ -16,11 +15,14 @@ namespace Engineering_Database
 	{
 		private int i;
 		private DispatcherTimer clock;
+		private DispatcherTimer Timer;
 		private List<Users> userList;
 		private CollectionView view;
+		private DateTime timeToReach;
 		private int refreshRate;
 		private LoginSystem login = new LoginSystem();
 		private List<Users> selectedList;
+		private ErrorSystem err = new ErrorSystem();
 
 		public OnlineUsers()
 		{
@@ -30,11 +32,6 @@ namespace Engineering_Database
 
 			selectedList = new List<Users>();
 			SelectedUsersGrid.ItemsSource = selectedList;
-			clock = new DispatcherTimer();
-			clock.Tick += new EventHandler(KeepAnEye);
-			clock.Interval = new TimeSpan(0, 5, 0);
-			clock.Start();
-			GetOnline();
 		}
 
 		private void GetOnline()
@@ -106,7 +103,8 @@ namespace Engineering_Database
 		{
 			try
 			{
-				RefreshRate.Content = $"Refreshed {refreshRate} times";
+				timeToReach = DateTime.Now.AddMinutes(5);
+
 				userList.Clear();
 				OnlineUserGrid.ItemsSource = null;
 				OnlineUserGrid.Items.Clear();
@@ -114,6 +112,8 @@ namespace Engineering_Database
 				string _TimeOnline;
 
 				i++;
+				refreshRate++;
+				RefreshRate.Content = $"Refreshed {refreshRate} times";
 
 				string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
 				using (var con = new OleDbConnection(ConnectionString))
@@ -158,34 +158,48 @@ namespace Engineering_Database
 						}
 					}
 					Update();
-					refreshRate++;
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		public void Update()
 		{
-			userList = userList.OrderByDescending(f => f.UserID).ToList();
-			OnlineUserGrid.ItemsSource = userList;
+			try
+			{
+				userList = userList.OrderByDescending(f => f.UserID).ToList();
+				OnlineUserGrid.ItemsSource = userList;
 
-			view = CollectionViewSource.GetDefaultView(OnlineUserGrid.ItemsSource) as CollectionView;
-			view.Filter = CustomFilter;
+				view = CollectionViewSource.GetDefaultView(OnlineUserGrid.ItemsSource) as CollectionView;
+				view.Filter = CustomFilter;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private bool CustomFilter(object obj)
 		{
-			Users item = obj as Users;
-			if (string.IsNullOrEmpty(FilterTextBox.Text))
+			try
 			{
-				return true;
+				Users item = obj as Users;
+				if (string.IsNullOrEmpty(FilterTextBox.Text))
+				{
+					return true;
+				}
+				else
+				{
+					return (item.Logout.ToString().IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				return (item.Logout.ToString().IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+				err.RecordError(ex.Message, ex.StackTrace);
+				return true;
 			}
 		}
 
@@ -195,29 +209,54 @@ namespace Engineering_Database
 
 		private void FilterTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
-			CollectionViewSource.GetDefaultView(OnlineUserGrid.ItemsSource).Refresh();
+			try
+			{
+				if (OnlineUserGrid.ItemsSource != null)
+				{
+					CollectionViewSource.GetDefaultView(OnlineUserGrid.ItemsSource).Refresh();
+				}
+				else { return; }
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void OnlineUserGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			var selectedItem = OnlineUserGrid.SelectedItem as Users;
+			try
+			{
+				var selectedItem = OnlineUserGrid.SelectedItem as Users;
 
-			selectedList.Add(new Users(
-				selectedItem.UserID,
-				selectedItem.UserName,
-				selectedItem.Login,
-				selectedItem.Logout,
-				selectedItem.TimeOnline)
-				);
+				selectedList.Add(new Users(
+					selectedItem.UserID,
+					selectedItem.UserName,
+					selectedItem.Login,
+					selectedItem.Logout,
+					selectedItem.TimeOnline)
+					);
 
-			CollectionViewSource.GetDefaultView(SelectedUsersGrid.ItemsSource).Refresh();
+				CollectionViewSource.GetDefaultView(SelectedUsersGrid.ItemsSource).Refresh();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void SelectedUsersGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			var selectedItem = SelectedUsersGrid.SelectedItem as Users;
-			selectedList.Remove(selectedItem);
-			CollectionViewSource.GetDefaultView(SelectedUsersGrid.ItemsSource).Refresh();
+			try
+			{
+				var selectedItem = SelectedUsersGrid.SelectedItem as Users;
+				selectedList.Remove(selectedItem);
+				CollectionViewSource.GetDefaultView(SelectedUsersGrid.ItemsSource).Refresh();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void MarkOfflineButton_Click(object sender, RoutedEventArgs e)
@@ -236,8 +275,67 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"{ex.Message} || {ex.StackTrace}");
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
+		}
+
+		private void RefreshButton_Click(object sender, RoutedEventArgs e)
+		{
+			GetOnline();
+		}
+
+		private void AutoRefreshCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				if (AutoRefreshCheckBox.IsChecked == true)
+				{
+					clock = new DispatcherTimer();
+
+					Timer = new DispatcherTimer();
+					timeToReach = DateTime.Now.AddMinutes(5);
+					Timer.Tick += new EventHandler(UpdateTimerClock);
+					Timer.Interval = new TimeSpan(0, 0, 1);
+					Timer.Start();
+
+					clock.Tick += new EventHandler(KeepAnEye);
+
+					clock.Interval = new TimeSpan(0, 5, 0);
+
+					clock.Start();
+				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
+		}
+
+		private void UpdateTimerClock(object sender, EventArgs e)
+		{
+			try
+			{
+				if (AutoRefreshCheckBox.IsChecked == false)
+				{
+					TimerLabel.Content = "Timer switched Off";
+				}
+				else
+				{
+					//DateTime diff = timeToReach - DateTime.Now;
+					TimeSpan diff = timeToReach - DateTime.Now;
+
+					TimerLabel.Content = $"Time left till refresh: {diff.Minutes}: {diff.Seconds}";
+				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
+		}
+
+		private void ExceptioNBtn_Click(object sender, RoutedEventArgs e)
+		{
+			throw new InvalidOperationException("Logfile cannot be read-only");
 		}
 	}
 

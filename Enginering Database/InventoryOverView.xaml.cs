@@ -14,6 +14,7 @@ namespace Engineering_Database
 	public partial class InventoryOverView : Window
 	{
 		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
 
 		public InventoryOverView()
 		{
@@ -27,39 +28,46 @@ namespace Engineering_Database
 
 		public void LoadInvnetoryListView()
 		{
-			db.ConnectDB();
-
-			Console.WriteLine(db.DBStatus());
-
-			var reader = db.GetAllPDFIds("InventoryViewProducts");
-
-			while (reader.Read())
+			try
 			{
-				Inventory inv = new Inventory();
+				db.ConnectDB();
 
-				inv.ID = Convert.ToInt32(reader["ID"]);
-				inv.Product = reader["ProductName"].ToString();
-				inv.MeasureType = reader["MeasureType"].ToString();
-				inv.ProductCategory = reader["ProductCategory"].ToString();
+				Console.WriteLine(db.DBStatus());
 
-				var getProduct = db.GetInventoryProduct("InventoryView", "Product", inv.Product);
+				var reader = db.GetAllPDFIds("InventoryViewProducts");
 
-				while (getProduct.Read())
+				while (reader.Read())
 				{
-					inv.Qty = Convert.ToInt32(getProduct["Qty"]);
+					Inventory inv = new Inventory();
+
+					inv.ID = Convert.ToInt32(reader["ID"]);
+					inv.Product = reader["ProductName"].ToString();
+					inv.MeasureType = reader["MeasureType"].ToString();
+					inv.ProductCategory = reader["ProductCategory"].ToString();
+
+					var getProduct = db.GetInventoryProduct("InventoryView", "Product", inv.Product);
+
+					while (getProduct.Read())
+					{
+						inv.Qty = Convert.ToInt32(getProduct["Qty"]);
+					}
+
+					if (inv.Qty > 0)
+					{
+						ListviewInventory.Items.Add(inv);
+					}
+					else
+					{
+						ListviewInventoryNotOnStock.Items.Add(inv);
+					}
 				}
 
-				if (inv.Qty > 0)
-				{
-					ListviewInventory.Items.Add(inv);
-				}
-				else
-				{
-					ListviewInventoryNotOnStock.Items.Add(inv);
-				}
+				db.CloseDB();
 			}
-
-			db.CloseDB();
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Engineering_Database
@@ -8,52 +9,57 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class WasteManagement : Window
 	{
-		readonly DatabaseClass db = new DatabaseClass();
+		private readonly DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
 		public string test;
-		public bool SetUpSchedule=false;
+		public bool SetUpSchedule = false;
 
 		public WasteManagement()
 		{
 			InitializeComponent();
-			
-			SetUpWasteStream();
 
+			SetUpWasteStream();
 		}
 
 		private void SetUpWasteStream()
 		{
-
-			db.ConnectDB();
-
-			WasteStreamComboBox.Items.Add("All");
-			var reader = db.GetAllPDFIds("WasteStreams");
-
-
-			while (reader.Read())
+			try
 			{
-				WasteStreamComboBox.Items.Add(reader["WasteStreamDescription"]);
+				db.ConnectDB();
+
+				WasteStreamComboBox.Items.Add("All");
+				var reader = db.GetAllPDFIds("WasteStreams");
+
+				while (reader.Read())
+				{
+					WasteStreamComboBox.Items.Add(reader["WasteStreamDescription"]);
+				}
+				WasteStreamComboBox.SelectedIndex = 0;
+
+				db.CloseDB();
 			}
-			WasteStreamComboBox.SelectedIndex = 0;
-
-			db.CloseDB();
-
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void SetUpSchedulerButton_Click(object sender, RoutedEventArgs e)
 		{
-			SetUpSchedule = true;
-			SetUpSchedulerWindow setUp = new SetUpSchedulerWindow();
-			setUp.ShowDialog();
-
-
+			try
+			{
+				SetUpSchedule = true;
+				SetUpSchedulerWindow setUp = new SetUpSchedulerWindow();
+				setUp.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
-
-
-
 
 		private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
 		{
-
 		}
 	}
 }

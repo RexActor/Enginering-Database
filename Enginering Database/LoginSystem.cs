@@ -6,6 +6,8 @@ namespace Engineering_Database
 {
 	internal class LoginSystem
 	{
+		private ErrorSystem err = new ErrorSystem();
+
 		public int CreateUserLogin(string login)
 		{
 			DateTime dateTimeInsert;
@@ -53,26 +55,34 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"{ex.Message} ||  {ex.StackTrace}");
+				err.RecordError(ex.Message, ex.StackTrace);
 				return -1;
 			}
 		}
 
 		public int OnlineUserCount()
 		{
-			string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
-			using (var con = new OleDbConnection(ConnectionString))
+			try
 			{
-				con.Open();
-
-				string sql = @"SELECT  COUNT(*) from UsersOnline WHERE Logout IS NULL";
-
-				using (OleDbCommand query = new OleDbCommand(sql, con))
+				string ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = engineeringDatabase.accdb; Jet OLEDB:Database Password = test";
+				using (var con = new OleDbConnection(ConnectionString))
 				{
-					var data = (int)query.ExecuteScalar();
+					con.Open();
 
-					return data;
+					string sql = @"SELECT  COUNT(*) from UsersOnline WHERE Logout IS NULL";
+
+					using (OleDbCommand query = new OleDbCommand(sql, con))
+					{
+						var data = (int)query.ExecuteScalar();
+
+						return data;
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+				return -1;
 			}
 		}
 
@@ -100,7 +110,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 	}

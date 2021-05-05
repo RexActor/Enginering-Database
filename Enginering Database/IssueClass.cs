@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using System.Data;
 using System.Data.OleDb;
@@ -34,98 +35,113 @@ namespace Engineering_Database
 		public string ReporterEmail { get; set; }
 
 		private readonly DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
 		private List<IssueClass> issueDataList = new List<IssueClass>();
 
 		public List<IssueClass> updateIssueDataList()
 		{
-			db.ConnectDB();
-			issueDataList.Clear();
-			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForAllLines());
-			DataTable dt2 = new DataTable();
-
-			upIsDtList.Fill(dt2);
-
-			foreach (DataRow dr in dt2.Rows)
+			try
 			{
-				IssueClass newIs = new IssueClass();
-				newIs.JobNumber = (int)dr["JobNumber"];
-				newIs.DetailedDescription = dr["DetailedDescription"].ToString();
+				db.ConnectDB();
+				issueDataList.Clear();
+				OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForAllLines());
+				DataTable dt2 = new DataTable();
 
-				newIs.ReportedDate = dr["ReportedDate"].ToString();
-				newIs.CompletedDate = dr["CompletedDate"].ToString();
-				newIs.ReportedTime = dr["ReportedTime"].ToString();
-				newIs.CompletedTime = dr["CompletedTime"].ToString();
-				newIs.ReportedUserName = dr["ReportedUsername"].ToString();
-				newIs.AssetNumber = dr["AssetNumber"].ToString();
-				newIs.FaulyArea = dr["FaultyArea"].ToString();
+				upIsDtList.Fill(dt2);
 
-				newIs.Building = dr["Building"].ToString();
+				foreach (DataRow dr in dt2.Rows)
+				{
+					IssueClass newIs = new IssueClass();
+					newIs.JobNumber = (int)dr["JobNumber"];
+					newIs.DetailedDescription = dr["DetailedDescription"].ToString();
 
-				newIs.Code = dr["IssueCode"].ToString();
-				newIs.Priority = dr["Priority"].ToString();
-				newIs.Type = dr["Type"].ToString();
-				newIs.Completed = (bool)dr["Completed"];
-				newIs.DetailedDescription = dr["DetailedDescription"].ToString();
-				newIs.CompletedByUsername = dr["CompletedBy"].ToString();
-				newIs.CommentsForActionsTaken = dr["CommentsForActionTaken"].ToString();
-				newIs.Action = dr["Action"].ToString();
-				newIs.DueDate = dr["DueDate"].ToString();
-				newIs.Area = dr["Area"].ToString();
-				newIs.AssignedTo = dr["AssignedTo"].ToString();
-				newIs.Contractor = dr["Contractor"].ToString();
-				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
+					newIs.ReportedDate = dr["ReportedDate"].ToString();
+					newIs.CompletedDate = dr["CompletedDate"].ToString();
+					newIs.ReportedTime = dr["ReportedTime"].ToString();
+					newIs.CompletedTime = dr["CompletedTime"].ToString();
+					newIs.ReportedUserName = dr["ReportedUsername"].ToString();
+					newIs.AssetNumber = dr["AssetNumber"].ToString();
+					newIs.FaulyArea = dr["FaultyArea"].ToString();
 
-				issueDataList.Add(newIs);
+					newIs.Building = dr["Building"].ToString();
+
+					newIs.Code = dr["IssueCode"].ToString();
+					newIs.Priority = dr["Priority"].ToString();
+					newIs.Type = dr["Type"].ToString();
+					newIs.Completed = (bool)dr["Completed"];
+					newIs.DetailedDescription = dr["DetailedDescription"].ToString();
+					newIs.CompletedByUsername = dr["CompletedBy"].ToString();
+					newIs.CommentsForActionsTaken = dr["CommentsForActionTaken"].ToString();
+					newIs.Action = dr["Action"].ToString();
+					newIs.DueDate = dr["DueDate"].ToString();
+					newIs.Area = dr["Area"].ToString();
+					newIs.AssignedTo = dr["AssignedTo"].ToString();
+					newIs.Contractor = dr["Contractor"].ToString();
+					newIs.ReportedEmail = dr["ReporterEmail"].ToString();
+
+					issueDataList.Add(newIs);
+				}
+
+				upIsDtList.Dispose();
 			}
-
-			upIsDtList.Dispose();
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 			return issueDataList;
 		}
 
 		public List<IssueClass> updateIssueDataListForSpecificJob(int searchJobNumber)
 		{
-			issueDataList.Clear();
-			OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForViewDatabase(searchJobNumber));
-			DataTable dt2 = new DataTable();
-
-			upIsDtList.Fill(dt2);
-
-			foreach (DataRow dr in dt2.Rows)
+			try
 			{
-				IssueClass newIs = new IssueClass();
-				newIs.JobNumber = (int)dr["JobNumber"];
-				newIs.DetailedDescription = dr["DetailedDescription"].ToString();
+				issueDataList.Clear();
+				OleDbDataAdapter upIsDtList = new OleDbDataAdapter(db.DBQueryForViewDatabase(searchJobNumber));
+				DataTable dt2 = new DataTable();
 
-				newIs.ReportedDate = dr["ReportedDate"].ToString();
-				newIs.CompletedDate = dr["CompletedDate"].ToString();
-				newIs.ReportedTime = dr["ReportedTime"].ToString();
-				newIs.CompletedTime = dr["CompletedTime"].ToString();
-				newIs.ReportedUserName = dr["ReportedUsername"].ToString();
-				newIs.AssetNumber = dr["AssetNumber"].ToString();
-				newIs.FaulyArea = dr["FaultyArea"].ToString();
+				upIsDtList.Fill(dt2);
 
-				newIs.Building = dr["Building"].ToString();
+				foreach (DataRow dr in dt2.Rows)
+				{
+					IssueClass newIs = new IssueClass();
+					newIs.JobNumber = (int)dr["JobNumber"];
+					newIs.DetailedDescription = dr["DetailedDescription"].ToString();
 
-				newIs.Code = dr["IssueCode"].ToString();
-				newIs.Priority = dr["Priority"].ToString();
-				newIs.Type = dr["Type"].ToString();
-				newIs.Completed = (bool)dr["Completed"];
-				newIs.DetailedDescription = dr["DetailedDescription"].ToString();
-				newIs.CompletedByUsername = dr["CompletedBy"].ToString();
-				newIs.CommentsForActionsTaken = dr["CommentsForActionTaken"].ToString();
-				newIs.Action = dr["Action"].ToString();
-				newIs.DueDate = dr["DueDate"].ToString();
-				newIs.Area = dr["Area"].ToString();
-				newIs.AssignedTo = dr["AssignedTo"].ToString();
-				newIs.Contractor = dr["Contractor"].ToString();
-				newIs.ReportedEmail = dr["ReporterEmail"].ToString();
+					newIs.ReportedDate = dr["ReportedDate"].ToString();
+					newIs.CompletedDate = dr["CompletedDate"].ToString();
+					newIs.ReportedTime = dr["ReportedTime"].ToString();
+					newIs.CompletedTime = dr["CompletedTime"].ToString();
+					newIs.ReportedUserName = dr["ReportedUsername"].ToString();
+					newIs.AssetNumber = dr["AssetNumber"].ToString();
+					newIs.FaulyArea = dr["FaultyArea"].ToString();
 
-				issueDataList.Add(newIs);
+					newIs.Building = dr["Building"].ToString();
+
+					newIs.Code = dr["IssueCode"].ToString();
+					newIs.Priority = dr["Priority"].ToString();
+					newIs.Type = dr["Type"].ToString();
+					newIs.Completed = (bool)dr["Completed"];
+					newIs.DetailedDescription = dr["DetailedDescription"].ToString();
+					newIs.CompletedByUsername = dr["CompletedBy"].ToString();
+					newIs.CommentsForActionsTaken = dr["CommentsForActionTaken"].ToString();
+					newIs.Action = dr["Action"].ToString();
+					newIs.DueDate = dr["DueDate"].ToString();
+					newIs.Area = dr["Area"].ToString();
+					newIs.AssignedTo = dr["AssignedTo"].ToString();
+					newIs.Contractor = dr["Contractor"].ToString();
+					newIs.ReportedEmail = dr["ReporterEmail"].ToString();
+
+					issueDataList.Add(newIs);
+				}
+
+				issueDataList = issueDataList.FindAll(x => x.JobNumber == searchJobNumber);
+
+				upIsDtList.Dispose();
 			}
-
-			issueDataList = issueDataList.FindAll(x => x.JobNumber == searchJobNumber);
-
-			upIsDtList.Dispose();
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 			return issueDataList;
 		}
 	}

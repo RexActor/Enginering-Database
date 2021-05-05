@@ -18,7 +18,9 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class InventoryViewMeasureType : Window
 	{
-		DatabaseClass db = new DatabaseClass();
+		private DatabaseClass db = new DatabaseClass();
+		private ErrorSystem err = new ErrorSystem();
+
 		public InventoryViewMeasureType()
 		{
 			InitializeComponent();
@@ -26,30 +28,40 @@ namespace Engineering_Database
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-
-			if (MeasureTypeTextBox.Text != string.Empty)
+			try
 			{
+				if (MeasureTypeTextBox.Text != string.Empty)
+				{
+					db.ConnectDB();
 
-				db.ConnectDB();
+					db.AddMeasure("InventoryViewMeasureTypes", MeasureTypeTextBox.Text);
+					db.CloseDB();
 
-				db.AddMeasure("InventoryViewMeasureTypes", MeasureTypeTextBox.Text);
-				db.CloseDB();
-
-				MeasureTypeTextBox.Text = "";
-				measureTypeSaved.Visibility = Visibility.Visible;
-
+					MeasureTypeTextBox.Text = "";
+					measureTypeSaved.Visibility = Visibility.Visible;
+				}
+				else
+				{
+					measureTypeError.Visibility = Visibility.Visible;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				measureTypeError.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
-
 		}
 
 		private void MeasureTypeTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			measureTypeSaved.Visibility = Visibility.Hidden;
-			measureTypeError.Visibility = Visibility.Hidden;
+			try
+			{
+				measureTypeSaved.Visibility = Visibility.Hidden;
+				measureTypeError.Visibility = Visibility.Hidden;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 	}
 }

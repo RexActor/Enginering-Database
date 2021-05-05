@@ -32,5 +32,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="MarkOfflineButton"  Content="Mark Offline" HorizontalAlignment="Left" Margin="1295,36,0,0" VerticalAlignment="Top" Width="75" Click="MarkOfflineButton_Click" />
+        <Button Name="RefreshButton" Content="Refresh" HorizontalAlignment="Left" Margin="45,41,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.133,-0.55" Click="RefreshButton_Click" />
+        <CheckBox  Name="AutoRefreshCheckBox" Content="Auto Refresh" HorizontalAlignment="Left" Margin="144,43,0,0" VerticalAlignment="Top" Width="96" Checked="AutoRefreshCheckBox_Checked" />
+        <Label Name="TimerLabel" Content="" HorizontalAlignment="Left" Margin="258,38,0,0" VerticalAlignment="Top" Width="174" />
+        <Button Name="ExceptioNBtn" Content="Throw Exception" HorizontalAlignment="Left" Margin="329,8,0,0" VerticalAlignment="Top" Width="116" Click="ExceptioNBtn_Click" />
     </Grid>
 </Window>

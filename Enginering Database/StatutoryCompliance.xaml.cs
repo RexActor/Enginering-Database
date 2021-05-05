@@ -12,6 +12,8 @@ namespace Engineering_Database
 	{
 		private readonly DatabaseClass db = new DatabaseClass();
 
+		private ErrorSystem err = new ErrorSystem();
+
 		public StatutoryCompliance()
 		{
 			InitializeComponent();
@@ -68,7 +70,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"{ex.Message} {ex.StackTrace}");
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 
 			db.CloseDB();
@@ -76,120 +78,169 @@ namespace Engineering_Database
 
 		private void ExpiredCheckBox_Click(object sender, RoutedEventArgs e)
 		{
-			if (ExpiredCheckBox.IsChecked == true)
+			try
 			{
-				UpdateList("expired");
+				if (ExpiredCheckBox.IsChecked == true)
+				{
+					UpdateList("expired");
+				}
+				else
+				{
+					UpdateList("all");
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				UpdateList("all");
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		private void StatutoryComplianceList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			StatutoryClass selectedItem = (StatutoryClass)StatutoryComplianceList.SelectedItem;
-
-			StatutoryItem ItemWindow = new StatutoryItem();
-
-			ItemWindow.TitleLabel.Content = $"Details for {selectedItem.EquipmentDescription} with --> ID [{selectedItem.ID}]";
-
-			ItemWindow.ManufacturerTextBox.Text = selectedItem.Manufacturer;
-			ItemWindow.InsurerTextBox.Text = selectedItem.CompanyIssuer;
-			ItemWindow.SerialNumberTextBox.Text = selectedItem.SerialNumber;
-			ItemWindow.MonthlyWeeklyTextBox.Text = selectedItem.MonthlyWeekly;
-			ItemWindow.hiddenID.Content = selectedItem.ID;
-			ItemWindow.MonthlyWeeklyRangeLabelContent.Content = selectedItem.MonthlyWeeklyRange;
-			ItemWindow.GroupLabelContent.Content = selectedItem.Group;
-			ItemWindow.hiddenInspectionCount.Content = selectedItem.InspectionCount;
-
-			if (Convert.ToInt32(selectedItem.DaysLeftTillInspection) > 0)
+			try
 			{
-				ItemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
-				ItemWindow.NextInspectionLabel.Content = $"{selectedItem.DaysLeftTillInspection} days left";
-			}
-			else
-			{
-				ItemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
-				ItemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(selectedItem.DaysLeftTillInspection))} days overdue";
-			}
+				StatutoryClass selectedItem = (StatutoryClass)StatutoryComplianceList.SelectedItem;
 
-			if (selectedItem.Booked.ToString() == "Yes")
-			{
-				ItemWindow.BookedCheckBox.IsChecked = true;
-			}
-			else
-			{
-				ItemWindow.BookedCheckBox.IsChecked = false;
-			}
+				StatutoryItem ItemWindow = new StatutoryItem();
 
-			ItemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.DateReportIssued);
-			ItemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.RenewDate);
+				ItemWindow.TitleLabel.Content = $"Details for {selectedItem.EquipmentDescription} with --> ID [{selectedItem.ID}]";
 
-			ItemWindow.ShowDialog();
+				ItemWindow.ManufacturerTextBox.Text = selectedItem.Manufacturer;
+				ItemWindow.InsurerTextBox.Text = selectedItem.CompanyIssuer;
+				ItemWindow.SerialNumberTextBox.Text = selectedItem.SerialNumber;
+				ItemWindow.MonthlyWeeklyTextBox.Text = selectedItem.MonthlyWeekly;
+				ItemWindow.hiddenID.Content = selectedItem.ID;
+				ItemWindow.MonthlyWeeklyRangeLabelContent.Content = selectedItem.MonthlyWeeklyRange;
+				ItemWindow.GroupLabelContent.Content = selectedItem.Group;
+				ItemWindow.hiddenInspectionCount.Content = selectedItem.InspectionCount;
+
+				if (Convert.ToInt32(selectedItem.DaysLeftTillInspection) > 0)
+				{
+					ItemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
+					ItemWindow.NextInspectionLabel.Content = $"{selectedItem.DaysLeftTillInspection} days left";
+				}
+				else
+				{
+					ItemWindow.NextInspectionLabel.Background = Brushes.PaleVioletRed;
+					ItemWindow.NextInspectionLabel.Content = $"{Math.Abs(Convert.ToInt32(selectedItem.DaysLeftTillInspection))} days overdue";
+				}
+
+				if (selectedItem.Booked.ToString() == "Yes")
+				{
+					ItemWindow.BookedCheckBox.IsChecked = true;
+				}
+				else
+				{
+					ItemWindow.BookedCheckBox.IsChecked = false;
+				}
+
+				ItemWindow.DateReportIssuedDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.DateReportIssued);
+				ItemWindow.RenewDateDatePicker.SelectedDate = Convert.ToDateTime(selectedItem.RenewDate);
+
+				ItemWindow.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void RefreshList_Click(object sender, RoutedEventArgs e)
 		{
-			UpdateStatutoryDays();
-			StatutoryComplianceGroupComboBox.SelectedIndex = 0;
+			try
+			{
+				UpdateStatutoryDays();
+				StatutoryComplianceGroupComboBox.SelectedIndex = 0;
 
-			UpdateList("all");
+				UpdateList("all");
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void UpdateStatutoryDays()
 		{
-			db.ConnectDB();
-
-			var reader = db.GetAllPDFIds("StatutoryCompliance");
-
-			while (reader.Read())
+			try
 			{
-				StatutoryClass statutory = new StatutoryClass
+				db.ConnectDB();
+
+				var reader = db.GetAllPDFIds("StatutoryCompliance");
+
+				while (reader.Read())
 				{
-					ID = Convert.ToInt32(reader["ID"]),
-					EquipmentDescription = reader["EquipmentDescription"].ToString(),
-					RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]),
-					meetingSetStatus = (bool)reader["MeetingSet"]
-				};
-				DateTime dt = DateTime.Now.Date;
+					StatutoryClass statutory = new StatutoryClass
+					{
+						ID = Convert.ToInt32(reader["ID"]),
+						EquipmentDescription = reader["EquipmentDescription"].ToString(),
+						RenewDateForCalculation = Convert.ToDateTime(reader["RenewDate"]),
+						meetingSetStatus = (bool)reader["MeetingSet"]
+					};
+					DateTime dt = DateTime.Now.Date;
 
-				TimeSpan dayDifference = statutory.RenewDateForCalculation - dt;
+					TimeSpan dayDifference = statutory.RenewDateForCalculation - dt;
 
-				db.UpdateInventoryView("StatutoryCompliance", "DaysTillInspection", statutory.ID, dayDifference.Days);
+					db.UpdateInventoryView("StatutoryCompliance", "DaysTillInspection", statutory.ID, dayDifference.Days);
+				}
+
+				db.CloseDB();
 			}
-
-			db.CloseDB();
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void AddStatutoryItemButton_Click(object sender, RoutedEventArgs e)
 		{
-			StatutoryItemAdd addItem = new StatutoryItemAdd();
+			try
+			{
+				StatutoryItemAdd addItem = new StatutoryItemAdd();
 
-			addItem.ShowDialog();
+				addItem.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		public void UpdateComboBox()
 		{
-			db.ConnectDB();
-
-			var reader = db.GetAllPDFIds("StatutoryComplianceGroups");
-			StatutoryComplianceGroupComboBox.Items.Add("Please Select");
-
-			while (reader.Read())
+			try
 			{
-				StatutoryComplianceGroupComboBox.Items.Add(reader["GroupDescription"]);
-			}
-			StatutoryComplianceGroupComboBox.SelectedIndex = 0;
+				db.ConnectDB();
 
-			db.CloseDB();
+				var reader = db.GetAllPDFIds("StatutoryComplianceGroups");
+				StatutoryComplianceGroupComboBox.Items.Add("Please Select");
+
+				while (reader.Read())
+				{
+					StatutoryComplianceGroupComboBox.Items.Add(reader["GroupDescription"]);
+				}
+				StatutoryComplianceGroupComboBox.SelectedIndex = 0;
+
+				db.CloseDB();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void StatutoryComplianceGroupComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
-			if (StatutoryComplianceGroupComboBox.SelectedIndex > 0)
+			try
 			{
-				UpdateList("Group");
+				if (StatutoryComplianceGroupComboBox.SelectedIndex > 0)
+				{
+					UpdateList("Group");
+				}
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 	}

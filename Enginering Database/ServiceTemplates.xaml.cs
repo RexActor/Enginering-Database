@@ -10,8 +10,12 @@ namespace Engineering_Database
 	/// </summary>
 	public partial class ServiceTemplates : Window
 	{
-		DatabaseClass db = new DatabaseClass();
+		private DatabaseClass db = new DatabaseClass();
+
+		private ErrorSystem err = new ErrorSystem();
+
 		public ServiceTemplates()
+
 		{
 			InitializeComponent();
 			loadtemplates();
@@ -19,74 +23,102 @@ namespace Engineering_Database
 
 		private void templateList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (templateList.SelectedItem != null)
+			try
 			{
-				tempDeleteErrorLabel.Visibility = Visibility.Hidden;
-				db.ConnectDB();
-				byte[] buffer = null;
-				string tempFile = System.IO.Path.GetTempFileName();
-
-				var reader = db.GetPDFFileFromDatabase("ServiceTemplate", "TemplateName", templateList.SelectedItem.ToString());
-				while (reader.Read())
+				if (templateList.SelectedItem != null)
 				{
-					buffer = (byte[])reader["TemplateFile"];
+					tempDeleteErrorLabel.Visibility = Visibility.Hidden;
+					db.ConnectDB();
+					byte[] buffer = null;
+					string tempFile = System.IO.Path.GetTempFileName();
 
+					var reader = db.GetPDFFileFromDatabase("ServiceTemplate", "TemplateName", templateList.SelectedItem.ToString());
+					while (reader.Read())
+					{
+						buffer = (byte[])reader["TemplateFile"];
+					}
+					using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+					{
+						fsStream.Write(buffer, 0, buffer.Length);
+					}
+
+					ServicePDFView.Navigate(tempFile);
+					db.CloseDB();
 				}
-				using (FileStream fsStream = new FileStream(tempFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-				{
-					fsStream.Write(buffer, 0, buffer.Length);
-				}
-
-
-				ServicePDFView.Navigate(tempFile);
-				db.CloseDB();
 			}
-
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void addNewTemplateButton_Click(object sender, RoutedEventArgs e)
 		{
-			AddServiceTemplate addTemplate = new AddServiceTemplate();
+			try
+			{
+				AddServiceTemplate addTemplate = new AddServiceTemplate();
 
-			addTemplate.ShowDialog();
+				addTemplate.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
-
 
 		private void loadtemplates()
 		{
-			templateList.Items.Clear();
-			db.ConnectDB();
-
-			var reader = db.GetAllPDFIds("ServiceTemplate");
-
-			while (reader.Read())
+			try
 			{
-				templateList.Items.Add(reader["TemplateName"].ToString());
+				templateList.Items.Clear();
+				db.ConnectDB();
+
+				var reader = db.GetAllPDFIds("ServiceTemplate");
+
+				while (reader.Read())
+				{
+					templateList.Items.Add(reader["TemplateName"].ToString());
+				}
+
+				db.CloseDB();
 			}
-
-
-			db.CloseDB();
-
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void refreshTemplateButton_Click(object sender, RoutedEventArgs e)
 		{
-			loadtemplates();
-
+			try
+			{
+				loadtemplates();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void DeleteTemplateButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (templateList.SelectedItem != null)
+			try
 			{
-				db.ConnectDB();
-				db.DeleteTemplate("ServiceTemplate", templateList.SelectedItem.ToString());
-				ServicePDFView.Navigate(new Uri("about:blank"));
-				loadtemplates();
+				if (templateList.SelectedItem != null)
+				{
+					db.ConnectDB();
+					db.DeleteTemplate("ServiceTemplate", templateList.SelectedItem.ToString());
+					ServicePDFView.Navigate(new Uri("about:blank"));
+					loadtemplates();
+				}
+				else
+				{
+					tempDeleteErrorLabel.Visibility = Visibility.Visible;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				tempDeleteErrorLabel.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 	}

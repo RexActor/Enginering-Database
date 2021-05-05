@@ -18,72 +18,86 @@ namespace Enginering_Database
 		private readonly string userName = WindowsIdentity.GetCurrent().Name;
 		private readonly UserSettings userSett = new UserSettings();
 		private UserSettings userMaintenSett = new UserSettings();
+		private ErrorSystem err = new ErrorSystem();
 
 		public MainWindow()
 		{
-			Trace.TraceInformation("Test Message123");
-			Trace.Flush();
-			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-
-			DatabaseClass dtC = new DatabaseClass();
-
-			Application currApp = Application.Current;
-			currApp.ShutdownMode = ShutdownMode.OnLastWindowClose;
-			currApp.Exit += OnApplicationExit;
-
-			dtC.ConnectDB();
-
-			InitializeComponent();
-			OnStartupCheckMaintenance();
-			Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-			DateTime buildDate = new DateTime(2000, 1, 1)
-									.AddDays(version.Build).AddSeconds(version.Revision * 2);
-			string displayableVersion = $"{version}";
-			VersionData.Content = displayableVersion;
-
-			//userSett.openSettings();
-
-			DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-			dispatcherTimer.Tick += new EventHandler(MaintenanceActivation);
-			dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-			dispatcherTimer.Start();
-
-			if (dtC.DBStatus() == "DB connected")
+			try
 			{
-				fileExistsLabelData.Foreground = Brushes.Green;
+				WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+				DatabaseClass dtC = new DatabaseClass();
+
+				Application currApp = Application.Current;
+
+				currApp.ShutdownMode = ShutdownMode.OnLastWindowClose;
+				currApp.Exit += OnApplicationExit;
+
+				dtC.ConnectDB();
+
+				InitializeComponent();
+				OnStartupCheckMaintenance();
+				Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+				DateTime buildDate = new DateTime(2000, 1, 1)
+										.AddDays(version.Build).AddSeconds(version.Revision * 2);
+				string displayableVersion = $"{version}";
+				VersionData.Content = displayableVersion;
+
+				//userSett.openSettings();
+
+				DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+				dispatcherTimer.Tick += new EventHandler(MaintenanceActivation);
+				dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+				dispatcherTimer.Start();
+
+				if (dtC.DBStatus() == "DB connected")
+				{
+					fileExistsLabelData.Foreground = Brushes.Green;
+				}
+				else
+				{
+					fileExistsLabelData.Foreground = Brushes.Red;
+				}
+				fileExistsLabelData.Content = dtC.DBStatus();
+
+				AppDomain currentDomain = AppDomain.CurrentDomain;
+				currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+
+				DispatcherTimer clock = new DispatcherTimer();
+				clock.Tick += new EventHandler(UpdateClock);
+				clock.Interval = new TimeSpan(0, 0, 1);
+				clock.Start();
+
+				//TODO:change
+				loginSysID = loginSys.CreateUserLogin(userName);
+
+				UserNameLabel.Content = userName;
+
+				if (loginSysID != null && LoginIDLabel.Content.ToString() == "Not Assigned")
+				{
+					LoginIDLabel.Content = loginSysID.ToString();
+				}
+				UsersOnlineLabel.Content = loginSys.OnlineUserCount();
+
+				dtC.CloseDB();
 			}
-			else
+			catch (Exception ex)
 			{
-				fileExistsLabelData.Foreground = Brushes.Red;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
-			fileExistsLabelData.Content = dtC.DBStatus();
-
-			AppDomain currentDomain = AppDomain.CurrentDomain;
-			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
-
-			DispatcherTimer clock = new DispatcherTimer();
-			clock.Tick += new EventHandler(UpdateClock);
-			clock.Interval = new TimeSpan(0, 0, 1);
-			clock.Start();
-
-			//TODO:change
-			loginSysID = loginSys.CreateUserLogin(userName);
-
-			UserNameLabel.Content = userName;
-
-			if (loginSysID != null && LoginIDLabel.Content.ToString() == "Not Assigned")
-			{
-				LoginIDLabel.Content = loginSysID.ToString();
-			}
-			UsersOnlineLabel.Content = loginSys.OnlineUserCount();
-
-			dtC.CloseDB();
 		}
 
 		private void OnApplicationExit(object sender, EventArgs e)
 		{
-			//TODO:change
-			loginSys.UpdateUserLogin(Convert.ToInt32(loginSysID));
+			try
+			{
+				//TODO:change
+				loginSys.UpdateUserLogin(Convert.ToInt32(loginSysID));
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		//TODO: remove ! not required
@@ -98,29 +112,50 @@ namespace Enginering_Database
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			addData addnew = new addData();
-			addnew.ShowDialog();
+			try
+			{
+				addData addnew = new addData();
+				addnew.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			viewDatabase win2 = new viewDatabase();
+			try
+			{
+				viewDatabase win2 = new viewDatabase();
 
-			win2.ShowDialog();
+				win2.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void SettingsShow(object sender, RoutedEventArgs e)
 		{
-			//UserSettings userSett = new UserSettings();
-			userSett.openSettings();
+			try
+			{
+				//UserSettings userSett = new UserSettings();
+				userSett.openSettings();
 
-			if (userName != userSett.SubAdmin1 || userName != userSett.SubAdmin2 || userName != userSett.UserName)
-			{
-				PasswordRequest("Settings");
+				if (userName != userSett.SubAdmin1 || userName != userSett.SubAdmin2 || userName != userSett.UserName)
+				{
+					PasswordRequest("Settings");
+				}
+				else
+				{
+					userSett.ShowDialog();
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				userSett.ShowDialog();
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -134,110 +169,146 @@ namespace Enginering_Database
 
 		private void PasswordRequest(string target)
 		{
-			passwordWindow passwordWindow = new passwordWindow();
-			passwordWindow.targetWindow = target;
-			passwordWindow.ShowDialog();
+			try
+			{
+				passwordWindow passwordWindow = new passwordWindow();
+				passwordWindow.targetWindow = target;
+				passwordWindow.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		protected override void OnClosed(EventArgs e)
 		{
-			base.OnClosed(e);
-			Application.Current.Shutdown();
+			try
+			{
+				base.OnClosed(e);
+				Application.Current.Shutdown();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		public string GetCPU()
 		{
-			string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
-			if (cpu.IndexOf("64") > 0)
+			try
 			{
-				cpu = "64 Bit";
+				string cpu = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
+				if (cpu.IndexOf("64") > 0)
+				{
+					cpu = "64 Bit";
+				}
+				else
+				{
+					cpu = "32 bit";
+				}
+				return cpu;
 			}
-			else
+			catch (Exception ex)
 			{
-				cpu = "32 bit";
+				err.RecordError(ex.Message, ex.StackTrace);
+				return null;
 			}
-			return cpu;
 		}
 
 		public void MaintenanceActivation(object sender, EventArgs e)
 		{
-			userMaintenSett.openSettings();
-
-			if (userMaintenSett.Maintenance == "Yes")
+			try
 			{
-				MaintenanceLabel.Visibility = Visibility.Visible;
+				userMaintenSett.openSettings();
 
-				InsertDataButton.Visibility = Visibility.Hidden;
-				InsertDataImage.Visibility = Visibility.Hidden;
-				ViewDatabaseButton.Visibility = Visibility.Hidden;
-				ViewDatabaseImage.Visibility = Visibility.Hidden;
-				AdministratorButton.Visibility = Visibility.Hidden;
-				AdministratorImage.Visibility = Visibility.Hidden;
-				PasswordProtectImage2.Visibility = Visibility.Hidden;
-
-				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
+				if (userMaintenSett.Maintenance == "Yes")
 				{
-					DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-					MaintenanceLabel2.Visibility = Visibility.Visible;
-					dispatcherTimer.Tick += new EventHandler(CloseApp);
-					dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-					dispatcherTimer.Start();
+					MaintenanceLabel.Visibility = Visibility.Visible;
+
+					InsertDataButton.Visibility = Visibility.Hidden;
+					InsertDataImage.Visibility = Visibility.Hidden;
+					ViewDatabaseButton.Visibility = Visibility.Hidden;
+					ViewDatabaseImage.Visibility = Visibility.Hidden;
+					AdministratorButton.Visibility = Visibility.Hidden;
+					AdministratorImage.Visibility = Visibility.Hidden;
+					PasswordProtectImage2.Visibility = Visibility.Hidden;
+
+					if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
+					{
+						DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+						MaintenanceLabel2.Visibility = Visibility.Visible;
+						dispatcherTimer.Tick += new EventHandler(CloseApp);
+						dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+						dispatcherTimer.Start();
+					}
+				}
+				else
+				{
+					MaintenanceLabel.Visibility = Visibility.Hidden;
+					MaintenanceLabel2.Visibility = Visibility.Hidden;
+
+					InsertDataButton.Visibility = Visibility.Visible;
+					InsertDataImage.Visibility = Visibility.Visible;
+					ViewDatabaseButton.Visibility = Visibility.Visible;
+					ViewDatabaseImage.Visibility = Visibility.Visible;
+					AdministratorButton.Visibility = Visibility.Visible;
+					AdministratorImage.Visibility = Visibility.Visible;
+					PasswordProtectImage2.Visibility = Visibility.Visible;
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				MaintenanceLabel.Visibility = Visibility.Hidden;
-				MaintenanceLabel2.Visibility = Visibility.Hidden;
-
-				InsertDataButton.Visibility = Visibility.Visible;
-				InsertDataImage.Visibility = Visibility.Visible;
-				ViewDatabaseButton.Visibility = Visibility.Visible;
-				ViewDatabaseImage.Visibility = Visibility.Visible;
-				AdministratorButton.Visibility = Visibility.Visible;
-				AdministratorImage.Visibility = Visibility.Visible;
-				PasswordProtectImage2.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
 		public void OnStartupCheckMaintenance()
 		{
-			//UserSettings userMaintenSett = new UserSettings();
-			userMaintenSett.openSettings();
-			//MessageBox.Show("*"+UserSettings.UserName.ToString() + "* ==> *" + userName+"*");
-			if (userMaintenSett.Maintenance == "Yes")
+			try
 			{
-				MaintenanceLabel.Visibility = Visibility.Visible;
-				//MaintenanceLabel2.Visibility = Visibility.Visible;
-
-				InsertDataButton.Visibility = Visibility.Hidden;
-				InsertDataImage.Visibility = Visibility.Hidden;
-				ViewDatabaseButton.Visibility = Visibility.Hidden;
-				ViewDatabaseImage.Visibility = Visibility.Hidden;
-				AdministratorButton.Visibility = Visibility.Hidden;
-				AdministratorImage.Visibility = Visibility.Hidden;
-				PasswordProtectImage2.Visibility = Visibility.Hidden;
-
-				if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
+				//UserSettings userMaintenSett = new UserSettings();
+				userMaintenSett.openSettings();
+				//MessageBox.Show("*"+UserSettings.UserName.ToString() + "* ==> *" + userName+"*");
+				if (userMaintenSett.Maintenance == "Yes")
 				{
-					DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-					MaintenanceLabel2.Visibility = Visibility.Visible;
-					dispatcherTimer.Tick += new EventHandler(CloseApp);
-					dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-					dispatcherTimer.Start();
+					MaintenanceLabel.Visibility = Visibility.Visible;
+					//MaintenanceLabel2.Visibility = Visibility.Visible;
+
+					InsertDataButton.Visibility = Visibility.Hidden;
+					InsertDataImage.Visibility = Visibility.Hidden;
+					ViewDatabaseButton.Visibility = Visibility.Hidden;
+					ViewDatabaseImage.Visibility = Visibility.Hidden;
+					AdministratorButton.Visibility = Visibility.Hidden;
+					AdministratorImage.Visibility = Visibility.Hidden;
+					PasswordProtectImage2.Visibility = Visibility.Hidden;
+
+					if (userName != userMaintenSett.UserName || userName != userMaintenSett.SubAdmin1 || userName != userMaintenSett.SubAdmin2)
+					{
+						DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+						MaintenanceLabel2.Visibility = Visibility.Visible;
+						dispatcherTimer.Tick += new EventHandler(CloseApp);
+						dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+						dispatcherTimer.Start();
+					}
+				}
+				else
+				{
+					MaintenanceLabel.Visibility = Visibility.Hidden;
+					MaintenanceLabel2.Visibility = Visibility.Hidden;
+					AdministratorButton.Visibility = Visibility.Visible;
+					AdministratorImage.Visibility = Visibility.Visible;
+					InsertDataButton.Visibility = Visibility.Visible;
+					InsertDataImage.Visibility = Visibility.Visible;
+					ViewDatabaseButton.Visibility = Visibility.Visible;
+					ViewDatabaseImage.Visibility = Visibility.Visible;
+
+					PasswordProtectImage2.Visibility = Visibility.Visible;
 				}
 			}
-			else
+			catch (Exception ex)
 			{
-				MaintenanceLabel.Visibility = Visibility.Hidden;
-				MaintenanceLabel2.Visibility = Visibility.Hidden;
-				AdministratorButton.Visibility = Visibility.Visible;
-				AdministratorImage.Visibility = Visibility.Visible;
-				InsertDataButton.Visibility = Visibility.Visible;
-				InsertDataImage.Visibility = Visibility.Visible;
-				ViewDatabaseButton.Visibility = Visibility.Visible;
-				ViewDatabaseImage.Visibility = Visibility.Visible;
-
-				PasswordProtectImage2.Visibility = Visibility.Visible;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -248,8 +319,15 @@ namespace Enginering_Database
 
 		private void ReportAppIssue_Click(object sender, RoutedEventArgs e)
 		{
-			ReportAppIssue repApp = new ReportAppIssue();
-			repApp.Show();
+			try
+			{
+				ReportAppIssue repApp = new ReportAppIssue();
+				repApp.Show();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void UpdateClock(object sender, EventArgs e)
@@ -261,15 +339,22 @@ namespace Enginering_Database
 
 		private void AdministratorButton_Click(object sender, RoutedEventArgs e)
 		{
-			userSett.openSettings();
-			if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
+			try
 			{
-				Admin admin = new Admin();
-				admin.Show();
+				userSett.openSettings();
+				if (userName == userSett.SubAdmin1 || userName == userSett.SubAdmin2 || userName == userSett.UserName)
+				{
+					Admin admin = new Admin();
+					admin.Show();
+				}
+				else
+				{
+					PasswordRequest("Admin");
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				PasswordRequest("Admin");
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 
@@ -279,19 +364,33 @@ namespace Enginering_Database
 
 		private void SecretButton_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			OnlineUsers onlineUsers = new OnlineUsers();
-			onlineUsers.ShowDialog();
+			try
+			{
+				OnlineUsers onlineUsers = new OnlineUsers();
+				onlineUsers.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace);
+			}
 		}
 
 		private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
-			if (SecretButton.IsEnabled == true)
+			try
 			{
-				SecretButton.IsEnabled = false;
+				if (SecretButton.IsEnabled == true)
+				{
+					SecretButton.IsEnabled = false;
+				}
+				else
+				{
+					SecretButton.IsEnabled = true;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				SecretButton.IsEnabled = true;
+				err.RecordError(ex.Message, ex.StackTrace);
 			}
 		}
 	}

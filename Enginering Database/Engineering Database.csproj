@@ -298,6 +298,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>engineeringDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ErrorSystem.cs" />
     <Compile Include="ExistingIssues.xaml.cs">
       <DependentUpon>ExistingIssues.xaml</DependentUpon>
     </Compile>
