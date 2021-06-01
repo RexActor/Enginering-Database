@@ -55,7 +55,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 				return -1;
 			}
 		}
@@ -81,7 +81,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 				return -1;
 			}
 		}
@@ -110,7 +110,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 	}

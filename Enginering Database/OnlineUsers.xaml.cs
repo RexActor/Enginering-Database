@@ -162,7 +162,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -178,7 +178,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -198,7 +198,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 				return true;
 			}
 		}
@@ -219,7 +219,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -241,7 +241,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -255,7 +255,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -275,7 +275,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -307,7 +307,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -329,13 +329,13 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
 		private void ExceptioNBtn_Click(object sender, RoutedEventArgs e)
 		{
-			throw new InvalidOperationException("Logfile cannot be read-only");
+			throw new InvalidOperationException("Logfile cannot be read-only1");
 		}
 	}
 

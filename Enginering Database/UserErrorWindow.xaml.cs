@@ -10,6 +10,9 @@ namespace Engineering_Database
 		//public string errorTitle;
 		public string errorMessage;
 
+		public bool shutDown = false;
+		public string message;
+
 		public UserErrorWindow()
 		{
 			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -24,7 +27,21 @@ namespace Engineering_Database
 
 		public void CloseErrorMessage_click(object sender, RoutedEventArgs e)
 		{
-			this.Hide();
+			switch (shutDown)
+			{
+				case true:
+
+					Application.Current.Shutdown();
+					break;
+
+				case false:
+					this.Hide();
+					break;
+
+				default:
+					Application.Current.Shutdown();
+					break;
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@
             <ColumnDefinition Width="44*" />
         </Grid.ColumnDefinitions>
 
-        <Button Name="ViewDatabaseButton" Content="      User Reported Issues" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="453" HorizontalContentAlignment="Center" Margin="10,165,0,0" Grid.ColumnSpan="2" />
+        <Button Name="ViewDatabaseButton" Content="      User Reported Issues" Click="Button_Click_1" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="223" HorizontalContentAlignment="Center" Margin="10,165,0,0" />
 
         <Label Content="Local Tme:" FontSize="10" HorizontalContentAlignment="Right" Margin="5,363,0,0" Foreground="#FF251604" FontWeight="Bold" BorderBrush="#FF170202" OpacityMask="#FF130202" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" />
         <Label Content="Database Connected?" Margin="5,332,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" />
@@ -44,5 +44,7 @@
         <Label x:Name="UsersOnlineLabel" Content="Not Assigned" FontSize="10" Margin="79,309,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top" Grid.Column="1" />
         <Label Content="Your Username:" Margin="217,332,0,0" FontWeight="Bold" FontSize="10" HorizontalContentAlignment="Right" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" Grid.ColumnSpan="2" />
         <Label x:Name="UserNameLabel" Content="Not Assigned" FontSize="10" Margin="78,332,0,0" HorizontalContentAlignment="Left" FontWeight="Bold" HorizontalAlignment="Left" Width="130" Height="26" VerticalAlignment="Top" Grid.Column="1" />
+        <Button x:Name="LockOffButton" Content="          Equipment Lock Off System" Click="LockOffButton_Click" Height="55" VerticalAlignment="Top" HorizontalAlignment="Left" Width="227" HorizontalContentAlignment="Center" Margin="236,165,0,0" Grid.ColumnSpan="2" />
+        <Image Margin="237,166,184,202" Source="lock off.png" Stretch="Fill" Grid.ColumnSpan="2" />
     </Grid>
 </Window>

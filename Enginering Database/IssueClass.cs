@@ -33,6 +33,7 @@ namespace Engineering_Database
 		public string Contractor { get; set; }
 		public string ReportedEmail { get; set; }
 		public string ReporterEmail { get; set; }
+		public bool LockedOff { get; set; }
 
 		private readonly DatabaseClass db = new DatabaseClass();
 		private ErrorSystem err = new ErrorSystem();
@@ -86,7 +87,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 			return issueDataList;
 		}
@@ -140,7 +141,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 			return issueDataList;
 		}

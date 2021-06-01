@@ -9,43 +9,43 @@
 
     <Grid Background="White" Margin="0,0,2,-1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="402*"/>
-            <ColumnDefinition Width="22*"/>
-            <ColumnDefinition Width="49*"/>
-            <ColumnDefinition Width="95*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="402*" />
+            <ColumnDefinition Width="22*" />
+            <ColumnDefinition Width="49*" />
+            <ColumnDefinition Width="95*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <Label x:Name="AreaLabel" Content="Area" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,119,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label x:Name="issueTypeLabel" Content="Issue Type" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,154,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label Content="Date" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="293,147,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label Content="Time" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="293,182,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label Content="User Reporting" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="293,217,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label x:Name="IssueCodeLabel" Content="Issue Code" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,261,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label x:Name="buildingLabel" Content="Building" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,191,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label x:Name="timeLabelAddData" Content="Time value" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="397,182,0,0" VerticalAlignment="Top" Width="158" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4"/>
-        <Label x:Name="dateLabelAddData" Content="date value" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="397,147,0,0" VerticalAlignment="Top" Width="158" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4"/>
+        <Label x:Name="AreaLabel" Content="Area" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,119,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label x:Name="issueTypeLabel" Content="Issue Type" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,154,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label Content="Date" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="295,181,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label Content="Time" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="295,216,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label Content="User Reporting" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="295,251,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label x:Name="IssueCodeLabel" Content="Issue Code" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,261,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label x:Name="buildingLabel" Content="Building" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,191,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label x:Name="timeLabelAddData" Content="Time value" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="399,216,0,0" VerticalAlignment="Top" Width="158" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4" />
+        <Label x:Name="dateLabelAddData" Content="date value" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="399,181,0,0" VerticalAlignment="Top" Width="158" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4" />
         <ComboBox x:Name="areaComboBox" HorizontalAlignment="Left" Height="30" Margin="114,119,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="ComboBox_SelectionChanged" HorizontalContentAlignment="Center">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFF0F0F0" Offset="0" />
+                    <GradientStop Color="White" Offset="1" />
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <ComboBox x:Name="issueTypeComboBox" HorizontalAlignment="Left" Height="30" Margin="114,154,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Center" SelectionChanged="IssueTypeComboBox_SelectionChanged"/>
-        <ComboBox x:Name="issueComboBox" HorizontalAlignment="Left" Height="30" Margin="114,261,0,0" VerticalAlignment="Top" Width="158"  HorizontalContentAlignment="Center"/>
-        <ComboBox x:Name="buildingComboBox" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Height="30" Margin="114,191,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="BuildingComboBox_SelectionChanged"/>
-        <Label x:Name="faultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,226,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <ComboBox x:Name="faultyAreaComboBox" HorizontalAlignment="Left" Height="30" Margin="114,226,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Center" SelectionChanged="FaultyAreaComboBox_SelectionChanged"/>
-        <Label x:Name="usernameLabelValue" Content="user reporting value" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="397,217,0,0" VerticalAlignment="Top" Width="158" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4"/>
-        <Label Content="Job Number" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="293,116,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <Label x:Name="jobNumberDataLabel" Content="jobNumberData" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="397,116,0,0" VerticalAlignment="Top" Width="77" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4"/>
-        <Image Margin="10,10,153,0" Source="logo.jpg" Stretch="Fill" Height="104" VerticalAlignment="Top"/>
-        <Button x:Name="InsertDataIntoDatabase" Content="Report" HorizontalAlignment="Left" Height="24" Margin="10,533,0,0" VerticalAlignment="Top" Width="128" Click="InsertDataIntoDatabase_Click"/>
-        <Label x:Name="AssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,331,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <TextBox x:Name="AssetNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="114,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158" LostFocus="AssetNumberTextBox_LostFocus" TextChanged="AssetNumberTextBox_TextChanged"/>
-        <Label x:Name="PriorityLabel" Content="Priority" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,296,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}"/>
-        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Height="30" Margin="114,296,0,0" VerticalAlignment="Top" Width="158"  HorizontalContentAlignment="Center"/>
+        <ComboBox x:Name="issueTypeComboBox" HorizontalAlignment="Left" Height="30" Margin="114,154,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Center" SelectionChanged="IssueTypeComboBox_SelectionChanged" />
+        <ComboBox x:Name="issueComboBox" HorizontalAlignment="Left" Height="30" Margin="114,261,0,0" VerticalAlignment="Top" Width="158"  HorizontalContentAlignment="Center" />
+        <ComboBox x:Name="buildingComboBox" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Height="30" Margin="114,191,0,0" VerticalAlignment="Top" Width="158" SelectionChanged="BuildingComboBox_SelectionChanged" />
+        <Label x:Name="faultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,226,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <ComboBox x:Name="faultyAreaComboBox" HorizontalAlignment="Left" Height="30" Margin="114,226,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Center" SelectionChanged="FaultyAreaComboBox_SelectionChanged" />
+        <Label x:Name="usernameLabelValue" Content="user reporting value" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="399,251,0,0" VerticalAlignment="Top" Width="158" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4" />
+        <Label Content="Job Number" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="295,150,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <Label x:Name="jobNumberDataLabel" Content="jobNumberData" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="399,150,0,0" VerticalAlignment="Top" Width="77" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" Grid.ColumnSpan="4" />
+        <Image Margin="10,10,153,0" Source="logo.jpg" Stretch="Fill" Height="104" VerticalAlignment="Top" />
+        <Button x:Name="InsertDataIntoDatabase" Content="Report" HorizontalAlignment="Left" Height="24" Margin="10,533,0,0" VerticalAlignment="Top" Width="128" Click="InsertDataIntoDatabase_Click" />
+        <Label x:Name="AssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,331,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <TextBox x:Name="AssetNumberTextBox" HorizontalAlignment="Left" Height="30" Margin="114,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158" LostFocus="AssetNumberTextBox_LostFocus" TextChanged="AssetNumberTextBox_TextChanged" />
+        <Label x:Name="PriorityLabel" Content="Priority" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Margin="10,296,0,0" VerticalAlignment="Top" Width="90" BorderThickness="1" BorderBrush="#FF0A0808" FontSize="{DynamicResource {x:Static SystemFonts.IconFontSizeKey}}" />
+        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Height="30" Margin="114,296,0,0" VerticalAlignment="Top" Width="158"  HorizontalContentAlignment="Center" />
         <RichTextBox x:Name="DetailedDescriptionRichTextBox" HorizontalAlignment="Left" Height="106" Margin="10,412,0,0" VerticalAlignment="Top" Width="545" Grid.ColumnSpan="4" BorderBrush="#FF0743F9" BorderThickness="2" GotFocus="ClearRichTextBox" TextChanged="CheckRichTextBoxchanges">
             <RichTextBox.Document>
                 <FlowDocument>
@@ -53,26 +53,26 @@
                         <Paragraph>
                             Please Enter Detailed Description
                         </Paragraph>
-
                     </FlowDocument.Blocks>
                 </FlowDocument>
             </RichTextBox.Document>
         </RichTextBox>
-        <Label x:Name="ErrorMessageLabel" Grid.ColumnSpan="4" Content="You are missing some selections/data.&#xD;&#xA;Missing fields are marked with red. &#xD;&#xA;Please check and try again&#xD;&#xA;If you don't have asset number - &#xD;&#xA;use &quot;N/a&quot;" HorizontalAlignment="Left" Height="86" Margin="293,261,0,0" VerticalAlignment="Top" Width="252" Background="#FFF0B9B9" Foreground="#FF421919" FontWeight="Bold" FontFamily="Sitka Text" FontStyle="Oblique"/>
+        <Label x:Name="ErrorMessageLabel" Grid.ColumnSpan="4" Content="You are missing some selections/data.&#xD;&#xA;Missing fields are marked with red. &#xD;&#xA;Please check and try again&#xD;&#xA;If you don't have asset number - &#xD;&#xA;use &quot;N/a&quot;" HorizontalAlignment="Left" Height="74" Margin="295,287,0,0" VerticalAlignment="Top" Width="261" Background="#FFF0B9B9" Foreground="#FF421919" FontWeight="Bold" FontFamily="Sitka Text" FontSize="10" FontStyle="Oblique" />
         <Expander x:Name="HelpHeader" Header="Help" IsExpanded="False" HorizontalAlignment="Left" Margin="10,0,0,0" Width="545" Grid.ColumnSpan="4" Height="111" VerticalAlignment="Top">
             <Grid Background="#FFE5E5E5" Height="494">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="152*"/>
-                    <ColumnDefinition Width="24*"/>
+                    <ColumnDefinition Width="0*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="152*" />
+                    <ColumnDefinition Width="24*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.ColumnSpan="4" Content="This will be help menu. To understand how this form is working" HorizontalAlignment="Left" VerticalAlignment="Top" Height="493" Width="543"/>
+                <Label Grid.ColumnSpan="4" Content="This will be help menu. To understand how this form is working" HorizontalAlignment="Left" VerticalAlignment="Top" Height="493" Width="543" />
             </Grid>
         </Expander>
-        <Button x:Name="AlreadyReportedButton" Content="Check Reported" HorizontalAlignment="Left" Margin="63,375,0,0" VerticalAlignment="Top" Width="99" Height="26" Click="AlreadyReportedButton_Click"/>
-        <Label Name="AlreadyReportedLabel" Foreground="Red" FontWeight="Bold" Content="There are already reported Issues for this Asset Number" HorizontalAlignment="Left" Margin="192,375,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="353"/>
-
-
+        <Button x:Name="AlreadyReportedButton" Content="Check Reported" HorizontalAlignment="Left" Margin="63,375,0,0" VerticalAlignment="Top" Width="99" Height="26" Click="AlreadyReportedButton_Click" />
+        <Label Name="AlreadyReportedLabel" Foreground="Red" FontWeight="Bold" Content="There are already reported Issues for this Asset Number" HorizontalAlignment="Left" Margin="192,375,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="353" />
+        <Border BorderBrush="#F40808" Background="#FFB4DE97" BorderThickness="2" HorizontalAlignment="Left" Height="25" Margin="295,120,0,0" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="4">
+            <CheckBox Name="LockOffCheckBox"  ToolTip="You will be locking off the equipment, and you are not able to use it until futher notice.&#xD;&#xA;Alert Email will be sent out accordingly" Content="Equipment Lock Off" Margin="5,0,0,0" VerticalAlignment="Center" />
+        </Border>
     </Grid>
 </Window>

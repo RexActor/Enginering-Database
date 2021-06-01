@@ -56,7 +56,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -114,7 +114,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -190,7 +190,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -204,7 +204,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -215,7 +215,7 @@ namespace Engineering_Database
 				ReportWindow reportWindow = new ReportWindow();
 				reportWindow.ShowDialog();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void LineMaintenanceButton_Click(object sender, RoutedEventArgs e)
@@ -225,7 +225,7 @@ namespace Engineering_Database
 				MaintenanceSummary addMaintenance = new MaintenanceSummary();
 				addMaintenance.Show();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void MeterReadingButton_Click(object sender, RoutedEventArgs e)
@@ -235,7 +235,7 @@ namespace Engineering_Database
 				MeterReadings meterReadings = new MeterReadings();
 				meterReadings.Show();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void AssetListButton_Click(object sender, RoutedEventArgs e)
@@ -245,7 +245,7 @@ namespace Engineering_Database
 				AssetList assetList = new AssetList();
 				assetList.Show();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void InventoryViewButton_Click(object sender, RoutedEventArgs e)
@@ -255,7 +255,7 @@ namespace Engineering_Database
 				InventoryView inventory = new InventoryView();
 				inventory.ShowDialog();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void StatutoryComplianceButton_Click(object sender, RoutedEventArgs e)
@@ -265,7 +265,7 @@ namespace Engineering_Database
 				StatutoryCompliance statutory = new StatutoryCompliance();
 				statutory.ShowDialog();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		/// <summary>
@@ -283,7 +283,7 @@ namespace Engineering_Database
 				email.SetUpMeetingRequest(meetingSubject, meetingBody, meetingDate, intervalBetweenMeetings);
 				db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", id, true);
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void StatutoryListViewExpired_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -330,7 +330,7 @@ namespace Engineering_Database
 				db.CloseDB();
 				itemWindow.ShowDialog();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		public void UpdateComboBoxes()
@@ -358,7 +358,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -406,7 +406,7 @@ namespace Engineering_Database
 				db.CloseDB();
 				itemWindow.ShowDialog();
 			}
-			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace); }
+			catch (Exception ex) { err.RecordError(ex.Message, ex.StackTrace, ex.Source); }
 		}
 
 		private void StatutoryListViewToExpireComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -417,7 +417,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -429,7 +429,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -493,7 +493,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -506,7 +506,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -519,7 +519,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -532,7 +532,7 @@ namespace Engineering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 	}

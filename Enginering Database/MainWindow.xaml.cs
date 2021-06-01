@@ -83,7 +83,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -119,7 +119,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -155,7 +155,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -177,7 +177,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -190,7 +190,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -211,7 +211,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 				return null;
 			}
 		}
@@ -259,7 +259,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -308,7 +308,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -326,7 +326,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -354,7 +354,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -371,7 +371,7 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
 		}
 
@@ -390,8 +390,14 @@ namespace Enginering_Database
 			}
 			catch (Exception ex)
 			{
-				err.RecordError(ex.Message, ex.StackTrace);
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
+		}
+
+		private void LockOffButton_Click(object sender, RoutedEventArgs e)
+		{
+			LockOffWindow lockWindow = new LockOffWindow();
+			lockWindow.Show();
 		}
 	}
 }

@@ -340,6 +340,9 @@
     <Compile Include="LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LockOffWindow.xaml.cs">
+      <DependentUpon>LockOffWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LogHelper.cs" />
     <Compile Include="LineMaintenancePage.xaml.cs">
       <DependentUpon>LineMaintenancePage.xaml</DependentUpon>
@@ -509,6 +512,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LockOffWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MaintenanceSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -634,6 +641,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Resource Include="Clean-WF.png" />
+    <Resource Include="lock off.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
