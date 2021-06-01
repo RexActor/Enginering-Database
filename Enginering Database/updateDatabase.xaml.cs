@@ -674,6 +674,15 @@ namespace Enginering_Database
 				Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
 				Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 
+				if (Convert.ToBoolean(db.DBQuery("LockedOff", convJobNumber)) == true)
+				{
+					LockedOff.IsChecked = true;
+				}
+				else
+				{
+					LockedOff.IsChecked = false;
+				}
+
 				if (db.DBQuery("DamageReason", convJobNumber) == "")
 				{
 					DamageReasonsComboBox.SelectedItem = "Not Specified";

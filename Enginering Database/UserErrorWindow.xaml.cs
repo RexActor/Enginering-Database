@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Engineering_Database
 {
@@ -10,6 +11,7 @@ namespace Engineering_Database
 		//public string errorTitle;
 		public string errorMessage;
 
+		public Window parrentWindow;
 		public bool shutDown = false;
 		public string message;
 
@@ -27,6 +29,12 @@ namespace Engineering_Database
 
 		public void CloseErrorMessage_click(object sender, RoutedEventArgs e)
 		{
+			if (parrentWindow.IsEnabled == false && parrentWindow != null)
+			{
+				//MessageBox.Show($"{parrentWindow.Title} is disabled");
+				parrentWindow.IsEnabled = true;
+			}
+
 			switch (shutDown)
 			{
 				case true:

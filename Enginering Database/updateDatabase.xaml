@@ -5,198 +5,183 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enginering_Database"
         mc:Ignorable="d"
-        Title="Update Database" Height="683" Width="1113" ResizeMode="NoResize"
-        >
+        Title="Update Database" Height="683" Width="1113" ResizeMode="NoResize">
     <Grid Margin="0,10,0,-106" Height="750" VerticalAlignment="Top">
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*"/>
-            <RowDefinition Height="318*"/>
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="318*" />
         </Grid.RowDefinitions>
         <TabControl x:Name="Frame1" HorizontalAlignment="Left" Margin="10,13,0,120" Width="777" SelectionChanged="TabControl_SelectionChanged" Grid.RowSpan="2">
             <TabItem Header="Outstanding Issues" Name ="OutstandingIssues" TabIndex="1">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="82*"/>
-                        <ColumnDefinition Width="21*"/>
-                        <ColumnDefinition Width="174*"/>
-                        <ColumnDefinition Width="490*"/>
+                        <ColumnDefinition Width="82*" />
+                        <ColumnDefinition Width="21*" />
+                        <ColumnDefinition Width="174*" />
+                        <ColumnDefinition Width="490*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="534*"/>
-                        <RowDefinition Height="73*"/>
+                        <RowDefinition Height="534*" />
+                        <RowDefinition Height="73*" />
                     </Grid.RowDefinitions>
                     <Frame x:Name="Frame4" Content="" HorizontalAlignment="Left" Height="202" VerticalAlignment="Top" Width="249" BorderBrush="#FF0C0101" BorderThickness="1" Grid.ColumnSpan="3" />
 
-                    <Frame x:Name="Frame2" Content="" HorizontalAlignment="Left" Height="589" Margin="147,0,-321,0" VerticalAlignment="Top" Width="842" BorderBrush="#FF0C0000" BorderThickness="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Frame x:Name="Frame3" Content="" HorizontalAlignment="Left" Height="368" Margin="0,221,0,0" VerticalAlignment="Top" Width="249" BorderBrush="#FF0A0101" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+                    <Frame x:Name="Frame2" Content="" HorizontalAlignment="Left" Height="589" Margin="147,0,-321,0" VerticalAlignment="Top" Width="842" BorderBrush="#FF0C0000" BorderThickness="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Frame x:Name="Frame3" Content="" HorizontalAlignment="Left" Height="368" Margin="0,221,0,0" VerticalAlignment="Top" Width="249" BorderBrush="#FF0A0101" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="3" />
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,28,28.5,329" HorizontalAlignment="Right" Width="247" Grid.ColumnSpan="3">
-                        <StackPanel Name="TestStackPanel" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="220"  Margin="5,0,0,0"/>
-
-
+                        <StackPanel Name="TestStackPanel" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="220"  Margin="5,0,0,0" />
                     </ScrollViewer>
-                    <StackPanel x:Name="Frame2StackPanel" HorizontalAlignment="Left" Height="519" Margin="151,10,-321,0" VerticalAlignment="Top" Width="838" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <DatePicker x:Name="Frame3UpdateDueDateDatePicker" HorizontalAlignment="Left" Margin="19,331,0,0" VerticalAlignment="Top" Width="114" SelectedDateChanged="DueDateChange_change" Grid.Column="2"/>
-                    <Label x:Name="Frame3UpdateDueDateLabel" Content="Update due date" HorizontalAlignment="Left" Margin="7,331,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="109" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="53,38,0,0" VerticalAlignment="Top" Width="74" Click="Submit_Click" Grid.Row="1" Grid.Column="2"/>
-                    <Label x:Name="Frame3userNameLabel" Content="UserName" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <Label x:Name="Frame3CurrentDateLabel" Content="Date" HorizontalAlignment="Left" Margin="9,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.Column="2"/>
-                    <Label x:Name="Frame3CompleteLabel" Content="Complete?" HorizontalAlignment="Left" Margin="31,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="94" VerticalContentAlignment="Center" Grid.Column="2"/>
-                    <CheckBox x:Name="Frame3CompleteCheckBox" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="107,232,0,0" Checked="CompleteCheckboxOnCheck" MouseEnter="CompleteCheckBoxMouseOver" MouseLeave="CompleteCheckBoxMouseLeave" Height="21" VerticalAlignment="Top" Width="22" Grid.Column="2"/>
-                    <Label x:Name="Frame3DueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
+                    <StackPanel x:Name="Frame2StackPanel" HorizontalAlignment="Left" Height="519" Margin="151,10,-321,0" VerticalAlignment="Top" Width="838" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <DatePicker x:Name="Frame3UpdateDueDateDatePicker" HorizontalAlignment="Left" Margin="19,331,0,0" VerticalAlignment="Top" Width="114" SelectedDateChanged="DueDateChange_change" Grid.Column="2" />
+                    <Label x:Name="Frame3UpdateDueDateLabel" Content="Update due date" HorizontalAlignment="Left" Margin="7,331,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="109" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <Button Content="Submit" HorizontalAlignment="Left" Margin="53,38,0,0" VerticalAlignment="Top" Width="74" Click="Submit_Click" Grid.Row="1" Grid.Column="2" />
+                    <Border BorderBrush="#F40D0D" BorderThickness="2" Grid.ColumnSpan="3" Margin="10,505,42,51" Grid.RowSpan="2" Background="#B3E4C2">
+                        <CheckBox x:Name="LockedOff" Content="Equipment Locked Off" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </Border>
+                    <Label x:Name="Frame3userNameLabel" Content="UserName" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <Label x:Name="Frame3CurrentDateLabel" Content="Date" HorizontalAlignment="Left" Margin="9,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.Column="2" />
+                    <Label x:Name="Frame3CompleteLabel" Content="Complete?" HorizontalAlignment="Left" Margin="31,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="94" VerticalContentAlignment="Center" Grid.Column="2" />
+                    <CheckBox x:Name="Frame3CompleteCheckBox" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="107,232,0,0" Checked="CompleteCheckboxOnCheck" MouseEnter="CompleteCheckBoxMouseOver" MouseLeave="CompleteCheckBoxMouseLeave" Height="21" VerticalAlignment="Top" Width="22" Grid.Column="2" />
+                    <Label x:Name="Frame3DueDateLabel" Content="Due Date" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="95" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
                     <TextBox x:Name="Frame3DueDateTextBox" HorizontalAlignment="Left" Height="23" Margin="7,279,0,0" TextWrapping="Wrap" Text="DueDateDate" VerticalAlignment="Top" Width="120" Grid.Column="2" />
-                    <Label x:Name="Frame3ChangeDueDateLabel" Content="Change due Date" HorizontalAlignment="Left" Margin="8,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="19,310,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave" Grid.Column="2"/>
-                    <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="150" Margin="169,388,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    <Label x:Name="Frame3ChangeDueDateLabel" Content="Change due Date" HorizontalAlignment="Left" Margin="8,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <CheckBox x:Name="ChangeDueDateCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="19,310,0,0" VerticalAlignment="Top" Height="21" Checked="ChangeDueDateCheckBox_Change" Unchecked="ChangeDueDateCheckBox_Change" MouseEnter="DueDateChangeCheckBoxMouseOver" MouseLeave="DueDateChangeCheckBoxMouseLeave" Grid.Column="2" />
+                    <TextBox x:Name="Frame2AdminDescriptionTextBox" HorizontalAlignment="Left" Height="150" Margin="169,388,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="470" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" />
                     <Border BorderThickness="1" BorderBrush="Black" Width="470" Margin="169,242,0,139" HorizontalAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2">
                         <ScrollViewer Margin="0,0,0,-1">
-                            <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="469" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
-
+                            <TextBlock x:Name="Frame2ReportedDescription" HorizontalAlignment="Left" Height="136" TextWrapping="Wrap" Text="Reported description" VerticalAlignment="Top" Width="469" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
                         </ScrollViewer>
                     </Border>
-                    <Label Content="Job Numer" HorizontalAlignment="Left" Margin="169,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Reported Date" HorizontalAlignment="Left" Margin="169,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Reported Username" HorizontalAlignment="Left" Margin="169,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Area" HorizontalAlignment="Left" Margin="169,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Issue Type" HorizontalAlignment="Left" Margin="169,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Building" HorizontalAlignment="Left" Margin="169,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Reported Time" HorizontalAlignment="Left" Margin="247.5,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3"/>
-                    <Label Content="Due Date" HorizontalAlignment="Left" Margin="247.5,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3"/>
-                    <Label Content="Faulty Area" HorizontalAlignment="Left" Margin="247.5,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3"/>
-                    <Label Content="Issue Code" HorizontalAlignment="Left" Margin="247.5,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3"/>
-                    <Label Content="Asset Number" HorizontalAlignment="Left" Margin="247.5,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3"/>
-                    <Label Content="Priority" HorizontalAlignment="Left" Margin="247.5,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3"/>
-                    <Label x:Name="Frame2JobNumberData" Content="JobNumberData" HorizontalAlignment="Left" Margin="117.5,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3"/>
-                    <Label x:Name="Frame2ReportedDateData" Content="ReportedDateData" HorizontalAlignment="Left" Margin="117.5,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3"/>
-                    <Label x:Name="Frame2ReportedUserData" Content="ReportedUserData" HorizontalAlignment="Left" Margin="117.5,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3"/>
-                    <Label x:Name="Frame2AreaData" Content="AreaData" HorizontalAlignment="Left" Margin="117.5,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3"/>
-                    <Label x:Name="Frame2IssueTypeData" Content="IssueTypeData" HorizontalAlignment="Left" Margin="117.5,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3"/>
-                    <Label x:Name="Frame2BuildingData" Content="BuildingData" HorizontalAlignment="Left" Margin="117.5,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3"/>
-                    <Label x:Name="Frame2ReportedTimeData" Content="ReportedTimeData" HorizontalAlignment="Left" Margin="343.5,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3"/>
-                    <Label x:Name="Frame2DueDateData" Content="DueDateData" HorizontalAlignment="Left" Margin="343.5,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3"/>
-                    <Label x:Name="Frame2FaultyAreaData" Content="FaultyAreaData" HorizontalAlignment="Left" Margin="343.5,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3"/>
-                    <Label x:Name="Frame2IssueCodeData" Content="IssueCodeData" HorizontalAlignment="Left" Margin="343.5,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3"/>
-                    <Label x:Name="Frame2AssetData" Content="AssetData" HorizontalAlignment="Left" Margin="343.5,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3"/>
-                    <Label x:Name="Frame2PriorityData" Content="PriorityData" HorizontalAlignment="Left" Margin="343.5,196,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3"/>
-                    <Label HorizontalAlignment="Left" Margin="1,1,0,0" VerticalAlignment="Top" Height="27" Width="247" HorizontalContentAlignment="Center" Background="#FFB48181" Content="Outstanding Issues" Grid.ColumnSpan="3"/>
+                    <Label Content="Job Numer" HorizontalAlignment="Left" Margin="169,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Label Content="Reported Date" HorizontalAlignment="Left" Margin="169,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Label Content="Reported Username" HorizontalAlignment="Left" Margin="169,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Label Content="Area" HorizontalAlignment="Left" Margin="169,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Label Content="Issue Type" HorizontalAlignment="Left" Margin="169,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Label Content="Building" HorizontalAlignment="Left" Margin="169,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="118" Grid.Column="2" Grid.ColumnSpan="2" />
+                    <Label Content="Reported Time" HorizontalAlignment="Left" Margin="247.5,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3" />
+                    <Label Content="Due Date" HorizontalAlignment="Left" Margin="247.5,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3" />
+                    <Label Content="Faulty Area" HorizontalAlignment="Left" Margin="247.5,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3" />
+                    <Label Content="Issue Code" HorizontalAlignment="Left" Margin="247.5,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3" />
+                    <Label Content="Asset Number" HorizontalAlignment="Left" Margin="247.5,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3" />
+                    <Label Content="Priority" HorizontalAlignment="Left" Margin="247.5,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFCECFD6" Width="92" Grid.Column="3" />
+                    <Label x:Name="Frame2JobNumberData" Content="JobNumberData" HorizontalAlignment="Left" Margin="117.5,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3" />
+                    <Label x:Name="Frame2ReportedDateData" Content="ReportedDateData" HorizontalAlignment="Left" Margin="117.5,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3" />
+                    <Label x:Name="Frame2ReportedUserData" Content="ReportedUserData" HorizontalAlignment="Left" Margin="117.5,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3" />
+                    <Label x:Name="Frame2AreaData" Content="AreaData" HorizontalAlignment="Left" Margin="117.5,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3" />
+                    <Label x:Name="Frame2IssueTypeData" Content="IssueTypeData" HorizontalAlignment="Left" Margin="117.5,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3" />
+                    <Label x:Name="Frame2BuildingData" Content="BuildingData" HorizontalAlignment="Left" Margin="117.5,194,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="118" Grid.Column="3" />
+                    <Label x:Name="Frame2ReportedTimeData" Content="ReportedTimeData" HorizontalAlignment="Left" Margin="343.5,19,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3" />
+                    <Label x:Name="Frame2DueDateData" Content="DueDateData" HorizontalAlignment="Left" Margin="343.5,54,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3" />
+                    <Label x:Name="Frame2FaultyAreaData" Content="FaultyAreaData" HorizontalAlignment="Left" Margin="343.5,89,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3" />
+                    <Label x:Name="Frame2IssueCodeData" Content="IssueCodeData" HorizontalAlignment="Left" Margin="343.5,124,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3" />
+                    <Label x:Name="Frame2AssetData" Content="AssetData" HorizontalAlignment="Left" Margin="343.5,159,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3" />
+                    <Label x:Name="Frame2PriorityData" Content="PriorityData" HorizontalAlignment="Left" Margin="343.5,196,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" BorderBrush="#FF0F0000" BorderThickness="1" Background="#FFEDEEF7" Width="136" Grid.Column="3" />
+                    <Label HorizontalAlignment="Left" Margin="1,1,0,0" VerticalAlignment="Top" Height="27" Width="247" HorizontalContentAlignment="Center" Background="#FFB48181" Content="Outstanding Issues" Grid.ColumnSpan="3" />
 
                     <Expander Header="" Name="filterExpander" HorizontalAlignment="Left" Height="79" Margin="0,5,0,0" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2">
                         <Grid Background="#FFCBBBBB" Height="76">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="3*" />
                             </Grid.ColumnDefinitions>
 
                             <Label Content="Outstanding" Name="Outstanding" HorizontalAlignment="Center" Width="98" HorizontalContentAlignment="Center" MouseLeftButtonUp="FilterLabelClicked" Height="26" VerticalAlignment="Bottom" Margin="0,0,0,49" Grid.ColumnSpan="2">
                                 <Label.Style>
                                     <Style TargetType="Label">
 
-                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Foreground" Value="Black" />
                                         <Style.Triggers>
                                             <Trigger Property ="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#FF635E5E"/>
+                                                <Setter Property="Background" Value="#FF635E5E" />
                                             </Trigger>
                                         </Style.Triggers>
-
                                     </Style>
-
                                 </Label.Style>
-
                             </Label>
                             <Label Content="Resolved" Name ="Resolved" HorizontalAlignment="Center" Margin="0,27,0,16" Width="98" HorizontalContentAlignment="Center" MouseLeftButtonUp="FilterLabelClicked" Grid.ColumnSpan="2">
                                 <Label.Style>
                                     <Style TargetType="Label">
 
-                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Foreground" Value="Black" />
                                         <Style.Triggers>
                                             <Trigger Property ="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#FF635E5E"/>
+                                                <Setter Property="Background" Value="#FF635E5E" />
                                             </Trigger>
                                         </Style.Triggers>
-
                                     </Style>
-
                                 </Label.Style>
                             </Label>
-
                         </Grid>
                     </Expander>
 
-                    <Label Content="Limited User Access Panel" HorizontalAlignment="Left" Margin="1,202,0,0" VerticalAlignment="Top" Height="27" Width="247" HorizontalContentAlignment="Center" Background="#FFB48181" Grid.ColumnSpan="3"/>
-                    <Label x:Name="Frame3DaysTillDue" Content="Days till due" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <Label x:Name="Frame3DaysTillDueData" Content="" HorizontalAlignment="Left" Margin="21,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.Column="2"/>
-                    <Label x:Name="Frame3AssignedTo" Content="Assigned to" HorizontalAlignment="Left" Margin="7,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <Label x:Name="Frame3AssignedToData" Content="Assigned to" HorizontalAlignment="Left" Margin="13,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.Column="2"/>
-                    <Label x:Name="ContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="10,443,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <ComboBox x:Name="ContractorComboBoxData" IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="13,443,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
+                    <Label Content="Limited User Access Panel" HorizontalAlignment="Left" Margin="1,202,0,0" VerticalAlignment="Top" Height="27" Width="247" HorizontalContentAlignment="Center" Background="#FFB48181" Grid.ColumnSpan="3" />
+                    <Label x:Name="Frame3DaysTillDue" Content="Days till due" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <Label x:Name="Frame3DaysTillDueData" Content="" HorizontalAlignment="Left" Margin="21,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.Column="2" />
+                    <Label x:Name="Frame3AssignedTo" Content="Assigned to" HorizontalAlignment="Left" Margin="7,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <Label x:Name="Frame3AssignedToData" Content="Assigned to" HorizontalAlignment="Left" Margin="13,412,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.Column="2" />
+                    <Label x:Name="ContractorLabel" Content="Contractor" HorizontalAlignment="Left" Margin="10,443,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <ComboBox x:Name="ContractorComboBoxData" IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="13,443,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2" />
 
-                    <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,388,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="13,390,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
-                    <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="13,43,0,0" Checked="ConfirmEmailCheckBox_Change" Unchecked="ConfirmEmailCheckBox_Change" MouseEnter="ConfirmEmailCheckBoxMouseOver" MouseLeave="ConfirmEmailCheckBoxMouseLeave" Height="21" VerticalAlignment="Top" Width="20" Grid.Row="1" Grid.Column="2"/>
-                    <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center" Grid.Row="1" Grid.ColumnSpan="3"/>
-                    <Label x:Name="CurrentDateLabel" Content="Current Date" HorizontalAlignment="Left" Margin="7,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="98" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <Label x:Name="DamageReasonLabel" Content="Damage Reason:" HorizontalAlignment="Left" Margin="10,474,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
-                    <ComboBox x:Name="DamageReasonsComboBox" IsEditable="False" IsReadOnly="False" Text="Not Specified" HorizontalAlignment="Left" Margin="13,478,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
+                    <Label x:Name="AssignToLabel" Content="Assign To:" HorizontalAlignment="Left" Margin="10,388,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <ComboBox x:Name="AssignToDropDownBox"  IsEditable="True" IsReadOnly="True" Text="Please select" HorizontalAlignment="Left" Margin="13,390,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2" />
+                    <CheckBox x:Name="ConfirmEmailCheckBox" Content="&#xA;" HorizontalAlignment="Left" Margin="13,40,0,0" Checked="ConfirmEmailCheckBox_Change" Unchecked="ConfirmEmailCheckBox_Change" MouseEnter="ConfirmEmailCheckBoxMouseOver" MouseLeave="ConfirmEmailCheckBoxMouseLeave" Height="20" VerticalAlignment="Top" Width="20" Grid.Row="1" Grid.Column="2" />
+                    <Label x:Name="ContractorLabel_Copy" Content="Confirm in email" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="100" VerticalContentAlignment="Center" Grid.Row="1" Grid.ColumnSpan="3" />
+                    <Label x:Name="CurrentDateLabel" Content="Current Date" HorizontalAlignment="Left" Margin="7,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="98" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <Label x:Name="DamageReasonLabel" Content="Damage Reason:" HorizontalAlignment="Left" Margin="10,474,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="108" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
+                    <ComboBox x:Name="DamageReasonsComboBox" IsEditable="False" IsReadOnly="False" Text="Not Specified" HorizontalAlignment="Left" Margin="13,478,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2" />
                 </Grid>
             </TabItem>
 
             <TabItem Header="View all database"  TabIndex="2" Name="ViewDatabase">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="emplistDataGrid" HorizontalAlignment="Left" Margin="10,74,0,10" Width="746" CanUserResizeRows="False" EnableRowVirtualization="False" >
+                    <DataGrid x:Name="emplistDataGrid" HorizontalAlignment="Left" Margin="10,74,0,10" Width="746" CanUserResizeRows="False" EnableRowVirtualization="False">
                         <DataGrid.ItemBindingGroup>
-                            <BindingGroup/>
+                            <BindingGroup />
                         </DataGrid.ItemBindingGroup>
                     </DataGrid>
-                    <ComboBox x:Name="searchCombo" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="searchCombo_SelectionChanged "/>
-                    <TextBox x:Name="searchTxt" HorizontalAlignment="Left" Height="23" Margin="226,39,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="162" TextChanged="TextBox_TextChanged"/>
+                    <ComboBox x:Name="searchCombo" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="searchCombo_SelectionChanged " />
+                    <TextBox x:Name="searchTxt" HorizontalAlignment="Left" Height="23" Margin="226,39,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="162" TextChanged="TextBox_TextChanged" />
                 </Grid>
             </TabItem>
-
         </TabControl>
         <StackPanel x:Name="previewStackPanel" HorizontalAlignment="Left" Height="332" Margin="277,54,0,0" VerticalAlignment="Top" Width="406" OpacityMask="#D8F3ECEC" Background="Black" Visibility="Hidden" Grid.Row="1">
             <Grid Height="329" HorizontalAlignment="Left" Width="406">
                 <Label  x:Name="TitleForPreview" Content="Preview" Foreground="#19EEEE0A" Margin="22,1,32,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="100" RenderTransformOrigin="0.5,0.5">
                     <Label.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-40.601"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="-40.601" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </Label.RenderTransform>
                 </Label>
-                <Label x:Name="previewJobNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,36,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7EEEE" BorderBrush="#FFF1E4E4" BorderThickness="1"/>
-                <Label x:Name="Job_Number" Content="Job Number" HorizontalAlignment="Left" Width="94" Margin="11,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7EEEE" BorderBrush="#FFF1E4E4" BorderThickness="1"/>
-                <Label x:Name="Job_Number_Copy" Content="Reported by:" HorizontalAlignment="Left" Width="94" Margin="11,69,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7F1F1" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="previewReportedName" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,0,202,230" Height="30" VerticalAlignment="Bottom" Foreground="#FFF5E5E5" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prewAssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" Width="94" Margin="11,102,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFEEE2E2" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevAssetNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,102,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF9F4F4" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevFaultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" Width="94" Margin="11,136,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7F5F5" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevFaultyArea" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,136,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF3E9E9" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevPriorityLabel" Content="Priority" HorizontalAlignment="Left" Width="94" Margin="11,170,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5EFEF" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevPriority" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,170,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFEADEDE" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevdetailedDescriptionLabel" Content="Detailed Description" HorizontalAlignment="Left" Width="131" Margin="10,203,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5E7E7" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevDetailedDescription" Content="Label" HorizontalAlignment="Right" Width="386" Margin="0,237,10,4" Foreground="#FFE4D9D9" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevAssignedToLabel" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="208,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF1E4E4" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevAssignedTo" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="307,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF3F1F1" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevDueDateLabel" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="208,69,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFFBF6F6" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-                <Label x:Name="prevDueDate" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="307,68,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5EDED" BorderThickness="1" BorderBrush="#FFF1E4E4"/>
-
+                <Label x:Name="previewJobNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,36,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7EEEE" BorderBrush="#FFF1E4E4" BorderThickness="1" />
+                <Label x:Name="Job_Number" Content="Job Number" HorizontalAlignment="Left" Width="94" Margin="11,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7EEEE" BorderBrush="#FFF1E4E4" BorderThickness="1" />
+                <Label x:Name="Job_Number_Copy" Content="Reported by:" HorizontalAlignment="Left" Width="94" Margin="11,69,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7F1F1" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="previewReportedName" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,0,202,230" Height="30" VerticalAlignment="Bottom" Foreground="#FFF5E5E5" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prewAssetNumberLabel" Content="Asset Number" HorizontalAlignment="Left" Width="94" Margin="11,102,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFEEE2E2" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevAssetNumber" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,102,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF9F4F4" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevFaultyAreaLabel" Content="Faulty Area" HorizontalAlignment="Left" Width="94" Margin="11,136,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF7F5F5" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevFaultyArea" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,136,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFF3E9E9" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevPriorityLabel" Content="Priority" HorizontalAlignment="Left" Width="94" Margin="11,170,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5EFEF" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevPriority" Content="Label" HorizontalAlignment="Right" Width="94" Margin="0,170,202,0" Height="30" VerticalAlignment="Top" Foreground="#FFEADEDE" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevdetailedDescriptionLabel" Content="Detailed Description" HorizontalAlignment="Left" Width="131" Margin="10,203,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5E7E7" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevDetailedDescription" Content="Label" HorizontalAlignment="Right" Width="386" Margin="0,237,10,4" Foreground="#FFE4D9D9" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevAssignedToLabel" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="208,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF1E4E4" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevAssignedTo" Content="Assigned To" HorizontalAlignment="Left" Width="94" Margin="307,36,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF3F1F1" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevDueDateLabel" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="208,69,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFFBF6F6" BorderThickness="1" BorderBrush="#FFF1E4E4" />
+                <Label x:Name="prevDueDate" Content="Due Date" HorizontalAlignment="Left" Width="94" Margin="307,68,0,0" Height="30" VerticalAlignment="Top" Foreground="#FFF5EDED" BorderThickness="1" BorderBrush="#FFF1E4E4" />
             </Grid>
-
-
-
         </StackPanel>
         <ListView Name="OldEntriesListView" Height="592" Margin="787,22,10,0" VerticalAlignment="Top" Background="#FFFFF4F4" MouseDoubleClick="OldEntriesListView_MouseDoubleClick" BorderBrush="#FFF90B00" BorderThickness="2" Grid.Row="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Job Number"  Width="150" DisplayMemberBinding="{Binding JobNumber}"/>
-                    <GridViewColumn Header="Due Date" Width="150" DisplayMemberBinding="{Binding DueDate}"/>
+                    <GridViewColumn Header="Job Number"  Width="150" DisplayMemberBinding="{Binding JobNumber}" />
+                    <GridViewColumn Header="Due Date" Width="150" DisplayMemberBinding="{Binding DueDate}" />
                 </GridView>
             </ListView.View>
-            
-
         </ListView>
-        <Label Name ="OutstandingIssuesLabel" Visibility="Hidden" Content="There are no outstanding issues (past due date)" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Width="772" Grid.Row="1" Height="73" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30"/>
-
+        <Label Name ="OutstandingIssuesLabel" Visibility="Hidden" Content="There are no outstanding issues (past due date)" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Width="772" Grid.Row="1" Height="73" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" />
     </Grid>
 </Window>

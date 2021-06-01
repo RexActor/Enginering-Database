@@ -21,6 +21,8 @@ namespace Enginering_Database
 		private readonly EmailClass email = new EmailClass();
 		private ErrorSystem err = new ErrorSystem();
 
+		public Window parrentWindow;
+
 		private ExistingIssues existingIssuesWindow;
 
 		private List<IssueClass> alreadyReportedIssues = new List<IssueClass>();
@@ -334,6 +336,8 @@ namespace Enginering_Database
 				issue.DueDate = dtNow;
 				issue.FaulyArea = faultyAreaComboBox.Text;
 
+				issue.LockedOff = LockOffCheckBox.IsChecked == true;
+
 				//get last job number and increment by 1
 				issue.JobNumber = getLastJobNumber + 1;
 
@@ -359,7 +363,7 @@ namespace Enginering_Database
 
 					issue.JobNumber = Convert.ToInt32(db.DBQueryLastJobNumber("JobNumber")) + 1;
 
-					db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail);
+					db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail, issue.LockedOff);
 
 					this.Close();
 				}
@@ -591,6 +595,41 @@ namespace Enginering_Database
 			{
 				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
 			}
+		}
+
+		private void LockOffCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			UserErrorWindow userError = new UserErrorWindow();
+			userError.errorMessage = "You will be locking off the equipment!" +
+				"\n You will not able to use it until futher notice." +
+			"\nAlert Email will be sent out accordingly" +
+			"\nIf you clicked by mistake. You will be able to change.";
+
+			parrentWindow = Window.GetWindow(this);
+			parrentWindow.IsEnabled = false;
+			userError.parrentWindow = parrentWindow;
+			//userError.Activate();
+			userError.CallWindow();
+			userError.WindowStartupLocation = parrentWindow.WindowStartupLocation;
+
+			userError.Left = parrentWindow.Left + ((parrentWindow.ActualWidth - userError.ActualWidth) / 8);
+			userError.Top = parrentWindow.Top + ((parrentWindow.ActualHeight + userError.ActualHeight) / 4);
+
+			userError.VerticalAlignment = VerticalAlignment.Center;
+			userError.HorizontalAlignment = HorizontalAlignment.Center;
+			userError.Topmost = true;
+			userError.Show();
+			//userError.Closing += UserError_Closed;
+			//userError.Closed += userError.UserError_Closed;
+		}
+
+		public void UserError_Closed(object sender, EventArgs e)
+		{
+			parrentWindow.IsEnabled = true;
+
+			//parrent.IsEnabled = true;
+			MessageBox.Show(parrentWindow.Title.ToString());
+			//throw new NotImplementedException();
 		}
 	}
 }

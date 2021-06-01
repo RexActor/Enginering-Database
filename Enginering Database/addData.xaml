@@ -72,7 +72,7 @@
         <Button x:Name="AlreadyReportedButton" Content="Check Reported" HorizontalAlignment="Left" Margin="63,375,0,0" VerticalAlignment="Top" Width="99" Height="26" Click="AlreadyReportedButton_Click" />
         <Label Name="AlreadyReportedLabel" Foreground="Red" FontWeight="Bold" Content="There are already reported Issues for this Asset Number" HorizontalAlignment="Left" Margin="192,375,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Width="353" />
         <Border BorderBrush="#F40808" Background="#FFB4DE97" BorderThickness="2" HorizontalAlignment="Left" Height="25" Margin="295,120,0,0" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="4">
-            <CheckBox Name="LockOffCheckBox"  ToolTip="You will be locking off the equipment, and you are not able to use it until futher notice.&#xD;&#xA;Alert Email will be sent out accordingly" Content="Equipment Lock Off" Margin="5,0,0,0" VerticalAlignment="Center" />
+            <CheckBox Name="LockOffCheckBox"  ToolTip="You will be locking off the equipment, and you are not able to use it until futher notice.&#xD;&#xA;Alert Email will be sent out accordingly" Content="Equipment Lock Off" Margin="5,0,0,0" VerticalAlignment="Center" Checked="LockOffCheckBox_Checked" />
         </Border>
     </Grid>
 </Window>

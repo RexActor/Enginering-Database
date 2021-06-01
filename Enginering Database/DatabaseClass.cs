@@ -369,9 +369,9 @@ namespace Engineering_Database
 
 		#region insert values into database
 
-		public void InsertDataIntoDatabase(int jobNumber, string repdate, string repTime, string ReportedUsername, string assetNumber, string faultyArea, string Building, string IssueCode, string Priority, string type, string detailedDesc, string DueDate, string Area, string ReporterEmail)
+		public void InsertDataIntoDatabase(int jobNumber, string repdate, string repTime, string ReportedUsername, string assetNumber, string faultyArea, string Building, string IssueCode, string Priority, string type, string detailedDesc, string DueDate, string Area, string ReporterEmail, bool LockedOff = false)
 		{
-			string queryString = "INSERT INTO engineeringDatabaseTable (JobNumber,ReportedDate,ReportedTime,ReportedUsername,AssetNumber,FaultyArea,Building,IssueCode,Priority,Type,DetailedDescription,DueDate,Area,ReporterEmail) Values(@JobNumber,@ReportedDate,@ReportedTime,@ReportedUsername,@AssetNumber,@FaultyArea,@Building,@IssueCode,@Priority,@Type,@DetailedDescription,@DueDate,@Area,@ReporterEmail)";
+			string queryString = "INSERT INTO engineeringDatabaseTable (JobNumber,ReportedDate,ReportedTime,ReportedUsername,AssetNumber,FaultyArea,Building,IssueCode,Priority,Type,DetailedDescription,DueDate,Area,ReporterEmail,LockedOff) Values(@JobNumber,@ReportedDate,@ReportedTime,@ReportedUsername,@AssetNumber,@FaultyArea,@Building,@IssueCode,@Priority,@Type,@DetailedDescription,@DueDate,@Area,@ReporterEmail,@LockedOff)";
 			OleDbCommand cmd = new OleDbCommand(queryString, con);
 			cmd.Parameters.AddWithValue("@JobNumber", jobNumber);
 			cmd.Parameters.AddWithValue("@ReportedDate", repdate);
@@ -387,6 +387,7 @@ namespace Engineering_Database
 			cmd.Parameters.AddWithValue("@DueDate", DueDate);
 			cmd.Parameters.AddWithValue("@Area", Area);
 			cmd.Parameters.AddWithValue("@ReporterEmail", ReporterEmail);
+			cmd.Parameters.AddWithValue("@LockedOff", LockedOff);
 			cmd.ExecuteNonQuery();
 			cmd.Dispose();
 		}

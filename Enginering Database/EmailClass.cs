@@ -85,20 +85,42 @@ namespace Engineering_Database
 					{
 						mailItem.To = emailAddress;
 						mailItem.CC = sender;
-						mailItem.Subject = "Engineering Attention required for: " + issue.Type + " with " + issue.Priority + " priority";
 
-						htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
-							"<b>Priority:</b> " + issue.Priority + "<br>" +
-		  "<b>Job Number:</b> " + issue.JobNumber + "<br>" +
-		  "<b> Area: </b>" + issue.Area + "<br>" +
-	   "<b>Building:</b> " + issue.Building + "<br>" +
-	   "<b>Issue Code:</b> " + issue.Code + "<br>" +
-	   "<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
-	   "	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
-	   "					<b>Your report:</b> " + issue.DetailedDescription + "" +
-	   "<br><h3>Please action reported issue ASAP. As issue needs to be completed by " + issue.DueDate + "</h3>	" +
-	   "					</body>" +
-	   "</html>";
+						if (issue.LockedOff == true)
+						{
+							mailItem.Subject = "Locked Off Equipment Engineering Attention required for: " + issue.Type + " with " + issue.Priority + " priority";
+							mailItem.Importance = OlImportance.olImportanceHigh;
+							htmlString = "<html><body><b><p style=\"color: red; font-size:20px\"> Locked Off Equipment</p></b>" +
+								"<h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+									"<b>Priority:</b> " + issue.Priority + "<br>" +
+				  "<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+				  "<b> Area: </b>" + issue.Area + "<br>" +
+			   "<b>Building:</b> " + issue.Building + "<br>" +
+			   "<b>Issue Code:</b> " + issue.Code + "<br>" +
+			   "<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+			   "	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+			   "					<b>Your report:</b> " + issue.DetailedDescription + "" +
+			   "<br><h3>Please action reported issue ASAP. As issue needs to be completed by " + issue.DueDate + "</h3>	" +
+			   "					</body>" +
+			   "</html>";
+						}
+						else
+						{
+							mailItem.Subject = "Engineering Attention required for: " + issue.Type + " with " + issue.Priority + " priority";
+							mailItem.Importance = OlImportance.olImportanceNormal;
+							htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+						"<b>Priority:</b> " + issue.Priority + "<br>" +
+	  "<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+	  "<b> Area: </b>" + issue.Area + "<br>" +
+   "<b>Building:</b> " + issue.Building + "<br>" +
+   "<b>Issue Code:</b> " + issue.Code + "<br>" +
+   "<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+   "	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+   "					<b>Your report:</b> " + issue.DetailedDescription + "" +
+   "<br><h3>Please action reported issue ASAP. As issue needs to be completed by " + issue.DueDate + "</h3>	" +
+   "					</body>" +
+   "</html>";
+						}
 					}
 					else if (reply == "ReOpen")
 					{
