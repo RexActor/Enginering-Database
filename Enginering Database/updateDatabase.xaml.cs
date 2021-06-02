@@ -830,6 +830,15 @@ namespace Enginering_Database
 					//MessageBox.Show(LockOffCurrentValue.ToString());
 
 					db.DBQueryInsertData("LockedOff", convJobNumber, LockedOff.IsChecked.Value);
+					if (LockedOff.IsChecked.Value == false)
+					{
+						db.DBQueryInsertData("UserRemovedLockOff", convJobNumber, Frame3userNameLabel.Content.ToString());
+					}
+
+					if (LockedOff.IsChecked.Value == true && LockOfforiginalValue == false)
+					{
+						db.DBQueryInsertData("UserLockedOff", convJobNumber, Frame3userNameLabel.Content.ToString());
+					}
 
 					if (Frame2AdminDescriptionTextBox.Text != null)
 					{

@@ -37,6 +37,9 @@ namespace Engineering_Database
 
 		public bool LockOffReported { get; set; }
 
+		public string PersonLockedOff { get; set; }
+		public string PersonRemovedLock { get; set; }
+
 		private readonly DatabaseClass db = new DatabaseClass();
 		private ErrorSystem err = new ErrorSystem();
 		private List<IssueClass> issueDataList = new List<IssueClass>();

@@ -5,7 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Lock Off Window" Height="450" Width="800">
+        Title="Lock Off Window" Height="450" Width="961.507" ResizeMode="NoResize">
     <Grid>
+        <Button Name="LockBtn" Content="Lock Selected" HorizontalAlignment="Left" Margin="300,10,0,0" VerticalAlignment="Top" Width="105" Click="LockBtn_Click" />
+        <ListView Name="LockOfflist" HorizontalAlignment="Left" Height="369" Margin="20,40,0,0" VerticalAlignment="Top" Width="922" SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="JobNumber" Width="100" DisplayMemberBinding="{Binding JobNumber}" />
+                    <GridViewColumn Header="Faulty Area" Width="100" DisplayMemberBinding="{Binding FaulyArea}" />
+                    <GridViewColumn Header="Asset Number" Width="100" DisplayMemberBinding="{Binding AssetNumber}" />
+                    <GridViewColumn Header="Issue Code" Width="100" DisplayMemberBinding="{Binding Code}" />
+                    <GridViewColumn Header="Building" Width="100" DisplayMemberBinding="{Binding Building}" />
+                    <GridViewColumn Header="Area" Width="100" DisplayMemberBinding="{Binding Area}" />
+                    <GridViewColumn Header="Description" Width="250" DisplayMemberBinding="{Binding DetailedDescription}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

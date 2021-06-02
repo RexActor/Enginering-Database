@@ -349,6 +349,7 @@ namespace Enginering_Database
 				issue.Type = issueTypeComboBox.Text;
 				issue.Priority = PriorityComboBox.Text;
 				issue.ReportedUserName = usernameLabelValue.Content.ToString();
+				issue.PersonLockedOff = usernameLabelValue.Content.ToString();
 
 				if (CheckFilledData())
 				{
@@ -363,7 +364,7 @@ namespace Enginering_Database
 
 					issue.JobNumber = Convert.ToInt32(db.DBQueryLastJobNumber("JobNumber")) + 1;
 
-					db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail, issue.LockedOff);
+					db.InsertDataIntoDatabase(issue.JobNumber, issue.ReportedDate, issue.ReportedTime, issue.ReportedUserName, issue.AssetNumber, issue.FaulyArea, issue.Building, issue.Code, issue.Priority, issue.Type, issue.DetailedDescription, issue.DueDate, issue.Area, issue.ReporterEmail, issue.PersonLockedOff, issue.LockedOff);
 
 					this.Close();
 				}
