@@ -36,7 +36,7 @@
                     <Label x:Name="Frame3UpdateDueDateLabel" Content="Update due date" HorizontalAlignment="Left" Margin="7,331,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="109" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
                     <Button Content="Submit" HorizontalAlignment="Left" Margin="53,38,0,0" VerticalAlignment="Top" Width="74" Click="Submit_Click" Grid.Row="1" Grid.Column="2" />
                     <Border BorderBrush="#F40D0D" BorderThickness="2" Grid.ColumnSpan="3" Margin="10,505,42,51" Grid.RowSpan="2" Background="#B3E4C2">
-                        <CheckBox x:Name="LockedOff" Content="Equipment Locked Off" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        <CheckBox x:Name="LockedOff" Content="Equipment Locked Off" Margin="5,0,0,0" VerticalAlignment="Center" Checked="LockedOff_Checked" />
                     </Border>
                     <Label x:Name="Frame3userNameLabel" Content="UserName" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.ColumnSpan="3" />
                     <Label x:Name="Frame3CurrentDateLabel" Content="Date" HorizontalAlignment="Left" Margin="9,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.868,-0.692" Width="120" VerticalContentAlignment="Center" Grid.Column="2" />

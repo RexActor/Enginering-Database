@@ -35,6 +35,8 @@ namespace Engineering_Database
 		public string ReporterEmail { get; set; }
 		public bool LockedOff { get; set; }
 
+		public bool LockOffReported { get; set; }
+
 		private readonly DatabaseClass db = new DatabaseClass();
 		private ErrorSystem err = new ErrorSystem();
 		private List<IssueClass> issueDataList = new List<IssueClass>();

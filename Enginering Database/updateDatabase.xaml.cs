@@ -28,6 +28,8 @@ namespace Enginering_Database
 		private readonly double ScreenWidht = SystemParameters.WorkArea.Width;
 		readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
 		private ErrorSystem err = new ErrorSystem();
+		private bool LockOfforiginalValue;
+		private bool LockOffCurrentValue;
 
 		//if data is not selected = can't change due date
 		public bool canChangeDueDate = false;
@@ -674,13 +676,16 @@ namespace Enginering_Database
 				Frame2ReportedDescription.Text = db.DBQuery("DetailedDescription", convJobNumber);
 				Frame3DueDateTextBox.Text = Convert.ToDateTime(db.DBQuery("DueDate", convJobNumber)).ToShortDateString().ToString();
 
+				//TODO:Added Lock Off System
 				if (Convert.ToBoolean(db.DBQuery("LockedOff", convJobNumber)) == true)
 				{
 					LockedOff.IsChecked = true;
+					LockOfforiginalValue = true;
 				}
 				else
 				{
 					LockedOff.IsChecked = false;
+					LockOfforiginalValue = false;
 				}
 
 				if (db.DBQuery("DamageReason", convJobNumber) == "")
@@ -777,6 +782,9 @@ namespace Enginering_Database
 				issueClass.AssignedTo = db.DBQuery("AssignedTo", convJobNumber);
 				issueClass.CommentsForActionsTaken = db.DBQuery("CommentsForActionTaken", convJobNumber);
 				issueClass.ReportedEmail = db.DBQuery("ReporterEmail", convJobNumber);
+				//TODO: Added Lock Off for data collection
+				issueClass.LockedOff = Convert.ToBoolean(db.DBQuery("LockedOff", convJobNumber));
+				issueClass.LockOffReported = LockOfforiginalValue;
 			}
 			catch (Exception ex)
 			{
@@ -819,6 +827,10 @@ namespace Enginering_Database
 						db.DBQueryInsertData(convJobNumber, "CompletedBy", null);
 					}
 					db.DBQueryInsertData(convJobNumber, "DamageReason", DamageReasonsComboBox.SelectedItem.ToString());
+					//MessageBox.Show(LockOffCurrentValue.ToString());
+
+					db.DBQueryInsertData("LockedOff", convJobNumber, LockedOff.IsChecked.Value);
+
 					if (Frame2AdminDescriptionTextBox.Text != null)
 					{
 						db.DBQueryInsertData("CommentsForActionTaken", convJobNumber, Frame2AdminDescriptionTextBox.Text.ToString());
@@ -968,6 +980,13 @@ namespace Enginering_Database
 
 		private void OldEntriesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
+		}
+
+		private void LockedOff_Checked(object sender, RoutedEventArgs e)
+		{
+			CheckBox cb = sender as CheckBox;
+			//MessageBox.Show(cb.IsChecked.Value.ToString());
+			issueClass.LockedOff = cb.IsChecked.Value;
 		}
 	}
 }

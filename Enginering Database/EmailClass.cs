@@ -66,20 +66,39 @@ namespace Engineering_Database
 						mailItem.To = issue.ReportedEmail;
 						mailItem.CC = emailAddress;
 						mailItem.Subject = "Your reported issue : " + issue.Type + " with " + issue.Priority + " priority is completed and closed";
-
-						htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
-					"<b>Priority:</b> " + issue.Priority + "<br>" +
-	"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
-	"<b> Area: </b>" + issue.Area + "<br>" +
-	"<b>Building:</b> " + issue.Building + "<br>" +
-	"<b>Issue Code:</b> " + issue.Code + "<br>" +
-	"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
-	"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
-	"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
-	"<b> Was Assigned To : </b>" + issue.AssignedTo + "<br>" +
-	" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
-	"					</body>" +
-	"</html>";
+						if (issue.LockOffReported == true && issue.LockedOff == false)
+						{
+							htmlString = "<html><body><b><p style =\"color: green; font-size:20px\"> Equipment released</p></b>" +
+								"<h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+						"<b>Priority:</b> " + issue.Priority + "<br>" +
+		"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+		"<b> Area: </b>" + issue.Area + "<br>" +
+		"<b>Building:</b> " + issue.Building + "<br>" +
+		"<b>Issue Code:</b> " + issue.Code + "<br>" +
+		"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+		"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+		"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+		"<b> Was Assigned To : </b>" + issue.AssignedTo + "<br>" +
+		" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+		"					</body>" +
+		"</html>";
+						}
+						else
+						{
+							htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+						"<b>Priority:</b> " + issue.Priority + "<br>" +
+		"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+		"<b> Area: </b>" + issue.Area + "<br>" +
+		"<b>Building:</b> " + issue.Building + "<br>" +
+		"<b>Issue Code:</b> " + issue.Code + "<br>" +
+		"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+		"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+		"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+		"<b> Was Assigned To : </b>" + issue.AssignedTo + "<br>" +
+		" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+		"					</body>" +
+		"</html>";
+						}
 					}
 					else if (reply == "Report")
 					{
@@ -147,20 +166,40 @@ namespace Engineering_Database
 						mailItem.To = issue.ReportedEmail;
 						mailItem.CC = emailAddress;
 						mailItem.Subject = "Your reported issue : " + issue.Type + " with " + issue.Priority + " priority was updated";
-						htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
-					"<b>Priority:</b> " + issue.Priority + "<br>" +
-	"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
-	"<b> Area: </b>" + issue.Area + "<br>" +
-	"<b>Building:</b> " + issue.Building + "<br>" +
-	"<b>Issue Code:</b> " + issue.Code + "<br>" +
-	"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
-	"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
-	"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
-	"<b> Is Assigned To : </b>" + issue.AssignedTo + "<br>" +
-	"<b> Due Date: </b>" + issue.DueDate + "<br>" +
-	" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
-	"					</body>" +
-	"</html>";
+						if (issue.LockOffReported == false && issue.LockedOff == true)
+						{
+							htmlString = "<html><body><b><p style =\"color: red; font-size:20px\"> Equipment is being locked off</p></b>" +
+								"<h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+						"<b>Priority:</b> " + issue.Priority + "<br>" +
+		"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+		"<b> Area: </b>" + issue.Area + "<br>" +
+		"<b>Building:</b> " + issue.Building + "<br>" +
+		"<b>Issue Code:</b> " + issue.Code + "<br>" +
+		"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+		"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+		"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+		"<b> Was Assigned To : </b>" + issue.AssignedTo + "<br>" +
+		" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+		"					</body>" +
+		"</html>";
+						}
+						else
+						{
+							htmlString = "<html><body><h3> " + issue.ReportedUserName + " reported <b>" + issue.Type + " issue for:</b></h3>" +
+"<b>Priority:</b> " + issue.Priority + "<br>" +
+"<b>Job Number:</b> " + issue.JobNumber + "<br>" +
+"<b> Area: </b>" + issue.Area + "<br>" +
+"<b>Building:</b> " + issue.Building + "<br>" +
+"<b>Issue Code:</b> " + issue.Code + "<br>" +
+"<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+"	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+"					<b>Your report:</b> " + issue.DetailedDescription + "<br>" +
+"<b> Is Assigned To : </b>" + issue.AssignedTo + "<br>" +
+"<b> Due Date: </b>" + issue.DueDate + "<br>" +
+" <b> Engineer Comment: </b>" + issue.CommentsForActionsTaken + "" +
+"					</body>" +
+"</html>";
+						}
 					}
 					else
 					{
