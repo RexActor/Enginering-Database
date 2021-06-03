@@ -201,6 +201,28 @@ namespace Engineering_Database
 "</html>";
 						}
 					}
+
+					//LOCK OFF SYSTEM
+					else if (reply == "LockOff")
+					{
+						mailItem.To = emailAddress;
+						mailItem.CC = sender;
+
+						mailItem.Subject = "Locking off equipment for already reported issue: " + issue.JobNumber;
+						mailItem.Importance = OlImportance.olImportanceHigh;
+						htmlString = "<html><body><b><p style=\"color: red; font-size:20px\">Locking off Equipment</p></b>" +
+
+			  "<b> Area: </b>" + issue.Area + "<br>" +
+		   "<b>Building:</b> " + issue.Building + "<br>" +
+		   "<b>Issue Code:</b> " + issue.Code + "<br>" +
+		   "<b> Asset Number: </b>" + issue.AssetNumber + "<br>" +
+		   "	<b>Faulty Area:</b> " + issue.FaulyArea + "<br>" +
+		   "<b>Issue Description:</b> " + issue.DetailedDescription + " <br>" +
+
+		   "					</body>" +
+		   "</html>";
+					}
+					//END OF LOCK OFF SYSTEM
 					else
 					{
 						userErr.errorMessage = "There was something wrong when trying to send email. [Object] {Email Class.cs} [Line] {167}";

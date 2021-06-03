@@ -600,28 +600,35 @@ namespace Enginering_Database
 
 		private void LockOffCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
-			UserErrorWindow userError = new UserErrorWindow();
-			userError.errorMessage = "You will be locking off the equipment!" +
-				"\n You will not able to use it until futher notice." +
-			"\nAlert Email will be sent out accordingly" +
-			"\nIf you clicked by mistake. You will be able to change.";
+			try
+			{
+				UserErrorWindow userError = new UserErrorWindow();
+				userError.errorMessage = "You will be locking off the equipment!" +
+					"\n You will not able to use it until futher notice." +
+				"\nAlert Email will be sent out accordingly" +
+				"\nIf you clicked by mistake. You will be able to change.";
 
-			parrentWindow = Window.GetWindow(this);
-			parrentWindow.IsEnabled = false;
-			userError.parrentWindow = parrentWindow;
-			//userError.Activate();
-			userError.CallWindow();
-			userError.WindowStartupLocation = parrentWindow.WindowStartupLocation;
+				parrentWindow = Window.GetWindow(this);
+				parrentWindow.IsEnabled = false;
+				userError.parrentWindow = parrentWindow;
+				//userError.Activate();
+				userError.CallWindow();
+				userError.WindowStartupLocation = parrentWindow.WindowStartupLocation;
 
-			userError.Left = parrentWindow.Left + ((parrentWindow.ActualWidth - userError.ActualWidth) / 8);
-			userError.Top = parrentWindow.Top + ((parrentWindow.ActualHeight + userError.ActualHeight) / 4);
+				userError.Left = parrentWindow.Left + ((parrentWindow.ActualWidth - userError.ActualWidth) / 8);
+				userError.Top = parrentWindow.Top + ((parrentWindow.ActualHeight + userError.ActualHeight) / 4);
 
-			userError.VerticalAlignment = VerticalAlignment.Center;
-			userError.HorizontalAlignment = HorizontalAlignment.Center;
-			userError.Topmost = true;
-			userError.Show();
-			//userError.Closing += UserError_Closed;
-			//userError.Closed += userError.UserError_Closed;
+				userError.VerticalAlignment = VerticalAlignment.Center;
+				userError.HorizontalAlignment = HorizontalAlignment.Center;
+				userError.Topmost = true;
+				userError.Show();
+				//userError.Closing += UserError_Closed;
+				//userError.Closed += userError.UserError_Closed;
+			}
+			catch (Exception ex)
+			{
+				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
+			}
 		}
 
 		public void UserError_Closed(object sender, EventArgs e)
@@ -629,7 +636,7 @@ namespace Enginering_Database
 			parrentWindow.IsEnabled = true;
 
 			//parrent.IsEnabled = true;
-			MessageBox.Show(parrentWindow.Title.ToString());
+			//MessageBox.Show(parrentWindow.Title.ToString());
 			//throw new NotImplementedException();
 		}
 	}
