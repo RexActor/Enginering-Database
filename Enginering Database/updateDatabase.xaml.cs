@@ -29,7 +29,6 @@ namespace Enginering_Database
 		readonly private static BindingList<IssueClass> empList = new BindingList<IssueClass>();
 		private ErrorSystem err = new ErrorSystem();
 		private bool LockOfforiginalValue;
-		private bool LockOffCurrentValue;
 
 		//if data is not selected = can't change due date
 		public bool canChangeDueDate = false;

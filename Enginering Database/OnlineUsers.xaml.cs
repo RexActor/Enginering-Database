@@ -71,11 +71,22 @@ namespace Engineering_Database
 								else
 								{
 									_Logout = Convert.ToDateTime(reader["Logout"]).ToString();
-									int minutesOnline = Convert.ToDateTime(reader["Logout"]).Subtract(Convert.ToDateTime(reader["Login"])).Minutes;
-									int secondsOnline = Convert.ToDateTime(reader["Logout"]).Subtract(Convert.ToDateTime(reader["Login"])).Seconds;
-									int HoursOnline = Convert.ToDateTime(reader["Logout"]).Subtract(Convert.ToDateTime(reader["Login"])).Hours;
+									DateTime _LoginDT = Convert.ToDateTime(reader["Login"]);
+									DateTime _LogoutDT = Convert.ToDateTime(reader["Logout"]);
 
-									_TimeOnline = $"{HoursOnline} Hours {minutesOnline} minutes  {secondsOnline} seconds";
+									int minutesOnline = _LogoutDT.Subtract(_LoginDT).Minutes;
+									int secondsOnline = _LogoutDT.Subtract(_LoginDT).Seconds;
+									int HoursOnline = _LogoutDT.Subtract(_LoginDT).Hours;
+									int DaysOnline = _LogoutDT.Subtract(_LoginDT).Days;
+
+									if (DaysOnline > 0)
+									{
+										_TimeOnline = $"{DaysOnline} day/s {HoursOnline} Hours {minutesOnline} minutes  {secondsOnline} seconds";
+									}
+									else
+									{
+										_TimeOnline = $"{HoursOnline} Hours {minutesOnline} minutes  {secondsOnline} seconds";
+									}
 								}
 
 								userList.Add(new Users(
@@ -139,11 +150,22 @@ namespace Engineering_Database
 								else
 								{
 									_Logout = Convert.ToDateTime(reader["Logout"]).ToString();
-									int minutesOnline = Convert.ToDateTime(reader["Logout"]).Subtract(Convert.ToDateTime(reader["Login"])).Minutes;
-									int secondsOnline = Convert.ToDateTime(reader["Logout"]).Subtract(Convert.ToDateTime(reader["Login"])).Seconds;
-									int HoursOnline = Convert.ToDateTime(reader["Logout"]).Subtract(Convert.ToDateTime(reader["Login"])).Hours;
+									DateTime _LoginDT = Convert.ToDateTime(reader["Login"]);
+									DateTime _LogoutDT = Convert.ToDateTime(reader["Logout"]);
 
-									_TimeOnline = $"{HoursOnline} Hours {minutesOnline} minutes  {secondsOnline} seconds";
+									int minutesOnline = _LogoutDT.Subtract(_LoginDT).Minutes;
+									int secondsOnline = _LogoutDT.Subtract(_LoginDT).Seconds;
+									int HoursOnline = _LogoutDT.Subtract(_LoginDT).Hours;
+									int DaysOnline = _LogoutDT.Subtract(_LoginDT).Days;
+
+									if (DaysOnline > 0)
+									{
+										_TimeOnline = $"{DaysOnline} day/s {HoursOnline} Hours {minutesOnline} minutes  {secondsOnline} seconds";
+									}
+									else
+									{
+										_TimeOnline = $"{HoursOnline} Hours {minutesOnline} minutes  {secondsOnline} seconds";
+									}
 								}
 
 								userList.Add(new Users(
