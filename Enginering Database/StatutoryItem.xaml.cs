@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -213,7 +214,7 @@ namespace Engineering_Database
 								string combined_path = Path.Combine(cwd, _statutoryReportSubFolder);
 								string[] _fileName = UploadFilePath.Text.Split('\\');
 								string desired_location = Path.Combine(combined_path, _saveLocationDir, _fileName[_fileName.Length - 1]);
-								System.Windows.MessageBox.Show($"{UploadFilePath.Text}");
+
 								File.Copy(UploadFilePath.Text, desired_location, true);
 							}
 							else
@@ -606,8 +607,41 @@ namespace Engineering_Database
 				//System.Windows.MessageBox.Show(_fileToUpload.Length.ToString());
 
 				UploadFilePath.Text = _files[0];
-				GetDirectoryContent();
 			}
+			else if (e.Data.GetDataPresent("FileGroupDescriptor"))
+			{
+				Stream _stream = (Stream)e.Data.GetData("FileGroupDescriptor");
+				byte[] _fileGroupDescriptor = new byte[512];
+				_stream.Read(_fileGroupDescriptor, 0, 512);
+				StringBuilder fileName = new StringBuilder("");
+				for (int i = 76; _fileGroupDescriptor[i] != 0; i++)
+				{
+					fileName.Append(Convert.ToChar(_fileGroupDescriptor[i]));
+				}
+				_stream.Close();
+
+				//string _path = string.Concat(Directory.GetCurrentDirectory(), "/Temp/");
+				string _path = Path.GetTempPath();
+				//string _path = Path.Combine(Directory.GetCurrentDirectory, "Temp");
+				string _theFile = _path + fileName.ToString();
+
+				MemoryStream ms = (MemoryStream)e.Data.GetData("FileContents", true);
+				byte[] fileBytes = new byte[ms.Length];
+				ms.Position = 0;
+				ms.Read(fileBytes, 0, (int)ms.Length);
+				FileStream fs = new FileStream(_theFile, FileMode.Create);
+				fs.Write(fileBytes, 0, (int)fileBytes.Length);
+				fs.Close();
+
+				FileInfo tempFile = new FileInfo(_theFile);
+				if (tempFile.Exists == true)
+				{
+					UploadFilePath.Text = _theFile;
+					_fileToUpload = File.ReadAllBytes(_theFile);
+				}
+			}
+
+			GetDirectoryContent();
 		}
 
 		private void UploadFilePath_PreviewDragOver(object sender, System.Windows.DragEventArgs e)
