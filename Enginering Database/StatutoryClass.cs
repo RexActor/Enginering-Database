@@ -22,6 +22,7 @@ namespace Engineering_Database
 		public string Group { get; set; }
 		public string Booked { get; set; }
 		public string InspectionCount { get; set; }
+		public bool Decomission { get; set; }
 
 		//false = meeting not set up
 		//true = meeting was set up

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Engineering_Database"
         mc:Ignorable="d"
-        Title="Statutory Item" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Statutory Item" Height="494" Width="800" ResizeMode="NoResize">
     <Grid>
         <Label Content="Manufacturer/Company"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,56,0,0" VerticalAlignment="Top" Width="152" />
         <Label Content="Company/Insurer"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,87,0,0" VerticalAlignment="Top" Width="152" />
@@ -22,7 +22,7 @@
         <DatePicker Name="DateReportIssuedDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,274,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="DateReportIssuedDatePicker_SelectedDateChanged" />
         <DatePicker x:Name="RenewDateDatePicker" IsEnabled="False" HorizontalAlignment="Left" Margin="179,305,0,0" VerticalAlignment="Top" Width="208" SelectedDateChanged="RenewDateDatePicker_SelectedDateChanged" />
         <Label  Name="NextInspectionLabel" Content=""  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="179,241,0,0" VerticalAlignment="Top" Width="208" />
-        <Button Name="StatutoryItemUpdateButton" Content="Edit Mode" HorizontalAlignment="Left" Margin="20,366,0,0" VerticalAlignment="Top" Width="75" Click="StatutoryItemUpdateButton_Click" />
+        <Button Name="StatutoryItemUpdateButton" Content="Edit Mode" HorizontalAlignment="Left" Margin="22,435,0,0" VerticalAlignment="Top" Width="75" Click="StatutoryItemUpdateButton_Click" />
         <Label Name="RenewDateInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="405,305,0,0" VerticalAlignment="Top" Height="30" Width="327" />
         <Label x:Name="ReportIssuedInfoLabel" Content="ReportIssuedInfoLabel" HorizontalAlignment="Left" Margin="405,272,0,0" VerticalAlignment="Top" Height="26" Width="327" />
         <Label Name="hiddenID" Content="Label" HorizontalAlignment="Left" Margin="486,56,0,0" VerticalAlignment="Top" />
@@ -41,8 +41,13 @@
         <CheckBox Name="BookedCheckBox" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="182,338,0,0" VerticalAlignment="Top" Checked="BookedCheckBox_Checked" />
         <Label x:Name="BookedInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="208,330,0,0" VerticalAlignment="Top" Height="30" Width="327" />
         <Label x:Name="hiddenInspectionCount" Content="Label" HorizontalAlignment="Left" Margin="540,56,0,0" VerticalAlignment="Top" />
-        <TextBox Name="UploadFilePath" Visibility="Visible" AllowDrop="True" Drop="UploadFilePath_Drop" HorizontalAlignment="Left" Height="23" Margin="170,367,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="275" PreviewDragOver="UploadFilePath_PreviewDragOver" />
-        <Button Name="SelectUploadFile" Content="Select File" Visibility="Visible"   HorizontalAlignment="Left" Height="23" Margin="465,367,0,0" VerticalAlignment="Top" Width="150" Click="SelectUploadFile_Click" />
-        <ComboBox Name="FileSaveLocation" HorizontalAlignment="Left" Margin="415,335,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="FileSaveLocation_SelectionChanged" />
+        <TextBox Name="UploadFilePath" Visibility="Visible" AllowDrop="True" Drop="UploadFilePath_Drop" HorizontalAlignment="Left" Height="23" Margin="301,429,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275" PreviewDragOver="UploadFilePath_PreviewDragOver" />
+        <Button Name="SelectUploadFile" Content="Select File" Visibility="Visible"   HorizontalAlignment="Left" Height="23" Margin="590,429,0,0" VerticalAlignment="Top" Width="150" Click="SelectUploadFile_Click" />
+        <ComboBox Name="FileSaveLocation" HorizontalAlignment="Left" Margin="180,399,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="FileSaveLocation_SelectionChanged" />
+        <Label Content="Decomission?"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,367,0,0" VerticalAlignment="Top" Width="152" />
+        <CheckBox x:Name="DecomissionCheckBox" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="182,373,0,0" VerticalAlignment="Top" Checked="DecomissionCheckBox_Checked" />
+        <Label Name="DirectoryLabel" Content="Directory"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,398,0,0" VerticalAlignment="Top" Width="152" />
+        <Label Name="FileUploadLabel" Content="Upload File"  BorderBrush="Black" Background="#7CBB6C" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="182,429,0,0" VerticalAlignment="Top" Width="114" />
+        <Label x:Name="DecomissionLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="206,363,0,0" VerticalAlignment="Top" Height="30" Width="327" />
     </Grid>
 </Window>

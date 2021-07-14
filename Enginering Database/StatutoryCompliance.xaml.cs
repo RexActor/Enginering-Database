@@ -46,6 +46,7 @@ namespace Engineering_Database
 						MonthlyWeekly = reader["MonthlyWeekly"].ToString(),
 						Group = reader["GroupName"].ToString(),
 						InspectionCount = reader["InspectionCount"].ToString(),
+						Decomission = Convert.ToBoolean(reader["Decomission"]),
 					};
 
 					if (filter == "expired")
@@ -113,6 +114,14 @@ namespace Engineering_Database
 				ItemWindow.MonthlyWeeklyRangeLabelContent.Content = selectedItem.MonthlyWeeklyRange;
 				ItemWindow.GroupLabelContent.Content = selectedItem.Group;
 				ItemWindow.hiddenInspectionCount.Content = selectedItem.InspectionCount;
+				if (selectedItem.Decomission)
+				{
+					ItemWindow.DecomissionCheckBox.IsChecked = true;
+				}
+				else
+				{
+					ItemWindow.DecomissionCheckBox.IsChecked = false;
+				}
 
 				if (Convert.ToInt32(selectedItem.DaysLeftTillInspection) > 0)
 				{

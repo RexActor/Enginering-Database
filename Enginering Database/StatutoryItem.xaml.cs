@@ -21,6 +21,8 @@ namespace Engineering_Database
 		private bool bookedStatusChanged = false;
 		private bool editMode = false;
 		private byte[] _fileToUpload;
+		private bool _decommisioned = false;
+		private bool _decomissionChange = false;
 
 		// readonly private bool uploaded = false;
 		private string _statutoryReportSubFolder = "21 - Service Reports";
@@ -52,7 +54,9 @@ namespace Engineering_Database
 			UploadFilePath.Visibility = Visibility.Hidden;
 			SelectUploadFile.Visibility = Visibility.Hidden;
 			FileSaveLocation.Visibility = Visibility.Hidden;
-
+			FileUploadLabel.Visibility = Visibility.Hidden;
+			DecomissionLabel.Visibility = Visibility.Hidden;
+			DirectoryLabel.Visibility = Visibility.Hidden;
 			//not needed to be shown. required just for pulling data to update database
 			hiddenID.Visibility = Visibility.Hidden;
 			hiddenInspectionCount.Visibility = Visibility.Hidden;
@@ -76,6 +80,7 @@ namespace Engineering_Database
 					SerialNumberTextBox.IsEnabled = true;
 					MonthlyWeeklyTextBox.IsEnabled = true;
 					BookedCheckBox.IsEnabled = true;
+					DecomissionCheckBox.IsEnabled = true;
 
 					ManufacturerCompanyUploadStatus.Visibility = Visibility.Hidden;
 					CompanyInsurerUploadStatus.Visibility = Visibility.Hidden;
@@ -83,9 +88,11 @@ namespace Engineering_Database
 					MonthlyWeeklyUploadStatus.Visibility = Visibility.Hidden;
 					ReportIssuedInfoLabel.Visibility = Visibility.Hidden;
 					RenewDateInfoLabel.Visibility = Visibility.Hidden;
-
+					DecomissionLabel.Visibility = Visibility.Hidden;
 					MonthlyWeeklyChangeComboBox.Visibility = Visibility.Visible;
 					MonthlyWeeklyRangeLabelContent.Visibility = Visibility.Hidden;
+					DirectoryLabel.Visibility = Visibility.Hidden;
+					DirectoryLabel.Visibility = Visibility.Hidden;
 
 					UpdateMonthlyWeeklyComboBox();
 					MonthlyWeeklyChangeComboBox.SelectedItem = MonthlyWeeklyRangeLabelContent.Content;
@@ -221,7 +228,8 @@ namespace Engineering_Database
 							{
 								return;
 							}
-
+							FileUploadLabel.Visibility = Visibility.Hidden;
+							DirectoryLabel.Visibility = Visibility.Hidden;
 							int updateInspectionCount = Convert.ToInt32(hiddenInspectionCount.Content) + 1;
 							db.UpdateStatutoryCompliance("StatutoryCompliance", "RenewDate", Convert.ToInt32(hiddenID.Content), Convert.ToDateTime(RenewDateDatePicker.SelectedDate.Value.Date));
 							db.UpdateStatutoryCompliance("StatutoryCompliance", "InspectionCount", Convert.ToInt32(hiddenID.Content), updateInspectionCount);
@@ -234,6 +242,8 @@ namespace Engineering_Database
 
 							UploadFilePath.Visibility = Visibility.Hidden;
 							SelectUploadFile.Visibility = Visibility.Hidden;
+							FileUploadLabel.Visibility = Visibility.Hidden;
+							DirectoryLabel.Visibility = Visibility.Hidden;
 						}
 						else
 						{
@@ -300,6 +310,26 @@ namespace Engineering_Database
 						BookedInfoLabel.Content = "Not Uploaded";
 						BookedInfoLabel.Visibility = Visibility.Visible;
 					}
+					if (_decomissionChange)
+					{
+						if (_decommisioned)
+						{
+							db.UpdateStatutoryCompliance("StatutoryCompliance", "Decomission", Convert.ToInt32(hiddenID.Content), true);
+						}
+						else if (!_decommisioned)
+						{
+							db.UpdateStatutoryCompliance("StatutoryCompliance", "Decomission", Convert.ToInt32(hiddenID.Content), false);
+						}
+						DecomissionLabel.Foreground = Brushes.Green;
+						DecomissionLabel.Content = "Uploaded";
+						DecomissionLabel.Visibility = Visibility.Visible;
+					}
+					else
+					{
+						DecomissionLabel.Foreground = Brushes.Red;
+						DecomissionLabel.Content = "Not Uploaded";
+						DecomissionLabel.Visibility = Visibility.Visible;
+					}
 
 					db.CloseDB();
 
@@ -312,6 +342,7 @@ namespace Engineering_Database
 					SerialNumberTextBox.IsEnabled = false;
 					MonthlyWeeklyTextBox.IsEnabled = false;
 					BookedCheckBox.IsEnabled = false;
+					DecomissionCheckBox.IsEnabled = false;
 
 					MonthlyWeeklyChangeComboBox.Visibility = Visibility.Hidden;
 					MonthlyWeeklyRangeLabelContent.Content = MonthlyWeeklyChangeComboBox.SelectedItem.ToString();
@@ -367,6 +398,8 @@ namespace Engineering_Database
 				{
 					UploadFilePath.Visibility = Visibility.Visible;
 					SelectUploadFile.Visibility = Visibility.Visible;
+					FileUploadLabel.Visibility = Visibility.Visible;
+					DirectoryLabel.Visibility = Visibility.Visible;
 
 					RenewDateWasChanged = true;
 
@@ -654,6 +687,19 @@ namespace Engineering_Database
 			if (FileSaveLocation.SelectedItem.ToString() != string.Empty)
 			{
 				_saveLocationDir = FileSaveLocation.SelectedItem.ToString();
+			}
+		}
+
+		private void DecomissionCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			_decomissionChange = true;
+			if (DecomissionCheckBox.IsChecked == true)
+			{
+				_decommisioned = true;
+			}
+			if (DecomissionCheckBox.IsChecked == false)
+			{
+				_decommisioned = false;
 			}
 		}
 	}

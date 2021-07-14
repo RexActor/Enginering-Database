@@ -145,11 +145,11 @@ namespace Engineering_Database
 						meetingSetStatus = (bool)reader["MeetingSet"]
 					};
 
-					if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 || Convert.ToInt32(reader["InspectionCount"]) < 1)
+					if ((Convert.ToInt32(reader["DaysTillInspection"]) < 0 || Convert.ToInt32(reader["InspectionCount"]) < 1) && (Convert.ToBoolean(reader["Decomission"]) != true))
 					{
 						StatutoryListViewExpired.Items.Add(statutory);
 					}
-					else if (Convert.ToInt32(reader["DaysTillInspection"]) >= 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) || Convert.ToInt32(reader["InspectionCount"]) < 1)
+					else if ((Convert.ToInt32(reader["DaysTillInspection"]) >= 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) || Convert.ToInt32(reader["InspectionCount"]) < 1) && (Convert.ToBoolean(reader["Decomission"]) != true))
 					{
 						if (statutory.meetingSetStatus == false)
 						{
@@ -326,6 +326,14 @@ namespace Engineering_Database
 					{
 						itemWindow.BookedCheckBox.IsChecked = false;
 					}
+					if ((bool)reader["Decomission"] == true)
+					{
+						itemWindow.DecomissionCheckBox.IsChecked = true;
+					}
+					else
+					{
+						itemWindow.DecomissionCheckBox.IsChecked = false;
+					}
 				}
 				db.CloseDB();
 				itemWindow.ShowDialog();
@@ -392,6 +400,16 @@ namespace Engineering_Database
 					{
 						itemWindow.BookedCheckBox.IsChecked = false;
 					}
+
+					if ((bool)reader["Decomission"] == true)
+					{
+						itemWindow.DecomissionCheckBox.IsChecked = true;
+					}
+					else
+					{
+						itemWindow.DecomissionCheckBox.IsChecked = false;
+					}
+
 					if (Convert.ToInt32(reader["DaysTillInspection"]) > 0)
 					{
 						itemWindow.NextInspectionLabel.Background = Brushes.LightGreen;
@@ -467,11 +485,11 @@ namespace Engineering_Database
 					switch (filter)
 					{
 						case "Expired":
-							if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex != 0 || Convert.ToInt32(reader["InspectionCount"]) < 1)
+							if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && reader["GroupName"].ToString() == StatutoryListViewExpiredComboBox.SelectedItem.ToString() && StatutoryListViewExpiredComboBox.SelectedIndex != 0 || Convert.ToInt32(reader["InspectionCount"]) < 1 && (bool)reader["Decomission"] != true)
 							{
 								StatutoryListViewExpired.Items.Add(statutory);
 							}
-							else if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && StatutoryListViewExpiredComboBox.SelectedIndex == 0 || Convert.ToInt32(reader["InspectionCount"]) < 1)
+							else if (Convert.ToInt32(reader["DaysTillInspection"]) < 0 && StatutoryListViewExpiredComboBox.SelectedIndex == 0 || Convert.ToInt32(reader["InspectionCount"]) < 1 && (bool)reader["Decomission"] != true)
 							{
 								StatutoryListViewExpired.Items.Add(statutory);
 							}
@@ -479,11 +497,11 @@ namespace Engineering_Database
 							break;
 
 						case "ToExpire":
-							if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && reader["GroupName"].ToString() == StatutoryListViewToExpireComboBox.SelectedItem.ToString() && StatutoryListViewToExpireComboBox.SelectedIndex != 0)
+							if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && reader["GroupName"].ToString() == StatutoryListViewToExpireComboBox.SelectedItem.ToString() && StatutoryListViewToExpireComboBox.SelectedIndex != 0 && (bool)reader["Decomission"] != true)
 							{
 								StatutoryListViewToExpire.Items.Add(statutory);
 							}
-							else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && StatutoryListViewToExpireComboBox.SelectedIndex == 0)
+							else if (Convert.ToInt32(reader["DaysTillInspection"]) > 0 && Convert.ToInt32(reader["DaysTillInspection"]) < Convert.ToInt32(settings.StatutoryDays) && StatutoryListViewToExpireComboBox.SelectedIndex == 0 && (bool)reader["Decomission"] != true)
 							{
 								StatutoryListViewToExpire.Items.Add(statutory);
 							}
