@@ -41,5 +41,8 @@
         <CheckBox Name="BookedCheckBox" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="182,338,0,0" VerticalAlignment="Top" Checked="BookedCheckBox_Checked" />
         <Label x:Name="BookedInfoLabel" Content="RenewDateInfoLabel" HorizontalAlignment="Left" Margin="208,330,0,0" VerticalAlignment="Top" Height="30" Width="327" />
         <Label x:Name="hiddenInspectionCount" Content="Label" HorizontalAlignment="Left" Margin="540,56,0,0" VerticalAlignment="Top" />
+        <TextBox Name="UploadFilePath" Visibility="Visible" AllowDrop="True" Drop="UploadFilePath_Drop" HorizontalAlignment="Left" Height="23" Margin="170,367,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="275" PreviewDragOver="UploadFilePath_PreviewDragOver" />
+        <Button Name="SelectUploadFile" Content="Select File" Visibility="Visible"   HorizontalAlignment="Left" Height="23" Margin="465,367,0,0" VerticalAlignment="Top" Width="150" Click="SelectUploadFile_Click" />
+        <ComboBox Name="FileSaveLocation" HorizontalAlignment="Left" Margin="415,335,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="FileSaveLocation_SelectionChanged" />
     </Grid>
 </Window>

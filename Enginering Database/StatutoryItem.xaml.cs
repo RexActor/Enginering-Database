@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media;
 
 namespace Engineering_Database
@@ -16,7 +19,12 @@ namespace Engineering_Database
 		private bool RenewDateWasChanged = false;
 		private bool bookedStatusChanged = false;
 		private bool editMode = false;
+		private byte[] _fileToUpload;
+
 		// readonly private bool uploaded = false;
+		private string _statutoryReportSubFolder = "21 - Service Reports";
+
+		private string _saveLocationDir;
 
 		private bool manufacturedChanged = false;
 		private bool companyInsurerChanged = false;
@@ -40,6 +48,9 @@ namespace Engineering_Database
 			MonthlyWeeklyComboBoxUploadStatus.Visibility = Visibility.Hidden;
 			BookedInfoLabel.Visibility = Visibility.Hidden;
 			MonthlyWeeklyChangeComboBox.Visibility = Visibility.Hidden;
+			UploadFilePath.Visibility = Visibility.Hidden;
+			SelectUploadFile.Visibility = Visibility.Hidden;
+			FileSaveLocation.Visibility = Visibility.Hidden;
 
 			//not needed to be shown. required just for pulling data to update database
 			hiddenID.Visibility = Visibility.Hidden;
@@ -89,6 +100,10 @@ namespace Engineering_Database
 				else
 				{
 					//update database with changes
+
+					//before updating Statutory item. check if file is being uploaded
+					//if file being uploaded - let trhrough!
+					//TODO - maybe check on file content and search for specific words?
 
 					db.ConnectDB();
 
@@ -185,6 +200,27 @@ namespace Engineering_Database
 					{
 						if (correctRenewDate)
 						{
+							//check for file upload here
+							//File upload should be checked only when change renew date
+							//no renew date accepted if there are no file uploaded
+							//possible check of file content to avoid blank file uploads
+
+							if (_fileToUpload != null && _fileToUpload.Length > 0)
+							{
+								db.UpdateStatutoryCompliance("StatutoryCompliance", "UploadedFile", Convert.ToInt32(hiddenID.Content), _fileToUpload);
+
+								string cwd = Directory.GetCurrentDirectory();
+								string combined_path = Path.Combine(cwd, _statutoryReportSubFolder);
+								string[] _fileName = UploadFilePath.Text.Split('\\');
+								string desired_location = Path.Combine(combined_path, _saveLocationDir, _fileName[_fileName.Length - 1]);
+								System.Windows.MessageBox.Show($"{UploadFilePath.Text}");
+								File.Copy(UploadFilePath.Text, desired_location, true);
+							}
+							else
+							{
+								return;
+							}
+
 							int updateInspectionCount = Convert.ToInt32(hiddenInspectionCount.Content) + 1;
 							db.UpdateStatutoryCompliance("StatutoryCompliance", "RenewDate", Convert.ToInt32(hiddenID.Content), Convert.ToDateTime(RenewDateDatePicker.SelectedDate.Value.Date));
 							db.UpdateStatutoryCompliance("StatutoryCompliance", "InspectionCount", Convert.ToInt32(hiddenID.Content), updateInspectionCount);
@@ -194,6 +230,9 @@ namespace Engineering_Database
 							RenewDateInfoLabel.Content = "Uploaded";
 							RenewDateInfoLabel.Visibility = Visibility.Visible;
 							db.UpdateStatutoryCompliance("StatutoryCompliance", "MeetingSet", Convert.ToInt32(hiddenID.Content), false);
+
+							UploadFilePath.Visibility = Visibility.Hidden;
+							SelectUploadFile.Visibility = Visibility.Hidden;
 						}
 						else
 						{
@@ -325,6 +364,9 @@ namespace Engineering_Database
 				RenewDateInfoLabel.Visibility = Visibility.Hidden;
 				if (editMode)
 				{
+					UploadFilePath.Visibility = Visibility.Visible;
+					SelectUploadFile.Visibility = Visibility.Visible;
+
 					RenewDateWasChanged = true;
 
 					TimeSpan daysTillNewRenew = RenewDateDatePicker.SelectedDate.Value.Date - DateTime.Now.Date;
@@ -513,6 +555,71 @@ namespace Engineering_Database
 			catch (Exception ex)
 			{
 				err.RecordError(ex.Message, ex.StackTrace, ex.Source);
+			}
+		}
+
+		private void SelectUploadFile_Click(object sender, RoutedEventArgs e)
+		{
+			// _uploadFile =
+			_fileToUpload = null;
+			OpenFileDialog _fileDialog = new OpenFileDialog();
+			_fileDialog.DefaultExt = ".pdf"; //required extension
+			_fileDialog.Filter = "PDF Documents (.pdf)|*.pdf|All Files (*.*)|*.*";
+			_fileDialog.RestoreDirectory = true;
+
+			if (_fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				UploadFilePath.Text = _fileDialog.FileName;
+
+				_fileToUpload = File.ReadAllBytes(UploadFilePath.Text);
+				GetDirectoryContent();
+			}
+		}
+
+		private void GetDirectoryContent()
+		{
+			FileSaveLocation.Visibility = Visibility.Visible;
+
+			if (FileSaveLocation.Items.Count > 0)
+			{
+				FileSaveLocation.Items.Clear();
+			}
+			string cwd = Directory.GetCurrentDirectory();
+			string combined_path = Path.Combine(cwd, _statutoryReportSubFolder);
+			string[] cwdcontent = Directory.GetDirectories(combined_path);
+
+			foreach (var item in cwdcontent)
+			{
+				string[] _breakdown = item.Split('\\');
+
+				FileSaveLocation.Items.Add(_breakdown[_breakdown.Length - 1].ToString());
+			}
+		}
+
+		private void UploadFilePath_Drop(object sender, System.Windows.DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop))
+			{
+				string[] _files = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
+
+				_fileToUpload = File.ReadAllBytes(_files[0]);
+				//System.Windows.MessageBox.Show(_fileToUpload.Length.ToString());
+
+				UploadFilePath.Text = _files[0];
+				GetDirectoryContent();
+			}
+		}
+
+		private void UploadFilePath_PreviewDragOver(object sender, System.Windows.DragEventArgs e)
+		{
+			e.Handled = true;
+		}
+
+		private void FileSaveLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (FileSaveLocation.SelectedItem.ToString() != string.Empty)
+			{
+				_saveLocationDir = FileSaveLocation.SelectedItem.ToString();
 			}
 		}
 	}

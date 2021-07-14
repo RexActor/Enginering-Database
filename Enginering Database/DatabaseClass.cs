@@ -912,6 +912,16 @@ namespace Engineering_Database
 			cmd.Dispose();
 		}
 
+		public void UpdateStatutoryCompliance(string table, string field, int id, byte[] file)
+		{
+			string queryString = $"UPDATE {table} SET " + field + "=@value WHERE ID=@ID";
+			OleDbCommand cmd = new OleDbCommand(queryString, con);
+			cmd.Parameters.Add("@value", OleDbType.Binary).Value = (object)file;
+			cmd.Parameters.AddWithValue("@ID", id);
+			cmd.ExecuteNonQuery();
+			cmd.Dispose();
+		}
+
 		public void UpdateStatutoryCompliance(string table, string field, int id, DateTime value)
 		{
 			string queryString = $"UPDATE {table} SET " + field + " = @value WHERE ID = @ID";
