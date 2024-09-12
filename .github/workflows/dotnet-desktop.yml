@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: your-solution-name                         # Example: MyWpfApp.sln
+      Solution_Name: Enginering Database.sln                         # Example: MyWpfApp.sln
 
     steps:
     - name: Checkout
