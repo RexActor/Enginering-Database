@@ -16,6 +16,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Install .NET Framework 4.0 Developer Pack
+      run: |
+        Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/5d9b6a25-11d4-4c6f-a1bc-1c226b86f9c2/5a7b7641fef4d3e4e8495965dbbc45c0c66d1c6d/ndp40-devpack-enu.exe -OutFile ndp40-devpack-enu.exe
+        Start-Process -FilePath ndp40-devpack-enu.exe -ArgumentList '/quiet', '/norestart' -NoNewWindow -Wait
+
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -30,11 +35,4 @@ jobs:
     - name: Publish
       run: dotnet publish --configuration Release --output ./publish
 
-    - name: Create a ZIP file of the output
-      run: powershell Compress-Archive -Path ./publish -DestinationPath publish.zip
-
-    - name: Upload ZIP as artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: dotnet-app
-        path: publish.zip
+    - name: Create a ZIP
